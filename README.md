@@ -1,5 +1,5 @@
 # podisto
-Serverless Blogging Engine
+Serverless Blogging Engine (In Active Development)
 
 Choice of building blocks
 
@@ -8,6 +8,4 @@ Choice of building blocks
 - DoT.js for templating engine (very tiny + partials support)
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
-
-
-
+- Parcel.js as a bundler

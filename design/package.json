@@ -1,0 +1,14 @@
+{
+  "name": "design",
+  "version": "1.0.0",
+  "description": "design package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^0.6.2"
+  }
+}
