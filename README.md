@@ -10,7 +10,7 @@ WordPress is a very successful blogging platform which requires servers to host 
 
 ## Choice of building blocks
 
-We want to keep Podisto as simple as possible for people to customize and build upon and it requires us to be as minimalist as practically posible.
+We want to keep Podisto as simple as possible for everyone to customize and build upon and it requires us to be as minimalist as practically posible.
 
 - SQLite 3 (skipping ORM for now)
 - Express 4 (most popular node.js framework)

@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# cache
+.cache
+
+# dist
+dist
