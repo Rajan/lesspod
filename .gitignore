@@ -59,6 +59,8 @@ typings/
 
 # cache
 .cache
+design/.cache
 
 # dist
 dist
+design/dist
