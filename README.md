@@ -18,3 +18,22 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
 - Parcel.js as a bundler
+
+
+## Contributing Guidelines
+
+Lesspod uses parcel as a bundler as of now. Just came to know that Parcel doesn't support EJS at this point by default but it will be possible soon with the next version. To get started run following commands.
+
+```git clone https://github.com/Rajan/lesspod.github.com
+
+cd lesspod
+
+npm install
+
+node starter.js
+
+parcel starter.js (not yet working)
+
+```
+
+Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.
