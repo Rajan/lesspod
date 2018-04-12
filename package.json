@@ -20,12 +20,16 @@
     "@fortawesome/fontawesome": "^1.1.5",
     "autoprefixer": "^8.2.0",
     "bulma": "^0.6.2",
-    "dot": "^1.1.2",
+    "ejs": "^2.5.8",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "npm-check-updates": "^2.14.1",
     "parcel-bundler": "^1.7.0",
     "postcss-modules": "^1.1.0",
     "sqlite": "^2.9.1"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0"
   }
 }
