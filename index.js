@@ -1,7 +1,8 @@
 
 const Bundler = require('parcel-bundler');
 const path = require('path');
-const express = require('express')
+const express = require('express');
+var router = express.Router();
 let app = express();
 // require('./js/index.js')
 
@@ -10,9 +11,22 @@ app.set('view engine','ejs')
 app.use(express.static(__dirname + '/public'));
 // home page
 app.get('/', (req, res) => {
-  // render `home.ejs` with the list of posts
-  res.render('register.ejs', {})
+
+ 	res.render('register.ejs', {});
+
 })
+
+app.get('/login', (req, res) => {
+
+	res.render('login.ejs', {});
+
+});
+
+app.get('/register', (req, res) => {
+
+	res.render('register.ejs', {});
+
+});
 
 // const config = require('parcel.config.js')
 
