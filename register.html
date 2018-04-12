@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lesspod: Login</title>
+  <title>Lesspod: Create Account</title>
   <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -12,10 +12,19 @@
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
-          <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+          <div class="column is-5-tablet is-4-desktop is-4-widescreen">
             <form class="box">
               <div class="field has-text-centered">
                 <img src="images/logo-bis.png" width="167">
+              </div>
+              <div class="field">
+                <label class="label">Full Name</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="email" placeholder="e.g. Alex Johnson" required>
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-user-circle"></i>
+                  </span>
+                </div>
               </div>
               <div class="field">
                 <label class="label">Email</label>
@@ -35,23 +44,21 @@
                   </span>
                 </div>
               </div>
-              <div class="field is-grouped">
-                <div class="control">
-                  <label class="checkbox">
-                    <input type="checkbox" required>
-                    Remember me
-                  </label>
-                </div>
-                <div class="control">
-                  <button class="button is-text is-small" style="text-decoration: none;padding-top: 0px;color:#0271D3;">Forgot password?</button>
+              <div class="field">
+                <label class="label">Retype Password</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="password" placeholder="********" required>
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-lock"></i>
+                  </span>
                 </div>
               </div>
-              <div class="field is-grouped">
+              <div class="field is-grouped" style="margin-top: 1.5rem;">
                 <div class="control">
-                  <button class="button is-link">Login</button>
+                  <button class="button is-info">Create Account</button>
                 </div>
                 <div class="control">
-                  <a class="button is-text" href="#" style="text-decoration: none;color:#0271D3;">Create Account</a>
+                  <a class="button is-text" style="text-decoration: none;" href="#">Login</a>
                 </div>
               </div>
                 <!-- <div class="field">

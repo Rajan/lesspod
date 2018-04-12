@@ -1,6 +1,6 @@
 {
-  "name": "podisto",
-  "version": "1.0.0",
+  "name": "Lesspod",
+  "version": "0.1",
   "description": "serverless blogging engine",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rajan/podisto.git"
+    "url": "git+https://github.com/Rajan/lesspod.git"
   },
   "author": "Rajan Chandi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Rajan/podisto/issues"
+    "url": "https://github.com/Rajan/lesspod/issues"
   },
-  "homepage": "https://github.com/Rajan/podisto#readme"
+  "homepage": "https://github.com/Rajan/lesspod#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "autoprefixer": "^8.2.0",
+    "bulma": "^0.6.2",
+    "dot": "^1.1.2",
+    "express": "^4.16.3",
+    "font-awesome": "^4.7.0",
+    "npm-check-updates": "^2.14.1",
+    "postcss-modules": "^1.1.0",
+    "sqlite": "^2.9.1"
+  }
 }

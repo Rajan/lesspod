@@ -1,7 +1,7 @@
 {
   "name": "design",
   "version": "1.0.0",
-  "description": "design package",
+  "description": "design for lesspod",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,9 @@
     "@fortawesome/fontawesome": "^1.1.5",
     "autoprefixer": "^8.2.0",
     "bulma": "^0.6.2",
+    "dot": "^1.1.2",
     "font-awesome": "^4.7.0",
+    "npm-check-updates": "^2.14.1",
     "postcss-modules": "^1.1.0"
   }
 }
