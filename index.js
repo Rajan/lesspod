@@ -1,12 +1,13 @@
 
 const Bundler = require('parcel-bundler');
 const path = require('path');
-let app = require('express')();
-require('./js/index.js')
+const express = require('express')
+let app = express();
+// require('./js/index.js')
 
 app.set('views',path.join(__dirname,'views'))
 app.set('view engine','ejs')
-
+app.use(express.static(__dirname + '/public'));
 // home page
 app.get('/', (req, res) => {
   // render `home.ejs` with the list of posts
