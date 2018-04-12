@@ -24,6 +24,7 @@
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "npm-check-updates": "^2.14.1",
+    "parcel-bundler": "^1.7.0",
     "postcss-modules": "^1.1.0",
     "sqlite": "^2.9.1"
   }

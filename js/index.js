@@ -9,4 +9,6 @@ function dotTest() {
 	var resultText = tempFn({foo: 'with doT'});
 	console.log('resultText is ' + resultText);
 }
-window.onload = function(){dotTest();};
+window.onload = function(){
+	dotTest();
+};
