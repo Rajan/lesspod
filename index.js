@@ -9,10 +9,17 @@ let app = express();
 app.set('views',path.join(__dirname,'views'))
 app.set('view engine','ejs')
 app.use(express.static(__dirname + '/public'));
-// home page
+
+// home page (public)
 app.get('/', (req, res) => {
 
- 	res.render('register.ejs', {});
+ 	res.render('landing.ejs', {});
+
+})
+
+app.get('/home', (req, res) => {
+
+ 	res.render('home.ejs', {});
 
 })
 
@@ -22,11 +29,35 @@ app.get('/login', (req, res) => {
 
 });
 
+app.get('/logout', (req, res) => {
+
+	res.render('landing.ejs', {});
+
+});
+
 app.get('/register', (req, res) => {
 
 	res.render('register.ejs', {});
 
 });
+
+app.post('/user/create', (req, res) => {
+
+	// code to create user. once the user is created, she should be redirected to internal homepage/dashboard.
+
+});
+
+app.post('/post/create', (req, res) => {
+
+	// create post
+
+});
+
+app.get('/post/:postId', (req, res) => {
+	// view post
+});
+
+
 
 // const config = require('parcel.config.js')
 
