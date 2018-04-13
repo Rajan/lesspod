@@ -21,7 +21,7 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 ## Contributing To Lesspod
 
-Lesspod uses parcel as a bundler as of now. Parcel doesn't support EJS at this point by default but it will be possible soon with the next version. Run following commands to get started.
+Lesspod uses parcel as a bundler as of now. Parcel doesn't support EJS at this point by default but it will be possible soon with the next version. Run following commands to get started. We accept pull requests.
 
 ```
 git clone https://github.com/Rajan/lesspod.github.com
@@ -39,3 +39,17 @@ parcel starter.js (not yet working)
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
 
 Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.
+
+
+### To Do List
+
+- [ ] Authentication/Authorization using SQLite, Passport and Express
+- [ ] Landing Page Design
+- [ ] Logged In Page Design (Dashboard basic)
+- [ ] Blog Post Index 
+- [ ] Blog Post View Design
+- [ ] Editor Selection and Integration
+- [ ] Comments Integration
+- [ ] Adding New Pages + Menus
+
+We accept pull requests. Kindly add comments to your code before sending one.
