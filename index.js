@@ -55,6 +55,13 @@ app.post('/post/create', (req, res) => {
 
 app.get('/post/:postId', (req, res) => {
 	// view post
+
+});
+
+
+app.get('/posts', (req, res) => {
+	// view the posts index
+
 });
 
 

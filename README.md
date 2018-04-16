@@ -44,6 +44,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 ### To Do List
 
 - [ ] Authentication/Authorization using SQLite, Passport and Express
+- [ ] API Module for SQLite and later others
 - [ ] Landing Page Design
 - [ ] Logged In Page Design (Dashboard basic)
 - [ ] Blog Post Index 
@@ -51,5 +52,6 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] Editor Selection and Integration
 - [ ] Comments Integration
 - [ ] Adding New Pages + Menus
+- [ ] Code coverage and e2e testing module
 
 We accept pull requests. Kindly add comments to your code before sending one.
