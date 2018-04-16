@@ -47,7 +47,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] API Module for SQLite and later others
 - [ ] Landing Page Design
 - [ ] Logged In Page Design (Dashboard basic)
-- [ ] Blog Post Index 
+- [x] Blog Post Index Design
 - [ ] Blog Post View Design
 - [ ] Editor Selection and Integration
 - [ ] Comments Integration
