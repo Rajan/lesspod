@@ -8,3 +8,10 @@
   color: red;
 }
 
+.ql-toolbar.ql-snow {
+	background: white;
+}
+
+#editor {
+	background: white;
+}

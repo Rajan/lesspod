@@ -46,9 +46,10 @@ app.post('/user/create', (req, res) => {
 
 });
 
-app.post('/post/create', (req, res) => {
+app.get('/newpost', (req, res) => {
 
 	// create post
+	res.render('newpost.ejs', {});
 
 });
 

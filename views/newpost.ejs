@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<section class="section">
+	<div class="container">
+		<div class="columns is-centered is-multiline">
+			<div class="column is-two-thirds">
+				<div class="field is-horizontal">
+					<div class="field-body">
+						<div class="field">
+							<p class="control">
+								<input class="input" type="text" placeholder="Post Title">
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="column is-two-thirds">
+
+				<!-- Create the editor container -->
+				<div id="editor">
+					<p>Hello World!</p>
+					<p>Some initial <strong>bold</strong> text</p>
+					<p><br></p>
+				</div>
+
+				<!-- Initialize Quill editor -->
+				<script>
+					var quill = new Quill('#editor', {
+						theme: 'snow'
+					});
+				</script>
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+</section>
+</body>
+</html>
