@@ -61,6 +61,7 @@ app.get('/post/:postId', (req, res) => {
 
 app.get('/posts', (req, res) => {
 	// view the posts index
+	res.render('posts.ejs', {});
 
 });
 

@@ -1,4 +1,5 @@
 @import url('../node_modules/bulma/css/bulma.css');
+@import url('./minireset.css');
 @import url('./theme.css');
 
 .main {
