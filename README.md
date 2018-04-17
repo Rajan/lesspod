@@ -9,7 +9,7 @@ WordPress is a very successful blogging platform which requires servers to host 
 
 ## Free Website + Blog for Everyone (Cloud Limits Apply)
 
-Lesspod will enable free websites and blogs for people who can't afford to pay for WordPress hosting within free limits offered by cloud providers like Google Firebase and AWS Lambda. This is amazing because this project has the potential to double the size of the internet. We'll see a lot more new content on the internet. Fun times ahead!
+Lesspod will enable free websites and blogs for people who don't want to pay for WordPress hosting within free limits offered by cloud providers like Google Firebase and AWS Lambda. This is amazing because this project has the potential to double the size of the internet. We'll see a lot more new content on the internet. Fun times ahead!
 
 ## Choice of building blocks
 
