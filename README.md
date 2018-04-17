@@ -7,7 +7,7 @@ Serverless Blogging Engine (In Active Development)
 WordPress is a very successful blogging platform which requires servers to host and most of the servers are running over their actual web traffic. Given that 28% of the websites on the internet use WordPress, there are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. Of course, the goal is to make it as simple as possible to host serverless websites and blogs.
 
 
-## Free Website + Blog for Everyone (cloud Limits Apply)
+## Free Website + Blog for Everyone (Cloud Limits Apply)
 
 Lesspod will enable free websites and blogs for people who can't afford to pay for WordPress hosting within free limits offered by cloud providers like Google Firebase and AWS Lambda. This is amazing because this project has the potential to double the size of the internet. We'll see a lot more new content on the internet. Fun times ahead!
 
