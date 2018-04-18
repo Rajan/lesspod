@@ -15,7 +15,7 @@ Lesspod will enable free websites and blogs for people who don't want to pay for
 
 We want to keep Lesspod as simple as possible for everyone to customize and build upon and it requires us to be as minimalist as practically posible.
 
-- SQLite 3 (Skipping ORM for now)
+- SQLite 3 (using sequelize ORM locally)
 - Express 4 (Most popular node.js framework)
 - EJS (Minimal learning curve)
 - Serverless support (aws/firebase/azure etc)
