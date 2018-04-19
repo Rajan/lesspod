@@ -34,9 +34,9 @@ cd lesspod
 
 npm install
 
-node starter.js
+node -r dotenv/config index.js 
 
-parcel starter.js (not yet working)
+parcel index.js // not yet working
 
 ```
 
@@ -47,8 +47,8 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 
 ### To Do List
 
-- [ ] Authentication/Authorization using SQLite, Passport and Express
-- [ ] API Module for SQLite and later others
+- [x] Authentication/Authorization using SQLite, Passport and Express
+- [x] API Module for SQLite
 - [ ] Landing Page Design
 - [ ] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design

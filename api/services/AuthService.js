@@ -31,7 +31,10 @@ const createUser = async function(userInfo){
         userInfo.email = unique_key;
 
         [err, user] = await to(User.create(userInfo));
-        if(err) TE('user already exists with that email');
+        if(err) { 
+            console.log(JSON.stringify(err));
+            TE('user already exists with that email');
+        }
 
         return user;
 

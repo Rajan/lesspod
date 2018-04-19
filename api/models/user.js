@@ -5,6 +5,13 @@ const jwt               = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
     var Model = sequelize.define('User', {
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            defaultValue: 1
+        },
         first     : DataTypes.STRING,
         last      : DataTypes.STRING,
         email     : {type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Phone number invalid."} }},
@@ -51,6 +58,8 @@ module.exports = (sequelize, DataTypes) => {
         let json = this.toJSON();
         return json;
     };
+
+    Model.sync({force: true});
 
     return Model;
 };
