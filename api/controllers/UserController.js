@@ -1,9 +1,10 @@
-const User = require('../models').User;
+const User          = require('../models').User;
 const authService   = require('./../services/AuthService');
 
 const create = async function(req, res){
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
+
     if(!body.unique_key && !body.email && !body.phone){
         return ReE(res, 'Please enter an email or phone number to register.');
     } else if(!body.password){
@@ -35,18 +36,7 @@ const update = async function(req, res){
 
     [err, user] = await to(user.save());
     if(err){
-        console.log(err, user);
-
-        if(err.message.includes('E11000')){
-            if(err.message.includes('phone')){
-                err = 'This phone number is already in use';
-            } else if(err.message.includes('email')){
-                err = 'This email address is already in use';
-            }else{
-                err = 'Duplicate Key Entry';
-            }
-        }
-
+        if(err.message=='Validation error') err = 'The email address or phone number is already in use';
         return ReE(res, err);
     }
     return ReS(res, {message :'Updated User: '+user.email});
