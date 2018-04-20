@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="columns is-centered is-multiline">
 			<div class="column is-two-thirds">
-				You're logged in. <a href="/logout">Logout</a>
+				You're logged in. <a href="/logout" onclick="logout(event)">Logout</a>
 			</div>
 		</div>
 	</div>
@@ -18,10 +18,18 @@
 			console.log(Cookies.get("token"));
 
 		} else {
-			
+
 			window.location.href = '../login';
 		}
 	};
+	function logout(event) {
+
+		Cookies.set('token', '');
+		Cookies.set('user', '');
+		event.preventDefault();
+		window.location.href = '../';
+
+	}
 </script>
 </body>
 </html>
