@@ -8,7 +8,13 @@ var db        = {};
 const Op = Sequelize.Op
 
 const sequelize = new Sequelize('lpDB', null, null, {
-  dialect: "sqlite",
+  host: 'localhost',
+  dialect: 'sqlite',
+  pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    },
   storage: './db.sqlite',
   operatorsAliases: {
     $and: Op.and,

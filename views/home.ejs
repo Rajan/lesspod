@@ -11,6 +11,17 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+	window.onload = function() {
+		if(Cookies.get("token").length) {
 
+			console.log(Cookies.get("token"));
+
+		} else {
+			
+			window.location.href = '../login';
+		}
+	};
+</script>
 </body>
 </html>

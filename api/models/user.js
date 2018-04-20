@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
         return json;
     };
 
-    Model.sync({force: true});
+    Model.sync({force: false});
 
     return Model;
 };

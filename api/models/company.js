@@ -12,6 +12,6 @@ module.exports = (sequelize, DataTypes) => {
 		let json = this.toJSON();
 		return json;
 	};
-	Model.sync({force: true});
+	Model.sync({force: false});
 	return Model;
 };
