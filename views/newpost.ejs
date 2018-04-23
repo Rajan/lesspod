@@ -33,7 +33,12 @@
 				</script><br>
 				<a href="#" class="button is-primary" onclick="savePost(event);">
 					Save Post
-				</a>
+				</a><br><br><br>
+				<input class="input" id="tag" type="text" placeholder="Add Tag"><br><br>
+				<a href="#" class="button is-primary" onclick="addTag(event);">
+					Add Tag
+				</a><br><br>
+				<input type="hidden" name="postId" id="postId" value="" />
 			</div>
 			
 		</div>
@@ -42,7 +47,7 @@
 </section>
 <script type="text/javascript">
 	var editor;
-	function savePost() {
+	function savePost(event) {
 		console.log('saving a post...');
 		var title = document.getElementById("title").value;
 		var content = editor.getText();
@@ -52,9 +57,24 @@
 			axios.post('/v1/posts', {
 				"title" : title.toString(),
 				"content" : content.toString()
+			})
+			.then(function (response) {
+				console.log(response);
+				console.log('Post Id is ' + response.data.post.id.toString());
+				document.getElementById('postId').value = response.data.post.id.toString();
+			})
+			.catch(function (error) {
+				console.log(error);
 			});
 		}
 		event.preventDefault();
+	}
+	function addTag(event) {
+		console.log('adding a tag...');
+		
+
+		event.preventDefault();
+
 	}
 	window.onload = function() {
 		var container = document.getElementById('editor');

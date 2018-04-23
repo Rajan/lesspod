@@ -53,7 +53,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
 - [ ] Blog Post View Design
-- [ ] Editor Selection and Integration
+- [x] Editor Selection and Integration (using Quill editor)
 - [ ] Comments Integration
 - [ ] Adding New Pages + Menus
 - [ ] Code coverage and e2e testing module
