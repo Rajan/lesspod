@@ -73,6 +73,9 @@
             console.log(response);
             Cookies.set("token", response.data.token);
             Cookies.set("user", response.data.user);
+            // setting up Authorization Header that will be used for subsequent requests.
+            axios.defaults.headers.common['Authorization'] = response.data.token;
+            axios.defaults.headers.post['Content-Type'] = 'application/json';
           })
           .then(function (response) {
             window.location.href = '../home';

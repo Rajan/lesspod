@@ -11,7 +11,7 @@ const create = async function(req, res){
     [err, tag] = await to(Tag.create(tag_info));
     if(err) return ReE(res, err, 422);
 
-    tag.addUser(user, { through: { status: 'started' }})
+    tag.addUser(user, { through: { status: 'tagged' }})
 
     [err, tag] = await to(tag.save());
     if(err) return ReE(res, err, 422);

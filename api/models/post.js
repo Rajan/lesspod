@@ -1,5 +1,40 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
+
+	var UserPost = sequelize.define('UserPost', {
+		id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true
+        },
+		UserId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        PostId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
+	});
+
+	var PostTag = sequelize.define('PostTag', {
+		id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true
+        },
+		PostId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        TagId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
+	});
+
 	var Model = sequelize.define('Post', {
 		id: {
             type: DataTypes.INTEGER,
@@ -21,6 +56,8 @@ module.exports = (sequelize, DataTypes) => {
 		let json = this.toJSON();
 		return json;
 	};
+	PostTag.sync({force: false});
+	UserPost.sync({force: false});
 	Model.sync({force: false});
 	return Model;
 };

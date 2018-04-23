@@ -11,7 +11,7 @@ const create = async function(req, res){
     [err, post] = await to(Post.create(post_info));
     if(err) return ReE(res, err, 422);
 
-    post.addUser(user, { through: { status: 'started' }})
+    post.addUser(user, { through: { status: 'posted' }})
 
     [err, post] = await to(post.save());
     if(err) return ReE(res, err, 422);

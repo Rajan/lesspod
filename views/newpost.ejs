@@ -10,7 +10,7 @@
 					<div class="field-body">
 						<div class="field">
 							<p class="control">
-								<input class="input" type="text" placeholder="Post Title">
+								<input class="input" id="title" type="text" placeholder="Post Title">
 							</p>
 						</div>
 					</div>
@@ -30,13 +30,36 @@
 					var quill = new Quill('#editor', {
 						theme: 'snow'
 					});
-				</script>
-
+				</script><br>
+				<a href="#" class="button is-primary" onclick="savePost(event);">
+					Save Post
+				</a>
 			</div>
 			
 		</div>
 	</div>
 </div>
 </section>
+<script type="text/javascript">
+	var editor;
+	function savePost() {
+		console.log('saving a post...');
+		var title = document.getElementById("title").value;
+		var content = editor.getText();
+		console.log('title is ' + title.toString() + ' content is ' + content.toString());
+		if(title.length && content.length) {
+			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			axios.post('/v1/posts', {
+				"title" : title.toString(),
+				"content" : content.toString()
+			});
+		}
+		event.preventDefault();
+	}
+	window.onload = function() {
+		var container = document.getElementById('editor');
+		editor = new Quill(container);
+	}
+</script>
 </body>
 </html>
