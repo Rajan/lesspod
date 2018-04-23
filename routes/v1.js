@@ -2,6 +2,8 @@ const express 			= require('express');
 const router 			= express.Router();
 
 const UserController 	= require('./../api/controllers/UserController');
+const PostController = require('./../api/controllers/PostController');
+const TagController = require('./../api/controllers/TagController');
 const CompanyController = require('./../api/controllers/CompanyController');
 const HomeController 	= require('./../api/controllers/HomeController');
 
@@ -22,6 +24,22 @@ router.get(     '/users',           passport.authenticate('jwt', {session:false}
 router.put(     '/users',           passport.authenticate('jwt', {session:false}), UserController.update);     // U
 router.delete(  '/users',           passport.authenticate('jwt', {session:false}), UserController.remove);     // D
 router.post(    '/users/login',     UserController.login);
+
+
+router.post(    '/posts',             passport.authenticate('jwt', {session:false}), PostController.create);                  // C
+router.get(     '/posts',             passport.authenticate('jwt', {session:false}), PostController.getAll);                  // R
+
+router.get(     '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.get);     // R
+router.put(     '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.update);  // U
+router.delete(  '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.remove);  // D
+
+router.post(    '/tags',             passport.authenticate('jwt', {session:false}), TagController.create);                  // C
+router.get(     '/tags',             passport.authenticate('jwt', {session:false}), TagController.getAll);                  // R
+
+router.get(     '/tags/:tag_id', passport.authenticate('jwt', {session:false}), custom.tag, TagController.get);     // R
+router.put(     '/tags/:tag_id', passport.authenticate('jwt', {session:false}), custom.tag, TagController.update);  // U
+router.delete(  '/tags/:tag_id', passport.authenticate('jwt', {session:false}), custom.tag, TagController.remove);  // D
+
 
 router.post(    '/companies',             passport.authenticate('jwt', {session:false}), CompanyController.create);                  // C
 router.get(     '/companies',             passport.authenticate('jwt', {session:false}), CompanyController.getAll);                  // R

@@ -18,3 +18,46 @@ let company = async function (req, res, next) {
     next();
 }
 module.exports.company = company;
+
+
+const Post               = require('./../models/post');
+
+let post = async function (req, res, next) {
+    let post_id, err, post;
+    post_id = req.params.post_id;
+
+    [err, post] = await to(Post.findOne({_id:post_id}));
+    if(err) return ReE(res,"err finding post");
+
+    if(!post) return ReE(res, "Post not found with id: "+post_id);
+    let user, users_array;
+    user = req.user;
+    users_array = post.users.map(obj=>String(obj.user));
+
+    if(!users_array.includes(String(user._id))) return ReE(res, "User does not have permission to read app with id: "+app_id);
+
+    req.post = post;
+    next();
+}
+module.exports.post = post;
+
+const Tag               = require('./../models/tag');
+
+let tag = async function (req, res, next) {
+    let tag_id, err, tag;
+    tag_id = req.params.tag_id;
+
+    [err, tag] = await to(Tag.findOne({_id:tag_id}));
+    if(err) return ReE(res,"err finding tag");
+
+    if(!tag) return ReE(res, "Tag not found with id: "+tag_id);
+    let user, users_array;
+    user = req.user;
+    users_array = tag.users.map(obj=>String(obj.user));
+
+    if(!users_array.includes(String(user._id))) return ReE(res, "User does not have permission to read app with id: "+app_id);
+
+    req.tag = tag;
+    next();
+}
+module.exports.tag = tag;
