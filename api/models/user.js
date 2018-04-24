@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.associate = function(models){
-        this.Companies = this.belongsToMany(models.Company, {through: 'UserCompany'});
+        this.Posts = this.belongsToMany(models.Post, {through: 'UserPost'});
     };
 
     User.beforeSave(async (user, options) => {

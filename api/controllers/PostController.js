@@ -28,7 +28,7 @@ const getAll = async function(req, res){
     let user = req.user;
     let err, posts;
 
-    [err, posts] = await to(user.getCompanies({include: [ {association: Post.Users} ] }));
+    [err, posts] = await to(user.getPosts({include: [ {association: Post.Users} ] }));
 
     let posts_json =[]
     for( let i in posts){
