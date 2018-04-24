@@ -3,21 +3,26 @@ const Tag = require('../models').Tag;
 const create = async function(req, res){
     res.setHeader('Content-Type', 'application/json');
     let err, tag;
-    let user = req.user;
-
+    // let user = req.user;
+    let postId = req.body.postId;
+    let userId = req.body.userId;
     let tag_info = req.body;
 
+    console.log('Post Id is ' + postId + '. User ID is ' + userId);
 
     [err, tag] = await to(Tag.create(tag_info));
-    if(err) return ReE(res, err, 422);
+    if(err) {
+        console.log('Error is ' + JSON.stringify(err));
+        return ReE(res, err, 422);
+    };
 
-    tag.addUser(user, { through: { status: 'tagged' }})
+    // tag.addUser(user, { through: { status: 'tagged' }})
 
-    [err, tag] = await to(tag.save());
-    if(err) return ReE(res, err, 422);
+    // [err, tag] = await to(tag.save());
+    // if(err) return ReE(res, err, 422);
 
     let tag_json = tag.toWeb();
-    tag_json.users = [{user:user.id}];
+    // tag_json.users = [{user:user.id}];
 
     return ReS(res,{tag:tag_json}, 201);
 }
@@ -28,7 +33,7 @@ const getAll = async function(req, res){
     let user = req.user;
     let err, tags;
 
-    [err, tags] = await to(user.getCompanies({include: [ {association: Tag.Users} ] }));
+    [err, tags] = await to(user.getPosts({include: [ {association: Tag.Users} ] }));
 
     let tags_json =[]
     for( let i in tags){

@@ -4,7 +4,7 @@ const bcrypt_p          = require('bcrypt-promise');
 const jwt               = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
-    var Model = sequelize.define('User', {
+    var User = sequelize.define('User', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -18,11 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         password  : { type: DataTypes.STRING, allowNull: false },
     });
 
-    Model.associate = function(models){
+    User.associate = function(models){
         this.Companies = this.belongsToMany(models.Company, {through: 'UserCompany'});
     };
 
-    Model.beforeSave(async (user, options) => {
+    User.beforeSave(async (user, options) => {
         let err;
         if (user.changed('password')){
             let salt, hash
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    Model.prototype.comparePassword = async function (pw) {
+    User.prototype.comparePassword = async function (pw) {
         let err, pass
         if(!this.password) TE('password not set');
 
@@ -48,17 +48,17 @@ module.exports = (sequelize, DataTypes) => {
         return this;
     }
 
-    Model.prototype.getJWT = function () {
+    User.prototype.getJWT = function () {
         let expiration_time = parseInt(CONFIG.jwt_expiration);
         return "Bearer "+jwt.sign({user_id:this.id}, CONFIG.jwt_encryption, {expiresIn: expiration_time});
     };
 
-    Model.prototype.toWeb = function (pw) {
+    User.prototype.toWeb = function (pw) {
         let json = this.toJSON();
         return json;
     };
 
-    Model.sync({force: false});
+    User.sync({force: false});
 
-    return Model;
+    return User;
 };

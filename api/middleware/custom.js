@@ -1,3 +1,4 @@
+const Models = require('./../models/index');
 const Company 			    = require('./../models/company');
 
 let company = async function (req, res, next) {
@@ -20,21 +21,18 @@ let company = async function (req, res, next) {
 module.exports.company = company;
 
 
-const Post               = require('./../models/post');
+const Post               = Models.Post;
 
 let post = async function (req, res, next) {
     let post_id, err, post;
     post_id = req.params.post_id;
 
-    [err, post] = await to(Post.findOne({_id:post_id}));
+    [err, post] = await to(Post.findOne({id:post_id}));
     if(err) return ReE(res,"err finding post");
 
     if(!post) return ReE(res, "Post not found with id: "+post_id);
     let user, users_array;
     user = req.user;
-    users_array = post.users.map(obj=>String(obj.user));
-
-    if(!users_array.includes(String(user._id))) return ReE(res, "User does not have permission to read app with id: "+app_id);
 
     req.post = post;
     next();
@@ -53,10 +51,6 @@ let tag = async function (req, res, next) {
     if(!tag) return ReE(res, "Tag not found with id: "+tag_id);
     let user, users_array;
     user = req.user;
-    users_array = tag.users.map(obj=>String(obj.user));
-
-    if(!users_array.includes(String(user._id))) return ReE(res, "User does not have permission to read app with id: "+app_id);
-
     req.tag = tag;
     next();
 }

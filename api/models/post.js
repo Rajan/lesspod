@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         }
 	});
 
-	var Model = sequelize.define('Post', {
+	var Post = sequelize.define('Post', {
 		id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -47,17 +47,17 @@ module.exports = (sequelize, DataTypes) => {
 
 	});
 
-	Model.associate = function(models){
+	Post.associate = function(models){
 		this.Users = this.belongsToMany(models.User, {through: 'UserPost'});
 		this.Tags = this.belongsToMany(models.Tag, {through: 'PostTag'});
 	};
 
-	Model.prototype.toWeb = function (pw) {
+	Post.prototype.toWeb = function (pw) {
 		let json = this.toJSON();
 		return json;
 	};
 	PostTag.sync({force: false});
 	UserPost.sync({force: false});
-	Model.sync({force: false});
-	return Model;
+	Post.sync({force: false});
+	return Post;
 };
