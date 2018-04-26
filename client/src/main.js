@@ -13,12 +13,8 @@ new Vue({
   router,
   components: { App, Navbar },
   template: `
-  <div>
+
     <Navbar />
-    <section class="section">
-      <div class="container is-fluid">
-      </div>
-    </section>
-  </div>
+
   `
 })

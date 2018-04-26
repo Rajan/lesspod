@@ -1,0 +1,14 @@
+
+.main {
+  /* Reference an image file */
+  background: url('../images/background.png');
+  color: red;
+}
+
+.ql-toolbar.ql-snow {
+	background: white;
+}
+
+#editor {
+	background: white;
+}
