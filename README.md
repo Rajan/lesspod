@@ -17,10 +17,10 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 - SQLite 3 (using sequelize ORM locally)
 - Express 4 (Most popular node.js framework)
-- EJS (Minimal learning curve)
+- ~~EJS~~ VueJS (Clean, Fast and Easiest to Learn)
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
-- Parcel.js as a bundler
+- ~~Parcel.js~~ Webpack 4 as a bundler
 
 
 ## Contributing To Lesspod

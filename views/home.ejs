@@ -6,7 +6,8 @@
 	<div class="container">
 		<div class="columns is-centered is-multiline">
 			<div class="column is-two-thirds">
-				You're logged in. <a href="/logout" onclick="logout(event)">Logout</a>
+				<div id="output"></div>
+				You're logged in. <a href="/logout" onclick="logout()">Logout</a>
 			</div>
 		</div>
 	</div>
@@ -21,12 +22,46 @@
 
 			window.location.href = '../login';
 		}
+
+		// Load all posts from the server and display them
+
+		axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+
+		axios.get('/v1/posts', {})
+		.then(function (response){
+			// console.log(response);
+
+			let posts = response.data.posts;
+			
+			for(var i in posts){
+
+				console.log(posts[i].title);
+			}
+			// renderPosts();
+		})
+		.catch(function (error){
+			console.log(error);
+
+			// if error is 401 unauthorize, logout the user.
+
+			if(error.toString().indexOf('401') !== -1){
+				logout();
+			}
+		});
+
+
 	};
-	function logout(event) {
+	// function renderPosts() {
+
+	// 	let people = ['geddy', 'neil', 'alex'],
+ //    	html = ejs.render("<%= people.join(', '); %>", {people: people});
+ //    	document.getElementById('output').innerHTML = html;
+
+	// }
+	function logout() {
 
 		Cookies.set('token', '');
 		Cookies.set('user', '');
-		event.preventDefault();
 		window.location.href = '../';
 
 	}

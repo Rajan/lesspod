@@ -31,6 +31,7 @@
     "js-cookie": "^2.2.0",
     "morgan": "^1.9.0",
     "mysql2": "^1.5.3",
+    "npm": "^6.0.0",
     "npm-check-updates": "^2.14.1",
     "parcel-bundler": "^1.7.1",
     "parse-error": "^0.2.0",
@@ -46,6 +47,8 @@
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
   }
 }
