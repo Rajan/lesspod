@@ -11,7 +11,7 @@
 							<div class="field">
 								<label class="label">Email</label>
 								<div class="control has-icons-left">
-									<input class="input" type="email" id="email" placeholder="e.g. alexjohnson@gmail.com" autocomplete="username"  required>
+									<input class="input" type="email" id="email"  v-model="email" placeholder="e.g. alexjohnson@gmail.com" autocomplete="username"  required>
 									<span class="icon is-small is-left">
 										<i class="fa fa-envelope"></i>
 									</span>
@@ -20,7 +20,7 @@
 							<div class="field">
 								<label class="label">Password</label>
 								<div class="control has-icons-left">
-									<input class="input" type="password" id="password" placeholder="********" autocomplete="current-password"  required>
+									<input class="input" type="password" id="password"  v-model="password" placeholder="********" autocomplete="current-password"  required>
 									<span class="icon is-small is-left">
 										<i class="fa fa-lock"></i>
 									</span>
@@ -39,7 +39,7 @@
 							</div>
 							<div class="field is-grouped" style="margin-top: 2rem;">
 								<div class="control">
-									<a href="#" onclick="login(event)" class="button is-info">Login</a>
+									<a href="#" @click="login" class="button is-info">Login</a>
 								</div>
 								<div class="control">
 									<a class="button is-text" href="register" style="text-decoration: none;color:#0271D3;">Create Account</a>
@@ -86,9 +86,39 @@
 // 		});
 // 	}
 // }
-module.exports = {
+export default {
 	data(){
-		return {}
+		return {
+			email: '',
+			password: ''
+		}
+	},
+	methods: {
+		login: function() {
+			console.log('email: ' + email.value + '  password: ' + password.value);
+
+			if(email.value.length && password.value.length) {
+				axios.post('/v1/users/login', {
+					"email" : email.value,
+					"password" : password.value
+				})
+				.then(function (response) {
+					console.log(response);
+					Cookies.set("token", response.data.token);
+					Cookies.set("user", JSON.stringify(response.data.user));
+		            // setting up Authorization Header that will be used for subsequent requests.
+		            axios.defaults.headers.common['Authorization'] = response.data.token;
+		            axios.defaults.headers.post['Content-Type'] = 'application/json';
+		            // console.log(response.headers);
+		        })
+				.then(function (response) {
+					window.location.href = '../home';
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			}
+		}
 	}
 }
 </script>

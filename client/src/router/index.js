@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Landing from '@/components/Landing'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import Home from '@/components/Home'
 import Newpost from '@/components/Newpost'
 import Posts from '@/components/Posts'
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
     },
     {
       path: '/newpost',
