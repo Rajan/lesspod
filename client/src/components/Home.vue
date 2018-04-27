@@ -4,7 +4,7 @@
 			<div class="columns is-centered is-multiline">
 				<div class="column is-two-thirds">
 					<div id="output"></div>
-					You're logged in. <a href="/logout" onclick="logout()">Logout</a>
+					You're logged in. <a href="#" @click="logout">Logout</a>
 				</div>
 			</div>
 		</div>
@@ -13,9 +13,13 @@
 <script type="text/javascript">
 export default {
 	data(){
-		return {
-			email: '',
-			password: ''
+		return {}
+	},
+	methods: {
+		logout: function() {
+			Cookies.set('token', '');
+			Cookies.set('user', '');
+			window.location.href = '../';
 		}
 	}
 }
