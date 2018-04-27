@@ -46,7 +46,7 @@
 							</div>
 							<div class="field is-grouped" style="margin-top: 1.5rem;">
 								<div class="control">
-									<button class="button is-info" onclick="register(event);">Create Account</button>
+									<button class="button is-info" @click="register">Create Account</button>
 								</div>
 								<div class="control">
 									<a class="button is-text" style="text-decoration: none;" href="login">Login</a>
@@ -65,35 +65,36 @@
 </section>
 </template>
 <script type="text/javascript">
-function register(event) {
-	event.preventDefault();
-	let fullName = document.getElementById("fullName").value;
-	let firstName = fullName.split(' ').slice(0, -1).join(' ');
-	let lastName = fullName.split(' ').slice(-1).join(' ');
-	let password = document.getElementById("password").value;
-	let passwordConfirm = document.getElementById("password-confirm").value;
-	if(password === passwordConfirm) {
-		console.log('registering user...');
-		axios.post('/v1/users/', {
-			"first": firstName, 
-			"last": lastName, 
-			"email": document.getElementById("email").value, 
-			"password": document.getElementById("password").value
-		})
-		.then(function (response) {
-			console.log(response);
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
-	} else {
-		console.log('passwords do not match');
-	}
-	
-}
+
 module.exports = {
 	data(){
 		return {}
+	}, 
+	methods: {
+		register: function() {
+			let fullName = document.getElementById("fullName").value;
+			let firstName = fullName.split(' ').slice(0, -1).join(' ');
+			let lastName = fullName.split(' ').slice(-1).join(' ');
+			let password = document.getElementById("password").value;
+			let passwordConfirm = document.getElementById("password-confirm").value;
+			if(password === passwordConfirm) {
+				console.log('registering user...');
+				axios.post('/v1/users/', {
+					"first": firstName, 
+					"last": lastName, 
+					"email": document.getElementById("email").value, 
+					"password": document.getElementById("password").value
+				})
+				.then(function (response) {
+					console.log(response);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			} else {
+				console.log('passwords do not match');
+			}
+		}
 	}
 }
 </script>
