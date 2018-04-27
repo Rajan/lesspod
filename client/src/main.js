@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Navbar from './components/Navbar'
 
 Vue.config.productionTip = false
 
@@ -11,10 +10,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App, Navbar },
-  template: `
-
-    <Navbar />
-
-  `
+  components: { App },
+  template: '<App/>'
 })

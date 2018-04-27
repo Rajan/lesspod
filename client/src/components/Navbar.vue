@@ -103,7 +103,9 @@
 	</nav>
 </template>
 <script type="text/javascript">
-export default {
-	name: 'Navbar'
+module.exports = {
+	data(){
+		return {}
+	}
 }
 </script>
