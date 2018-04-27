@@ -28,6 +28,9 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 Lesspod uses parcel as a bundler as of now. Parcel doesn't support EJS at this point by default but it will be possible soon with the next version. Run following commands to get started. We accept pull requests.
 
 ```
+
+// running the serverless (server) component
+
 git clone https://github.com/Rajan/lesspod.github.com
 
 cd lesspod
@@ -37,6 +40,13 @@ npm install
 node -r dotenv/config index.js 
 
 parcel index.js // not yet working
+
+
+// running the vuejs client in another commandline window
+
+cd client
+
+npm run dev
 
 ```
 
