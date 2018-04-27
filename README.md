@@ -9,7 +9,7 @@ WordPress is a very successful blogging platform which requires servers to host 
 
 ## Free Website + Blog for Everyone (Cloud Limits Apply)
 
-Lesspod will enable free websites and blogs for people who don't want to pay for WordPress hosting within free limits offered by cloud providers like Google Firebase and AWS Lambda. This is amazing because this project has the potential to double the size of the internet. We'll see a lot more new content on the internet. Fun times ahead!
+Lesspod will enable free websites and blogs for people who don't want to pay for WordPress hosting within free limits offered by cloud providers like Google Firebase and AWS Lambda. Lesspod is a better alternative to static sites which can be difficult to install and manage.
 
 ## Choice of building blocks
 
@@ -24,8 +24,6 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 
 ## Contributing To Lesspod
-
-Lesspod uses parcel as a bundler as of now. Parcel doesn't support EJS at this point by default but it will be possible soon with the next version. Run following commands to get started. We accept pull requests.
 
 ```
 
