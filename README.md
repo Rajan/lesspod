@@ -25,33 +25,18 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 ## Contributing To Lesspod
 
-```
-
 // running the serverless (server) component
-```
-$ git clone https://github.com/Rajan/lesspod.git
-```
-
-// move to the project directory
-```
-cd lesspod
-```
-
-//Install necessary packages 
-```
-npm install
-```
-// Setup environment variables
 
 ```
-node -r dotenv/config index.js 
+$ git clone https://github.com/Rajan/lesspod.git   //clone repo
+$ cd lesspod  //move to project directory
+$ npm install //install necessary packages 
+$ node -r dotenv/config index.js //setup environment variables
 ```
 
 parcel index.js // not yet working
 
-
 // running the vuejs client in another commandline window
-
 ```
 $ cd client
 $ npm run dev
