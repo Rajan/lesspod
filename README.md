@@ -28,24 +28,33 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 ```
 
 // running the serverless (server) component
+```
+$ git clone https://github.com/Rajan/lesspod.git
+```
 
-git clone https://github.com/Rajan/lesspod.github.com
-
+// move to the project directory
+```
 cd lesspod
+```
 
+//Install necessary packages 
+```
 npm install
+```
+// Setup environment variables
 
+```
 node -r dotenv/config index.js 
+```
 
 parcel index.js // not yet working
 
 
 // running the vuejs client in another commandline window
 
-cd client
-
-npm run dev
-
+```
+$ cd client
+$ npm run dev
 ```
 
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
