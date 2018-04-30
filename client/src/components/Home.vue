@@ -60,10 +60,12 @@
 								<div class="media">
 									<div class="media-content">
 										<p class="title is-5 is-spaced is-marginless">
-											<a href="#">{{post.title}}</a>
+											<a href="#" :id="post.id">{{post.title}}</a>
 										</p>
 										<div class="content is-small">
-											April 10, 2018
+											{{
+												new Date(post.createdAt) | moment('MMMM D, YYYY')
+											}}
 											<br>
 											<a href="user.html">Edit</a>
 											<span>·</span>

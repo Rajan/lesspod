@@ -9,7 +9,7 @@ import Newpost from '@/components/Newpost'
 import Posts from '@/components/Posts'
 
 Vue.use(Router)
-
+Vue.use(require('vue-moment'));
 export default new Router({
   mode: 'history',
   routes: [
