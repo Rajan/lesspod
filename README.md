@@ -25,7 +25,7 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 ## Contributing To Lesspod
 
-// running the serverless (server) component
+Running the serverless (server) component: http://localhost:1234/
 
 ```
 $ git clone https://github.com/Rajan/lesspod.git   //clone repo
@@ -36,9 +36,10 @@ $ node -r dotenv/config index.js //setup environment variables
 
 parcel index.js // not yet working
 
-// running the vuejs client in another commandline window
+Running the vuejs client in another commandline window: http://localhost:8080
 ```
 $ cd client
+$ npm install
 $ npm run dev
 ```
 
