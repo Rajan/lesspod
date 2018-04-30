@@ -22,7 +22,7 @@
 						<p><br></p>
 					</div><br>
 
-					<a href="#" class="button is-primary" onclick="savePost(event);">
+					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
 					</a><br><br><br>
 					<input class="input" id="tag" type="text" placeholder="Add Tag"><br><br>
@@ -96,14 +96,39 @@ function addTag(event) {
 }
 window.onload = function() {
 	var container = document.getElementById('editor');
-	var quill = new Quill('#editor', {
+	editor = new Quill('#editor', {
 		theme: 'snow'
 	});
+	axios.defaults.headers.common['Authorization'] = Cookies.get("token");
 	// editor = new Quill(container);
 }
 module.exports = {
 	data(){
 		return {}
+	},
+	methods: {
+		savePost: function() {
+			console.log('saving a post...');
+			var title = document.getElementById("title").value;
+			var content = editor.getText();
+			console.log('title is ' + title.toString() + ' content is ' + content.toString());
+			if(title.length && content.length) {
+				
+				axios.post('/v1/posts', {
+					"title" : title.toString(),
+					"content" : content.toString()
+				})
+				.then(function (response) {
+					console.log(response);
+					console.log('Post Id is ' + response.data.post.id.toString());
+					document.getElementById('postId').value = response.data.post.id.toString();
+					Cookies.set("post", response.data.post);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			}
+		}
 	}
 }
 </script>

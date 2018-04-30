@@ -15,7 +15,7 @@
 			<div class="navbar-start">
 				<div class="navbar-item">
 					<div>
-						<img src="./../assets/images/type.png" width="auto" height="21">
+						<a href="#" @click="logoClick"><img src="./../assets/images/type.png" width="auto" height="21"></a>
 						<br>
 						<small>Serverless Blogging Engine</small>
 					</div>
@@ -106,6 +106,19 @@
 module.exports = {
 	data(){
 		return {}
+	},
+	methods: {
+		logoClick: function() {
+			if(Cookies.get("token").length) {
+
+				console.log(Cookies.get("token"));
+				window.location.href = '../home';
+
+			} else {
+
+				window.location.href = '../';
+			}
+		}
 	}
 }
 </script>
