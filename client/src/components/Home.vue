@@ -18,7 +18,7 @@
 						<div class="level-left">
 							<div class="level-item">
 								<p class="subtitle is-5">
-									<strong>17</strong> Posts
+									<strong>{{posts.length}}</strong> Posts
 								</p>
 							</div>
 
@@ -73,7 +73,7 @@
 									</div>
 								</div>
 							</article>
-							
+
 						<!-- <nav class="pagination">
 							<a class="pagination-previous">Previous</a>
 							<a class="pagination-next">Next page</a>
@@ -110,7 +110,9 @@
 
 </template>
 <script type="text/javascript">
+// var posts;
 export default {
+	// props: ["posts"],
 	data(){
 		return {
 			posts: [
@@ -233,44 +235,53 @@ export default {
 
 		};
 	},
-	mounted: function() {
-					// Load all posts from the server and display them
-					// The view model.
-					var vm = this;
-					axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+	created: function() {
 
-					axios.get('/v1/posts', {})
-					.then(function (response){
-						
-						// console.log(response);
+		this.fetchData();
 
-						let posts1 = response.data.posts;
+		// this.$nextTick(function () {
 
-						for(var i in posts1){
+		// });
+	},
 
-							console.log(posts[i].title);
-						}
-						this.$data.posts = posts1;
-						// renderPosts();
-					})
-					.catch(function (error){
-						console.log(error);
-						// if error is 401 unauthorize, logout the user.
+	methods: {
+		newPost: function() {
+			console.log('new post');
+		},
+		fetchData: function() {
+			console.log('fetching data...');
+			var vm = this;
+			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
 
-						if(error.toString().indexOf('401') !== -1){
-							logout();
-						}
-					});
-				},
-				methods: {
-					newPost: function() {
-						console.log('new post');
-					},
-					logout: function() {
-						Cookies.set('token', '');
-						Cookies.set('user', '');
-						window.location.href = '../';
-					}
+			axios.get('/v1/posts', {})
+			.then(function (response){
+
+							// console.log(response);
+
+							let posts1 = response.data.posts;
+
+							for(var i in posts1){
+
+								console.log(posts1[i].title);
+							}
+							vm.posts = posts1;
+							// renderPosts();
+						})
+			.catch(function (error){
+				console.log(error);
+				// if error is 401 unauthorize, logout the user.
+
+				if(error.toString().indexOf('401') !== -1){
+					logout();
 				}
-			}
-			</script>
+			});
+		},
+		logout: function() {
+			Cookies.set('token', '');
+			Cookies.set('user', '');
+			window.location.href = '../';
+		}
+	}
+	
+}
+</script>
