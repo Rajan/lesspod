@@ -26,8 +26,8 @@ const Post               = Models.Post;
 let post = async function (req, res, next) {
     let post_id, err, post;
     post_id = req.params.post_id;
-
-    [err, post] = await to(Post.findOne({id:post_id}));
+    console.log('finding post_id...' + req.params.post_id);
+    [err, post] = await to(Post.findOne({where: {id:post_id}}));
     if(err) return ReE(res,"err finding post");
 
     if(!post) return ReE(res, "Post not found with id: "+post_id);

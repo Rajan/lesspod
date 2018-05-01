@@ -76,9 +76,13 @@ const remove = async function(req, res){
     let post, err;
     post = req.post;
 
+    console.log('deleting post_id...' + req.params.post_id);
+
+    console.log('deleting post...' + JSON.stringify(post));
+    
     [err, post] = await to(post.destroy());
     if(err) return ReE(res, 'error occured trying to delete the post');
-
     return ReS(res, {message:'Deleted Post'}, 204);
+
 }
 module.exports.remove = remove;

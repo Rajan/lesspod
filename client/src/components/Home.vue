@@ -55,7 +55,7 @@
 						</div>
 					</nav>
 					<div class="columns is-multiline" >
-						<div v-for="post of posts" class="column is-12-tablet is-6-desktop is-4-widescreen">
+						<div v-for="(post, index) in posts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
 							<article class="box">
 								<div class="media">
 									<div class="media-content">
@@ -69,14 +69,14 @@
 											<br>
 											<a href="user.html">Edit</a>
 											<span>·</span>
-											<a>Delete</a>
+											<a href="#" @click="deletePost(index)">Delete</a>
 											<p></p>
 										</div>
 									</div>
 								</div>
 							</article>
-
-						<!-- <nav class="pagination">
+						</div>
+												<!-- <nav class="pagination">
 							<a class="pagination-previous">Previous</a>
 							<a class="pagination-next">Next page</a>
 							<ul class="pagination-list">
@@ -107,8 +107,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
 </template>
 <script type="text/javascript">
@@ -270,6 +269,30 @@ export default {
 							// renderPosts();
 						})
 			.catch(function (error){
+				console.log(error);
+				// if error is 401 unauthorize, logout the user.
+
+				if(error.toString().indexOf('401') !== -1){
+					logout();
+				}
+			});
+		},
+		deletePost: function(index) {
+			var vm = this;
+			let post = vm.posts[index];
+			
+			console.log('Deleting... ' + JSON.stringify(post));
+			axios.delete('/v1/posts/' + post.id, 
+			{
+				'post_id': post.id,
+				'post': post
+			})
+			.then(function (response){
+				let post1 = response.data.post;
+				console.log('Deleted... ' + JSON.stringify(response));
+				vm.posts.splice(index, 1);
+			})
+			.catch(function (error) {
 				console.log(error);
 				// if error is 401 unauthorize, logout the user.
 
