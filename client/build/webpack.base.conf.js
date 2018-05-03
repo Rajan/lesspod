@@ -5,7 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
 // webpack.config.js
-const { VueLoaderPlugin } = require('vue-loader')
+// const { VueLoaderPlugin } = require('vue-loader')
 
 
 function resolve (dir) {
@@ -47,8 +47,8 @@ module.exports = {
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
+        loader: 'vue-loader' //,
+        // options: vueLoaderConfig
       },
       {
         test: /\.js$/,
@@ -94,6 +94,6 @@ module.exports = {
     child_process: 'empty'
   },
   plugins: [
-    new VueLoaderPlugin()
+    // new VueLoaderPlugin()
   ]
 }
