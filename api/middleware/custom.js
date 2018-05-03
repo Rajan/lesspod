@@ -21,7 +21,7 @@ let company = async function (req, res, next) {
 module.exports.company = company;
 
 
-const Post               = Models.Post;
+const Post = Models.Post;
 
 let post = async function (req, res, next) {
     let post_id, err, post;
