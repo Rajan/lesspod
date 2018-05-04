@@ -7,7 +7,7 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input" id="title" type="text" placeholder="Post Title">
+									<input class="input" v-model="title" id="title" type="text" placeholder="Post Title">
 								</p>
 							</div>
 						</div>
@@ -15,8 +15,7 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill v-model="editor" :config="config" style="background: white;" output="html"/>
-
+					<quill v-model="editor" style="background: white;" output="html"/>
 					<br>
 
 					<a href="#" class="button is-primary" @click="savePost">
@@ -34,27 +33,13 @@
 	</div>
 </section>
 </template>
-
 <script type="text/javascript">
 
-
-// window.onload = function() {
-	
-// }
-
-
-// var editor = new Quill('#editor', {
-//     // modules: { toolbar: '#toolbar' },
-//     theme: 'snow',
-//     toolbar: false
-// });
 module.exports = {
 	data(){
 		return {
-			editor: '<br><br><br><br><br>',
-			config: {
-				theme: 'snow'
-			}
+			title: '',
+			editor: '<br><br><br><br><br>'
 		}
 	},
 	beforeMount() {
@@ -62,17 +47,20 @@ module.exports = {
 	},
 	methods: {
 		initPost: function() {
-
 			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-
+			var post = Cookies.getJSON("editpost");
+			console.log('post is: ' + post);
+			this.title = post.title;
+			this.editor = post.content;
 		},
 		savePost: function() {
+			var vm = this;
 			console.log('saving a post...');
 			var title = document.getElementById("title").value;
-			var content = this.editor;
+			var content = vm.editor.getText();
 			console.log('title is ' + title.toString() + ' content is ' + content.toString());
 			if(title.length && content.length) {
-				
+
 				axios.post('/v1/posts', {
 					"title" : title.toString(),
 					"content" : content.toString()
@@ -101,6 +89,7 @@ module.exports = {
 					"name" : tagText,
 					"postId" : document.getElementById('postId').value,
 					"userId" : user.id.toString()
+
 
 				})
 				.then(function (response) {

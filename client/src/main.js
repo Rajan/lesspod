@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueQuill from "vue-quill";
+
+Vue.use(VueQuill);
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://localhost:1234/';

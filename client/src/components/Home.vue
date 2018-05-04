@@ -67,7 +67,7 @@
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
 											}}
 											<br>
-											<a href="user.html">Edit</a>
+											<a href="#" @click="editPost(index)">Edit</a>
 											<span>·</span>
 											<a href="#" @click="deletePost(index)">Delete</a>
 											<p></p>
@@ -276,6 +276,13 @@ export default {
 					logout();
 				}
 			});
+		},
+		editPost: function(index) {
+			var vm = this;
+			let post = vm.posts[index];
+			console.log('Editing... ' + JSON.stringify(post));
+			Cookies.set("editpost", JSON.stringify(post));
+			window.location.href = '../editpost/' + post.id.toString();
 		},
 		deletePost: function(index) {
 			var vm = this;
