@@ -29,7 +29,7 @@ const getAll = async function(req, res){
     let err, posts;
 
     [err, posts] = await to(user.getPosts({include: [ {association: Post.Users} ] }));
-
+    posts.reverse();
     let posts_json =[]
     for( let i in posts){
         let post = posts[i];

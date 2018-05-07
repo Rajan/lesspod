@@ -60,7 +60,7 @@
 								<div class="media">
 									<div class="media-content">
 										<p class="title is-5 is-spaced is-marginless">
-											<a href="#" :id="post.id">{{post.title}}</a>
+											<a href="#"  @click="editPost(index)" :id="post.id">{{post.title}}</a>
 										</p>
 										<div class="content is-small">
 											{{
@@ -249,11 +249,9 @@ export default {
 	    filteredPosts: function () {
 	    	var query = this.query;
 	    	return this.posts.filter(function (post) {
-		        return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || (post.content.toString().toLowerCase().indexOf(
-	        	query.toLowerCase()) !== -1)
- 
-	    	});
-	    	
+		        return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
+		        	   (post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
+	    	});	
 	    }
   	},
 	methods: {

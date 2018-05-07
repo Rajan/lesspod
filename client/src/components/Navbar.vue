@@ -67,7 +67,7 @@
 						<a class="navbar-item">
 							<div>
 								<span class="icon is-small">
-									<i class="fa fa-user-circle-o"></i>
+									<i class="fa fa-user-circle"></i>
 								</span>
 								Profile
 							</div>
@@ -88,10 +88,10 @@
 								Report bug
 							</div>
 						</a>
-						<a class="navbar-item">
+						<a class="navbar-item" @click="logout">
 							<div>
 								<span class="icon is-small">
-									<i class="fa fa-sign-out"></i>
+									<i class="fa fa-arrow-right"></i>
 								</span>
 								Sign Out
 							</div>
@@ -118,6 +118,11 @@ module.exports = {
 
 				window.location.href = '../';
 			}
+		},
+		logout: function() {
+			Cookies.set('token', '');
+			Cookies.set('user', '');
+			window.location.href = '../';
 		}
 	}
 }
