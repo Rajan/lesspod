@@ -25,7 +25,7 @@
 					<a href="#" class="button is-primary" @click="addTag">
 						Add Tag
 					</a><br><br>
-					<input type="hidden" name="postId" id="postId" value="" />
+					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
 				</div>
 
 			</div>
@@ -38,6 +38,7 @@
 module.exports = {
 	data(){
 		return {
+			id: '',
 			title: '',
 			editor: '<br><br><br><br><br>'
 		}
@@ -50,6 +51,7 @@ module.exports = {
 			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
 			var post = Cookies.getJSON("editpost");
 			console.log('post is: ' + post);
+			this.id = post.id;
 			this.title = post.title;
 			this.editor = post.content;
 		},
@@ -57,11 +59,12 @@ module.exports = {
 			var vm = this;
 			console.log('saving a post...');
 			var title = document.getElementById("title").value;
-			var content = vm.editor.getText();
+			var content = this.editor;
 			console.log('title is ' + title.toString() + ' content is ' + content.toString());
 			if(title.length && content.length) {
 
-				axios.post('/v1/posts', {
+				axios.put('/v1/posts/' + vm.id, {
+					"id" : vm.id, 
 					"title" : title.toString(),
 					"content" : content.toString()
 				})
