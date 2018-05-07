@@ -53,11 +53,16 @@
 							</a>
 						</div>
 					</div>
+					
 				</div>
 
-				<div class="navbar-item is-hoverable">
-					<a href="/blog">Blog</a>
+				<div v-for="menuItem in menus" class="navbar-item is-hoverable">
+					<a :href="linkedMenu(menuItem)" >{{menuItem}}</a>    <!-- class="navbar-link" -->
 				</div>
+				
+				<!-- <div class="navbar-item is-hoverable">
+					<a href="/blog">Blog</a>
+				</div> -->
 
 				<div class="navbar-item has-dropdown is-hoverable">
 					<div class="navbar-link">
@@ -105,7 +110,12 @@
 <script type="text/javascript">
 module.exports = {
 	data(){
-		return {}
+		return {
+			menus: ['Blog', 'About Us']
+		}
+	},
+	computed:{
+	    
 	},
 	methods: {
 		logoClick: function() {
@@ -119,6 +129,10 @@ module.exports = {
 				window.location.href = '../';
 			}
 		},
+		linkedMenu: function (menuItem) {
+			let dashed = menuItem.split(' ').join('-');
+	    	return '/' + dashed.toLowerCase();
+	    },
 		logout: function() {
 			Cookies.set('token', '');
 			Cookies.set('user', '');
