@@ -29,7 +29,7 @@
 							<div class="level-item is-hidden-tablet-only">
 								<div class="field has-addons">
 									<p class="control">
-										<input class="input" type="text" placeholder="Search posts...">
+										<input class="input" v-model="query" type="text" placeholder="Search posts...">
 									</p>
 									<p class="control">
 										<button class="button">
@@ -55,7 +55,7 @@
 						</div>
 					</nav>
 					<div class="columns is-multiline" >
-						<div v-for="(post, index) in posts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
+						<div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
 							<article class="box">
 								<div class="media">
 									<div class="media-content">
@@ -116,6 +116,7 @@ export default {
 	// props: ["posts"],
 	data(){
 		return {
+			query: '',
 			posts: [
 			{
 				"id": 4,
@@ -244,7 +245,17 @@ export default {
 
 		// });
 	},
-
+	computed:{
+	    filteredPosts: function () {
+	    	var query = this.query;
+	    	return this.posts.filter(function (post) {
+		        return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || (post.content.toString().toLowerCase().indexOf(
+	        	query.toLowerCase()) !== -1)
+ 
+	    	});
+	    	
+	    }
+  	},
 	methods: {
 		newPost: function() {
 			console.log('new post');
