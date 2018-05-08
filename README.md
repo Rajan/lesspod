@@ -58,6 +58,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [x] API Module for SQLite
 - [ ] Adding New Pages + Menus
 - [ ] Landing Page Design
+- [ ] Deployment to Firebase (pod deploy firebase)
 - [ ] Unit Tests
 - [ ] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
