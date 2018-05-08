@@ -21,7 +21,7 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
 - ~~Parcel.js~~ Webpack 4 as a bundler
-- Store for local storage: https://www.npmjs.com/package/store
+- ~~js-cookie npm module~~ Store for local storage: https://www.npmjs.com/package/store
 
 
 ## Contributing To Lesspod
@@ -34,6 +34,7 @@ $ cd lesspod  //move to project directory
 $ npm install //install necessary packages 
 $ node -r dotenv/config index.js //setup environment variables
 ```
+Note: some npm modules may need to be installed manually.
 
 parcel index.js // not yet working
 
