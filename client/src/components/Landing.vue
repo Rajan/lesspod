@@ -15,5 +15,5 @@ module.exports = {
 	data(){
 		return {}
 	}
-}
+};
 </script>

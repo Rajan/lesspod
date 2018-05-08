@@ -1,4 +1,5 @@
 <template lang="html">
+
 	<nav class="navbar has-shadow">
 		<div class="navbar-brand">
 			<a class="navbar-item">
@@ -35,7 +36,7 @@
 									Post
 								</div>
 							</a>
-							<a class="navbar-item">
+							<a class="navbar-item" @click="newMenu();">
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-bars"></i>
@@ -57,7 +58,7 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a :href="linkedMenu(menuItem)">{{menuItem}}
+					<a :href="linkedMenu(menuItem)" class="navbar-link">{{menuItem}}
 						<div class="navbar-dropdown is-right" v-if="isLoggedIn()">
 							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem)" v-if="isLoggedIn()">
 								<div>
@@ -122,16 +123,45 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal" v-if="showModal">
+		<div class="modal-background"></div>
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Modal title</p>
+				<button class="delete" aria-label="close"></button>
+			</header>
+			<section class="modal-card-body">
+				<!-- Content ... -->
+				<form>
+					<div class="field">
+						<div class="field">
+							<label class="label">New Menu Name</label>
+							<div class="control">
+								<input class="input" type="text" placeholder="Add Post" required>
+							</div>
+						</div>
+					</div>
+				</form>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button is-success">Save changes</button>
+				<button class="button">Cancel</button>
+			</footer>
+		</div>
+	</div>
 	</nav>
+
 </template>
 <script type="text/javascript">
+
 module.exports = {
 	data(){
 		return {
-			menus: ['Blog', 'Blog -> Add', 'Blog -> All', 'About Us']
+			menus: ['Blog', 'Blog -> Add Post', 'Blog -> View All', 'About Us'],
+			showModal: false
 		}
 	},
-	computed:{
+	computed: {
 
 		topLevelMenus: function() {
 			return this.menus.filter(function (menu) {
@@ -139,7 +169,7 @@ module.exports = {
 				// return true;
 			});
 		}
-	    
+
 	},
 	methods: {
 		isLoggedIn: function() {
@@ -160,11 +190,15 @@ module.exports = {
 				window.location.href = '../';
 			}
 		},
+		newMenu: function() {
+			console.log('creating new menu...');
+			// this.menus.push('NewM');
+		},
 		linkedMenu: function (menuItem) {
 			let dashed = menuItem.split(' ').join('-');
-	    	return '/' + dashed.toLowerCase();
-	    },
-	    subMenusOf: function(menuItem) {
+			return '/' + dashed.toLowerCase();
+		},
+		subMenusOf: function(menuItem) {
 			return this.menus.filter(function (menu) {
 				// return !(menu.indexOf('-') !== -1)
 				return (menu.startsWith(menuItem)) && (menu !== menuItem)

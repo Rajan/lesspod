@@ -49,17 +49,34 @@ Keep things as simple to understand for others as possible. Also, add comments t
 Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.
 
 
-### To Do List
+## To Do List
+
+### Immediate Feature Goals
 
 - [x] Authentication/Authorization using SQLite, Passport and Express
 - [x] API Module for SQLite
+- [ ] Adding New Pages + Menus
 - [ ] Landing Page Design
+- [ ] Unit Tests
 - [ ] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
 - [ ] Blog Post View Design
 - [x] Editor Selection and Integration (using Quill editor)
-- [ ] Comments Integration
-- [ ] Adding New Pages + Menus
+- [ ] Comments Integration (Disqus, Facebook and ?)
 - [ ] Code coverage and e2e testing module
+
+### Midterm Feature Goals
+
+- [ ] Page views tracking and reporting
+- [ ] React client for Lesspod (Sai is on it)
+- [ ] Theming System Design/Dev
+- [ ] Plugin System Design/Dev 
+- [ ] More Themes 
+- [ ] Theme Generator Basic 
+
+### Longterm Feature Goals
+
+- [ ] Desktop client for Lesspod
+
 
 We accept pull requests. Kindly add comments to your code before sending one.
