@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="navbar-end">
-				<div class="navbar-item has-dropdown is-hoverable">
+				<div class="navbar-item has-dropdown is-hoverable"  v-if="isLoggedIn()">
 					<div class="navbar-link">
 						New
 						<div class="navbar-dropdown is-right">
@@ -56,15 +56,32 @@
 					
 				</div>
 
-				<div v-for="menuItem in menus" class="navbar-item is-hoverable">
-					<a :href="linkedMenu(menuItem)" >{{menuItem}}</a>    <!-- class="navbar-link" -->
+				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
+					<a :href="linkedMenu(menuItem)">{{menuItem}}
+						<div class="navbar-dropdown is-right" v-if="isLoggedIn()">
+							<!-- <a class="navbar-item" v-for="menu1 in subMenusOf(menuItem)" v-if="isLoggedIn()">
+								<div>
+									{{menu1}}
+								</div>
+							</a> -->
+							<a class="navbar-item" @click="deleteMenu(menuItem)" v-if="isLoggedIn()">
+								<div>
+									<span class="icon is-small">
+										<i class="fa fa-trash"></i>
+									</span>
+									Delete
+								</div>
+							</a>
+						</div>
+					</a>    
+					<!-- class="navbar-link" -->
 				</div>
 				
 				<!-- <div class="navbar-item is-hoverable">
 					<a href="/blog">Blog</a>
 				</div> -->
 
-				<div class="navbar-item has-dropdown is-hoverable">
+				<div class="navbar-item has-dropdown is-hoverable"  v-if="isLoggedIn()">
 					<div class="navbar-link">
 						Alex Johnson
 					</div>
@@ -111,13 +128,34 @@
 module.exports = {
 	data(){
 		return {
-			menus: ['Blog', 'About Us']
+			menus: ['Blog', 'Blog - Add', 'Blog - All', 'About Us']
 		}
 	},
 	computed:{
+
+		topLevelMenus: function() {
+			return this.menus.filter(function (menu) {
+				return !(menu.indexOf('-') !== -1)
+				// return true;
+			});
+		},
+		subMenusOf: function(menuItem) {
+			return this.menus.filter(function (menu) {
+				// return !(menu.indexOf('-') !== -1)
+				// menu.startsWith(menuItem) && menu !== menuItem
+				return true;
+			});
+		}
 	    
 	},
 	methods: {
+		isLoggedIn: function() {
+			if(Cookies.get('token').length){
+				return true;
+			}else {
+				return false;
+			}
+		},
 		logoClick: function() {
 			if(Cookies.get("token").length) {
 

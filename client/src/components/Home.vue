@@ -288,7 +288,8 @@ export default {
 				// if error is 401 unauthorize, logout the user.
 
 				if(error.toString().indexOf('401') !== -1){
-					logout();
+					console.log('Logging you out...')
+					vm.logout();
 				}
 			});
 		},
@@ -319,7 +320,7 @@ export default {
 				// if error is 401 unauthorize, logout the user.
 
 				if(error.toString().indexOf('401') !== -1){
-					this.logout();
+					vm.logout();
 				}
 			});
 		},

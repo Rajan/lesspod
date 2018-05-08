@@ -21,6 +21,7 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
 - ~~Parcel.js~~ Webpack 4 as a bundler
+- Store for local storage: https://www.npmjs.com/package/store
 
 
 ## Contributing To Lesspod
