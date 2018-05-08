@@ -59,11 +59,11 @@
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
 					<a :href="linkedMenu(menuItem)">{{menuItem}}
 						<div class="navbar-dropdown is-right" v-if="isLoggedIn()">
-							<!-- <a class="navbar-item" v-for="menu1 in subMenusOf(menuItem)" v-if="isLoggedIn()">
+							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem)" v-if="isLoggedIn()">
 								<div>
-									{{menu1}}
+									{{cleanedSubmenu(menu1)}}
 								</div>
-							</a> -->
+							</a>
 							<a class="navbar-item" @click="deleteMenu(menuItem)" v-if="isLoggedIn()">
 								<div>
 									<span class="icon is-small">
@@ -128,7 +128,7 @@
 module.exports = {
 	data(){
 		return {
-			menus: ['Blog', 'Blog - Add', 'Blog - All', 'About Us']
+			menus: ['Blog', 'Blog -> Add', 'Blog -> All', 'About Us']
 		}
 	},
 	computed:{
@@ -137,13 +137,6 @@ module.exports = {
 			return this.menus.filter(function (menu) {
 				return !(menu.indexOf('-') !== -1)
 				// return true;
-			});
-		},
-		subMenusOf: function(menuItem) {
-			return this.menus.filter(function (menu) {
-				// return !(menu.indexOf('-') !== -1)
-				// menu.startsWith(menuItem) && menu !== menuItem
-				return true;
 			});
 		}
 	    
@@ -171,6 +164,17 @@ module.exports = {
 			let dashed = menuItem.split(' ').join('-');
 	    	return '/' + dashed.toLowerCase();
 	    },
+	    subMenusOf: function(menuItem) {
+			return this.menus.filter(function (menu) {
+				// return !(menu.indexOf('-') !== -1)
+				return (menu.startsWith(menuItem)) && (menu !== menuItem)
+				// return true;
+			});
+		},
+		cleanedSubmenu: function(menu1) {
+			let arrowPos = menu1.indexOf('->');
+			return menu1.substring(arrowPos + 2);
+		},
 		logout: function() {
 			Cookies.set('token', '');
 			Cookies.set('user', '');
