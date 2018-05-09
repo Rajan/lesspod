@@ -123,32 +123,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal" v-if="showModal">
-		<div class="modal-background"></div>
-		<div class="modal-card">
-			<header class="modal-card-head">
-				<p class="modal-card-title">Modal title</p>
-				<button class="delete" aria-label="close"></button>
-			</header>
-			<section class="modal-card-body">
-				<!-- Content ... -->
-				<form>
-					<div class="field">
-						<div class="field">
-							<label class="label">New Menu Name</label>
-							<div class="control">
-								<input class="input" type="text" placeholder="Add Post" required>
-							</div>
-						</div>
-					</div>
-				</form>
-			</section>
-			<footer class="modal-card-foot">
-				<button class="button is-success">Save changes</button>
-				<button class="button">Cancel</button>
-			</footer>
-		</div>
-	</div>
 	</nav>
 
 </template>
@@ -192,7 +166,11 @@ module.exports = {
 		},
 		newMenu: function() {
 			console.log('creating new menu...');
+			this.$modal.show('new-menu-modal', {menus: this.topLevelMenus}, {});
 			// this.menus.push('NewM');
+		},
+		beforeOpen: function(event) {
+			// console.log(event.params.menus);
 		},
 		linkedMenu: function (menuItem) {
 			let dashed = menuItem.split(' ').join('-');
@@ -215,5 +193,5 @@ module.exports = {
 			window.location.href = '../';
 		}
 	}
-}
+};
 </script>

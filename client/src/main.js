@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueQuill from "vue-quill";
+import VModal from 'vue-js-modal'
 
 Vue.use(VueQuill);
+
+Vue.use(VModal);
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://localhost:1234/';
@@ -15,4 +18,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});
