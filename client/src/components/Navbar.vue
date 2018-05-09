@@ -123,16 +123,18 @@
 				</div>
 			</div>
 		</div>
+		<NewMenuModal v-on:new-menu-added="newMenuAdded"></NewMenuModal>
 	</nav>
 
 </template>
 <script type="text/javascript">
-
-module.exports = {
+import NewMenuModal from '@/components/NewMenuModal';
+export default {
 	data(){
 		return {
 			menus: ['Blog', 'Blog -> Add Post', 'Blog -> View All', 'About Us'],
-			showModal: false
+			showModal: false,
+			newMenuName: ''
 		}
 	},
 	computed: {
@@ -144,6 +146,12 @@ module.exports = {
 			});
 		}
 
+	},
+	props: {
+		allMenus: this.menus
+	},
+	components: {
+		NewMenuModal
 	},
 	methods: {
 		isLoggedIn: function() {
@@ -172,6 +180,9 @@ module.exports = {
 		beforeOpen: function(event) {
 			// console.log(event.params.menus);
 		},
+		beforeClose: function(event) {
+			// console.log(event.params.menus);
+		},
 		linkedMenu: function (menuItem) {
 			let dashed = menuItem.split(' ').join('-');
 			return '/' + dashed.toLowerCase();
@@ -186,6 +197,12 @@ module.exports = {
 		cleanedSubmenu: function(menu1) {
 			let arrowPos = menu1.indexOf('->');
 			return menu1.substring(arrowPos + 2);
+		},
+		newMenuAdded: function(newMenu) {
+			console.log('new menu in Navbar: ' + newMenu);
+			this.menus.push(newMenu);
+			// console.log('vm.$data' + this.$data.toString());
+
 		},
 		logout: function() {
 			Cookies.set('token', '');

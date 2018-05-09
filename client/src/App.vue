@@ -1,7 +1,6 @@
 <template>
   <div>
     <Navbar></Navbar>
-    <NewMenuModal></NewMenuModal>
     <div id="app">
       <router-view/>
 
