@@ -37,7 +37,7 @@ router.delete(  '/posts/:post_id', passport.authenticate('jwt', {session:false})
 
 
 router.post(    '/menus',             passport.authenticate('jwt', {session:false}), MenuController.create);                  // C
-router.get(     '/menus',             passport.authenticate('jwt', {session:false}), MenuController.getAll);                  // R
+router.get(     '/menus',	MenuController.getAll);                  // R
 
 router.get(     '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.get);     // R
 router.put(     '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.update);  // U

@@ -59,8 +59,8 @@
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
 					<a :href="linkedMenu(menuItem.name)" class="navbar-link">{{menuItem.name}}
-						<div class="navbar-dropdown is-right" v-if="isLoggedIn()">
-							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)" v-if="isLoggedIn()">
+						<div class="navbar-dropdown is-right">
+							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)">
 								<div>
 									{{cleanedSubmenu(menu1.name)}}
 								</div>
@@ -174,10 +174,10 @@ export default {
 
 							for(var i in menus1){
 
-								console.log(menus1[i].title);
+								console.log(menus1[i].name);
 							}
 							if(menus1.length > 0){
-								vm.menus = menus1;
+								vm.menus = vm.menus.concat(menus1);
 							}else{
 								console.log(menus1);
 							}
@@ -227,8 +227,10 @@ export default {
 			return '/' + dashed.toLowerCase();
 		},
 		subMenusOf: function(menuName) {
+			console.log('subMenusOf 1: ' + menuName);
 			return this.menus.filter(function (menu) {
 				// return !(menu.indexOf('-') !== -1)
+				console.log('subMenusOf 2: ' + menuName);
 				if(menu.name !== null && menu.name !== undefined){
 					return (menu.name.startsWith(menuName)) && (menu.name !== menuName)
 				}

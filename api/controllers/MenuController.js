@@ -36,20 +36,21 @@ const getAll = async function(req, res){
     let user = req.user;
     let err, menus;
 
-    [err, menus] = await to(user.getMenus({include: [ {association: Menu.Users} ] }));
+    // [err, menus] = await to(user.getMenus({include: [ {association: Menu.Users} ] }));
+    [err, menus] = await to(Menu.findAll({}));
     // menus.reverse();
     let menus_json =[]
     for( let i in menus){
         let menu = menus[i];
-        let users =  menu.Users;
+        // let users =  menu.Users;
         let menu_info = menu.toWeb();
-        let users_info = [];
-        for (let i in users){
-            let user = users[i];
-            // let user_info = user.toJSON();
-            users_info.push({user:user.id});
-        }
-        menu_info.users = users_info;
+        // let users_info = [];
+        // for (let i in users){
+        //     let user = users[i];
+        //     // let user_info = user.toJSON();
+        //     users_info.push({user:user.id});
+        // }
+        // menu_info.users = users_info;
         menus_json.push(menu_info);
     }
 
