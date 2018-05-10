@@ -14,7 +14,7 @@ const create = async function(req, res){
         return ReE(res, err, 422);
     }
 
-    menu.addUser(user, { through: { status: 'menu-added' }})
+    menu.addUser(user, { through: { status: 'menuadded' }})
 
     [err, menu] = await to(menu.save());
     if(err) {
@@ -24,6 +24,8 @@ const create = async function(req, res){
 
     let menu_json = menu.toWeb();
     menu_json.users = [{user:user.id}];
+
+    console.log('menu json: ' + JSON.stringify(menus_json));
 
     return ReS(res,{menu:menu_json}, 201);
 }
@@ -35,7 +37,7 @@ const getAll = async function(req, res){
     let err, menus;
 
     [err, menus] = await to(user.getMenus({include: [ {association: Menu.Users} ] }));
-    menus.reverse();
+    // menus.reverse();
     let menus_json =[]
     for( let i in menus){
         let menu = menus[i];

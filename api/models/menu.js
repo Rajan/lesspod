@@ -62,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
 	};
 	MenuPage.sync({force: false});
 	UserMenu.sync({force: false});
-	Menu.sync({force: true});
+	Menu.sync({force: false});
 	return Menu;
 
 }

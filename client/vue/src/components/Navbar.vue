@@ -58,11 +58,11 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a :href="linkedMenu(menuItem)" class="navbar-link">{{menuItem}}
+					<a :href="linkedMenu(menuItem.name)" class="navbar-link">{{menuItem.name}}
 						<div class="navbar-dropdown is-right" v-if="isLoggedIn()">
-							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem)" v-if="isLoggedIn()">
+							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)" v-if="isLoggedIn()">
 								<div>
-									{{cleanedSubmenu(menu1)}}
+									{{cleanedSubmenu(menu1.name)}}
 								</div>
 							</a>
 							<!-- <a class="navbar-item" @click="deleteMenu(menuItem)" v-if="isLoggedIn()">
@@ -132,7 +132,7 @@ import NewMenuModal from '@/components/NewMenuModal';
 export default {
 	data(){
 		return {
-			menus: ['Blog', 'Blog -> Add Post', 'Blog -> View All', 'About Us'],
+			menus: [{'name': 'Blog'}, {'name': 'Blog -> Add Post'}, {'name': 'Blog -> View All'}, {'name': 'About Us'}],
 			showModal: false,
 			newMenuName: ''
 		}
@@ -141,7 +141,9 @@ export default {
 
 		topLevelMenus: function() {
 			return this.menus.filter(function (menu) {
-				return !(menu.indexOf('-') !== -1)
+				if(menu.name !== null && menu.name !== undefined){
+					return !(menu.name.indexOf('-') !== -1)
+				}
 				// return true;
 			});
 		}
@@ -154,11 +156,42 @@ export default {
 		NewMenuModal
 	},
 	beforeMount() {
-		this.initAuth();
+		axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+		this.initNavbar();
 	},
 	methods: {
-		initAuth: function() {
-			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+		initNavbar: function() {
+			
+			console.log('fetching menus...');
+			var vm = this;
+
+			axios.get('/v1/menus', {})
+			.then(function (response){
+
+							// console.log(response);
+
+							let menus1 = response.data.menus;
+
+							for(var i in menus1){
+
+								console.log(menus1[i].title);
+							}
+							if(menus1.length > 0){
+								vm.menus = menus1;
+							}else{
+								console.log(menus1);
+							}
+							// renderPosts();
+						})
+			.catch(function (error){
+				console.log(error);
+				// if error is 401 unauthorize, logout the user.
+
+				if(error.toString().indexOf('401') !== -1){
+					console.log('Logging you out...')
+					// vm.logout();
+				}
+			});
 		},
 		isLoggedIn: function() {
 			if(Cookies.get('token').length){
@@ -193,10 +226,12 @@ export default {
 			let dashed = menuItem.split(' ').join('-');
 			return '/' + dashed.toLowerCase();
 		},
-		subMenusOf: function(menuItem) {
+		subMenusOf: function(menuName) {
 			return this.menus.filter(function (menu) {
 				// return !(menu.indexOf('-') !== -1)
-				return (menu.startsWith(menuItem)) && (menu !== menuItem)
+				if(menu.name !== null && menu.name !== undefined){
+					return (menu.name.startsWith(menuName)) && (menu.name !== menuName)
+				}
 				// return true;
 			});
 		},

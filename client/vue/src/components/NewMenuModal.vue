@@ -77,21 +77,22 @@ module.exports = {
 			vm.menuOptions = ['None'];
 			for(var i=0; i< event.params.menus.length; i++){
 				console.log('event.params.menus[i]= ' + event.params.menus[i]);
-				vm.menuOptions.push(event.params.menus[i]);
+				vm.menuOptions.push(event.params.menus[i].name);
 			}
 		},
 		addMenu: function(newMenu) {
 			console.log('new menu in NewMenuModal: ' + newMenu);
 
 
-			if(this.underMenuName === 'None' || this.linkedURL === '') {
-				this.$emit('new-menu-added', newMenu);
+			if(this.underMenuName === 'None') {
+				this.$emit('new-menu-added', newMenu + ',' + this.linkedURL);
 			} else {
 				this.$emit('new-menu-added',this.underMenuName + '->' + newMenu + ',' + this.linkedURL);
 			}
+			
+			this.$modal.hide('new-menu-modal');
 			this.newMenuName = '';
 			this.linkedURL = '';
-			this.$modal.hide('new-menu-modal');
 			// this.menus.push(newMenu);
 			// console.log('vm.$data' + this.$data.toString());
 
