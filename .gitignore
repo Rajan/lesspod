@@ -64,3 +64,6 @@ design/.cache
 # dist
 dist
 design/dist
+
+#misc
+.DS_Store
