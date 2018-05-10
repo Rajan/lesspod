@@ -1,6 +1,6 @@
 {
   "name": "Lesspod",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "serverless blogging engine",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "ejs": "^2.5.9",
     "express": "^4.16.3",
     "faker": "^4.1.0",
-    "font-awesome": "^5.0",
+    "font-awesome": "^4.7.0",
     "js-cookie": "^2.2.0",
     "moment": "^2.22.1",
     "morgan": "^1.9.0",
