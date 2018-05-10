@@ -48,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	Menu.associate = function(models){
-		this.Users = this.belongsToOne(models.User, {through: 'UserMenu'});
-		this.Page = this.belongsToOne(models.Page, {through: 'MenuPage'});
+		this.Users = this.belongsToMany(models.User, {through: 'UserMenu'});
+		this.Page = this.belongsToMany(models.Page, {through: 'MenuPage'});
 	};
 
 	Menu.prototype.toWeb = function (pw) {

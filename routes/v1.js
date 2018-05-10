@@ -4,6 +4,8 @@ const router 			= express.Router();
 const UserController 	= require('./../api/controllers/UserController');
 const PostController = require('./../api/controllers/PostController');
 const TagController = require('./../api/controllers/TagController');
+const MenuController = require('./../api/controllers/MenuController');
+const PageController = require('./../api/controllers/PageController');
 const CompanyController = require('./../api/controllers/CompanyController');
 const HomeController 	= require('./../api/controllers/HomeController');
 
@@ -32,6 +34,21 @@ router.get(     '/posts',             passport.authenticate('jwt', {session:fals
 router.get(     '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.get);     // R
 router.put(     '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.update);  // U
 router.delete(  '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.remove);  // D
+
+
+router.post(    '/menus',             passport.authenticate('jwt', {session:false}), MenuController.create);                  // C
+router.get(     '/menus',             passport.authenticate('jwt', {session:false}), MenuController.getAll);                  // R
+
+router.get(     '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.get);     // R
+router.put(     '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.update);  // U
+router.delete(  '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.remove);  // D
+
+router.post(    '/pages',             passport.authenticate('jwt', {session:false}), PageController.create);                  // C
+router.get(     '/pages',             passport.authenticate('jwt', {session:false}), PageController.getAll);                  // R
+
+router.get(     '/pages/:page_id', passport.authenticate('jwt', {session:false}), custom.page, PageController.get);     // R
+router.put(     '/pages/:page_id', passport.authenticate('jwt', {session:false}), custom.page, PageController.update);  // U
+router.delete(  '/pages/:page_id', passport.authenticate('jwt', {session:false}), custom.page, PageController.remove);  // D
 
 router.post(    '/tags',             passport.authenticate('jwt', {session:false}), TagController.create);                  // C
 router.get(     '/tags',             passport.authenticate('jwt', {session:false}), TagController.getAll);                  // R

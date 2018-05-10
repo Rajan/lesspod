@@ -55,3 +55,39 @@ let tag = async function (req, res, next) {
     next();
 }
 module.exports.tag = tag;
+
+
+const Menu = Models.Menu;
+
+let menu = async function (req, res, next) {
+    let menu_id, err, post;
+    post_id = req.params.menu_id;
+    console.log('finding menu_id...' + req.params.menu_id);
+    [err, menu] = await to(Menu.findOne({where: {id: menu_id}}));
+    if(err) return ReE(res,"err finding menu");
+
+    if(!menu) return ReE(res, "Menu not found with id: " + menu_id);
+    let user, users_array;
+    user = req.user;
+
+    req.menu = menu;
+    next();
+}
+module.exports.menu = menu;
+
+const Page               = require('./../models/page');
+
+let page = async function (req, res, next) {
+    let page_id, err, page;
+    page_id = req.params.page_id;
+
+    [err, page] = await to(Page.findOne({_id: page_id}));
+    if(err) return ReE(res,"err finding page");
+
+    if(!page) return ReE(res, "Page not found with id: " + page_id);
+    let user, users_array;
+    user = req.user;
+    req.page = page;
+    next();
+}
+module.exports.page = page;

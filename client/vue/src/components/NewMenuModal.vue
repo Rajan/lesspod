@@ -37,6 +37,7 @@
 			</section>
 			<footer class="modal-card-foot">
 				<button class="button is-success" @click="addMenu(newMenuName)">Add Menu</button>
+				<button class="button is-info">Menu Manager</button>
 				<button class="button" @click="closeMenu();">Cancel</button>
 			</footer>
 		</div>
