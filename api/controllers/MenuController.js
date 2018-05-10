@@ -42,15 +42,7 @@ const getAll = async function(req, res){
     let menus_json =[]
     for( let i in menus){
         let menu = menus[i];
-        // let users =  menu.Users;
         let menu_info = menu.toWeb();
-        // let users_info = [];
-        // for (let i in users){
-        //     let user = users[i];
-        //     // let user_info = user.toJSON();
-        //     users_info.push({user:user.id});
-        // }
-        // menu_info.users = users_info;
         menus_json.push(menu_info);
     }
 

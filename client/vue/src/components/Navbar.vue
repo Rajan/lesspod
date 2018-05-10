@@ -65,7 +65,7 @@
 									<a v-bind:href="properURL(menu1.linkedURL)" target="_blank">{{cleanedSubmenu(menu1.name)}}</a>
 								</div>
 								<div v-else>
-									{{cleanedSubmenu(menu1.name)}}
+									<a v-bind:href="linkedMenu(menu1)" target="_blank">{{cleanedSubmenu(menu1.name)}}</a>
 								</div>
 							</a>
 						</div>
@@ -222,9 +222,18 @@ export default {
 				return this.properURL(menuItem.linkedURL);
 				
 			} else {
+				let arrowPos = menuItem.name.indexOf('->');
+				if(arrowPos > 0)
+				{
+					let finalMenu = menuItem.name.substring(arrowPos + 2);
 
-				let dashed = menuItem.name.split(' ').join('-');
-				return '/' + dashed.toLowerCase();
+					let dashed = finalMenu.split(' ').join('-');
+					return '/' + dashed.toLowerCase();
+				}else{
+					console.log('menuItem.name: ' + menuItem.name);
+					let dashed = menuItem.name.trim().split(' ').join('-');
+					return '/' + dashed.toLowerCase();
+				}
 			}
 		},
 		subMenusOf: function(menuName) {
