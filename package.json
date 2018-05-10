@@ -1,6 +1,6 @@
 {
   "name": "Lesspod",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "serverless blogging engine",
   "main": "index.js",
   "scripts": {
