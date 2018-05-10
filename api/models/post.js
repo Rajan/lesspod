@@ -3,10 +3,9 @@ module.exports = (sequelize, DataTypes) => {
 
 	var UserPost = sequelize.define('UserPost', {
 		id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true
+            type: DataTypes.UUID,
+            primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
         },
 		UserId: {
             type: DataTypes.INTEGER,
@@ -20,10 +19,9 @@ module.exports = (sequelize, DataTypes) => {
 
 	var PostTag = sequelize.define('PostTag', {
 		id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true
+            type: DataTypes.UUID,
+            primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
         },
 		PostId: {
             type: DataTypes.INTEGER,
@@ -37,10 +35,9 @@ module.exports = (sequelize, DataTypes) => {
 
 	var Post = sequelize.define('Post', {
 		id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true
+            type: DataTypes.UUID,
+            primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
         },
 		title: { type: DataTypes.STRING, allowNull: false },
 		content: { type: DataTypes.TEXT, allowNull: false },

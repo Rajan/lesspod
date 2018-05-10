@@ -2,11 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
 	var Tag = sequelize.define('Tag', {
 		id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true
-        },
+			type: DataTypes.UUID,
+			primaryKey: true,
+			defaultValue: DataTypes.UUIDV4
+		},
 		name: { type: DataTypes.STRING, allowNull: false, unique: false },
 		postId: { type: DataTypes.STRING, allowNull: false, unique: false },
 		userId: { type: DataTypes.STRING, allowNull: false, unique: false },

@@ -9,12 +9,18 @@ const create = async function(req, res){
 
 
     [err, menu] = await to(Menu.create(menu_info));
-    if(err) return ReE(res, err, 422);
+    if(err) {
+        console.log(err);
+        return ReE(res, err, 422);
+    }
 
     menu.addUser(user, { through: { status: 'menu-added' }})
 
     [err, menu] = await to(menu.save());
-    if(err) return ReE(res, err, 422);
+    if(err) {
+        console.log(err);
+        return ReE(res, err, 422);
+    }
 
     let menu_json = menu.toWeb();
     menu_json.users = [{user:user.id}];

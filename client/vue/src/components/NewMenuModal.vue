@@ -17,6 +17,12 @@
 							</div>
 						</div>
 						<div class="field">
+							<label class="label">Linked URL</label>
+							<div class="control">
+								<input class="input" v-model="linkedURL" type="text" placeholder="http://www.example.com">
+							</div>
+						</div>
+						<div class="field">
 							<label class="label">Under Menu</label>
 							<div class="control">
 								<div class="select is-primary">
@@ -50,6 +56,7 @@ module.exports = {
 			showModal: false,
 			menuOptions: ['None', 'Some'],
 			newMenuName: '',
+			linkedURL: '',
 			underMenuName: 'None'
 		}
 	},
@@ -77,12 +84,13 @@ module.exports = {
 			console.log('new menu in NewMenuModal: ' + newMenu);
 
 
-			if(this.underMenuName === 'None') {
+			if(this.underMenuName === 'None' || this.linkedURL === '') {
 				this.$emit('new-menu-added', newMenu);
 			} else {
-				this.$emit('new-menu-added',this.underMenuName + '->' + newMenu);
+				this.$emit('new-menu-added',this.underMenuName + '->' + newMenu + ',' + this.linkedURL);
 			}
 			this.newMenuName = '';
+			this.linkedURL = '';
 			this.$modal.hide('new-menu-modal');
 			// this.menus.push(newMenu);
 			// console.log('vm.$data' + this.$data.toString());

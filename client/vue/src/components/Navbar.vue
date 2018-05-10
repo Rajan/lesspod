@@ -65,14 +65,14 @@
 									{{cleanedSubmenu(menu1)}}
 								</div>
 							</a>
-							<a class="navbar-item" @click="deleteMenu(menuItem)" v-if="isLoggedIn()">
+							<!-- <a class="navbar-item" @click="deleteMenu(menuItem)" v-if="isLoggedIn()">
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-trash"></i>
 									</span>
 									Delete
 								</div>
-							</a>
+							</a> <-->
 						</div>
 					</a>    
 					<!-- class="navbar-link" -->
@@ -153,7 +153,13 @@ export default {
 	components: {
 		NewMenuModal
 	},
+	beforeMount() {
+		this.initAuth();
+	},
 	methods: {
+		initAuth: function() {
+			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+		},
 		isLoggedIn: function() {
 			if(Cookies.get('token').length){
 				return true;
@@ -200,9 +206,28 @@ export default {
 		},
 		newMenuAdded: function(newMenu) {
 			console.log('new menu in Navbar: ' + newMenu);
-			this.menus.push(newMenu);
+			var result = newMenu.split(',');
+			this.menus.push(result[0]);
+			// result[1] will contain the linked url.
 			// console.log('vm.$data' + this.$data.toString());
 
+			// axios create menu via the api
+			if(result[0].length) {
+				
+				axios.post('/v1/menus', {
+					"name" : result[0],
+					"linkedURL" : result[1]
+				})
+				.then(function (response) {
+					console.log(response);
+					console.log('Menu Id is ' + response.data.menu.id.toString());
+					// document.getElementById('menuId').value = response.data.menu.id.toString();
+					Cookies.set("menu", response.data.menu);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+			}
 		},
 		logout: function() {
 			Cookies.set('token', '');
