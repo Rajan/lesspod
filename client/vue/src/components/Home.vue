@@ -10,12 +10,12 @@
 		</div>
 		<div class="container">
 			<div class="columns is-centered is-multiline">
-				<div class="column is-two-thirds">
+				<!-- <div class="column is-two-thirds">
 					<h1 class="title">All Menus</h1>
 				</div>
 				<div class="column is-two-thirds">
 					No Menu Items have been added yet.
-				</div>
+				</div> -->
 				<div class="column is-two-thirds">
 					<h1 class="title">All Posts by Alex Johnson</h1>
 				</div>
