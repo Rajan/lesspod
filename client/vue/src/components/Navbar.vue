@@ -218,12 +218,13 @@ export default {
 			// console.log(event.params.menus);
 		},
 		linkedMenu: function (menuItem) {
-			if(menuItem.linkedURL && !menuItem.linkedURL.length){
-				let dashed = menuItem.name.split(' ').join('-');
-				return '/' + dashed.toLowerCase();
+			if(menuItem.linkedURL && menuItem.linkedURL.trim().length){
+				return this.properURL(menuItem.linkedURL);
+				
 			} else {
 
-				return this.properURL(menuItem.linkedURL);
+				let dashed = menuItem.name.split(' ').join('-');
+				return '/' + dashed.toLowerCase();
 			}
 		},
 		subMenusOf: function(menuName) {
