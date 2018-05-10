@@ -58,21 +58,16 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a :href="linkedMenu(menuItem.name)" class="navbar-link">{{menuItem.name}}
-						<div class="navbar-dropdown is-right">
+					<a :href="linkedMenu(menuItem)" class="navbar-link">{{menuItem.name}}
+						<div class="navbar-dropdown is-right" v-if="subMenusOf(menuItem.name).length">
 							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)">
-								<div>
+								<div v-if="menu1.linkedURL.length">
+									<a v-bind:href="properURL(menu1.linkedURL)" target="_blank">{{cleanedSubmenu(menu1.name)}}</a>
+								</div>
+								<div v-else>
 									{{cleanedSubmenu(menu1.name)}}
 								</div>
 							</a>
-							<!-- <a class="navbar-item" @click="deleteMenu(menuItem)" v-if="isLoggedIn()">
-								<div>
-									<span class="icon is-small">
-										<i class="fa fa-trash"></i>
-									</span>
-									Delete
-								</div>
-							</a> <-->
 						</div>
 					</a>    
 					<!-- class="navbar-link" -->
@@ -132,7 +127,7 @@ import NewMenuModal from '@/components/NewMenuModal';
 export default {
 	data(){
 		return {
-			menus: [{'name': 'Blog'}, {'name': 'Blog -> Add Post'}, {'name': 'Blog -> View All'}, {'name': 'About Us'}],
+			menus: [{'name': 'Blog'}, {'name': 'About Us'}],
 			showModal: false,
 			newMenuName: ''
 		}
@@ -223,8 +218,13 @@ export default {
 			// console.log(event.params.menus);
 		},
 		linkedMenu: function (menuItem) {
-			let dashed = menuItem.split(' ').join('-');
-			return '/' + dashed.toLowerCase();
+			if(menuItem.linkedURL && !menuItem.linkedURL.length){
+				let dashed = menuItem.name.split(' ').join('-');
+				return '/' + dashed.toLowerCase();
+			} else {
+
+				return this.properURL(menuItem.linkedURL);
+			}
 		},
 		subMenusOf: function(menuName) {
 			console.log('subMenusOf 1: ' + menuName);
@@ -240,6 +240,11 @@ export default {
 		cleanedSubmenu: function(menu1) {
 			let arrowPos = menu1.indexOf('->');
 			return menu1.substring(arrowPos + 2);
+		},
+		properURL: function(url) {
+			if(url && url.indexOf('http') === -1) {
+				return 'http://' + url;
+			}
 		},
 		newMenuAdded: function(newMenu) {
 			console.log('new menu in Navbar: ' + newMenu);
