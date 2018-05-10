@@ -26,6 +26,8 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 ## Contributing To Lesspod
 
+Key software versions. Node: 10.0.0 and NPM: 6.0.0
+
 Running the serverless (server) component: http://localhost:1234/
 
 ```
