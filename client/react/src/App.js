@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
-import Header from './components/common/Header/Header';
-import './App.css';
+import 'sanitize.css';
+import 'bulma/css/bulma.css';
+import './styles/common.css';
+
+import Routes from './config/Routes';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Routes />
       </div>
     );
   }
