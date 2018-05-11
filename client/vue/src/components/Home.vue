@@ -295,7 +295,7 @@ export default {
 			});
 			let user = Cookies.getJSON('user');
 			this.fullName = user.first + ' ' + user.last;
-			console.log(user.first + ' ' + user.last);
+			// console.log(user.first + ' ' + user.last);
 		},
 		editPost: function(index) {
 			var vm = this;

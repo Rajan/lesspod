@@ -127,7 +127,7 @@ import NewMenuModal from '@/components/NewMenuModal';
 export default {
 	data(){
 		return {
-			menus: [{'name': 'Blog'}, {'name': 'About Us'}],
+			menus: [{'name': 'Blog'}],
 			showModal: false,
 			newMenuName: '',
 			fullName: 'Alex Johnson'
@@ -190,7 +190,7 @@ export default {
 			});
 			let user = Cookies.getJSON('user');
 			this.fullName = user.first + ' ' + user.last;
-			console.log(user.first + ' ' + user.last);
+			// console.log(user.first + ' ' + user.last);
 		},
 		isLoggedIn: function() {
 			if(Cookies.get('token') && Cookies.get('token').length){
