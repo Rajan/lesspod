@@ -6,7 +6,11 @@
 					<div class="column is-5-tablet is-4-desktop is-4-widescreen">
 						<form class="box">
 							<div class="field has-text-centered">
-								<img src="../assets/images/logo-bis.png" width="167">
+								<!-- <img src="../assets/images/logo-bis.png" width="167"> -->
+								<img src="./../assets/images/icon.png" style="width:5rem;height: 5rem;"><br>
+								<a href="#" @click="logoClick"><img src="./../assets/images/type.png"></a>
+								<br>
+								<small>Serverless Blogging Engine</small>
 							</div>
 							<div class="field">
 								<label class="label">Email</label>

@@ -12,3 +12,9 @@
 #editor {
 	background: white;
 }
+.navbar-brand{
+	height: 100%;
+}
+.navbar-brand.navbar-item {
+	padding: 0;
+}
