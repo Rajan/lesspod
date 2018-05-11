@@ -17,7 +17,7 @@
 					No Menu Items have been added yet.
 				</div> -->
 				<div class="column is-two-thirds">
-					<h1 class="title">All Posts by Alex Johnson</h1>
+					<h1 class="title">All Posts by {{ fullName }}</h1>
 				</div>
 				<div class="column is-two-thirds">
 					<nav class="level">
@@ -123,6 +123,7 @@ export default {
 	data(){
 		return {
 			query: '',
+			fullName: '',
 			posts: [
 			{
 				"id": 4,
@@ -265,7 +266,7 @@ export default {
 			console.log('new post');
 		},
 		fetchData: function() {
-			console.log('fetching data...');
+			// console.log('fetching data...');
 			var vm = this;
 			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
 
@@ -278,7 +279,7 @@ export default {
 
 							for(var i in posts1){
 
-								console.log(posts1[i].title);
+								// console.log(posts1[i].title);
 							}
 							vm.posts = posts1;
 							// renderPosts();
@@ -292,6 +293,9 @@ export default {
 					vm.logout();
 				}
 			});
+			let user = Cookies.getJSON('user');
+			this.fullName = user.first + ' ' + user.last;
+			console.log(user.first + ' ' + user.last);
 		},
 		editPost: function(index) {
 			var vm = this;

@@ -79,7 +79,7 @@
 
 				<div class="navbar-item has-dropdown is-hoverable"  v-if="isLoggedIn()">
 					<div class="navbar-link">
-						Alex Johnson
+						{{ fullName }}
 					</div>
 					<div class="navbar-dropdown is-right">
 						<a class="navbar-item">
@@ -129,7 +129,8 @@ export default {
 		return {
 			menus: [{'name': 'Blog'}, {'name': 'About Us'}],
 			showModal: false,
-			newMenuName: ''
+			newMenuName: '',
+			fullName: 'Alex Johnson'
 		}
 	},
 	computed: {
@@ -157,7 +158,7 @@ export default {
 	methods: {
 		initNavbar: function() {
 			
-			console.log('fetching menus...');
+			// console.log('fetching menus...');
 			var vm = this;
 
 			axios.get('/v1/menus', {})
@@ -169,24 +170,27 @@ export default {
 
 							for(var i in menus1){
 
-								console.log(menus1[i].name);
+								// console.log(menus1[i].name);
 							}
 							if(menus1.length > 0){
 								vm.menus = vm.menus.concat(menus1);
 							}else{
-								console.log(menus1);
+								// console.log(menus1);
 							}
 							// renderPosts();
 						})
 			.catch(function (error){
-				console.log(error);
+				// console.log(error);
 				// if error is 401 unauthorize, logout the user.
 
 				if(error.toString().indexOf('401') !== -1){
-					console.log('Logging you out...')
+					// console.log('Logging you out...')
 					// vm.logout();
 				}
 			});
+			let user = Cookies.getJSON('user');
+			this.fullName = user.first + ' ' + user.last;
+			console.log(user.first + ' ' + user.last);
 		},
 		isLoggedIn: function() {
 			if(Cookies.get('token') && Cookies.get('token').length){
@@ -198,7 +202,7 @@ export default {
 		logoClick: function() {
 			if(Cookies.get("token").length) {
 
-				console.log(Cookies.get("token"));
+				// console.log(Cookies.get("token"));
 				window.location.href = '../home';
 
 			} else {
@@ -207,7 +211,7 @@ export default {
 			}
 		},
 		newMenu: function() {
-			console.log('creating new menu...');
+			// console.log('creating new menu...');
 			this.$modal.show('new-menu-modal', {menus: this.topLevelMenus}, {});
 			// this.menus.push('NewM');
 		},
@@ -230,17 +234,16 @@ export default {
 					let dashed = finalMenu.split(' ').join('-');
 					return '/' + dashed.toLowerCase();
 				}else{
-					console.log('menuItem.name: ' + menuItem.name);
+					// console.log('menuItem.name: ' + menuItem.name);
 					let dashed = menuItem.name.trim().split(' ').join('-');
 					return '/' + dashed.toLowerCase();
 				}
 			}
 		},
 		subMenusOf: function(menuName) {
-			console.log('subMenusOf 1: ' + menuName);
+			// console.log('subMenusOf 1: ' + menuName);
 			return this.menus.filter(function (menu) {
-				// return !(menu.indexOf('-') !== -1)
-				console.log('subMenusOf 2: ' + menuName);
+				// console.log('subMenusOf 2: ' + menuName);
 				if(menu.name !== null && menu.name !== undefined){
 					return (menu.name.startsWith(menuName)) && (menu.name !== menuName)
 				}
@@ -257,7 +260,7 @@ export default {
 			}
 		},
 		newMenuAdded: function(newMenu) {
-			console.log('new menu in Navbar: ' + newMenu);
+			// console.log('new menu in Navbar: ' + newMenu);
 			var result = newMenu.split(',');
 			this.menus.push(result[0]);
 			// result[1] will contain the linked url.
@@ -271,10 +274,11 @@ export default {
 					"linkedURL" : result[1]
 				})
 				.then(function (response) {
-					console.log(response);
-					console.log('Menu Id is ' + response.data.menu.id.toString());
+					// console.log(response);
+					// console.log('Menu Id is ' + response.data.menu.id.toString());
 					// document.getElementById('menuId').value = response.data.menu.id.toString();
 					Cookies.set("menu", response.data.menu);
+					location.reload();
 				})
 				.catch(function (error) {
 					console.log(error);

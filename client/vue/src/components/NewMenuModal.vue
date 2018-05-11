@@ -61,7 +61,7 @@ module.exports = {
 		}
 	},
 	mounted() {
-		console.log('mounted in NewMenuModal' + this.menus);
+		// console.log('mounted in NewMenuModal' + this.menus);
 	},
 	methods: {
 		showDialog: function() {
