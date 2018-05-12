@@ -100,6 +100,7 @@ app.get('/logout', (req, res) => {
 app.get('/register', (req, res) => {
 
 	res.render('register.ejs', {});
+	return res.redirect('login');
 
 });
 

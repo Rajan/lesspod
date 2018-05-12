@@ -33,7 +33,7 @@ Running the serverless (server) component: http://localhost:1234/
 ```
 $ git clone https://github.com/Rajan/lesspod.git   //clone repo
 $ cd lesspod  //move to project directory
-$ npm install //install necessary packages 
+$ npm install //install necessary packages
 $ node -r dotenv/config index.js //setup environment variables
 ```
 Note: some npm modules may need to be installed manually.
@@ -43,6 +43,7 @@ parcel index.js // not yet working
 Running the vuejs client in another commandline window: http://localhost:8080
 ```
 $ cd client
+$ cd vue
 $ npm install
 $ npm run dev
 ```
@@ -74,9 +75,9 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] Page views tracking and reporting
 - [ ] React client for Lesspod (Sai is on it)
 - [ ] Theming System Design/Dev
-- [ ] Plugin System Design/Dev 
-- [ ] More Themes 
-- [ ] Theme Generator Basic 
+- [ ] Plugin System Design/Dev
+- [ ] More Themes
+- [ ] Theme Generator Basic
 
 ### Longterm Feature Goals
 
