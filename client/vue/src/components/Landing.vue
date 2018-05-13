@@ -1,5 +1,7 @@
 <template>
-<img src = "../assets/images/landing.jpg">
+<div class="imgwrapper">
+	<img src = "../assets/images/landing.jpg" class = "img-responsive">
+</div>
 </template>
 <script type="text/javascript">
 module.exports = {
@@ -15,10 +17,10 @@ module.exports = {
 		font-size: 30px;
 
 	}
-	img {
-		height: 600px;
-		width: 100%;
-		border-radius: 10px;
-		border-left: 10px
-	}
+
+.img-responsive {
+	width: 100%;
+	height: 600px;
+}
+
 </style>
