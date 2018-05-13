@@ -28,7 +28,7 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 
 Key software versions. Node: 10.0.0 and NPM: 6.0.0
 
-Running the serverless (server) component: http://localhost:1234/
+#### Running the serverless (server) component: http://localhost:1234/
 
 ```
 $ git clone https://github.com/Rajan/lesspod.git   //clone repo
@@ -40,20 +40,20 @@ Note: some npm modules may need to be installed manually.
 
 parcel index.js // not yet working
 
-Running the vuejs client in another commandline window: http://localhost:8080
+#### Running the vuejs client in another commandline window: http://localhost:8080
 
 ```
-$ cd client
+$ cd client/vue
 $ npm install
 $ npm run dev
 ```
 
-Running the React client in another commandline window: (replace with url)
+##### Running the React client in another commandline window: (http://localhost:3000)
 
 ```
-
-Instructions to run the react client here.
-
+$ cd client/react
+$ npm install
+$ npm start
 ```
 
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
