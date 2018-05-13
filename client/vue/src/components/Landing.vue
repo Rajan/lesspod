@@ -1,14 +1,5 @@
 <template>
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered is-multiline">
-			<div class="column is-two-thirds">
-				This is a landing page
-				<a href="/login">Login</a> Or <a href="/register">Create Account</a>
-			</div>
-		</div>
-	</div>
-</section>
+<h1>Landing page coming soon</h1>
 </template>
 <script type="text/javascript">
 module.exports = {
@@ -17,3 +8,11 @@ module.exports = {
 	}
 };
 </script>
+
+<style media="screen">
+	h1 {
+		text-align: center;
+		font-size: 30px;
+		
+	}
+</style>
