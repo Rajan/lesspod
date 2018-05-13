@@ -48,7 +48,7 @@ $ npm install
 $ npm run dev
 ```
 
-##### Running the React client in another commandline window: (http://localhost:3000)
+#### Running the React client in another commandline window: (http://localhost:3000)
 
 ```
 $ cd client/react
