@@ -48,6 +48,11 @@ export default new Router({
       path: '/posts',
       name: 'Posts',
       component: Posts
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      component: Posts
     }
   ]
 })

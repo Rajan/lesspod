@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="columns is-centered is-multiline">
 				<div class="column is-two-thirds">
-					<h1 class="title">All Posts by Alex Johnson</h1>
+					<h1 class="title">All Blog Posts</h1>
 				</div>
 				<div class="column is-two-thirds">
 					<nav class="level">
@@ -47,6 +47,27 @@
 						</div>
 					</nav>
 					<div class="columns is-multiline">
+						<div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#"  @click="editPost(index)" :id="post.id">{{post.title}}</a>
+										</p>
+										<div class="content is-small">
+											{{
+												new Date(post.createdAt) | moment('MMMM D, YYYY')
+											}}
+											<br>
+											<a href="#" @click="editPost(index)">Edit</a>
+											<span>·</span>
+											<a href="#" @click="deletePost(index)">Delete</a>
+											<p></p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
 						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
 							<article class="box">
 								<div class="media">
@@ -63,7 +84,8 @@
 											<p></p>
 										</div>
 									</div>
-								</div></article>
+								</div>
+							</article>
 							</div>
 
 							<div class="column is-12-tablet is-6-desktop is-4-widescreen">
@@ -195,10 +217,106 @@
 							</div>
 						</section>
 					</template>
-					<script type="text/javascript">
-					module.exports = {
-						data(){
-							return {}
-						}
-					}
-					</script>
+<script type="text/javascript">
+	export default {
+	// props: ["posts"],
+	data(){
+		return {
+			query: '',
+			fullName: '',
+			posts: []
+		};
+	},
+	created: function() {
+
+		this.fetchData();
+
+		// this.$nextTick(function () {
+
+		// });
+	},
+	computed:{
+		filteredPosts: function () {
+			var query = this.query;
+			return this.posts.filter(function (post) {
+				return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
+				(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
+			});	
+		}
+	},
+	methods: {
+		newPost: function() {
+			console.log('new post');
+		},
+		fetchData: function() {
+			// console.log('fetching data...');
+			var vm = this;
+			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+
+			axios.get('/v1/posts', {})
+			.then(function (response){
+
+							// console.log(response);
+
+							let posts1 = response.data.posts;
+
+							for(var i in posts1){
+
+								// console.log(posts1[i].title);
+							}
+							vm.posts = posts1;
+							// renderPosts();
+						})
+			.catch(function (error){
+				console.log(error);
+				// if error is 401 unauthorize, logout the user.
+
+				if(error.toString().indexOf('401') !== -1){
+					console.log('Logging you out...')
+					vm.logout();
+				}
+			});
+			let user = Cookies.getJSON('user');
+			this.fullName = user.first + ' ' + user.last;
+			// console.log(user.first + ' ' + user.last);
+		},
+		editPost: function(index) {
+			var vm = this;
+			let post = vm.posts[index];
+			console.log('Editing... ' + JSON.stringify(post));
+			Cookies.set("editpost", JSON.stringify(post));
+			window.location.href = '../editpost/' + post.id.toString();
+		},
+		deletePost: function(index) {
+			var vm = this;
+			let post = vm.posts[index];
+			
+			console.log('Deleting... ' + JSON.stringify(post));
+			axios.delete('/v1/posts/' + post.id, 
+			{
+				'post_id': post.id,
+				'post': post
+			})
+			.then(function (response){
+				let post1 = response.data.post;
+				console.log('Deleted... ' + JSON.stringify(response));
+				vm.posts.splice(index, 1);
+			})
+			.catch(function (error) {
+				console.log(error);
+				// if error is 401 unauthorize, logout the user.
+
+				if(error.toString().indexOf('401') !== -1){
+					vm.logout();
+				}
+			});
+		},
+		logout: function() {
+			Cookies.set('token', '');
+			Cookies.set('user', '');
+			window.location.href = '../';
+		}
+	}
+	
+}
+</script>
