@@ -21,7 +21,7 @@
 					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
 					</a><br><br><br>
-					<input-tag :tags.sync="tagsArray"></input-tag>
+					<input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag>
 					<br><br>
 					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
 				</div>
@@ -39,8 +39,15 @@ module.exports = {
 			id: '',
 			title: '',
 			editor: '<br><br><br>',
-			tagsArray: ['Lesspod', 'Serverless', 'Blogging', 'Websites']
+			tagsArray: []
 
+		}
+	},
+	watch: {
+		tagsArray: function() {
+			// save updated values
+			console.log('new tags: ' + this.tagsArray);
+			this.savePost();
 		}
 	},
 	beforeMount() {
@@ -54,6 +61,7 @@ module.exports = {
 			this.id = post.id;
 			this.title = post.title;
 			this.editor = post.content;
+			this.tagsArray = post.tags.toString().split(",");
 		},
 		savePost: function() {
 			var vm = this;
@@ -66,7 +74,8 @@ module.exports = {
 				axios.put('/v1/posts/' + vm.id, {
 					"id" : vm.id, 
 					"title" : title.toString(),
-					"content" : content.toString()
+					"content" : content.toString(),
+					"tags" : this.tagsArray.toString()
 				})
 				.then(function (response) {
 					console.log(response);

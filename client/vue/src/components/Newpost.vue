@@ -18,11 +18,11 @@
 					<quill v-model="editor" :config="config" style="background: white;" output="html"/>
 
 					<br>
-
+					
 					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
 					</a><br><br><br>
-					<input-tag :tags.sync="tagsArray"></input-tag>
+					<input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag>
 					<br><br>
 					<input type="hidden" name="postId" id="postId" value="" />
 				</div>
@@ -53,7 +53,7 @@ module.exports = {
 			config: {
 				theme: 'snow'
 			},
-			tagsArray: ['Lesspod', 'Serverless', 'Blog Engine']
+			tagsArray: []
 		}
 	},
 	beforeMount() {
@@ -74,7 +74,8 @@ module.exports = {
 				
 				axios.post('/v1/posts', {
 					"title" : title.toString(),
-					"content" : content.toString()
+					"content" : content.toString(),
+					"tags" : this.tagsArray.toString()
 				})
 				.then(function (response) {
 					console.log(response);
