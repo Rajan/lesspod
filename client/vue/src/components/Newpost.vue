@@ -22,10 +22,8 @@
 					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
 					</a><br><br><br>
-					<input class="input" id="tag" type="text" placeholder="Add Tag"><br><br>
-					<a href="#" class="button is-primary" @click="addTag">
-						Add Tag
-					</a><br><br>
+					<input-tag :tags.sync="tagsArray"></input-tag>
+					<br><br>
 					<input type="hidden" name="postId" id="postId" value="" />
 				</div>
 
@@ -54,7 +52,8 @@ module.exports = {
 			editor: '<br><br><br><br><br>',
 			config: {
 				theme: 'snow'
-			}
+			},
+			tagsArray: ['Lesspod', 'Serverless', 'Blog Engine']
 		}
 	},
 	beforeMount() {
