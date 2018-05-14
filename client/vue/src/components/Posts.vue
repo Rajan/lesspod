@@ -273,7 +273,7 @@
 
 				if(error.toString().indexOf('401') !== -1){
 					console.log('Logging you out...')
-					vm.logout();
+					// vm.logout();
 				}
 			});
 			let user = Cookies.getJSON('user');

@@ -58,7 +58,7 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a :href="linkedMenu(menuItem)" class="navbar-link">{{menuItem.name}}
+					<a :href="linkedMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name}}
 						<div class="navbar-dropdown is-right" v-if="subMenusOf(menuItem.name).length">
 							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)">
 								<div v-if="menu1.linkedURL.length">
@@ -249,6 +249,17 @@ export default {
 				}
 				// return true;
 			});
+		},
+		bindClass: function(menuItem) {
+			if(this.subMenusOf(menuItem.name).length){
+
+				return 'navbar-link';
+
+			}else { 
+
+				return ''; 
+			}
+			
 		},
 		cleanedSubmenu: function(menu1) {
 			let arrowPos = menu1.indexOf('->');
