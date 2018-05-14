@@ -11,16 +11,16 @@
 <script>
 import Navbar from '@/components/Navbar'
 import NewMenuModal from '@/components/NewMenuModal'
-
+import Landing from '@/components/Landing'
 export default {
   data() {
     return {
 
     }
   },
-  name: 'App',  
+  name: 'App',
   components: {
-    Navbar, NewMenuModal
+    Navbar, NewMenuModal, Landing
   },
   methods: {
 

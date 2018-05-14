@@ -1,14 +1,7 @@
 <template>
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered is-multiline">
-			<div class="column is-two-thirds">
-				This is a landing page
-				<a href="/login">Login</a> Or <a href="/register">Create Account</a>
-			</div>
-		</div>
-	</div>
-</section>
+<div class="imgwrapper">
+	<img src = "../assets/images/landing.jpg" class = "img-responsive">
+</div>
 </template>
 <script type="text/javascript">
 module.exports = {
@@ -17,3 +10,17 @@ module.exports = {
 	}
 };
 </script>
+
+<style media="screen" scoped>
+	h1 {
+		text-align: center;
+		font-size: 30px;
+
+	}
+
+.img-responsive {
+	width: 100%;
+	height: 600px;
+}
+
+</style>
