@@ -238,10 +238,11 @@
 	computed:{
 		filteredPosts: function () {
 			var query = this.query;
-			return this.posts.filter(function (post) {
-				return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
-				(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
-			});	
+	    	return this.posts.filter(function (post) {
+		        return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
+		        	   (post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+		        	   	post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
+	    	});	
 		}
 	},
 	methods: {
