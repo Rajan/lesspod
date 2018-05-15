@@ -25,7 +25,7 @@ const create = async function(req, res){
     let menu_json = menu.toWeb();
     menu_json.users = [{user:user.id}];
 
-    console.log('menu json: ' + JSON.stringify(menus_json));
+    console.log('menu json: ' + JSON.stringify(menu_json));
 
     return ReS(res,{menu:menu_json}, 201);
 }

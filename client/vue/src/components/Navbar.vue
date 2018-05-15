@@ -174,6 +174,7 @@ export default {
 							}
 							if(menus1.length > 0){
 								vm.menus = vm.menus.concat(menus1);
+								console.log(menus1);
 							}else{
 								// console.log(menus1);
 							}
@@ -271,25 +272,34 @@ export default {
 			}
 		},
 		newMenuAdded: function(newMenu) {
-			// console.log('new menu in Navbar: ' + newMenu);
+			var vm = this;
+			console.log('new menu in Navbar: ' + newMenu);
 			var result = newMenu.split(',');
 			this.menus.push(result[0]);
+			var linkedURL;
 			// result[1] will contain the linked url.
 			// console.log('vm.$data' + this.$data.toString());
 
 			// axios create menu via the api
+			if(result[1]){
+				linkedURL = result[1];
+			}else {
+				linkedURL = '';
+			}
 			if(result[0].length) {
 				
 				axios.post('/v1/menus', {
 					"name" : result[0],
-					"linkedURL" : result[1]
+					"linkedURL" : linkedURL
 				})
 				.then(function (response) {
-					// console.log(response);
-					// console.log('Menu Id is ' + response.data.menu.id.toString());
+					console.log('menu create response: ' + response);
+					// console.log('New Menu Id is inside: ' + response.toString());
 					// document.getElementById('menuId').value = response.data.menu.id.toString();
+					vm.menus.push(response.data.menu);
 					Cookies.set("menu", response.data.menu);
-					location.reload();
+					// this.$router.go(this.$router.currentRoute);
+					// this.$router.go();
 				})
 				.catch(function (error) {
 					console.log(error);
