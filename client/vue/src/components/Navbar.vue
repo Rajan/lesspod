@@ -44,14 +44,14 @@
 									Menu
 								</div>
 							</a>
-							<a class="navbar-item">
+							<!-- <a class="navbar-item">
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-file"></i>
 									</span>
 									Page
 								</div>
-							</a>
+							</a> -->
 						</div>
 					</div>
 					
