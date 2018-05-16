@@ -31,7 +31,7 @@ router.post(    '/users/login',     UserController.login);
 router.post(    '/posts',             passport.authenticate('jwt', {session:false}), PostController.create);                  // C
 router.get(     '/posts',             passport.authenticate('jwt', {session:false}), PostController.getAll);                  // R
 
-router.get(     '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.get);     // R
+router.get(     '/posts/:post_id',  custom.post, PostController.get);     // R
 router.put(     '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.update);  // U
 router.delete(  '/posts/:post_id', passport.authenticate('jwt', {session:false}), custom.post, PostController.remove);  // D
 

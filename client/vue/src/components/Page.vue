@@ -18,10 +18,10 @@
 					<quill v-model="content"  :config="config" style="background: white;" output="html"/>
 					<br>
 
-					<a href="#" class="button is-primary" @click="savePage">
+					<a href="#" class="button is-primary" @click="savePage" v-if="this.token.length > 0">
 						Save Page
 					</a><br><br><br>
-					<input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag>
+					<input-tag :tags.sync="tagsArray" :placeholder="(this.token.length > 0)? 'Add Tag' : ''"></input-tag>
 					<br><br>
 					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
 				</div>
@@ -48,15 +48,20 @@
 module.exports = {
 	data(){
 		return {
-			config: {
-				theme: 'snow',
-				readOnly: false
-			},
+			
 			content: '',
 			tagsArray: [],
 			pageURL: '',
 			id: '',
-			title: ''
+			title: '',
+			token: Cookies.get('token'),
+			config: {
+				theme: 'snow',
+				readOnly: ((Cookies.get('token') && Cookies.get('token').length) > 0 ? false : true),
+				"modules": {
+      				"toolbar": (Cookies.get('token') && Cookies.get('token').length) > 0
+  				}
+			}
 		}
 	},
 	watch: {
@@ -83,6 +88,10 @@ module.exports = {
 			vm.title = post.title;
 			vm.content = post.content;
 			vm.tagsArray = post.tags.toString().split(",");
+
+			vm.token = Cookies.get('token');
+
+			console.log('token: ' + vm.token);
 
 
 		},
