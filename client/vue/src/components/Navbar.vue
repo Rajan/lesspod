@@ -127,7 +127,7 @@ import NewMenuModal from '@/components/NewMenuModal';
 export default {
 	data(){
 		return {
-			menus: [{'name': 'Blog'}],
+			menus: [{'name': 'Blog', 'linkedURL' : document.location.origin + '/blog'}],
 			showModal: false,
 			newMenuName: '',
 			fullName: 'Alex Johnson'
