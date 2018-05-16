@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
 		title: { type: DataTypes.STRING, allowNull: false },
 		content: { type: DataTypes.TEXT, allowNull: false },
         tags: { type: DataTypes.STRING, allowNull: false },
-        pageURL: { type: DataTypes.STRING, allowNull: true }
+        postId: { type: DataTypes.STRING, allowNull: true }
 
 	});
 

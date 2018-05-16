@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
 		name: { type: DataTypes.STRING, allowNull: false },
 		// underMenu: { type: DataTypes.STRING, allowNull: true },
 		linkedURL: { type: DataTypes.STRING, allowNull: true },
-		linkedPage: { type: DataTypes.STRING, allowNull: true }
+		linkedPage: { type: DataTypes.STRING, allowNull: true },
+		postId: { type: DataTypes.STRING, allowNull: true }
 	});
 
 	Menu.associate = function(models){

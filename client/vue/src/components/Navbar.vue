@@ -58,19 +58,19 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a :href="linkedMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name}}
+					<a href="#" v-on:click="visitMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name}}
 						<div class="navbar-dropdown is-right" v-if="subMenusOf(menuItem.name).length">
 							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)">
-								<div v-if="menu1.linkedURL.length">
-									<a v-bind:href="properURL(menu1.linkedURL)" target="_blank">{{cleanedSubmenu(menu1.name)}}</a>
+								<div v-if="menu1.postId.length">
+									<a href="#" v-on:click.stop="visitMenu(menu1)">{{cleanedSubmenu(menu1.name)}}</a>
 								</div>
 								<div v-else>
-									<a v-bind:href="linkedMenu(menu1)" target="_blank">{{cleanedSubmenu(menu1.name)}}</a>
+									<a href="#" v-bind:href="properURL(menu1.linkedURL)" target="_blank">{{cleanedSubmenu(menu1.name)}}</a>
 								</div>
 							</a>
 						</div>
 					</a>    
-					<!-- class="navbar-link" -->
+					<!-- class="navbar-link"  v-bind:href="properURL(menu1.linkedURL)" v-bind:href="linkedMenu(menu1)"-->
 				</div>
 				
 				<!-- <div class="navbar-item is-hoverable">
@@ -227,21 +227,24 @@ export default {
 				return this.properURL(menuItem.linkedURL);
 				
 			} else {
-				let arrowPos = menuItem.name.indexOf('->');
-				if(arrowPos > 0)
-				{
-					let finalMenu = menuItem.name.substring(arrowPos + 2);
-
-					let dashed = finalMenu.split(' ').join('-');
-					return '/' + dashed.toLowerCase();
-				}else{
-					// console.log('menuItem.name: ' + menuItem.name);
-					let dashed = menuItem.name.trim().split(' ').join('-');
-					return '/' + dashed.toLowerCase();
-				}
+				return this.dashedMenu(menuItem.name);
 			}
 		},
-		subMenusOf: function(menuName) {
+		dashedMenu: function(menuName) {
+			let arrowPos = menuName.indexOf('->');
+			if(arrowPos > 0)
+			{
+				let finalMenu = menuName.substring(arrowPos + 2);
+
+				let dashed = finalMenu.split(' ').join('-');
+				return '/' + dashed.toLowerCase();
+			}else{
+					// console.log('menuItem.name: ' + menuItem.name);
+					let dashed = menuName.trim().split(' ').join('-');
+					return '/' + dashed.toLowerCase();
+				}
+			},
+			subMenusOf: function(menuName) {
 			// console.log('subMenusOf 1: ' + menuName);
 			return this.menus.filter(function (menu) {
 				// console.log('subMenusOf 2: ' + menuName);
@@ -264,33 +267,80 @@ export default {
 		},
 		cleanedSubmenu: function(menu1) {
 			let arrowPos = menu1.indexOf('->');
-			return menu1.substring(arrowPos + 2);
+			if(arrowPos > 0){
+				return menu1.substring(arrowPos + 2);
+			}else {
+				return menu1;
+			}
 		},
 		properURL: function(url) {
 			if(url && url.indexOf('http') === -1) {
 				return 'http://' + url;
-			}
+			}else return url;
 		},
 		newMenuAdded: function(newMenu) {
+
 			var vm = this;
 			console.log('new menu in Navbar: ' + newMenu);
 			var result = newMenu.split(',');
-			this.menus.push(result[0]);
-			var linkedURL;
+			var menuName = result[0];
+			vm.menus.push(menuName);
+			var linkedURL = '';
+			var postId = '';
 			// result[1] will contain the linked url.
 			// console.log('vm.$data' + this.$data.toString());
 
 			// axios create menu via the api
 			if(result[1]){
 				linkedURL = result[1];
+				vm.createMenu(result[0], linkedURL, postId);
 			}else {
-				linkedURL = '';
-			}
-			if(result[0].length) {
+				linkedURL = window.location.origin + vm.dashedMenu(menuName);
+
+				// if there's no linkedURL, we should create a corresponding page.
+				// After the page is created, we should add postId to this menu.
+				// This postId can be retrieved later when someone clicks on the menu.
+
+				var title = menuName;
+				var content = '<br>';
+				console.log('title is ' + title.toString() + ' content is ' + content.toString());
+				if(title.length && content.length) {
+
+					axios.post('/v1/posts', {
+						"title" : title.toString(),
+						"content" : content.toString(),
+						"tags": [].toString(),
+						"pageURL" : linkedURL.toString()
+					})
+					.then(function (response) {
+						console.log(response);
+						postId = response.data.post.id.toString();
+						console.log('Post Id is ' + postId);
+						// document.getElementById('postId').value = postId;
+						vm.createMenu(menuName, linkedURL, postId);
+						// Cookies.set("post", response.data.post);
+						
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+				}
+
 				
+
+			}
+			
+		},
+		createMenu: function(menuName, linkedURL, postId) {
+			var vm = this;
+			console.log('creating menu...' + menuName + ', LinkedURL =' + linkedURL + ', postId = ' + postId );
+
+			if(menuName) {
+
 				axios.post('/v1/menus', {
-					"name" : result[0],
-					"linkedURL" : linkedURL
+					"name" : menuName.toString(),
+					"linkedURL" : linkedURL.toString(),
+					"postId" : postId.toString()
 				})
 				.then(function (response) {
 					console.log('menu create response: ' + response);
@@ -304,13 +354,45 @@ export default {
 				.catch(function (error) {
 					console.log(error);
 				});
-			}
+			}	
 		},
-		logout: function() {
-			Cookies.set('token', '');
-			Cookies.set('user', '');
-			window.location.href = '../';
+		visitMenu: function(menu1) {
+
+			var vm = this;
+
+			if(menu1.postId && menu1.postId.length){
+
+				console.log('postId in visitMenu: ' + JSON.stringify(menu1.postId));
+			// Cookies.set('postId', menu1.postId);
+
+			var postId = menu1.postId;
+
+			// console.log('postId in Page: ' + postId);
+
+			axios.get('/v1/posts/' + postId.trim(), {
+				"id" : postId.trim()
+			})
+			.then(function(response){
+				console.log(response);
+				var post = response.data.post;
+				post.title = vm.cleanedSubmenu(post.title)
+				// console.log('post is: ' + post);
+				Cookies.set("editpost", JSON.stringify(post));
+				location.href = menu1.linkedURL;
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+		}else {
+			window.open(vm.properURL(menu1.linkedURL), '_blank');
 		}
+
+	},
+	logout: function() {
+		Cookies.set('token', '');
+		Cookies.set('user', '');
+		window.location.href = '../';
 	}
+}
 };
 </script>
