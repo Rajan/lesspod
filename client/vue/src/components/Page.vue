@@ -59,6 +59,13 @@ module.exports = {
 			title: ''
 		}
 	},
+	watch: {
+		tagsArray: function() {
+			// save updated values
+			console.log('new tags: ' + this.tagsArray);
+			this.savePage();
+		}
+	},
 	beforeMount: function() {
 		this.initPage();
 	},

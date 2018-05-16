@@ -22,7 +22,7 @@
 					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
 					</a><br><br><br>
-					<input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag>
+					<!-- <input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag> -->
 					<br><br>
 					<input type="hidden" name="postId" id="postId" value="" />
 				</div>
