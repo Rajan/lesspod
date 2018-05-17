@@ -4,7 +4,7 @@
 			<div class="container">
 				<div class="columns is-centered">
 					<div class="column is-5-tablet is-4-desktop is-4-widescreen">
-						<form class="box">
+						<form class="box" onsubmit="event.preventDefault();">
 							<div class="field has-text-centered">
 								<!-- <img src="../assets/images/logo-bis.png" width="167"> -->
 								<span class="icon" style="width: 3rem; height: 3rem;">
@@ -50,7 +50,7 @@
 							</div>
 							<div class="field is-grouped" style="margin-top: 1.5rem;">
 								<div class="control">
-									<button class="button is-info" @click="saveProfile">Save Profile</button>
+									<button class="button is-info" @click.stop="saveProfile">Save Profile</button>
 								</div>
 								<div class="control">
 									<a class="button is-text" style="text-decoration: none;" href="home">Cancel</a>
@@ -106,12 +106,13 @@ module.exports = {
 
 				})
 				.then(function(response) {
-					console.log(response);
+					console.log('saving user response: ' + response);
 					vm.user.first = firstName;
 					vm.user.last = lastName;
 					vm.user.email = vm.email;
-					vm.fullName = firstName + ' ' + lastName;
+					vm.user.fullName = firstName + ' ' + lastName;
 					Cookies.set('user', vm.user);
+					window.location.href = '../home';
 				})
 				.catch(function(err){
 					console.log(err);
