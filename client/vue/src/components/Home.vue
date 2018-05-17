@@ -160,9 +160,9 @@ export default {
 
 							for(var i in posts1){
 
-								// console.log(posts1[i].title);
-								if(!posts1[i].pageURL || posts1[i].pageURL.length !== 0){
-									posts1.splice(i-1, 1);
+								console.log(posts1[i].title);
+								if(posts1[i].pageURL && posts1[i].pageURL.length !== 0){
+									posts1.splice(i, 1);
 								}
 							}
 							vm.posts = posts1;
