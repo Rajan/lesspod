@@ -9,6 +9,8 @@ import Newpost from '@/components/Newpost'
 import Editpost from '@/components/Editpost'
 import Posts from '@/components/Posts'
 import Page from '@/components/Page'
+import Profile from '@/components/Profile'
+import Settings from '@/components/Settings'
 
 Vue.use(Router)
 Vue.use(require('vue-moment'));
@@ -54,6 +56,16 @@ export default new Router({
       path: '/blog',
       name: 'Blog',
       component: Posts
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     },
     {
       path: '/:page',

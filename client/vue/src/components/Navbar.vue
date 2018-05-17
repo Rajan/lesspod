@@ -82,7 +82,7 @@
 						{{ fullName }}
 					</div>
 					<div class="navbar-dropdown is-right">
-						<a class="navbar-item">
+						<a href="/profile" class="navbar-item">
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-user-circle"></i>
@@ -90,7 +90,7 @@
 								Profile
 							</div>
 						</a>
-						<a class="navbar-item">
+						<a href="/settings" class="navbar-item">
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-cog"></i>

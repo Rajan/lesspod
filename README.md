@@ -9,7 +9,7 @@ WordPress is a very successful blogging platform which requires servers to host 
 
 ## Free Forever Web Hosting (Cloud Limits Apply)
 
-Lesspod will enable free websites and blogs for people who don't want to pay for recurring hosting fees within free limits offered by cloud providers like Google Firebase and AWS Lambda. Lesspod is a better alternative to static sites which can be difficult to install and manage.
+Lesspod will enable free websites and blogs for people who don't want to pay for recurring hosting fees within free limits offered by cloud providers like Google Firebase and AWS Lambda. Lesspod is dynamic and offers a better alternative to static sites which can be difficult to install and manage.
 
 ## Choice of building blocks
 
@@ -48,13 +48,14 @@ $ npm install
 $ npm run dev
 ```
 
-#### Running the React client in another commandline window: (http://localhost:3000)
+#### Running the React client in another commandline window: http://localhost:3000
 
 ```
 $ cd client/react
 $ npm install
 $ npm start
 ```
+Note: React client is at a very early stage in the development.
 
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
 
@@ -72,11 +73,14 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] Deployment to Firebase (pod deploy firebase)
 - [ ] Unit Tests
 - [x] Logged In Page Design (Dashboard basic)
-- [x] Blog Post Index Design
+- [ ] Blog Post Index Design
 - [ ] Blog Post View Design
+- [ ] Blog settings i.e. changing logo, tagline etc.
+- [ ] Profile Page
 - [x] Editor Selection and Integration (using Quill editor)
 - [ ] Comments Integration (Disqus, Facebook and ?)
 - [ ] Code coverage and e2e testing module
+
 
 ### Midterm Feature Goals
 
