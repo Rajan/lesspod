@@ -67,11 +67,11 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 
 - [x] Authentication/Authorization using SQLite, Passport and Express
 - [x] API Module for SQLite
-- [ ] Adding New Pages + Menus
+- [x] Adding New Pages + Menus
 - [ ] Landing Page Design
 - [ ] Deployment to Firebase (pod deploy firebase)
 - [ ] Unit Tests
-- [ ] Logged In Page Design (Dashboard basic)
+- [x] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
 - [ ] Blog Post View Design
 - [x] Editor Selection and Integration (using Quill editor)
@@ -86,6 +86,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] Plugin System Design/Dev 
 - [ ] More Themes 
 - [ ] Theme Generator Basic 
+- [ ] Menu Editor to re-link existing pages with Menus
 
 ### Longterm Feature Goals
 
