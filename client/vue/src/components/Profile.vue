@@ -92,8 +92,8 @@ module.exports = {
 
 		saveProfile: function() {
 			var vm = this;
-			let firstName = vm.fullName.split(' ').slice(0, -1).join(' ');
-			let lastName = vm.fullName.split(' ').slice(-1).join(' ');
+			var firstName = vm.fullName.split(' ').slice(0, -1).join(' ');
+			var lastName = vm.fullName.split(' ').slice(-1).join(' ');
 			if(vm.password === vm.confirmPassword) {
 
 				// update user
@@ -110,6 +110,7 @@ module.exports = {
 					vm.user.first = firstName;
 					vm.user.last = lastName;
 					vm.user.email = vm.email;
+					vm.fullName = firstName + ' ' + lastName;
 					Cookies.set('user', vm.user);
 				})
 				.catch(function(err){

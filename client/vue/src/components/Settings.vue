@@ -12,47 +12,60 @@
 								Settings
 							</div>
 							<div class="field">
-								<label class="label">Full Name (First Last)</label>
+								<label class="label">Square Logo</label>
 								<div class="control has-icons-left">
-									<input class="input" type="text" id="fullName" placeholder="e.g. Alex Johnson" autocomplete="name" required>
-									<span class="icon is-small is-left">
-										<i class="fa fa-user-circle"></i>
-									</span>
+									<div class="file has-name is-boxed">
+										<label class="file-label">
+											<input class="file-input" type="file" name="resume">
+											<span class="file-cta">
+												<span class="file-icon">
+													<i class="fas fa-upload"></i>
+												</span>
+												<span class="file-label">
+													Choose a file…
+												</span>
+											</span>
+											<span class="file-name">
+												square-logo.png
+											</span>
+										</label>
+									</div>
+								</div>
+							</div><br>
+							<div class="field">
+								<label class="label">Text Logo</label>
+								<div class="control has-icons-left">
+									<div class="file has-name is-boxed">
+										<label class="file-label">
+											<input class="file-input" type="file" name="resume">
+											<span class="file-cta">
+												<span class="file-icon">
+													<i class="fas fa-upload"></i>
+												</span>
+												<span class="file-label">
+													Choose a file…
+												</span>
+											</span>
+											<span class="file-name">
+												text-rectangle-logo.png
+											</span>
+										</label>
+									</div>
 								</div>
 							</div>
+							
 							<div class="field">
-								<label class="label">Email</label>
+								<label class="label">Tagline</label>
 								<div class="control has-icons-left">
-									<input class="input" type="email" id="email" placeholder="e.g. alexjohnson@gmail.com" autocomplete="username" required>
-									<span class="icon is-small is-left">
-										<i class="fa fa-envelope"></i>
-									</span>
-								</div>
-							</div>
-							<div class="field">
-								<label class="label">Password</label>
-								<div class="control has-icons-left">
-									<input class="input" type="password" id="password" placeholder="********" autocomplete="new-password" required>
-									<span class="icon is-small is-left">
-										<i class="fa fa-lock"></i>
-									</span>
-								</div>
-							</div>
-							<div class="field">
-								<label class="label">Retype Password</label>
-								<div class="control has-icons-left">
-									<input class="input" type="password" id="password-confirm" placeholder="********" autocomplete="new-password" required>
-									<span class="icon is-small is-left">
-										<i class="fa fa-lock"></i>
-									</span>
+									<input class="input" type="text" v-model="tagline" id="tagline" placeholder="e.g. Serverless Blogging Engine" autocomplete="name" required>
 								</div>
 							</div>
 							<div class="field is-grouped" style="margin-top: 1.5rem;">
 								<div class="control">
-									<button class="button is-info" @click="register">Create Account</button>
+									<button class="button is-info" @click="saveSettings">Save Settings</button>
 								</div>
 								<div class="control">
-									<a class="button is-text" style="text-decoration: none;" href="login">Login</a>
+									<a class="button is-text" style="text-decoration: none;" href="home">Cancel</a>
 								</div>
 							</div>
                 <!-- <div class="field">
@@ -71,32 +84,13 @@
 
 module.exports = {
 	data(){
-		return {}
+		return {
+			tagline: ''
+		}
 	}, 
 	methods: {
-		register: function() {
-			let fullName = document.getElementById("fullName").value;
-			let firstName = fullName.split(' ').slice(0, -1).join(' ');
-			let lastName = fullName.split(' ').slice(-1).join(' ');
-			let password = document.getElementById("password").value;
-			let passwordConfirm = document.getElementById("password-confirm").value;
-			if(password === passwordConfirm) {
-				console.log('registering user...');
-				axios.post('/v1/users/', {
-					"first": firstName, 
-					"last": lastName, 
-					"email": document.getElementById("email").value, 
-					"password": document.getElementById("password").value
-				})
-				.then(function (response) {
-					console.log(response);
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-			} else {
-				console.log('passwords do not match');
-			}
+		saveSettings: function(){
+
 		}
 	}
 }
