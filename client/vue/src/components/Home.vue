@@ -124,133 +124,13 @@ export default {
 		return {
 			query: '',
 			fullName: '',
-			posts: [
-			{
-				"id": 4,
-				"title": "Test Post",
-				"content": "Hello World!\nSome initial bold text\n\n",
-				"createdAt": "2018-04-23T15:12:08.584Z",
-				"updatedAt": "2018-04-23T15:12:08.584Z",
-				"Users": [
-				{
-					"id": 1,
-					"first": "Rajan",
-					"last": "GC",
-					"email": "chandi.rajan@gmail.com",
-					"phone": null,
-					"password": "$2b$10$3AeX3hbFZTmpHcHFECMNL.D65pxRYPjedsNYUc.J7h9m8j/NlSh0m",
-					"createdAt": "2018-04-20T09:17:42.303Z",
-					"updatedAt": "2018-04-20T09:17:42.303Z",
-					"UserPost": {
-						"id": 1,
-						"UserId": 1,
-						"PostId": 4,
-						"createdAt": "2018-04-23T15:12:08.602Z",
-						"updatedAt": "2018-04-23T15:12:08.602Z"
-					}
-				}
-				],
-				"UserPost": {
-					"id": 1,
-					"UserId": 1,
-					"PostId": 4,
-					"createdAt": "2018-04-23T15:12:08.602Z",
-					"updatedAt": "2018-04-23T15:12:08.602Z"
-				},
-				"users": [
-				{
-					"user": 1
-				}
-				]
-			},
-			{
-				"id": 6,
-				"title": "save post id",
-				"content": "Hello World!\nSome initial bold text\n\n",
-				"createdAt": "2018-04-23T17:57:06.619Z",
-				"updatedAt": "2018-04-23T17:57:06.619Z",
-				"Users": [
-				{
-					"id": 1,
-					"first": "Rajan",
-					"last": "GC",
-					"email": "chandi.rajan@gmail.com",
-					"phone": null,
-					"password": "$2b$10$3AeX3hbFZTmpHcHFECMNL.D65pxRYPjedsNYUc.J7h9m8j/NlSh0m",
-					"createdAt": "2018-04-20T09:17:42.303Z",
-					"updatedAt": "2018-04-20T09:17:42.303Z",
-					"UserPost": {
-						"id": 3,
-						"UserId": 1,
-						"PostId": 6,
-						"createdAt": "2018-04-23T17:57:06.629Z",
-						"updatedAt": "2018-04-23T17:57:06.629Z"
-					}
-				}
-				],
-				"UserPost": {
-					"id": 3,
-					"UserId": 1,
-					"PostId": 6,
-					"createdAt": "2018-04-23T17:57:06.629Z",
-					"updatedAt": "2018-04-23T17:57:06.629Z"
-				},
-				"users": [
-				{
-					"user": 1
-				}
-				]
-			},
-			{
-				"id": 7,
-				"title": "tagged post",
-				"content": "Hello World!\nSome initial bold text\n\n",
-				"createdAt": "2018-04-24T02:57:00.663Z",
-				"updatedAt": "2018-04-24T02:57:00.663Z",
-				"Users": [
-				{
-					"id": 1,
-					"first": "Rajan",
-					"last": "GC",
-					"email": "chandi.rajan@gmail.com",
-					"phone": null,
-					"password": "$2b$10$3AeX3hbFZTmpHcHFECMNL.D65pxRYPjedsNYUc.J7h9m8j/NlSh0m",
-					"createdAt": "2018-04-20T09:17:42.303Z",
-					"updatedAt": "2018-04-20T09:17:42.303Z",
-					"UserPost": {
-						"id": 4,
-						"UserId": 1,
-						"PostId": 7,
-						"createdAt": "2018-04-24T02:57:00.687Z",
-						"updatedAt": "2018-04-24T02:57:00.687Z"
-					}
-				}
-				],
-				"UserPost": {
-					"id": 4,
-					"UserId": 1,
-					"PostId": 7,
-					"createdAt": "2018-04-24T02:57:00.687Z",
-					"updatedAt": "2018-04-24T02:57:00.687Z"
-				},
-				"users": [
-				{
-					"user": 1
-				}
-				]
-			}
-			]
-
-
+			posts: []
 		};
 	},
 	created: function() {
 
 		this.fetchData();
 
-		// this.$nextTick(function () {
-
-		// });
 	},
 	computed:{
 	    filteredPosts: function () {
@@ -281,6 +161,9 @@ export default {
 							for(var i in posts1){
 
 								// console.log(posts1[i].title);
+								if(!posts1[i].pageURL || posts1[i].pageURL.length !== 0){
+									posts1.splice(i, 1);
+								}
 							}
 							vm.posts = posts1;
 							// renderPosts();
