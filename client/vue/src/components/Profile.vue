@@ -107,12 +107,14 @@ module.exports = {
 				})
 				.then(function(response) {
 					console.log('saving user response: ' + response);
+
 					vm.user.first = firstName;
 					vm.user.last = lastName;
 					vm.user.email = vm.email;
 					vm.user.fullName = firstName + ' ' + lastName;
 					Cookies.set('user', vm.user);
-					window.location.href = '../home';
+					vm.$notify('Profile saved successfully!', 'success', { 'position': 'bottom-right' });
+					// window.location.href = '../home';
 				})
 				.catch(function(err){
 					console.log(err);

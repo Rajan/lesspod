@@ -350,6 +350,7 @@ export default {
 					Cookies.set("menu", response.data.menu);
 					// this.$router.go(this.$router.currentRoute);
 					// this.$router.go();
+					vm.$notify('Menu added successfully!', 'success', { 'position': 'bottom-right' });
 				})
 				.catch(function (error) {
 					console.log(error);

@@ -114,6 +114,7 @@ module.exports = {
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
 						Cookies.set("page", response.data.post);
+						vm.$notify('Page saved successfully!', 'success', { 'position': 'bottom-right' });
 					})
 					.catch(function (error) {
 						console.log(error);
@@ -130,6 +131,7 @@ module.exports = {
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
 						Cookies.set("page", response.data.post);
+						vm.$notify('Page saved successfully!', 'success', { 'position': 'bottom-right' });
 					})
 					.catch(function (error) {
 						console.log(error);

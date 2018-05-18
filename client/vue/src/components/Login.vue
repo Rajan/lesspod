@@ -113,6 +113,7 @@ export default {
 		            // setting up Authorization Header that will be used for subsequent requests.
 		            axios.defaults.headers.common['Authorization'] = response.data.token;
 		            axios.defaults.headers.post['Content-Type'] = 'application/json';
+		            vm.$notify('Logged in successfully!', 'success', { 'position': 'bottom-right' });
 		            // console.log(response.headers);
 		        })
 				.then(function (response) {
