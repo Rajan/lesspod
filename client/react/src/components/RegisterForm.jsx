@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, Label, Control, Icon, Input, Checkbox, Button } from 'bloomer';
+import { Field, Label, Control, Icon, Input, Button } from 'bloomer';
 import MailIcon from 'react-icons/lib/fa/envelope';
 import LockIcon from 'react-icons/lib/fa/lock';
 import UserIcon from 'react-icons/lib/fa/user';
