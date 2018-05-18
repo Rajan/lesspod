@@ -131,7 +131,7 @@ module.exports = {
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
 						Cookies.set("page", response.data.post);
-						vm.$notify('Page saved successfully!', 'success', { 'position': 'bottom-right' });
+						vm.$notify('Page saved successfully!', 'success');
 					})
 					.catch(function (error) {
 						console.log(error);

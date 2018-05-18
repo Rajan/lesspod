@@ -113,7 +113,7 @@ module.exports = {
 					vm.user.email = vm.email;
 					vm.user.fullName = firstName + ' ' + lastName;
 					Cookies.set('user', vm.user);
-					vm.$notify('Profile saved successfully!', 'success', { 'position': 'bottom-right' });
+					vm.$notify('Profile saved successfully!', 'success');
 					// window.location.href = '../home';
 				})
 				.catch(function(err){

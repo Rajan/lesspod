@@ -14,7 +14,8 @@ Vue.use(VueQuill);
 Vue.use(VModal);
 
 Vue.use(Notify, {
-  itemClass: 'notification'
+  itemClass: 'notification',
+  position: 'bottom-left'
 })
 const types = {
   info: { itemClass: 'is-info', },
