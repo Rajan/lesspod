@@ -10,7 +10,6 @@ import {
   NavbarLink,
   NavbarDivider,
 } from 'bloomer';
-import { Link } from 'react-router-dom';
 
 import icon from './../assets/images/icon.png';
 import textIcon from './../assets/images/logo-text.png';
@@ -48,24 +47,14 @@ class Header extends React.Component {
             </div>
           </NavbarStart>
           <NavbarEnd>
-            <NavbarItem>
-              <Link to="/">
-                <NavbarItem>Home</NavbarItem>
-              </Link>
-            </NavbarItem>
+            <NavbarItem href="/">Home</NavbarItem>
             <NavbarItem hasDropdown isHoverable>
-              <NavbarLink>Some Menu</NavbarLink>
+              <NavbarLink>User Name</NavbarLink>
               <NavbarDropdown>
-                <Link to="/">
-                  <NavbarItem href="/">One A</NavbarItem>
-                </Link>
-                <Link to="/">
-                  <NavbarItem href="/">Two B</NavbarItem>
-                </Link>
+                <NavbarItem href="/">Profile</NavbarItem>
+                <NavbarItem href="/">Settings</NavbarItem>
                 <NavbarDivider />
-                <Link to="/">
-                  <NavbarItem href="/">Two A</NavbarItem>
-                </Link>
+                <NavbarItem href="/">Logout</NavbarItem>
               </NavbarDropdown>
             </NavbarItem>
           </NavbarEnd>
