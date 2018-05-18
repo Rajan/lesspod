@@ -17,3 +17,4 @@ npm run build
 # run all tests
 npm test
 ```
+Note: The react client is in a very early development. Do not raise issues around the react client.

@@ -20,15 +20,15 @@ We want to keep Lesspod as simple as possible for everyone to customize and buil
 - ~~EJS~~ VueJS (Clean, Fast and Easiest to Learn)
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
-- ~~Parcel.js~~ Webpack 4 as a bundler
-- ~~js-cookie npm module~~ Store for local storage: https://www.npmjs.com/package/store
+- ~~Parcel.js~~ Webpack 3/4 as a bundler
+- js-cookie npm module (In future: Store for local storage: https://www.npmjs.com/package/store)
 
 
 ## Contributing To Lesspod
 
 Key software versions. Node: 10.0.0 and NPM: 6.0.0
 
-#### Running the serverless (server) component: http://localhost:1234/
+#### Running the API component: http://localhost:1234/
 
 ```
 $ git clone https://github.com/Rajan/lesspod.git   //clone repo
@@ -38,7 +38,7 @@ $ node -r dotenv/config index.js //setup environment variables
 ```
 Note: some npm modules may need to be installed manually.
 
-parcel index.js // not yet working
+<!-- parcel index.js // not yet working -->
 
 #### Running the vuejs client in another commandline window: http://localhost:8080
 
@@ -48,6 +48,8 @@ $ npm install
 $ npm run dev
 ```
 
+<!--
+
 #### Running the React client in another commandline window: http://localhost:3000
 
 ```
@@ -56,6 +58,8 @@ $ npm install
 $ npm start
 ```
 Note: React client is at a very early stage in the development.
+
+-->
 
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
 
@@ -76,7 +80,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [ ] Blog Post Index Design
 - [ ] Blog Post View Design
 - [ ] Blog settings i.e. changing logo, tagline etc.
-- [ ] Profile Page
+- [x] Profile Page
 - [x] Editor Selection and Integration (using Quill editor)
 - [ ] Comments Integration (Disqus, Facebook and ?)
 - [ ] Code coverage and e2e testing module
