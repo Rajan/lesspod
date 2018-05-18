@@ -99,6 +99,8 @@ export default {
 	},
 	methods: {
 		login: function() {
+
+			var vm = this;
 			console.log('email: ' + email.value + '  password: ' + password.value);
 
 			if(email.value.length && password.value.length) {

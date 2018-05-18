@@ -82,7 +82,7 @@ module.exports = {
 					console.log('Post Id is ' + response.data.post.id.toString());
 					document.getElementById('postId').value = response.data.post.id.toString();
 					Cookies.set("post", response.data.post);
-					vm.$notify('Post saved successfully!', 'success');
+					this.$notify('Post saved successfully!', 'success');
 				})
 				.catch(function (error) {
 					console.log(error);

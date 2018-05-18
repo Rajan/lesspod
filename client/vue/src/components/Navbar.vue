@@ -190,7 +190,9 @@ export default {
 				}
 			});
 			let user = Cookies.getJSON('user');
-			this.fullName = user.first + ' ' + user.last;
+			if(user) {
+				this.fullName = user.first + ' ' + user.last;
+			}
 			// console.log(user.first + ' ' + user.last);
 		},
 		isLoggedIn: function() {
