@@ -67,3 +67,6 @@ design/dist
 
 #misc
 .DS_Store
+
+# sqlite db
+db.sqlite
