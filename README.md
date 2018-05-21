@@ -73,7 +73,7 @@ Feel free to create an issue if you face problems. Kindly include your package.j
 - [x] Authentication/Authorization using SQLite, Passport and Express
 - [x] API Module for SQLite
 - [x] Adding New Pages + Menus
-- [ ] Landing Page Design
+- [x] Landing Page Design
 - [ ] Deployment to Firebase (pod deploy firebase)
 - [ ] Unit Tests
 - [x] Logged In Page Design (Dashboard basic)

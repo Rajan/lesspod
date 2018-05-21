@@ -7,7 +7,8 @@
 					<div class="column is-5">
 						<figure class="image is-4by3">
 							<img src="./../assets/images/serverless.png" alt="Description">
-						</figure>
+						</figure><br>
+						<h6 class="title is-6" style="font-weight: 300;">Image credits: Hackernoon</h6>
 					</div>
 					<div class="column is-6 is-offset-1">
 						<h1 class="title is-2">
