@@ -47,7 +47,9 @@ module.exports = {
 		tagsArray: function() {
 			// save updated values
 			console.log('new tags: ' + this.tagsArray);
-			this.saveTags();
+			if(Cookies.get('token') && Cookies.get('token').length){
+				this.saveTags();
+			}
 		}
 	},
 	beforeMount() {

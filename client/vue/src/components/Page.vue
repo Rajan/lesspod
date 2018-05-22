@@ -18,10 +18,10 @@
 					<quill v-model="content"  :config="config" style="background: white;" output="html"/>
 					<br>
 
-					<a href="#" class="button is-primary" @click="savePage" v-if="this.token.length > 0">
+					<a href="#" class="button is-primary" @click="savePage" v-if="token && token.length > 0">
 						Save Page
 					</a><br><br><br>
-					<input-tag :tags.sync="tagsArray" :placeholder="(this.token.length > 0)? 'Add Tag' : ''"></input-tag>
+					<input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag>
 					<br><br>
 					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
 				</div>
@@ -54,7 +54,7 @@ module.exports = {
 			pageURL: '',
 			id: '',
 			title: '',
-			token: Cookies.get('token'),
+			token: null,
 			config: {
 				theme: 'snow',
 				readOnly: ((Cookies.get('token') && Cookies.get('token').length) > 0 ? false : true),
@@ -68,7 +68,9 @@ module.exports = {
 		tagsArray: function() {
 			// save updated values
 			console.log('new tags: ' + this.tagsArray);
-			this.saveTags();
+			if(Cookies.get('token') && Cookies.get('token').length){
+				this.saveTags();
+			}
 		}
 	},
 	beforeMount: function() {
@@ -145,13 +147,13 @@ module.exports = {
 			var title = document.getElementById("title").value;
 			// var content = this.editor;
 			// console.log('title is ' + title.toString() + ' content is ' + content.toString());
-			if(title.length && content.length) {
+			if(vm.id && vm.tagsArray) {
 
 				axios.put('/v1/posts/' + vm.id, {
 					"id" : vm.id, 
 					// "title" : title.toString(),
 					// "content" : content.toString(),
-					"tags" : this.tagsArray.toString()
+					"tags" : vm.tagsArray.toString()
 				})
 				.then(function (response) {
 					console.log(response);

@@ -203,7 +203,7 @@ export default {
 			}
 		},
 		logoClick: function() {
-			if(Cookies.get("token").length) {
+			if(Cookies.get("token") && Cookies.get("token").length) {
 
 				// console.log(Cookies.get("token"));
 				window.location.href = '../home';
