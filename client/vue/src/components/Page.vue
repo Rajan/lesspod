@@ -68,7 +68,7 @@ module.exports = {
 		tagsArray: function() {
 			// save updated values
 			console.log('new tags: ' + this.tagsArray);
-			this.savePage();
+			this.saveTags();
 		}
 	},
 	beforeMount: function() {
@@ -137,6 +137,29 @@ module.exports = {
 						console.log(error);
 					});
 				}
+			}
+		},
+		saveTags: function() {
+			var vm = this;
+			console.log('saving tags...');
+			var title = document.getElementById("title").value;
+			// var content = this.editor;
+			// console.log('title is ' + title.toString() + ' content is ' + content.toString());
+			if(title.length && content.length) {
+
+				axios.put('/v1/posts/' + vm.id, {
+					"id" : vm.id, 
+					// "title" : title.toString(),
+					// "content" : content.toString(),
+					"tags" : this.tagsArray.toString()
+				})
+				.then(function (response) {
+					console.log(response);
+					Cookies.set("post", response.data.post);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
 			}
 		},
 		addTag: function() {
