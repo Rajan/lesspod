@@ -74,7 +74,7 @@
 </template>
 <script type="text/javascript">
 
-  module.exports = {
+  export default {
     data() {
       return {}
     },
