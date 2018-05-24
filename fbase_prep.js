@@ -12,6 +12,8 @@ if (!shell.which('git')) {
 	// shell.echo('Git found here');	
 }
 
+shell.exec('git branch -D fbase');
+
 shell.exec('git checkout -b fbase');
 
 // inject connect to firebase in index.html
