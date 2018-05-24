@@ -4,7 +4,7 @@ Serverless Blogging Engine (In Active Development)
 
 ## Why Lesspod?
 
-WordPress is a very successful blogging platform which requires servers to host and most of the servers are running over their actual web traffic. Given that 28% of the websites on the internet use Wordpress, there are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. Of course, the goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we look at the possibility of the serverless Internet.
+WordPress is a very successful blogging platform which requires servers to host and most of the servers are running over their actual web traffic. Given that 28% of the websites on the internet use Wordpress, there are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. Of course, the goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
 
 
 ## Free Forever Web Hosting (Cloud Limits Apply)
@@ -47,6 +47,18 @@ $ cd client/vue
 $ npm install
 $ npm run dev
 ```
+
+## Deploying to Firebase (WIP)
+
+Create a firebase_init.txt file in the root with web script tags from your Firebase project.
+We've created two utilities for firebase deploy and rollback. fbase_prep.js will inject firebase calls.
+
+```
+node fbase_prep.js   // create new git branch and inject firebase scripts
+node fbase_cleanup.js   // rollback changes and move back to master branch
+
+```
+
 
 <!--
 
