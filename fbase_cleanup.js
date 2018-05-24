@@ -12,6 +12,8 @@ if (!shell.which('git')) {
 	// shell.echo('Git found here');	
 }
 
+shell.exec('git stash');
+
 shell.exec('git checkout master');
 
 shell.exec('git branch -D fbase');
