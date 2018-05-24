@@ -48,6 +48,11 @@ $ npm install
 $ npm run dev
 ```
 
+Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
+
+Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.
+
+
 ## Deploying to Firebase (WIP)
 
 Create a firebase_init.txt file in the root with web script tags from your Firebase project.
@@ -72,10 +77,6 @@ $ npm start
 Note: React client is at a very early stage in the development.
 
 -->
-
-Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
-
-Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.
 
 
 ## To Do List
