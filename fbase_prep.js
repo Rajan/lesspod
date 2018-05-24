@@ -26,7 +26,7 @@ var initFbase = shell.cat('firebase_init.txt');
 
 console.log('initFbase ===' + initFbase);
 
-shell.sed('-i', '</body>', initFbase, './client/vue/index.html');
+shell.sed('-i', '</body>', initFbase + '</body>', './client/vue/index.html');
 
 // Run external tool synchronously
 // if (shell.exec('git checkout -b fbase').code === 0) {
