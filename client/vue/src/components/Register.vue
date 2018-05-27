@@ -54,10 +54,12 @@
               </div>
               <div class="field is-grouped" style="margin-top: 1.5rem;">
                 <div class="control">
+
                   <a class="button is-info" @click="register">Create Account1</a>
+
                 </div>
                 <div class="control">
-                  <a class="button is-text" style="text-decoration: none;" href="login">Login1</a>
+                  <a class="button is-text" style="text-decoration: none;" href="login">Login</a>
                 </div>
               </div>
               <!-- <div class="field">
