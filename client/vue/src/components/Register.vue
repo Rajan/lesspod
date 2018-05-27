@@ -15,7 +15,7 @@
               <div class="field">
                 <label class="label">Full Name (First Last)</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="text" id="fullName" placeholder="e.g. Alex Johnson" autocomplete="name"
+                  <input class="input" type="text" id="fullName" v-model="fullName" placeholder="e.g. Alex Johnson" autocomplete="name"
                          required>
                   <span class="icon is-small is-left">
 										<i class="fa fa-user-circle"></i>
@@ -25,7 +25,7 @@
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="email" id="email" placeholder="e.g. alexjohnson@gmail.com"
+                  <input class="input" type="email" id="email" v-model="email" placeholder="e.g. alexjohnson@gmail.com"
                          autocomplete="username" required>
                   <span class="icon is-small is-left">
 										<i class="fa fa-envelope"></i>
@@ -35,7 +35,7 @@
               <div class="field">
                 <label class="label">Password</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="password" id="password" placeholder="********" autocomplete="new-password"
+                  <input class="input" type="password" id="password" v-model="password" placeholder="********" autocomplete="new-password"
                          required>
                   <span class="icon is-small is-left">
 										<i class="fa fa-lock"></i>
@@ -45,7 +45,7 @@
               <div class="field">
                 <label class="label">Retype Password</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="password" id="password-confirm" placeholder="********"
+                  <input class="input" type="password" id="passwordConfirm" v-model="confirmPassword" placeholder="********"
                          autocomplete="new-password" required>
                   <span class="icon is-small is-left">
 										<i class="fa fa-lock"></i>
@@ -54,7 +54,7 @@
               </div>
               <div class="field is-grouped" style="margin-top: 1.5rem;">
                 <div class="control">
-                  <button class="button is-info" @click="register">Create Account1</button>
+                  <a class="button is-info" @click="register">Create Account1</a>
                 </div>
                 <div class="control">
                   <a class="button is-text" style="text-decoration: none;" href="login">Login1</a>
@@ -76,22 +76,25 @@
 
   export default {
     data() {
-      return {}
+      return {
+        fullName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
     },
     methods: {
       register: function () {
-        let fullName = document.getElementById("fullName").value;
-        let firstName = fullName.split(' ').slice(0, -1).join(' ');
-        let lastName = fullName.split(' ').slice(-1).join(' ');
-        let password = document.getElementById("password").value;
-        let passwordConfirm = document.getElementById("password-confirm").value;
-        if (password === passwordConfirm) {
+        let vm = this;
+        let firstName = fullName.value.split(' ').slice(0, -1).join(' ');
+        let lastName = fullName.value.split(' ').slice(-1).join(' ');
+        if (password.value === passwordConfirm.value) {
           console.log('registering user...');
           axios.post('/v1/users/', {
             "first": firstName,
             "last": lastName,
-            "email": document.getElementById("email").value,
-            "password": document.getElementById("password").value
+            "email": email.value,
+            "password": password.value
           })
             .then(function (response) {
               console.log(response);
