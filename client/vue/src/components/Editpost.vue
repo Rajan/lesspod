@@ -47,7 +47,7 @@ module.exports = {
 		tagsArray: function() {
 			// save updated values
 			console.log('new tags: ' + this.tagsArray);
-			if(Cookies.get('token') && Cookies.get('token').length){
+			if(Cookies.get('token') && Cookies.get('token').length && this.tagsArray.length){
 				this.saveTags();
 			}
 		}
@@ -64,6 +64,7 @@ module.exports = {
 			this.title = post.title;
 			this.editor = post.content;
 			this.tagsArray = post.tags.toString().split(",");
+			console.log('this.tagsArray= ' + this.tagsArray);
 		},
 		savePost: function() {
 			var vm = this;
@@ -97,7 +98,7 @@ module.exports = {
 			var title = document.getElementById("title").value;
 			// var content = this.editor;
 			// console.log('title is ' + title.toString() + ' content is ' + content.toString());
-			if(title.length && content.length) {
+			if(title.length && this.tagsArray) {
 
 				axios.put('/v1/posts/' + vm.id, {
 					"id" : vm.id, 
@@ -106,7 +107,7 @@ module.exports = {
 					"tags" : this.tagsArray.toString()
 				})
 				.then(function (response) {
-					console.log(response);
+					console.log('response@saveTags = ' + response);
 					Cookies.set("post", response.data.post);
 				})
 				.catch(function (error) {
