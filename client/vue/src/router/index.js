@@ -7,6 +7,7 @@ import Register from '@/components/Register'
 import Home from '@/components/Home'
 import Newpost from '@/components/Newpost'
 import Editpost from '@/components/Editpost'
+import Viewpost from '@/components/Viewpost'
 import Posts from '@/components/Posts'
 import Page from '@/components/Page'
 import Profile from '@/components/Profile'
@@ -46,6 +47,11 @@ export default new Router({
       path: '/editpost/:post_id',
       name: 'Editpost',
       component: Editpost
+    },
+    {
+      path: '/post/:post_id',
+      name: 'Viewpost',
+      component: Viewpost
     },
     {
       path: '/posts',
