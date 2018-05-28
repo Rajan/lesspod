@@ -252,7 +252,9 @@
 		fetchData: function() {
 			// console.log('fetching data...');
 			var vm = this;
-			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			if(Cookies.get("token") && Cookies.get("token").length){
+				axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			}
 
 			axios.get('/v1/posts', {})
 			.then(function (response){
@@ -281,7 +283,9 @@
 				}
 			});
 			let user = Cookies.getJSON('user');
-			this.fullName = user.first + ' ' + user.last;
+			if(user){
+				this.fullName = user.first + ' ' + user.last;
+			}
 			// console.log(user.first + ' ' + user.last);
 		},
 		editPost: function(index) {
