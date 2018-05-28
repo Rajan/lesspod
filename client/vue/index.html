@@ -17,12 +17,26 @@
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-  
+
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/af.js"></script> -->
   <title>Lesspod</title>
 </head>
 <body>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyD_9U3AZqZ-cz1jr2ZK3TW4DCyyshoiXF4",
+      authDomain: "lesspod-dev.firebaseapp.com",
+      databaseURL: "https://lesspod-dev.firebaseio.com",
+      projectId: "lesspod-dev",
+      storageBucket: "",
+      messagingSenderId: "406114890288"
+    };
+    firebase.initializeApp(config);
+  </script>
 </body>
 </html>

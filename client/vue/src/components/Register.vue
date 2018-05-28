@@ -73,6 +73,7 @@
   </section>
 </template>
 <script type="text/javascript">
+  import { globalVariables } from './../main';
 
   export default {
     data() {
@@ -87,26 +88,54 @@
         let passwordConfirm = document.getElementById("password-confirm").value;
         if (password === passwordConfirm) {
           console.log('registering user...');
-          axios.post('/v1/users/', {
-            "first": firstName,
-            "last": lastName,
-            "email": document.getElementById("email").value,
-            "password": document.getElementById("password").value
-          })
-            .then(function (response) {
-              console.log(response);
-              Cookies.set("token", response.data.token);
-              Cookies.set("user", JSON.stringify(response.data.user));
 
-              // setting up Authorization Header that will be used for subsequent requests.
-              axios.defaults.headers.common['Authorization'] = response.data.token;
-              axios.defaults.headers.post['Content-Type'] = 'application/json';
+          const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+          console.log('deployment target is ' + deploymentTarget);
 
-              window.location.href = '../home';
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+          switch(deploymentTarget) {
+
+            case LOCALHOST:
+
+              axios.post('/v1/users/', {
+                "first": firstName,
+                "last": lastName,
+                "email": document.getElementById("email").value,
+                "password": document.getElementById("password").value
+              })
+                  .then(function (response) {
+                    console.log(response);
+                    Cookies.set("token", response.data.token);
+                    Cookies.set("user", JSON.stringify(response.data.user));
+
+                    // setting up Authorization Header that will be used for subsequent requests.
+                    axios.defaults.headers.common['Authorization'] = response.data.token;
+                    axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+                    window.location.href = '../home';
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+            break;
+
+            case FBASE:
+            
+              var db = firebase.firestore();
+              const settings = { timestampsInSnapshots: true };
+
+              db.settings(settings);
+              db.collection("test").add({
+                key1: "value1",
+              })
+              .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+              })
+              .catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
+              break;
+          }
+
         } else {
           console.log('passwords do not match');
         }
