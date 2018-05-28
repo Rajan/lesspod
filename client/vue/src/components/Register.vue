@@ -97,16 +97,18 @@
           const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
           console.log('deployment target is ' + deploymentTarget);
 
+          const userData = {
+            "first": firstName,
+            "last": lastName,
+            "email": document.getElementById("email").value,
+            "password": document.getElementById("password").value
+          };
+
           switch(deploymentTarget) {
 
             case LOCALHOST:
 
-              axios.post('/v1/users/', {
-                "first": firstName,
-                "last": lastName,
-                "email": document.getElementById("email").value,
-                "password": document.getElementById("password").value
-              })
+              axios.post('/v1/users/', userData)
                   .then(function (response) {
                     console.log(response);
                     Cookies.set("token", response.data.token);
@@ -121,7 +123,7 @@
                   .catch(function (error) {
                     console.log(error);
                   });
-            break;
+              break;
 
             case FBASE:
 
@@ -129,11 +131,11 @@
               const settings = { timestampsInSnapshots: true };
 
               db.settings(settings);
-              db.collection("test").add({
-                key1: "value1",
-              })
+              db.collection("users").add(userData)
               .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
+                window.location.href = '../home';
+          
               })
               .catch(function(error) {
                 console.error("Error adding document: ", error);
