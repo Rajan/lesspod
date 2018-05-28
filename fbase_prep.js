@@ -3,13 +3,13 @@
 var shell = require('shelljs');
 
 if (!shell.which('git')) {
-	
+
 	shell.echo('Sorry, this script requires git');
 	shell.exit(1);
 
 } else {
 
-	// shell.echo('Git found here');	
+	// shell.echo('Git found here');
 }
 
 shell.exec('git branch -D fbase');
@@ -27,6 +27,7 @@ var initFbase = shell.cat('firebase_init.txt');
 console.log('initFbase ===' + initFbase);
 
 shell.sed('-i', '</body>', initFbase + '</body>', './client/vue/index.html');
+shell.sed('-i', `deploymentTarget: 'localhost'`, `deploymentTarget: 'firebase'`, './client/vue/src/main.js');
 
 // Run external tool synchronously
 // if (shell.exec('git checkout -b fbase').code === 0) {
