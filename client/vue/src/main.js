@@ -23,7 +23,17 @@ const types = {
   warning: { itemClass: 'is-warning' },
   success: { itemClass: 'is-success', iconClass: 'fa fa-lg fa-check-circle' }
 }
- 
+
+// db calls are made based on this deploymentTarget's value
+// fbase deploy script will change it's value
+export const globalVariables = new Vue({
+  data: {
+    deploymentTarget: 'localhost',
+    LOCALHOST: 'localhost',
+    FBASE: 'firebase'
+  }
+})
+
 Vue.$notify.setTypes(types);
 
 Vue.component('input-tag', InputTag);
