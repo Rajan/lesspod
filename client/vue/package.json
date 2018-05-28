@@ -16,6 +16,7 @@
   "dependencies": {
     "@voerro/vue-tagsinput": "^1.5.2",
     "bulma-tagsinput": "^1.0.8",
+    "uuid": "^3.2.1",
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.2",
     "vue-input-tag": "^1.0.3",

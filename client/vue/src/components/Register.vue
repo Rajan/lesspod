@@ -55,7 +55,7 @@
               <div class="field is-grouped" style="margin-top: 1.5rem;">
                 <div class="control">
 
-                  <a class="button is-info" @click="register">Create Account1</a>
+                  <a class="button is-info" @click="register">Create Account</a>
 
                 </div>
                 <div class="control">
@@ -75,78 +75,99 @@
   </section>
 </template>
 <script type="text/javascript">
-  import { globalVariables } from './../main';
+import { globalVariables } from './../main'
 
-  export default {
-    data() {
-      return {
-        fullName: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      }
-    },
-    methods: {
-      register: function () {
-        let vm = this;
-        let firstName = fullName.value.split(' ').slice(0, -1).join(' ');
-        let lastName = fullName.value.split(' ').slice(-1).join(' ');
-        if (password.value === passwordConfirm.value) {
-          console.log('registering user...');
+export default {
+  data() {
+    return {
+      fullName: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  },
+  methods: {
+    register: function() {
+      let vm = this
+      let firstName = fullName.value
+        .split(' ')
+        .slice(0, -1)
+        .join(' ')
+      let lastName = fullName.value
+        .split(' ')
+        .slice(-1)
+        .join(' ')
+      if (
+        passwordConfirm.value.length > 5 &&
+        password.value === passwordConfirm.value
+      ) {
+        console.log('registering user...')
 
-          const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
-          console.log('deployment target is ' + deploymentTarget);
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables
+        console.log('deployment target is ' + deploymentTarget)
 
-          const userData = {
-            "first": firstName,
-            "last": lastName,
-            "email": document.getElementById("email").value,
-            "password": document.getElementById("password").value
-          };
+        let userData = {
+          first: firstName,
+          last: lastName,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        }
 
-          switch(deploymentTarget) {
+        switch (deploymentTarget) {
+          case LOCALHOST:
+            axios
+              .post('/v1/users/', userData)
+              .then(function(response) {
+                console.log(response)
+                Cookies.set('token', response.data.token)
+                Cookies.set('user', JSON.stringify(response.data.user))
 
-            case LOCALHOST:
+                // setting up Authorization Header that will be used for subsequent requests.
+                axios.defaults.headers.common['Authorization'] =
+                  response.data.token
+                axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-              axios.post('/v1/users/', userData)
-                  .then(function (response) {
-                    console.log(response);
-                    Cookies.set("token", response.data.token);
-                    Cookies.set("user", JSON.stringify(response.data.user));
-
-                    // setting up Authorization Header that will be used for subsequent requests.
-                    axios.defaults.headers.common['Authorization'] = response.data.token;
-                    axios.defaults.headers.post['Content-Type'] = 'application/json';
-
-                    window.location.href = '../home';
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-              break;
-
-            case FBASE:
-
-              var db = firebase.firestore();
-              const settings = { timestampsInSnapshots: true };
-
-              db.settings(settings);
-              db.collection("users").add(userData)
-              .then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-                window.location.href = '../home';
-          
+                window.location.href = '../home'
               })
               .catch(function(error) {
-                console.error("Error adding document: ", error);
-              });
-              break;
-          }
+                console.log(error)
+              })
+            break
 
-        } else {
-          console.log('passwords do not match');
+          case FBASE:
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(userData.email, userData.password)
+              .then(function(authData) {
+                const settings = { timestampsInSnapshots: true }
+                var db = firebase.firestore()
+                db.settings(settings)
+
+                const uuidv4 = require('uuid/v4')
+                userData.id = uuidv4()
+                delete userData.password
+
+                db
+                  .collection('users')
+                  .add(userData)
+                  .then(function(docRef) {
+                    Cookies.set('user', JSON.stringify(userData))
+                    console.log('Document written with ID: ', docRef.id)
+                    window.location.href = '../home'
+                  })
+                  .catch(function(error) {
+                    console.error('Error adding document: ', error)
+                  })
+              })
+              .catch(function(error) {
+                console.error(error.message)
+              })
+            break
         }
+      } else {
+        console.log('passwords do not match')
       }
     }
   }
+}
 </script>

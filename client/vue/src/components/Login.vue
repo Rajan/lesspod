@@ -90,42 +90,82 @@
 // 		});
 // 	}
 // }
+import { globalVariables } from './../main'
+
 export default {
-	data(){
-		return {
-			email: '',
-			password: ''
-		}
-	},
-	methods: {
-		login: function() {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    login: function() {
+      var vm = this
+      console.log('email: ' + email.value + '  password: ' + password.value)
 
-			var vm = this;
-			console.log('email: ' + email.value + '  password: ' + password.value);
+      if (email.value.length && password.value.length) {
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables
+        console.log('deployment target is ' + deploymentTarget)
 
-			if(email.value.length && password.value.length) {
-				axios.post('/v1/users/login', {
-					"email" : email.value,
-					"password" : password.value
-				})
-				.then(function (response) {
-					console.log(response);
-					Cookies.set("token", response.data.token);
-					Cookies.set("user", JSON.stringify(response.data.user));
-		            // setting up Authorization Header that will be used for subsequent requests.
-		            axios.defaults.headers.common['Authorization'] = response.data.token;
-		            axios.defaults.headers.post['Content-Type'] = 'application/json';
-		            vm.$notify('Logged in successfully!', 'success');
-		            // console.log(response.headers);
-		        })
-				.then(function (response) {
-					window.location.href = '../home';
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-			}
-		}
-	}
+        switch (deploymentTarget) {
+          case LOCALHOST:
+            axios
+              .post('/v1/users/login', {
+                email: email.value,
+                password: password.value
+              })
+              .then(function(response) {
+                console.log(response)
+                Cookies.set('token', response.data.token)
+                Cookies.set('user', JSON.stringify(response.data.user))
+                // setting up Authorization Header that will be used for subsequent requests.
+                axios.defaults.headers.common['Authorization'] =
+                  response.data.token
+                axios.defaults.headers.post['Content-Type'] = 'application/json'
+                vm.$notify('Logged in successfully!', 'success')
+                // console.log(response.headers);
+              })
+              .then(function(response) {
+                window.location.href = '../home'
+              })
+              .catch(function(error) {
+                console.log(error)
+              })
+            break
+
+          case FBASE:
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(email.value, password.value)
+              .then(function(user) {
+                // query for "users" collection based on email because fbase's user object won't have profile data
+                const settings = { timestampsInSnapshots: true }
+                var db = firebase.firestore()
+                db.settings(settings)
+
+                db
+                  .collection('users')
+                  .where('email', '==', email.value)
+                  .get()
+                  .then(function(querySnapshot) {
+                    Cookies.set(
+                      'user',
+                      JSON.stringify(querySnapshot.docs[0].data())
+                    )
+                    window.location.href = '../home'
+                  })
+                  .catch(function(error) {
+                    console.log('Error getting documents: ', error)
+                  })
+              })
+              .catch(function(error) {
+                console.error(error.message)
+              })
+            break
+        }
+      }
+    }
+  }
 }
 </script>
