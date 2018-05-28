@@ -18,7 +18,7 @@
 					<quill v-model="editor" :config="config" style="background: white;" output="html"/>
 
 					<br>
-					
+
 					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
 					</a><br><br><br>
@@ -34,10 +34,10 @@
 </template>
 
 <script type="text/javascript">
-
+import { globalVariables } from './../main';
 
 // window.onload = function() {
-	
+
 // }
 
 
@@ -46,7 +46,7 @@
 //     theme: 'snow',
 //     toolbar: false
 // });
-module.exports = {
+export default {
 	data(){
 		return {
 			editor: '<br><br><br><br><br>',
@@ -71,22 +71,45 @@ module.exports = {
 			var content = this.editor;
 			console.log('title is ' + title.toString() + ' content is ' + content.toString());
 			if(title.length && content.length) {
-				
-				axios.post('/v1/posts', {
+
+				const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+				console.log('deployment target is ' + deploymentTarget);
+
+				const postData = {
 					"title" : title.toString(),
 					"content" : content.toString(),
 					"tags" : this.tagsArray.toString()
-				})
-				.then(function (response) {
-					console.log(response);
-					console.log('Post Id is ' + response.data.post.id.toString());
-					document.getElementById('postId').value = response.data.post.id.toString();
-					Cookies.set("post", response.data.post);
-					this.$notify('Post saved successfully!', 'success');
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+				};
+
+				switch (deploymentTarget) {
+					case LOCALHOST:
+						axios.post('/v1/posts', postData)
+						.then(function (response) {
+							console.log(response);
+							console.log('Post Id is ' + response.data.post.id.toString());
+							document.getElementById('postId').value = response.data.post.id.toString();
+							Cookies.set("post", response.data.post);
+							this.$notify('Post saved successfully!', 'success');
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+						break;
+
+					case FBASE:
+						var db = firebase.firestore();
+						const settings = { timestampsInSnapshots: true };
+
+						db.settings(settings);
+						db.collection("posts").add(postData)
+						.then(function(docRef) {
+							console.log("Document written with ID: ", docRef.id);
+						})
+						.catch(function(error) {
+							console.error("Error adding document: ", error);
+						});
+						break;
+				}
 			}
 		},
 		addTag: function() {
