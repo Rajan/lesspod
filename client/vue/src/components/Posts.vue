@@ -59,166 +59,23 @@
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
 											}}
 											<br>
-											<a href="#" @click="editPost(index)">Edit</a>
-											<span>·</span>
-											<a href="#" @click="deletePost(index)">Delete</a>
+											<a href="#" @click="editPost(index)" v-if="fullName.length > 0">Edit</a>
+											<span v-if="fullName.length > 0">·</span>
+											<a href="#" @click="deletePost(index)" v-if="fullName.length > 0">Delete</a>
 											<p></p>
 										</div>
 									</div>
 								</div>
 							</article>
 						</div>
-						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
-							<article class="box">
-								<div class="media">
-									<div class="media-content">
-										<p class="title is-5 is-spaced is-marginless">
-											<a href="#">TensorFlow For Machine Intelligence</a>
-										</p>
-										<div class="content is-small">
-											April 10, 2018
-											<br>
-											<a href="user.html">Edit</a>
-											<span>·</span>
-											<a>Delete</a>
-											<p></p>
-										</div>
-									</div>
-								</div>
-							</article>
-							</div>
-
-							<div class="column is-12-tablet is-6-desktop is-4-widescreen">
-								<article class="box">
-									<div class="media">
-										<div class="media-content">
-											<p class="title is-5 is-marginless">
-												<a href="#">Docker in Production</a>
-											</p>
-											<div class="content is-small">
-												April 1, 2018
-												<br>
-												<a href="user.html">Edit</a>
-												<span>·</span>
-												<a>Delete</a>
-												<p></p>
-											</div>
-										</div>
-									</div></article>
-								</div>
-
-								<div class="column is-12-tablet is-6-desktop is-4-widescreen">
-									<article class="box">
-										<div class="media">
-											<div class="media-content">
-												<p class="title is-5 is-marginless">
-													<a href="#">Developing a Gulp.js Edge</a>
-												</p>
-												<div class="content is-small">
-													March 29, 2018
-													<br>
-													<a href="user.html">Edit</a>
-													<span>·</span>
-													<a>Delete</a>
-													<p></p>
-												</div>
-											</div>
-										</div></article>
-									</div>
-
-									<div class="column is-12-tablet is-6-desktop is-4-widescreen">
-										<article class="box">
-											<div class="media">
-												<div class="media-content">
-													<p class="title is-5 is-marginless">
-														<a href="#">Learning Swift</a>
-													</p>
-													<div class="content is-small">
-														Dec 25, 2017
-														<br>
-														<a href="user.html">Edit</a>
-														<span>·</span>
-														<a>Delete</a>
-														<p></p>
-													</div>
-												</div>
-											</div></article>
-										</div>
-
-										<div class="column is-12-tablet is-6-desktop is-4-widescreen">
-											<article class="box">
-												<div class="media">
-													<div class="media-content">
-														<p class="title is-5 is-marginless">
-															<a href="#">Choosing a JavaScript Framework</a>
-														</p>
-														<div class="content is-small">
-															Dec 5, 2017
-															<br>
-															<a href="user.html">Edit</a>
-															<span>·</span>
-															<a>Delete</a>
-															<p></p>
-														</div>
-													</div>
-												</div></article>
-											</div>
-
-											<div class="column is-12-tablet is-6-desktop is-4-widescreen">
-												<article class="box">
-													<div class="media">
-														<div class="media-content">
-															<p class="title is-5 is-marginless">
-																<a href="#">Deconstructing Google Cardboard Apps</a>
-															</p>
-															<div class="content is-small">
-																Nov 20, 2017
-																<br>
-																<a href="user.html">Edit</a>
-																<span>·</span>
-																<a>Delete</a>
-																<p></p>
-															</div>
-														</div>
-													</div></article>
-												</div>
-											</div>
-
-											<nav class="pagination">
-												<a class="pagination-previous">Previous</a>
-												<a class="pagination-next">Next page</a>
-												<ul class="pagination-list">
-													<li>
-														<a class="pagination-link">1</a>
-													</li>
-													<li>
-														<span class="pagination-ellipsis">&hellip;</span>
-													</li>
-													<li>
-														<a class="pagination-link">45</a>
-													</li>
-													<li>
-														<a class="pagination-link is-current">46</a>
-													</li>
-													<li>
-														<a class="pagination-link">47</a>
-													</li>
-													<li>
-														<span class="pagination-ellipsis">&hellip;</span>
-													</li>
-													<li>
-														<a class="pagination-link">86</a>
-													</li>
-												</ul>
-											</nav>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</template>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</template>
 <script type="text/javascript">
-	export default {
+export default {
 	// props: ["posts"],
 	data(){
 		return {
@@ -238,11 +95,11 @@
 	computed:{
 		filteredPosts: function () {
 			var query = this.query;
-	    	return this.posts.filter(function (post) {
-		        return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
-		        	   (post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-		        	   	post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
-	    	});	
+			return this.posts.filter(function (post) {
+				return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
+				(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+					post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
+			});	
 		}
 	},
 	methods: {
@@ -291,9 +148,13 @@
 		editPost: function(index) {
 			var vm = this;
 			let post = vm.posts[index];
-			console.log('Editing... ' + JSON.stringify(post));
-			Cookies.set("editpost", JSON.stringify(post));
-			window.location.href = '../editpost/' + post.id.toString();
+			if(this.fullName.length > 0){
+				console.log('Editing... ' + JSON.stringify(post));
+				Cookies.set("editpost", JSON.stringify(post));
+				window.location.href = '../editpost/' + post.id.toString();
+			} else {
+				window.location.href = '../post/' + post.id.toString();
+			}
 		},
 		deletePost: function(index) {
 			var vm = this;
