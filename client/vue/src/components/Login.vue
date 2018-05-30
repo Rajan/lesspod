@@ -127,10 +127,10 @@ export default {
                 // console.log(response.headers);
               })
               .then(function(response) {
-                window.location.href = '../home'
+                window.location.href = '../home';
               })
               .catch(function(error) {
-                console.log(error)
+                console.log(error);
               })
             break
 

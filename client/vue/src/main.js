@@ -8,6 +8,20 @@ import VModal from 'vue-js-modal';
 import InputTag from 'vue-input-tag';
 import Notify from 'vue2-notify';
 
+import hljs from 'highlight.js';
+import VueQuillEditor, { Quill } from 'vue-quill-editor';
+import { ImageDrop } from 'quill-image-drop-module';
+// import ImageResize from 'quill-image-resize-module';
+
+Quill.register('modules/imageDrop', ImageDrop);
+// Quill.register('modules/imageResize', ImageResize);
+// require styles
+// import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+// import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor, /* { default global options } */)
+
 
 Vue.use(VueQuill);
 

@@ -15,21 +15,25 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill v-model="editor" :config="config" style="background: white;" output="html"/>
+				<quill-editor v-model="editor"
+					:options="editorOption">
+				</quill-editor>
 
-					<br>
+				<!-- <quill v-model="editor" :config="config" style="background: white;" output="html"/> -->
 
-					<a href="#" class="button is-primary" @click="savePost">
-						Save Post
-					</a><br><br><br>
-					<!-- <input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag> -->
-					<br><br>
-					<input type="hidden" name="postId" id="postId" value="" />
-				</div>
+				<br>
 
+				<a href="#" class="button is-primary" @click="savePost">
+					Save Post
+				</a><br><br><br>
+				<!-- <input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag> -->
+				<br><br>
+				<input type="hidden" name="postId" id="postId" value="" />
 			</div>
+
 		</div>
 	</div>
+</div>
 </section>
 </template>
 
@@ -49,15 +53,47 @@ import { globalVariables } from './../main';
 export default {
 	data(){
 		return {
-			editor: '<br><br><br><br><br>',
+			editor: '',
 			config: {
+				debug: 'info',
+				placeholder: 'Write a story...',
 				theme: 'snow'
+			},
+			content: '',
+			editorOption: {
+				modules: {
+					toolbar: [
+					[{ 'size': ['small', false, 'large'] }],
+					['bold', 'italic'],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					['link', 'image']
+					],
+					history: {
+						delay: 1000,
+						maxStack: 50,
+						userOnly: false
+					},
+					imageDrop: true,
+					// imageResize: {
+					// 	displayStyles: {
+					// 		backgroundColor: 'black',
+					// 		border: 'none',
+					// 		color: 'white'
+					// 	},
+					// 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+					// }
+				}
 			},
 			tagsArray: []
 		}
 	},
 	beforeMount() {
 		this.initPost();
+	},
+	computed: {
+		contentCode() {
+			return hljs.highlightAuto(this.content).value
+		}
 	},
 	methods: {
 		initPost: function() {
@@ -83,62 +119,74 @@ export default {
 
 				switch (deploymentTarget) {
 					case LOCALHOST:
-						axios.post('/v1/posts', postData)
-						.then(function (response) {
-							console.log(response);
-							console.log('Post Id is ' + response.data.post.id.toString());
-							document.getElementById('postId').value = response.data.post.id.toString();
-							Cookies.set("post", response.data.post);
-							this.$notify('Post saved successfully!', 'success');
-						})
-						.catch(function (error) {
-							console.log(error);
-						});
-						break;
+					axios.post('/v1/posts', postData)
+					.then(function (response) {
+						console.log(response);
+						console.log('Post Id is ' + response.data.post.id.toString());
+						document.getElementById('postId').value = response.data.post.id.toString();
+						Cookies.set("post", response.data.post);
+						// this.$notify('Post saved successfully!', 'success');
+						window.location.href = '../home'
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+					break;
 
 					case FBASE:
-						var db = firebase.firestore();
-						const settings = { timestampsInSnapshots: true };
+					var db = firebase.firestore();
+					const settings = { timestampsInSnapshots: true };
 
-						db.settings(settings);
-						db.collection("posts").add(postData)
-						.then(function(docRef) {
-							console.log("Document written with ID: ", docRef.id);
-						})
-						.catch(function(error) {
-							console.error("Error adding document: ", error);
-						});
-						break;
+					db.settings(settings);
+					db.collection("posts").add(postData)
+					.then(function(docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					})
+					.catch(function(error) {
+						console.error("Error adding document: ", error);
+					});
+					break;
 				}
+			} else {
+				console.log('nothing to save...');
 			}
 		},
-		addTag: function() {
-			console.log('adding a tag...');
+		onEditorBlur(editor) {
+        // console.log('editor blur!', editor)
+    	},
+	    onEditorFocus(editor) {
+	        // console.log('editor focus!', editor)
+	    },
+	    onEditorReady(editor) {
+	        // console.log('editor ready!', editor)
+	    },
+	    addTag: function() {
+	    	console.log('adding a tag...');
 
-			let tagText = document.getElementById("tag").value;
-			let user = Cookies.getJSON("user");
+	    	let tagText = document.getElementById("tag").value;
+	    	let user = Cookies.getJSON("user");
 
-			if(tagText.length && document.getElementById("postId").value.length) {
-				// axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-				axios.post('/v1/tags', {
+	    	if(tagText.length && document.getElementById("postId").value.length) {
+					// axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+					axios.post('/v1/tags', {
 
-					"name" : tagText,
-					"postId" : document.getElementById('postId').value,
-					"userId" : user.id.toString()
+						"name" : tagText,
+						"postId" : document.getElementById('postId').value,
+						"userId" : user.id.toString()
 
-				})
-				.then(function (response) {
-					console.log(response);
-					if(response.data.success) {
-						document.getElementById("tag").value = '';
-						console.log('Tag: ' + response.data.tag.name.toString() + ' added successfully.');
-					}
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+					})
+					.then(function (response) {
+						console.log(response);
+						if(response.data.success) {
+							document.getElementById("tag").value = '';
+							console.log('Tag: ' + response.data.tag.name.toString() + ' added successfully.');
+						}
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+				}
 			}
 		}
-	}
 }
 </script>
