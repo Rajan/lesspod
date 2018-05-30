@@ -59,7 +59,7 @@
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
 											}}
 											<br>
-											<p v-html="post.content.replace(/<(?:.|\n)*?>/gm, '').substring(0, 140)"></p>
+											<p v-html="post.content.replace(/<(?:.|\n)*?>/gm, '').replace('.', '. ').replace(',',', ').substring(0, 140)"></p>
 											<a href="#" @click="editPost(index)" v-if="fullName.length > 0">Edit</a>
 											<span v-if="fullName.length > 0">·</span>
 											<a href="#" @click="deletePost(index)" v-if="fullName.length > 0">Delete</a>
