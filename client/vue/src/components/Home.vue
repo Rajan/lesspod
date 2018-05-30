@@ -73,7 +73,7 @@
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
 											}}
 											<br>
-											<p v-html="post.content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g,', ').substring(0, 140)"></p>
+											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)">Edit</a>
 											<span>·</span>
 											<a href="#" @click="deletePost(index)">Delete</a>
@@ -212,6 +212,16 @@ export default {
 					vm.logout();
 				}
 			});
+		},
+		postSummary: function(content) {
+			let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g,', ').substring(0, 140);
+			console.log('postSummary.length' + postSummary.length);
+			if(postSummary.length == 140) {
+				postSummary = postSummary + '...';
+				return postSummary;
+			}else {
+				return postSummary;
+			}
 		},
 		logout: function() {
 			Cookies.set('token', '');

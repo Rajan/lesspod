@@ -59,7 +59,7 @@
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
 											}}
 											<br>
-											<p v-html="post.content.replace(/<(?:.|\n)*?>/gm, '').replace('.', '. ').replace(',',', ').substring(0, 140)"></p>
+											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)" v-if="fullName.length > 0">Edit</a>
 											<span v-if="fullName.length > 0">·</span>
 											<a href="#" @click="deletePost(index)" v-if="fullName.length > 0">Delete</a>
@@ -95,7 +95,7 @@ export default {
 	},
 	computed:{
 		filteredPosts: function () {
-			var query = this.query;
+			let query = this.query;
 			return this.posts.filter(function (post) {
 				return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
 				(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
@@ -180,6 +180,18 @@ export default {
 					vm.logout();
 				}
 			});
+		},
+		postSummary: function(content) {
+			let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g,', ').substring(0, 140);
+			console.log('postSummary.length' + postSummary.length);
+			if(postSummary.length == 140) {
+				postSummary = postSummary + '...';
+				return postSummary;
+			}else {
+				return postSummary;
+			}
+
+			
 		},
 		logout: function() {
 			Cookies.set('token', '');
