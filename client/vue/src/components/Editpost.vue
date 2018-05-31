@@ -15,7 +15,10 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill v-model="editor"  v-if="editor.length > 0" style="background: white;" output="html"/>
+					<!-- <quill v-model="editor"  v-if="editor.length > 0" style="background: white;" output="html"/> -->
+					<quill-editor v-model="editor" v-if="editor.length > 0"
+						:options="editorOption" style="background: white;">
+					</quill-editor>
 					<br>
 
 					<a href="#" class="button is-primary" @click="savePost">
@@ -39,6 +42,30 @@ module.exports = {
 			id: '',
 			title: '',
 			editor: '',
+			editorOption: {
+				modules: {
+					toolbar: [
+					[{ 'size': ['small', false, 'large'] }],
+					['bold', 'italic'],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					['link', 'image']
+					],
+					history: {
+						delay: 1000,
+						maxStack: 50,
+						userOnly: false
+					},
+					imageDrop: true,
+					// imageResize: {
+					// 	displayStyles: {
+					// 		backgroundColor: 'black',
+					// 		border: 'none',
+					// 		color: 'white'
+					// 	},
+					// 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+					// }
+				}
+			},
 			tagsArray: []
 
 		}
@@ -50,6 +77,11 @@ module.exports = {
 			if(Cookies.get('token') && Cookies.get('token').length && this.tagsArray.length){
 				this.saveTags();
 			}
+		}
+	},
+	computed: {
+		contentCode() {
+			return hljs.highlightAuto(this.content).value;
 		}
 	},
 	beforeMount() {

@@ -15,7 +15,7 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill-editor v-model="editor"
+				<quill-editor v-model="editor"
 					:options="editorOption" style="height: 20rem;">
 				</quill-editor>
 
@@ -48,7 +48,6 @@ export default {
 				placeholder: 'Write a story...',
 				theme: 'snow'
 			},
-			content: '',
 			editorOption: {
 				modules: {
 					toolbar: [
@@ -81,7 +80,7 @@ export default {
 	},
 	computed: {
 		contentCode() {
-			return hljs.highlightAuto(this.content).value
+			return hljs.highlightAuto(this.content).value;
 		}
 	},
 	methods: {
