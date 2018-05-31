@@ -185,8 +185,11 @@ export default {
 		editPost: function(index) {
 			var vm = this;
 			let post = vm.posts[index];
-			console.log('Editing... ' + JSON.stringify(post));
-			Cookies.set("editpost", JSON.stringify(post));
+			let postString = JSON.stringify(vm.posts[index]);
+
+			Cookies.set("editpost", postString);
+			console.log('Editing... ' + post);
+			
 			window.location.href = '../editpost/' + post.id.toString();
 		},
 		deletePost: function(index) {

@@ -15,7 +15,7 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill v-model="editor" style="background: white;" output="html"/>
+					<quill v-model="editor"  v-if="editor.length > 0" style="background: white;" output="html"/>
 					<br>
 
 					<a href="#" class="button is-primary" @click="savePost">
@@ -38,7 +38,7 @@ module.exports = {
 		return {
 			id: '',
 			title: '',
-			editor: '<br><br><br>',
+			editor: '',
 			tagsArray: []
 
 		}
@@ -57,14 +57,39 @@ module.exports = {
 	},
 	methods: {
 		initPost: function() {
-			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-			var post = Cookies.getJSON("editpost");
-			console.log('post is: ' + post);
-			this.id = post.id;
-			this.title = post.title;
-			this.editor = post.content;
-			this.tagsArray = post.tags.toString().split(",");
-			console.log('this.tagsArray= ' + this.tagsArray);
+			// axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			// var post = Cookies.getJSON("editpost");
+			// console.log('post is: ' + post);
+			// this.id = post.id;
+			// this.title = post.title;
+			// this.editor = post.content;
+			// this.tagsArray = post.tags.toString().split(",");
+			// console.log('this.tagsArray= ' + this.tagsArray);
+
+			var vm = this;
+
+			if(Cookies.get('token') && Cookies.get('token').length){
+				vm.token = Cookies.get('token');
+				axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			}
+			// fetch the post from server
+			let href = location.href;
+
+			let postId = href.substr(href.lastIndexOf('/') + 1);
+
+			axios.get('/v1/posts/' + postId, {})
+				.then(function (response){
+					console.log(response.data.post);
+					let post = response.data.post;
+					vm.id = post.id;
+					vm.title = post.title;
+					vm.editor = post.content;
+					vm.tagsArray = post.tags.toString().split(",");
+
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
 		},
 		savePost: function() {
 			var vm = this;

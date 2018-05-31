@@ -15,7 +15,7 @@
 				</div>
 				<div class="column is-two-thirds">
 
-				<quill-editor v-model="editor"
+					<quill-editor v-model="editor"
 					:options="editorOption" style="height: 20rem;">
 				</quill-editor>
 
@@ -151,9 +151,9 @@ export default {
 			window.location.href = '../';
 		},
 		onEditorBlur(editor) {
-        // console.log('editor blur!', editor)
-    	},
-	    onEditorFocus(editor) {
+        	// console.log('editor blur!', editor)
+   		},
+    	onEditorFocus(editor) {
 	        // console.log('editor focus!', editor)
 	    },
 	    onEditorReady(editor) {
@@ -184,9 +184,9 @@ export default {
 					.catch(function (error) {
 						console.log(error);
 					});
-				}
 			}
 		}
+	}
 };
 </script>
 <style>
