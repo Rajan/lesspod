@@ -10,7 +10,7 @@
 						<div class="level-left">
 							<div class="level-item">
 								<p class="subtitle is-5">
-									<strong>17</strong> Posts
+									<strong>{{posts.length}}</strong> Posts
 								</p>
 							</div>
 

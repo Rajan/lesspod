@@ -1,13 +1,13 @@
 <template>
 	<section class="section">
 		<div class="container">
-			<div class="columns is-centered is-multiline">
+			<div class="columns is-centered is-multiline has-text-centered">
 				<div class="column is-two-thirds">
 					<div class="field is-horizontal">
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input" id="title" type="text" placeholder="Post Title">
+									<input class="input has-text-centered is-medium" id="title" type="text" placeholder="Post Title">
 								</p>
 							</div>
 						</div>
@@ -16,12 +16,12 @@
 				<div class="column is-two-thirds">
 
 				<quill-editor v-model="editor"
-					:options="editorOption">
+					:options="editorOption" style="height: 20rem;">
 				</quill-editor>
 
 				<!-- <quill v-model="editor" :config="config" style="background: white;" output="html"/> -->
 
-				<br>
+				<br><br><br>
 
 				<a href="#" class="button is-primary" @click="savePost">
 					Save Post
@@ -39,17 +39,6 @@
 
 <script type="text/javascript">
 import { globalVariables } from './../main';
-
-// window.onload = function() {
-
-// }
-
-
-// var editor = new Quill('#editor', {
-//     // modules: { toolbar: '#toolbar' },
-//     theme: 'snow',
-//     toolbar: false
-// });
 export default {
 	data(){
 		return {
@@ -103,6 +92,7 @@ export default {
 		},
 		savePost: function() {
 			console.log('saving a post...');
+			var vm = this;
 			var title = document.getElementById("title").value;
 			var content = this.editor;
 			console.log('title is ' + title.toString() + ' content is ' + content.toString());
@@ -130,6 +120,10 @@ export default {
 					})
 					.catch(function (error) {
 						console.log(error);
+						if(error.toString().indexOf('401') !== 0){
+							vm.logout();
+						}
+						
 					});
 					break;
 
@@ -150,6 +144,11 @@ export default {
 			} else {
 				console.log('nothing to save...');
 			}
+		},
+		logout: function() {
+			Cookies.set('token', '');
+			Cookies.set('user', '');
+			window.location.href = '../';
 		},
 		onEditorBlur(editor) {
         // console.log('editor blur!', editor)
@@ -188,5 +187,10 @@ export default {
 				}
 			}
 		}
-}
+};
 </script>
+<style>
+	section, body, html {
+		background: white !important;
+	}
+</style>
