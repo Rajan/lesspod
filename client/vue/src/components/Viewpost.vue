@@ -219,7 +219,4 @@ section, body, html {
 	padding-top: 0;
 	margin-top: 0;
 };
-.ql-container {
-	border: none;
-}
 </style>

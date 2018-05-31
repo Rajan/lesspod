@@ -1,13 +1,13 @@
 <template>
 	<section class="section">
 		<div class="container">
-			<div class="columns is-centered is-multiline">
+			<div class="columns is-centered is-multiline has-text-centered">
 				<div class="column is-two-thirds">
 					<div class="field is-horizontal">
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input" v-model="title" id="title" type="text" placeholder="Post Title">
+									<input class="input has-text-centered is-large " v-model="title" id="title" type="text" placeholder="Post Title" style="font-weight: bold;">
 								</p>
 							</div>
 						</div>
@@ -201,5 +201,14 @@ module.exports = {
 			}
 		}
 	}
-}
+};
 </script>
+<style>
+section, body, html {
+	background: white !important;
+};
+#dateAuthor {
+	padding-top: 0;
+	margin-top: 0;
+};
+</style>

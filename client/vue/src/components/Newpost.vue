@@ -7,7 +7,7 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input has-text-centered is-medium" id="title" type="text" placeholder="Post Title">
+									<input class="input has-text-centered is-medium" id="title" type="text" placeholder="Post Title" style="font-weight: bold;" >
 								</p>
 							</div>
 						</div>
