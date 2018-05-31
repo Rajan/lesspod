@@ -7,7 +7,13 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input" v-model="title" id="title" type="text" placeholder="Post Title">
+									<input class="input has-text-centered is-large disabled" style="font-weight: bold;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
+									<!-- <label class="has-text-centered is-centered"></label> -->
+									<!-- <div class="field-label has-text-centered is-small">
+										<label class="label is-small has-text-centered is-centered">March 31, 2018 - Rajan Chandi</label>
+									</div> -->
+									<input class="input has-text-centered is-small disabled" v-model="dateAuthor" id="dateAuthor" type="text" placeholder="March 31, 2018 - Some Author" readonly>
+									<!-- <input class="has-text-centered is-small" ></span> -->
 								</p>
 							</div>
 						</div>
@@ -16,16 +22,16 @@
 				<div class="column is-two-thirds">
 
 					<quill v-model="content" v-if="content.length > 0"  :config="config" style="background: white;" output="html"/>
-					<br>
-					<input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag>
-					<br><br>
-					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
-				</div>
+						<br>
+						<input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag>
+						<br><br>
+						<input type="hidden" v-model="id" name="postId" id="postId" value="" />
+					</div>
 
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 </template>
 
 <script type="text/javascript">
@@ -51,12 +57,13 @@ module.exports = {
 			id: '',
 			title: '',
 			token: null,
+			dateAuthor: 'March 31, 2018 - Some Author',
 			config: {
 				theme: 'snow',
 				readOnly: ((Cookies.get('token') && Cookies.get('token').length) > 0 ? false : true),
 				"modules": {
-      				"toolbar": (Cookies.get('token') && Cookies.get('token').length) > 0
-  				}
+					"toolbar": (Cookies.get('token') && Cookies.get('token').length) > 0
+				}
 			}
 		}
 	},
@@ -87,18 +94,19 @@ module.exports = {
 			let postId = href.substr(href.lastIndexOf('/') + 1);
 
 			axios.get('/v1/posts/' + postId, {})
-				.then(function (response){
-					console.log(response.data.post);
-					let post = response.data.post;
-					vm.id = post.id;
-					vm.title = post.title;
-					vm.content = post.content;
-					vm.tagsArray = post.tags.toString().split(",");
+			.then(function (response){
+				console.log(response.data.post);
+				let post = response.data.post;
+				vm.id = post.id;
+				vm.title = post.title;
+				vm.content = post.content;
+				vm.tagsArray = post.tags.toString().split(",");
+				// vm.dateAuthor = post.
 
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 
 			
 
@@ -201,5 +209,17 @@ module.exports = {
 			}
 		}
 	}
-}
+};
 </script>
+<style>
+section, body, html {
+	background: white !important;
+};
+#dateAuthor {
+	padding-top: 0;
+	margin-top: 0;
+};
+.ql-container {
+	border: none;
+}
+</style>
