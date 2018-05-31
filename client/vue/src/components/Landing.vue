@@ -21,7 +21,7 @@
 							<ul style="font-size: 1.3rem;">
 								<li>No fixed recurring hosting fees.</li>
 								<li>Infinite scalability of the cloud.</li>
-								<li>Free hosting till you're very popular.</li>
+								<li>Free hosting till you're very popular!</li>
 							</ul>
 						<!-- </div> -->
 						<br>
@@ -39,7 +39,6 @@
 			<div class="container">
 				<div class="is-centered">
 					<div class="column has-text-centered" style="font-size:1.5rem;">
-						This is a landing page
 						<a href="/login">Login</a> Or <a href="/register">Create Account</a>
 					</div>
 				</div>

@@ -151,7 +151,6 @@ export default {
 			let post = vm.posts[index];
 			if(this.fullName.length > 0){
 				console.log('Editing... ' + JSON.stringify(post));
-				Cookies.set("editpost", JSON.stringify(post));
 				window.location.href = '../editpost/' + post.id.toString();
 			} else {
 				window.location.href = '../post/' + post.id.toString();
