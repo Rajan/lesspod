@@ -1,13 +1,13 @@
 <template>
 	<section class="section">
 		<div class="container">
-			<div class="columns is-centered is-multiline">
+			<div class="columns is-centered is-multiline has-text-centered">
 				<div class="column is-two-thirds">
 					<div class="field is-horizontal">
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input" v-model="title" id="title" type="text" placeholder="Post Title">
+									<input class="input has-text-centered is-medium" v-model="title" id="title" type="text" placeholder="Page Title" style="font-weight: bold;" >
 								</p>
 							</div>
 						</div>
@@ -15,13 +15,23 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill v-model="content"  :config="config" style="background: white;" output="html"/>
-					<br>
+					<!-- <quill v-model="content"  :config="config" style="background: white;" output="html"/> -->
+					<quill-editor v-model="content"
+						:options="editorOption" style="height: 20rem;">
+					</quill-editor>
+					<br><br><br>
 
 					<a href="#" class="button is-primary" @click="savePage" v-if="token && token.length > 0">
 						Save Page
-					</a><br><br><br>
-					<input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag>
+					</a><br><br>
+					<input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"  v-if="token && token.length > 0">
+						
+					</input-tag>
+					<div class="tags" v-if="!token">
+							<span class="tag is-medium is-info" v-for="tag in tagsArray" @click="tagClicked(tag)">
+								{{ tag }}
+							</span>
+					</div>
 					<br><br>
 					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
 				</div>
@@ -55,6 +65,30 @@ module.exports = {
 			id: '',
 			title: '',
 			token: null,
+			editorOption: {
+				modules: {
+					toolbar: [
+					[{ 'size': ['small', false, 'large'] }],
+					['bold', 'italic'],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					['link', 'image', 'video']
+					],
+					history: {
+						delay: 1000,
+						maxStack: 50,
+						userOnly: false
+					},
+					imageDrop: true,
+					// imageResize: {
+					// 	displayStyles: {
+					// 		backgroundColor: 'black',
+					// 		border: 'none',
+					// 		color: 'white'
+					// 	},
+					// 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+					// }
+				}
+			},
 			config: {
 				theme: 'snow',
 				readOnly: ((Cookies.get('token') && Cookies.get('token').length) > 0 ? false : true),
@@ -192,5 +226,10 @@ module.exports = {
 			}
 		}
 	}
-}
+};
 </script>
+<style>
+	section, body, html {
+		background: white !important;
+	}
+</style>

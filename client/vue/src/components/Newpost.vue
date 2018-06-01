@@ -54,7 +54,7 @@ export default {
 					[{ 'size': ['small', false, 'large'] }],
 					['bold', 'italic'],
 					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
-					['link', 'image']
+					['link', 'image', 'video']
 					],
 					history: {
 						delay: 1000,
