@@ -23,7 +23,12 @@
 
 					<quill v-model="content" v-if="content.length > 0"  :config="config" style="background: white;" output="html"/>
 						<br>
-						<input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag>
+						<!-- <input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag> -->
+						<div class="tags">
+							<span class="tag is-medium is-info" v-for="tag in tagsArray" @click="tagClicked(tag)">
+								{{ tag }}
+							</span>
+						</div>
 						<br><br>
 						<input type="hidden" v-model="id" name="postId" id="postId" value="" />
 					</div>
@@ -180,6 +185,9 @@ module.exports = {
 					console.log(error);
 				});
 			}
+		},
+		tagClicked: function(tag) {
+			console.log(tag);
 		},
 		addTag: function() {
 			console.log('adding a tag...');

@@ -15,7 +15,7 @@
 							</div>
 
 							<p class="level-item">
-								<a class="button is-success" href="new-book.html">New Post</a>
+								<a class="button is-success" v-if="fullName.length > 0" href="new-book.html">New Post</a>
 							</p>
 
 							<div class="level-item is-hidden-tablet-only">
