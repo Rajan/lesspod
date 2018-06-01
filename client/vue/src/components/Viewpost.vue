@@ -138,6 +138,10 @@
 							</article>
 						</div>
 					</div>
+					<h2 class="title">Comments</h2>
+					<div class="comments">
+    					<vue-disqus shortname="lesspod" :identifier="id"></vue-disqus>
+  					</div>
 				</div>
 
 			</div>

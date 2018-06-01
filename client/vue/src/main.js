@@ -13,19 +13,24 @@ import VueQuillEditor, { Quill } from 'vue-quill-editor';
 import { ImageDrop } from 'quill-image-drop-module';
 // import ImageResize from 'quill-image-resize-module';
 
-Quill.register('modules/imageDrop', ImageDrop);
+
 // Quill.register('modules/imageResize', ImageResize);
 // require styles
 // import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 // import 'quill/dist/quill.bubble.css'
 
+import VueDisqus from 'vue-disqus'
+
 Vue.use(VueQuillEditor, /* { default global options } */)
 
+Quill.register('modules/imageDrop', ImageDrop);
 
 Vue.use(VueQuill);
 
 Vue.use(VModal);
+
+Vue.use(VueDisqus);
 
 Vue.use(Notify, {
   itemClass: 'notification',
