@@ -66,7 +66,7 @@
 								<div class="media">
 									<div class="media-content">
 										<p class="title is-5 is-spaced is-marginless">
-											<a href="#"  @click="editPost(index)" :id="post.id">{{post.title}}</a>
+											<a href="#" @click="editPost(index)" :id="post.id">{{post.title}}</a>
 										</p>
 										<div class="content is-small">
 											{{
@@ -161,7 +161,7 @@ export default {
 
 							for(var i in posts1){
 
-								console.log(posts1[i].title);
+								// console.log(posts1[i].title);
 								if(posts1[i].pageURL && posts1[i].pageURL.length !== 0){
 									posts1.splice(i, 1);
 								}
@@ -184,11 +184,11 @@ export default {
 		},
 		editPost: function(index) {
 			var vm = this;
-			let post = vm.posts[index];
-			let postString = JSON.stringify(vm.posts[index]);
+			let post = vm.filteredPosts[index];
+			let postString = JSON.stringify(vm.filteredPosts[index]);
 
 			Cookies.set("editpost", postString);
-			console.log('Editing... ' + post);
+			console.log('Editing... ' + JSON.stringify(post));
 			
 			window.location.href = '../editpost/' + post.id.toString();
 		},
@@ -218,7 +218,7 @@ export default {
 		},
 		postSummary: function(content) {
 			let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g,', ').substring(0, 140);
-			console.log('postSummary.length' + postSummary.length);
+			// console.log('postSummary.length' + postSummary.length);
 			if(postSummary.length == 140) {
 				postSummary = postSummary + '...';
 				return postSummary;

@@ -174,7 +174,7 @@ export default {
 							}
 							if(menus1.length > 0){
 								vm.menus = vm.menus.concat(menus1);
-								console.log(menus1);
+								// console.log(menus1);
 							}else{
 								// console.log(menus1);
 							}
@@ -317,7 +317,7 @@ export default {
 					.then(function (response) {
 						console.log(response);
 						postId = response.data.post.id.toString();
-						console.log('Post Id is ' + postId);
+						// console.log('Post Id is ' + postId);
 						// document.getElementById('postId').value = postId;
 						vm.createMenu(menuName, linkedURL, postId);
 						// Cookies.set("post", response.data.post);
