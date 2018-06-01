@@ -7,7 +7,7 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input has-text-centered is-large disabled" style="font-weight: bold;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
+									<input class="input has-text-centered is-large disabled" style="font-weight: bold;font-size:2rem;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
 									<input class="input has-text-centered is-small disabled" v-model="dateAuthor" id="dateAuthor" type="text" placeholder="March 31, 2018 - Some Author" readonly>
 								</p>
 							</div>
@@ -24,8 +24,120 @@
 							{{ tag }}
 						</span>
 					</div>
-					<br><br>
 					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
+				</div>
+				<div class="column is-two-thirds has-text-centered"> <!-- This div is only for design purposes -->
+					<h2 class="title">Recommended Posts</h2>
+					<div class="columns is-multiline" >
+						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#" >One Random Idea</a>
+										</p>
+										<div class="content is-small">
+											March 31, 1984 . Some Author
+											<br>
+											<p>
+												In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+											</p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#" >Last Trip to Paris</a>
+										</p>
+										<div class="content is-small">
+											March 31, 1984 . Some Author
+											<br>
+											<p>
+												In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+											</p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#" >Our New Business Venture</a>
+										</p>
+										<div class="content is-small">
+											March 31, 1984 . Some Author
+											<br>
+											<p>
+												In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+											</p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#" >An Adventure to China</a>
+										</p>
+										<div class="content is-small">
+											March 31, 1984 . Some Author
+											<br>
+											<p>
+												In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+											</p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#" >Of Ghosts and Gods</a>
+										</p>
+										<div class="content is-small">
+											March 31, 1984 . Some Author
+											<br>
+											<p>
+												In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+											</p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+						<div class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<article class="box">
+								<div class="media">
+									<div class="media-content">
+										<p class="title is-5 is-spaced is-marginless">
+											<a href="#" >Hackers and Painters</a>
+										</p>
+										<div class="content is-small">
+											March 31, 1984 . Some Author
+											<br>
+											<p>
+												In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+											</p>
+										</div>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
 				</div>
 
 			</div>
