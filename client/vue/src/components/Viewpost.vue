@@ -20,8 +20,8 @@
 					<br>
 
 					<div class="tags">
-						<span class="button is-link is-outlined is-small is-rounded" v-for="tag in tagsArray" @click="tagClicked(tag)" style="margin-right:0.6rem;">
-							{{ tag }} 
+						<span class="button is-link is-outlined is-small is-rounded" v-for="tag in tagsArray" @click="tagClicked(tag)" style="margin-right:0.6rem;" v-if="tag.trim().length > 0">
+							{{ tag.trim() }} 
 						</span>
 					</div>
 					<input type="hidden" v-model="id" name="postId" id="postId" value="" />
