@@ -7,7 +7,7 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input has-text-centered is-medium" v-model="title" id="title" type="text" placeholder="Page Title" style="font-weight: bold;" >
+									<input class="input has-text-centered is-medium" v-model="title" id="title" type="text" placeholder="Page Title" style="font-weight: bold;font-size:2rem;" >
 								</p>
 							</div>
 						</div>
@@ -29,8 +29,8 @@
 						
 					</input-tag>
 					<div class="tags" v-if="!token">
-							<span class="tag is-medium is-info" v-for="tag in tagsArray" @click="tagClicked(tag)">
-								{{ tag }}
+							<span class="tag is-medium is-info" v-if="tag.trim().length > 0" v-for="tag in tagsArray" @click="tagClicked(tag)">
+								{{ tag.trim() }}
 							</span>
 					</div>
 					<br><br>

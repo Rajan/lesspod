@@ -7,7 +7,7 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input class="input has-text-centered is-large " v-model="title" id="title" type="text" placeholder="Post Title" style="font-weight: bold;">
+									<input class="input has-text-centered is-large" v-model="title" id="title" type="text" placeholder="Post Title" style="font-weight: bold;font-size:2rem;">
 								</p>
 							</div>
 						</div>
