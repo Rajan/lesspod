@@ -21,9 +21,13 @@
 				</div>
 				<div class="column is-two-thirds">
 
-					<quill v-model="content" v-if="content.length > 0"  :config="config" style="background: white;" output="html"/>
+					<!-- <quill v-model="content" v-if="content.length > 0"  :config="config" style="background: white;font-size:1.4rem;" output="html"/> -->
+					<!-- 	<quill-editor v-model="content" v-if="content.length > 0"
+							:options="editorOption" style="background: white;">
+						</quill-editor> -->
+						<span v-html="content" class="has-text-left"></span>
 						<br>
-						<!-- <input-tag :tags.sync="tagsArray" :placeholder="(token && token.length > 0)? 'Add Tag' : ''"></input-tag> -->
+
 						<div class="tags">
 							<span class="tag is-medium is-info" v-for="tag in tagsArray" @click="tagClicked(tag)">
 								{{ tag }}
@@ -63,6 +67,32 @@ module.exports = {
 			title: '',
 			token: null,
 			dateAuthor: 'March 31, 2018 - Some Author',
+			editorOption: {
+				
+				modules: {
+
+					toolbar: [
+					[{ 'size': ['small', false, 'large'] }],
+					['bold', 'italic'],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					['link', 'image', 'video']
+					],
+					history: {
+						delay: 1000,
+						maxStack: 50,
+						userOnly: false
+					},
+					imageDrop: true,
+					// imageResize: {
+					// 	displayStyles: {
+					// 		backgroundColor: 'black',
+					// 		border: 'none',
+					// 		color: 'white'
+					// 	},
+					// 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+					// }
+				}
+			},
 			config: {
 				theme: 'snow',
 				readOnly: ((Cookies.get('token') && Cookies.get('token').length) > 0 ? false : true),

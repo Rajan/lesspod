@@ -16,9 +16,10 @@
 				<div class="column is-two-thirds">
 
 					<!-- <quill v-model="content"  :config="config" style="background: white;" output="html"/> -->
-					<quill-editor v-model="content"
+					<quill-editor v-model="content" ref="myQuillEditor"  v-if="token && token.length > 0"
 						:options="editorOption" style="height: 20rem;">
 					</quill-editor>
+					<span v-else v-html="content" class="has-text-left"></span>
 					<br><br><br>
 
 					<a href="#" class="button is-primary" @click="savePage" v-if="token && token.length > 0">
@@ -65,8 +66,11 @@ module.exports = {
 			id: '',
 			title: '',
 			token: null,
+			disabled: true,
 			editorOption: {
+
 				modules: {
+					// readOnly: true,
 					toolbar: [
 					[{ 'size': ['small', false, 'large'] }],
 					['bold', 'italic'],
@@ -98,6 +102,11 @@ module.exports = {
 			}
 		}
 	},
+    computed: {
+      quill() {
+        return this.$refs.myQuillEditor.quill
+      }
+    },
 	watch: {
 		tagsArray: function() {
 			// save updated values
@@ -231,5 +240,8 @@ module.exports = {
 <style>
 	section, body, html {
 		background: white !important;
+	}
+	.hide-toolbar .ql-toolbar {
+ 		 display: none;
 	}
 </style>
