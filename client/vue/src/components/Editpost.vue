@@ -146,6 +146,9 @@ module.exports = {
 				})
 				.catch(function (error) {
 					console.log(error);
+					if(error.toString().indexOf('401') !== 0){
+						vm.logout();
+					}
 				});
 			}
 		},
@@ -169,6 +172,9 @@ module.exports = {
 				})
 				.catch(function (error) {
 					console.log(error);
+					if(error.toString().indexOf('401') !== 0){
+						vm.logout();
+					}
 				});
 			}
 		},
@@ -199,7 +205,12 @@ module.exports = {
 					console.log(error);
 				});
 			}
-		}
+		},
+		logout: function() {
+			Cookies.set('token', '');
+			Cookies.set('user', '');
+			window.location.href = '../';
+		},
 	}
 };
 </script>
