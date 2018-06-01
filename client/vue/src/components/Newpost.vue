@@ -19,8 +19,6 @@
 					:options="editorOption" style="height: 20rem;">
 				</quill-editor>
 
-				<!-- <quill v-model="editor" :config="config" style="background: white;" output="html"/> -->
-
 				<br><br><br>
 
 				<a href="#" class="button is-primary" @click="savePost">
@@ -43,11 +41,6 @@ export default {
 	data(){
 		return {
 			editor: '',
-			config: {
-				debug: 'info',
-				placeholder: 'Write a story...',
-				theme: 'snow'
-			},
 			editorOption: {
 				modules: {
 					toolbar: [

@@ -14,8 +14,6 @@
 					</div>
 				</div>
 				<div class="column is-two-thirds">
-
-					<!-- <quill v-model="editor"  v-if="editor.length > 0" style="background: white;" output="html"/> -->
 					<quill-editor v-model="editor" v-if="editor.length > 0"
 						:options="editorOption" style="background: white;">
 					</quill-editor>
