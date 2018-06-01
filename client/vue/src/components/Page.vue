@@ -29,7 +29,7 @@
 						
 					</input-tag>
 					<div class="tags" v-if="!token">
-							<span class="tag is-medium is-info" v-if="tag.trim().length > 0" v-for="tag in tagsArray" @click="tagClicked(tag)">
+							<span class="button is-link is-outlined is-small is-rounded" v-if="tag.trim().length > 0" v-for="tag in tagsArray" @click="tagClicked(tag)">
 								{{ tag.trim() }}
 							</span>
 					</div>
