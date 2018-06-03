@@ -55,14 +55,14 @@ export default {
 						userOnly: false
 					},
 					imageDrop: true,
-					// imageResize: {
-					// 	displayStyles: {
-					// 		backgroundColor: 'black',
-					// 		border: 'none',
-					// 		color: 'white'
-					// 	},
-					// 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-					// }
+					 imageResize: {
+					 	displayStyles: {
+					 		backgroundColor: 'black',
+					 		border: 'none',
+					 		color: 'white'
+					 	},
+					 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+					 }
 				}
 			},
 			tagsArray: []
@@ -115,7 +115,7 @@ export default {
 						if(error.toString().indexOf('401') !== 0){
 							vm.logout();
 						}
-						
+
 					});
 					break;
 
