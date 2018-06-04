@@ -80,8 +80,7 @@ export default {
   },
   computed: {
     contentCode() {
-      return hljs.highlightAuto(this.content)
-        .value;
+      return hljs.highlightAuto(this.content).value;
     }
   },
   methods: {
@@ -93,11 +92,10 @@ export default {
     savePost: function() {
       console.log('saving a post...');
       var vm = this;
-      var title = document.getElementById("title")
-        .value;
+      var title = document.getElementById("title").value;
       var content = this.editor;
       console.log('title is ' + title.toString() + ' content is ' + content.toString());
-      if (title.length && content.length) {
+      if (title.length) {
 
         const {
           deploymentTarget,
@@ -139,8 +137,7 @@ export default {
               timestampsInSnapshots: true
             };
             db.settings(settings);
-
-            postData.createdBy(Cookies.get('user').id);
+            postData.createdBy = Cookies.getJSON('user').id;
             db.collection("posts")
               .add(postData)
               .then(function(docRef) {
