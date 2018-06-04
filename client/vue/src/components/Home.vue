@@ -19,7 +19,7 @@
 							</button>
 						<!-- </span> -->
 					</div>
-					Note: clicking on the red cross button will delete the menu irreversibly.
+					<div class="subtitle">Note: Clicking on the <a class="tag is-danger is-delete"></a> will delete the menu/page irreversibly.</div>
 					<!-- <div class="tags has-addons">
 						<span class="tag">About Us</span>
 						<a class="tag is-danger is-delete"></a>
