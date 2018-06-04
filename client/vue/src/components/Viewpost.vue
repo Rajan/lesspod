@@ -250,6 +250,9 @@ export default {
     tagClicked: function(tag) {
       console.log(tag);
     }
+  },
+  created: function(){
+    document.getElementById("footer").style.visibility = "visible";
   }
 };
 </script>
@@ -288,8 +291,12 @@ body {
  	.icon-bar {
   		right: 0%;
   		left: auto;
-  		top:89%;
+  		top:81%;
 	}
+
+  #footer {
+    height: 4rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -299,6 +306,9 @@ body {
   		right: auto;
   		top: 50%;
 	}
+  #footer {
+    height: 3rem;
+  }
 }
 
 .icon-bar a {

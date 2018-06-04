@@ -21,12 +21,25 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/af.js"></script> -->
   <title>Lesspod</title>
 </head>
-<body>
+<body class="Site">
   <div id="app"></div>
   <!-- built files will be auto injected -->
 
   <!-- including firebase script manually to ease dev -->
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+  <footer class="has-text-centered" id="footer">
+    Get notified about the latest posts from us.&nbsp;&nbsp;<input type="text" style="min-width: 10rem;height: 1.7rem;font-size: 1rem;margin-top: 0.5rem;" placeholder="email address">
+    <button class="button is-primary is-small" style="height: 1.7rem;margin-top: 0.5rem;">Subscribe</button>
+  </footer>
 </body>
-
 </html>
+<style type="text/css">
+  footer {
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    height: 3rem;
+    border-top: 1px solid grey;
+  }
+</style>

@@ -3,7 +3,6 @@
     <Navbar></Navbar>
     <div id="app">
       <router-view/>
-
     </div>
   </div>
 </template>
@@ -24,6 +23,9 @@ export default {
   },
   methods: {
 
+  },
+  created: function(){
+    document.getElementById("footer").style.visibility = "hidden";
   }
 };
 
