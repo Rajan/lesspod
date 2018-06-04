@@ -74,6 +74,8 @@
                     <p v-html="postSummary(post.content)"></p>
                     <a href="#" @click="editPost(index)">Edit</a>
                     <span>·</span>
+                    <a href="#" @click="viewPost(index)">View</a>
+                    <span>·</span>
                     <a href="#" @click="deletePost(index)">Delete</a>
                     <p></p>
                   </div>
@@ -152,72 +154,36 @@ export default {
       // console.log('fetching data...');
       var vm = this;
       axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+
+      axios.get('/v1/posts', {})
+        .then(function(response) {
+
+          // console.log(response);
+
+          let posts1 = response.data.posts;
+
+          for (var i in posts1) {
+
+            // console.log(posts1[i].title);
+            if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+              posts1.splice(i, 1);
+            }
+          }
+          vm.posts = posts1;
+          // renderPosts();
+        })
+        .catch(function(error) {
+          console.log(error);
+          // if error is 401 unauthorize, logout the user.
+
+          if (error.toString().indexOf('401') !== -1) {
+            console.log('Logging you out...')
+            vm.logout();
+          }
+        });
       let user = Cookies.getJSON('user');
       this.fullName = user.first + ' ' + user.last;
       // console.log(user.first + ' ' + user.last);
-
-      const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
-      console.log('deployment target is ' + deploymentTarget);
-
-      switch (deploymentTarget) {
-        case LOCALHOST:
-          axios.get('/v1/posts', {})
-            .then(function(response) {
-
-              // console.log(response);
-
-              let posts1 = response.data.posts;
-              for (var i in posts1) {
-
-                // console.log(posts1[i].title);
-                if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
-                  posts1.splice(i, 1);
-                }
-              }
-              vm.posts = posts1;
-              // renderPosts();
-            })
-            .catch(function(error) {
-              console.log(error);
-              // if error is 401 unauthorize, logout the user.
-
-              if (error.toString().indexOf('401') !== -1) {
-                console.log('Logging you out...')
-                vm.logout();
-              }
-            });
-          break;
-        case FBASE:
-          let db = firebase.firestore();
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
-
-          db.collection("posts").where("createdBy", "==", user.id)
-            .get()
-            .then(function(querySnapshot) {
-              let posts1 = [];
-              querySnapshot.forEach(function(doc) {
-                posts1.push(doc.data())
-              });
-              for (var i in posts1) {
-                if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
-                  posts1.splice(i, 1);
-                }
-              }
-              vm.posts = posts1;
-            })
-            .catch(function(error) {
-              console.log("Error getting posts: ", error);
-            });
-          break;
-      }
-
     },
     editPost: function(index) {
       var vm = this;
@@ -229,53 +195,37 @@ export default {
 
       window.location.href = '../editpost/' + post.id.toString();
     },
+    viewPost: function(index) {
+      var vm = this;
+      let post = vm.filteredPosts[index];
+      let postString = JSON.stringify(vm.filteredPosts[index]);
+
+      console.log('viewing... ' + JSON.stringify(post));
+
+      window.location.href = '../post/' + post.id.toString();
+    },
     deletePost: function(index) {
       var vm = this;
-      let post = vm.posts[index];
+      let post = vm.filteredPosts[index];
 
       console.log('Deleting... ' + JSON.stringify(post));
+      axios.delete('/v1/posts/' + post.id, {
+          'post_id': post.id,
+          'post': post
+        })
+        .then(function(response) {
+          let post1 = response.data.post;
+          console.log('Deleted... ' + JSON.stringify(response));
+          vm.posts.splice(index, 1);
+        })
+        .catch(function(error) {
+          console.log(error);
+          // if error is 401 unauthorize, logout the user.
 
-      const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
-      console.log('deployment target is ' + deploymentTarget);
-
-      switch (deploymentTarget) {
-        case LOCALHOST:
-          axios.delete('/v1/posts/' + post.id, {
-              'post_id': post.id,
-              'post': post
-            })
-            .then(function(response) {
-              let post1 = response.data.post;
-              console.log('Deleted... ' + JSON.stringify(response));
-              vm.posts.splice(index, 1);
-            })
-            .catch(function(error) {
-              console.log(error);
-              // if error is 401 unauthorize, logout the user.
-
-              if (error.toString().indexOf('401') !== -1) {
-                vm.logout();
-              }
-            });
-          break;
-        case FBASE:
-          let db = firebase.firestore();
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
-          db.collection("posts").doc(post.id).delete().then(function() {
-            console.log("Post successfully deleted!");
-          }).catch(function(error) {
-            console.error("Error deleting post: ", error);
-          });
-          break;
-      }
-
+          if (error.toString().indexOf('401') !== -1) {
+            vm.logout();
+          }
+        });
     },
     postSummary: function(content) {
       let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g, ', ').substring(0, 140);
