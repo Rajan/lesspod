@@ -62,15 +62,15 @@ export default {
             maxStack: 50,
             userOnly: false
           },
-          imageDrop: true,
-          imageResize: {
-            displayStyles: {
-              backgroundColor: 'black',
-              border: 'none',
-              color: 'white'
-            },
-            modules: ['Resize', 'DisplaySize', 'Toolbar']
-          }
+          imageDrop: true
+          // imageResize: {
+          //   displayStyles: {
+          //     backgroundColor: 'black',
+          //     border: 'none',
+          //     color: 'white'
+          //   },
+          //   modules: ['Resize', 'DisplaySize', 'Toolbar']
+          // }
         }
       },
       tagsArray: []
@@ -107,8 +107,8 @@ export default {
 
         const postData = {
           "title": title.toString(),
-          "content": content.toString(),
-          "tags": this.tagsArray.toString()
+          "content": vm.editor.toString(),
+          "tags": vm.tagsArray.toString()
         };
 
         switch (deploymentTarget) {
