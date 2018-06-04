@@ -16,7 +16,7 @@
       </div>
       <div class="column is-two-thirds">
 
-        <span v-html="content" class="has-text-left"></span>
+        <span v-html="editor" class="has-text-left"></span>
         <br>
 
         <div class="tags">
@@ -176,15 +176,6 @@ export default {
       title: '',
       token: null,
       dateAuthor: 'March 31, 2018 - Some Author',
-    }
-  },
-  watch: {
-    tagsArray: function() {
-      // save updated values
-      console.log('new tags: ' + this.tagsArray);
-      if (Cookies.get('token') && Cookies.get('token').length) {
-        this.saveTags();
-      }
     }
   },
   beforeMount: function() {
