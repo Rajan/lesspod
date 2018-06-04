@@ -144,7 +144,7 @@ export default {
                 const settings = {
                   timestampsInSnapshots: true
                 }
-                var db = firebase.firestore();
+                let db = firebase.firestore();
                 db.settings(settings);
 
                 const uuidv4 = require('uuid/v4');
@@ -161,7 +161,6 @@ export default {
                   .set(userData)
                   .then(function(docRef) {
                     Cookies.set('user', JSON.stringify(userData))
-                    console.log('Document written with ID: ', docRef.id)
                     window.location.href = '../home'
                   })
                   .catch(function(error) {

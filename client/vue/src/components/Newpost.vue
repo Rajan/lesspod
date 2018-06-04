@@ -133,7 +133,7 @@ export default {
             break;
 
           case FBASE:
-            var db = firebase.firestore();
+            let db = firebase.firestore();
             const settings = {
               timestampsInSnapshots: true
             };
@@ -151,7 +151,6 @@ export default {
               .doc(postData.id)
               .set(postData)
               .then(function(docRef) {
-                console.log("Post: Document written with ID: ", docRef.id);
                 Cookies.set("post", postData);
                 // this.$notify('Post saved successfully!', 'success');
                 window.location.href = '../home'
@@ -159,13 +158,6 @@ export default {
               })
               .catch(function(error) {
                 console.error("Error adding document: ", error);
-                if (error.toString().indexOf('401') !== 0) {
-                  firebase.auth().signOut().then(function() {
-                    // Sign-out successful.
-                  }, function(error) {
-                    // An error happened.
-                  });
-                }
               });
             break;
         }
@@ -190,8 +182,7 @@ export default {
     addTag: function() {
       console.log('adding a tag...');
 
-      let tagText = document.getElementById("tag")
-        .value;
+      let tagText = document.getElementById("tag").value;
       let user = Cookies.getJSON("user");
 
       if (tagText.length && document.getElementById("postId").value.length) {
@@ -225,7 +216,7 @@ export default {
               });
             break;
           case FBASE:
-            var db = firebase.firestore();
+            let db = firebase.firestore();
             const settings = {
               timestampsInSnapshots: true
             };
