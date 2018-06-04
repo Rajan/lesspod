@@ -212,6 +212,7 @@ export default {
               vm.title = post.title;
               vm.editor = post.content;
               vm.tagsArray = post.tags.toString().split(",");
+              document.title = post.title;
 
             })
             .catch(function(error) {
@@ -234,6 +235,7 @@ export default {
                 vm.title = post.title;
                 vm.editor = post.content;
                 vm.tagsArray = post.tags.toString().split(",");
+                document.title = post.title;
 
               } else {
                 console.log("No such post!");
