@@ -60,6 +60,17 @@
 									<input class="input" type="text" v-model="tagline" id="tagline" placeholder="e.g. Serverless Blogging Engine" autocomplete="name" required>
 								</div>
 							</div>
+							<div class="field">
+								<label class="label">Blog Menu</label>
+								<div class="control has-icons-left">
+									<div class="control">
+										<label class="checkbox">
+											<input type="checkbox">
+											Disable Blog Menu
+										</label>	
+									</div>
+								</div>
+							</div>
 							<div class="field is-grouped" style="margin-top: 1.5rem;">
 								<div class="control">
 									<button class="button is-info" @click="saveSettings">Save Settings</button>
