@@ -14,10 +14,10 @@
 					</div>
 				</div>
 				<div class="column is-two-thirds">
-					<quill-editor v-model="editor" v-if="editor.length > 0"
+					<quill-editor v-model="editor" 
 						:options="editorOption" style="background: white;">
 					</quill-editor>
-					<br>
+					<br> <!-- v-if="editor.length > 0" -->
 
 					<a href="#" class="button is-primary" @click="savePost">
 						Save Post
