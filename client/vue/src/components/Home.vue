@@ -76,6 +76,8 @@
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)">Edit</a>
 											<span>·</span>
+											<a href="#" @click="viewPost(index)">View</a>
+											<span>·</span>
 											<a href="#" @click="deletePost(index)">Delete</a>
 											<p></p>
 										</div>
@@ -192,9 +194,18 @@ export default {
 			
 			window.location.href = '../editpost/' + post.id.toString();
 		},
+		viewPost: function(index) {
+			var vm = this;
+			let post = vm.filteredPosts[index];
+			let postString = JSON.stringify(vm.filteredPosts[index]);
+
+			console.log('viewing... ' + JSON.stringify(post));
+			
+			window.location.href = '../post/' + post.id.toString();
+		},
 		deletePost: function(index) {
 			var vm = this;
-			let post = vm.posts[index];
+			let post = vm.filteredPosts[index];
 			
 			console.log('Deleting... ' + JSON.stringify(post));
 			axios.delete('/v1/posts/' + post.id, 

@@ -288,8 +288,8 @@ body {margin:0;height:2000px;}
 	color: white;
 }
 
-.content {
+/*.content {
 	margin-left: 75px;
 	font-size: 30px;
-}
+}*/
 </style>
