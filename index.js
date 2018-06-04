@@ -153,3 +153,4 @@ app.listen(1234)
 app.use("index", (req, res) => {
     app.render("index", {uname: "rajan"});
 })
+module.exports = app;

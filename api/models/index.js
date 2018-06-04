@@ -7,7 +7,7 @@ var basename  = path.basename(__filename);
 var db        = {};
 const Op = Sequelize.Op
 
-const sequelize = new Sequelize('lpDB', null, null, {
+const sequelize = new Sequelize(process.env.DB_NAME || 'lpDB', null, null, {
   host: 'localhost',
   dialect: 'sqlite',
   pool: {

@@ -6,9 +6,9 @@ const create = async function(req, res){
     const body = req.body;
 
     if(!body.unique_key && !body.email && !body.phone){
-        return ReE(res, 'Please enter an email or phone number to register.');
+        return ReE(res, 'Please enter an email or phone number to register.', 400);
     } else if(!body.password){
-        return ReE(res, 'Please enter a password to register.');
+        return ReE(res, 'Please enter a password to register.', 400);
     }else{
         let err, user;
 
