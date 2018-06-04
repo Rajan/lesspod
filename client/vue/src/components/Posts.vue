@@ -62,7 +62,7 @@
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)" v-if="fullName.length > 0">Edit</a>
 											<span v-if="fullName.length > 0">·</span>
-											<a href="#" @click="deletePost(index)" v-if="fullName.length > 0">Delete</a>
+											<a href="#" @click="viewPost(index)" v-if="fullName.length > 0">View</a>
 											<p></p>
 										</div>
 									</div>
@@ -148,7 +148,7 @@ export default {
 		},
 		editPost: function(index) {
 			var vm = this;
-			let post = vm.posts[index];
+			let post = vm.filteredPosts[index];
 			if(this.fullName.length > 0){
 				console.log('Editing... ' + JSON.stringify(post));
 				window.location.href = '../editpost/' + post.id.toString();
@@ -156,29 +156,14 @@ export default {
 				window.location.href = '../post/' + post.id.toString();
 			}
 		},
-		deletePost: function(index) {
+		viewPost: function(index) {
 			var vm = this;
-			let post = vm.posts[index];
-			
-			console.log('Deleting... ' + JSON.stringify(post));
-			axios.delete('/v1/posts/' + post.id, 
-			{
-				'post_id': post.id,
-				'post': post
-			})
-			.then(function (response){
-				let post1 = response.data.post;
-				console.log('Deleted... ' + JSON.stringify(response));
-				vm.posts.splice(index, 1);
-			})
-			.catch(function (error) {
-				console.log(error);
-				// if error is 401 unauthorize, logout the user.
+			let post = vm.filteredPosts[index];
+			let postString = JSON.stringify(vm.filteredPosts[index]);
 
-				if(error.toString().indexOf('401') !== -1){
-					vm.logout();
-				}
-			});
+			console.log('viewing... ' + JSON.stringify(post));
+
+			window.location.href = '../post/' + post.id.toString();
 		},
 		postSummary: function(content) {
 			let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g,', ').substring(0, 140);
