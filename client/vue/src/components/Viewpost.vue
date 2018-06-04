@@ -288,6 +288,7 @@ body {
  	.icon-bar {
   		right: 0%;
   		left: auto;
+  		top:89%;
 	}
 }
 
@@ -296,6 +297,7 @@ body {
  	.icon-bar {
   		left: 7%;
   		right: auto;
+  		top: 50%;
 	}
 }
 
