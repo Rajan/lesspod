@@ -38,6 +38,7 @@
 import {
   globalVariables
 } from './../main';
+
 export default {
   data() {
     return {
@@ -95,7 +96,7 @@ export default {
       var title = document.getElementById("title").value;
       var content = this.editor;
       console.log('title is ' + title.toString() + ' content is ' + content.toString());
-      if (title.length) {
+      if (title.length && content.length) {
 
         const {
           deploymentTarget,
@@ -137,9 +138,18 @@ export default {
               timestampsInSnapshots: true
             };
             db.settings(settings);
+
+            const uuidv4 = require('uuid/v4');
+            postData.id = uuidv4();
             postData.createdBy = Cookies.getJSON('user').id;
+
+            const moment = require('moment');
+            postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+            postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+
             db.collection("posts")
-              .add(postData)
+              .doc(postData.id)
+              .set(postData)
               .then(function(docRef) {
                 console.log("Post: Document written with ID: ", docRef.id);
                 Cookies.set("post", postData);
@@ -184,28 +194,65 @@ export default {
         .value;
       let user = Cookies.getJSON("user");
 
-      if (tagText.length && document.getElementById("postId")
-        .value.length) {
+      if (tagText.length && document.getElementById("postId").value.length) {
         // axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-        axios.post('/v1/tags', {
 
-            "name": tagText,
-            "postId": document.getElementById('postId')
-              .value,
-            "userId": user.id.toString()
+        let tagData = {
+          "name": tagText,
+          "postId": document.getElementById('postId').value,
+          "userId": user.id.toString()
+        };
 
-          })
-          .then(function(response) {
-            console.log(response);
-            if (response.data.success) {
-              document.getElementById("tag")
-                .value = '';
-              console.log('Tag: ' + response.data.tag.name.toString() + ' added successfully.');
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+        const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables;
+        console.log('deployment target is ' + deploymentTarget);
+
+        switch (deploymentTarget) {
+          case LOCALHOST:
+            axios.post('/v1/tags', tagData)
+              .then(function(response) {
+                console.log(response);
+                if (response.data.success) {
+                  document.getElementById("tag").value = '';
+                  console.log('Tag: ' + response.data.tag.name.toString() + ' added successfully.');
+                }
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+            break;
+          case FBASE:
+            var db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
+
+            const uuidv4 = require('uuid/v4');
+            tagData.id = uuidv4();
+            tagData.createdBy = Cookies.getJSON('user').id;
+
+            const moment = require('moment');
+            tagData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+            tagData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+
+            db.collection("tags")
+              .doc(tagData.id)
+              .set(tagData)
+              .then(function(docRef) {
+                document.getElementById("tag").value = '';
+                console.log('Tag: ' + tagData.name.toString() + ' added successfully.');
+
+              })
+              .catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
+            break;
+
+        }
       }
     }
   }
