@@ -61,15 +61,15 @@ export default {
             maxStack: 50,
             userOnly: false
           },
-          imageDrop: true,
-          imageResize: {
-            displayStyles: {
-              backgroundColor: 'black',
-              border: 'none',
-              color: 'white'
-            },
-            modules: ['Resize', 'DisplaySize', 'Toolbar']
-          }
+          imageDrop: true
+          // imageResize: {
+          //   displayStyles: {
+          //     backgroundColor: 'black',
+          //     border: 'none',
+          //     color: 'white'
+          //   },
+          //   modules: ['Resize', 'DisplaySize', 'Toolbar']
+          // }
         }
       },
       tagsArray: []
@@ -95,7 +95,7 @@ export default {
       var title = document.getElementById("title").value;
       var content = this.editor;
       console.log('title is ' + title.toString() + ' content is ' + content.toString());
-      if (title.length) {
+      if (title.length && content.length) {
 
         const {
           deploymentTarget,
@@ -106,8 +106,8 @@ export default {
 
         const postData = {
           "title": title.toString(),
-          "content": content.toString(),
-          "tags": this.tagsArray.toString()
+          "content": vm.editor.toString(),
+          "tags": vm.tagsArray.toString()
         };
 
         switch (deploymentTarget) {
