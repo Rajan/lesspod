@@ -1,81 +1,79 @@
 <template>
-  <section class="hero is-info">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-5-tablet is-4-desktop is-4-widescreen">
-            <form class="box">
-              <div class="field has-text-centered">
-                <!-- <img src="../assets/images/logo-bis.png" width="167"> -->
-                <img src="./../assets/images/icon.png" style="width:5rem;height: 5rem;"><br>
-                <a href="#"><img src="./../assets/images/type.png"></a>
-                <br>
-                <small>Serverless Blogging Engine</small>
-              </div>
-              <div class="field">
-                <label class="label">Full Name (First Last)</label>
-                <div class="control has-icons-left">
-                  <input class="input" type="text" id="fullName" v-model="fullName" placeholder="e.g. Alex Johnson" autocomplete="name"
-                         required>
-                  <span class="icon is-small is-left">
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-4-widescreen">
+          <form class="box">
+            <div class="field has-text-centered">
+              <!-- <img src="../assets/images/logo-bis.png" width="167"> -->
+              <img src="./../assets/images/icon.png" style="width:5rem;height: 5rem;"><br>
+              <a href="#"><img src="./../assets/images/type.png"></a>
+              <br>
+              <small>Serverless Blogging Engine</small>
+            </div>
+            <div class="field">
+              <label class="label">Full Name (First Last)</label>
+              <div class="control has-icons-left">
+                <input class="input" type="text" id="fullName" v-model="fullName" placeholder="e.g. Alex Johnson" autocomplete="name" required>
+                <span class="icon is-small is-left">
 										<i class="fa fa-user-circle"></i>
 									</span>
-                </div>
               </div>
-              <div class="field">
-                <label class="label">Email</label>
-                <div class="control has-icons-left">
-                  <input class="input" type="email" id="email" v-model="email" placeholder="e.g. alexjohnson@gmail.com"
-                         autocomplete="username" required>
-                  <span class="icon is-small is-left">
+            </div>
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left">
+                <input class="input" type="email" id="email" v-model="email" placeholder="e.g. alexjohnson@gmail.com" autocomplete="username" required>
+                <span class="icon is-small is-left">
 										<i class="fa fa-envelope"></i>
 									</span>
-                </div>
               </div>
-              <div class="field">
-                <label class="label">Password</label>
-                <div class="control has-icons-left">
-                  <input class="input" type="password" id="password" v-model="password" placeholder="********" autocomplete="new-password"
-                         required>
-                  <span class="icon is-small is-left">
+            </div>
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control has-icons-left">
+                <input class="input" type="password" id="password" v-model="password" placeholder="********" autocomplete="new-password" required>
+                <span class="icon is-small is-left">
 										<i class="fa fa-lock"></i>
 									</span>
-                </div>
               </div>
-              <div class="field">
-                <label class="label">Retype Password</label>
-                <div class="control has-icons-left">
-                  <input class="input" type="password" id="passwordConfirm" v-model="confirmPassword" placeholder="********"
-                         autocomplete="new-password" required>
-                  <span class="icon is-small is-left">
+            </div>
+            <div class="field">
+              <label class="label">Retype Password</label>
+              <div class="control has-icons-left">
+                <input class="input" type="password" id="passwordConfirm" v-model="confirmPassword" placeholder="********" autocomplete="new-password" required>
+                <span class="icon is-small is-left">
 										<i class="fa fa-lock"></i>
 									</span>
-                </div>
               </div>
-              <div class="field is-grouped" style="margin-top: 1.5rem;">
-                <div class="control">
+            </div>
+            <div class="field is-grouped" style="margin-top: 1.5rem;">
+              <div class="control">
 
-                  <a class="button is-info" @click="register">Create Account</a>
+                <a class="button is-info" @click="register">Create Account</a>
 
-                </div>
-                <div class="control">
-                  <a class="button is-text" style="text-decoration: none;" href="login">Login</a>
-                </div>
               </div>
-              <!-- <div class="field">
+              <div class="control">
+                <a class="button is-text" style="text-decoration: none;" href="login">Login</a>
+              </div>
+            </div>
+            <!-- <div class="field">
                 <button class="button is-success">
                   Login
                 </button>
             </div> -->
-            </form>
-          </div>
+          </form>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 </template>
 <script type="text/javascript">
-import { globalVariables } from './../main'
+import {
+  globalVariables
+} from './../main'
 
 export default {
   data() {
@@ -103,7 +101,11 @@ export default {
       ) {
         console.log('registering user...')
 
-        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables
+        const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables
         console.log('deployment target is ' + deploymentTarget)
 
         let userData = {
@@ -139,20 +141,26 @@ export default {
               .auth()
               .createUserWithEmailAndPassword(userData.email, userData.password)
               .then(function(authData) {
-                const settings = { timestampsInSnapshots: true }
-                var db = firebase.firestore()
-                db.settings(settings)
+                const settings = {
+                  timestampsInSnapshots: true
+                }
+                let db = firebase.firestore();
+                db.settings(settings);
 
-                const uuidv4 = require('uuid/v4')
-                userData.id = uuidv4()
-                delete userData.password
+                const uuidv4 = require('uuid/v4');
+                userData.id = uuidv4();
+                delete userData.password;
+
+                const moment = require('moment');
+                userData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+                userData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
                 db
                   .collection('users')
-                  .add(userData)
+                  .doc(userData.id) // documentId is same as userId; easier for future referencing of document
+                  .set(userData)
                   .then(function(docRef) {
                     Cookies.set('user', JSON.stringify(userData))
-                    console.log('Document written with ID: ', docRef.id)
                     window.location.href = '../home'
                   })
                   .catch(function(error) {
