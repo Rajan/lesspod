@@ -32,7 +32,11 @@
 </section>
 </template>
 <script type="text/javascript">
-module.exports = {
+import {
+  globalVariables
+} from './../main';
+
+export default {
   data() {
     return {
       id: '',
@@ -111,19 +115,57 @@ module.exports = {
 
       let postId = href.substr(href.lastIndexOf('/') + 1);
 
-      axios.get('/v1/posts/' + postId, {})
-        .then(function(response) {
-          console.log(response.data.post);
-          let post = response.data.post;
-          vm.id = post.id;
-          vm.title = post.title;
-          vm.editor = post.content;
-          vm.tagsArray = post.tags.toString().split(",");
+      const {
+        deploymentTarget,
+        LOCALHOST,
+        FBASE
+      } = globalVariables;
+      console.log('deployment target is ' + deploymentTarget);
 
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      switch (deploymentTarget) {
+        case LOCALHOST:
+          axios.get('/v1/posts/' + postId, {})
+            .then(function(response) {
+              console.log(response.data.post);
+              let post = response.data.post;
+              vm.id = post.id;
+              vm.title = post.title;
+              vm.editor = post.content;
+              vm.tagsArray = post.tags.toString().split(",");
+
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+          break;
+        case FBASE:
+          let db = firebase.firestore();
+          const settings = {
+            timestampsInSnapshots: true
+          };
+          db.settings(settings);
+
+          db.collection("posts").doc(postId)
+            .get()
+            .then(function(doc) {
+              if (doc.exists) {
+                const post = doc.data();
+                vm.id = post.id;
+                vm.title = post.title;
+                vm.editor = post.content;
+                vm.tagsArray = post.tags.toString().split(",");
+
+              } else {
+                console.log("No such post!");
+              }
+            })
+            .catch(function(error) {
+              console.log("Error getting post: ", error);
+            });
+          break;
+      }
+
+
     },
     savePost: function() {
       var vm = this;
