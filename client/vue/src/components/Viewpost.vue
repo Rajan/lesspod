@@ -277,10 +277,26 @@ body {
 .icon-bar {
   position: fixed;
   top: 50%;
-  left: 7%;
+  
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+@media (min-width: 100px) {
+  /* This style block will only apply on viewports larger than 700px */
+ 	.icon-bar {
+  		right: 0%;
+  		left: auto;
+	}
+}
+
+@media (min-width: 768px) {
+  /* This style block will only apply on viewports larger than 700px */
+ 	.icon-bar {
+  		left: 7%;
+  		right: auto;
+	}
 }
 
 .icon-bar a {
