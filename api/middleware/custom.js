@@ -61,7 +61,7 @@ const Menu = Models.Menu;
 
 let menu = async function (req, res, next) {
     let menu_id, err, post;
-    post_id = req.params.menu_id;
+    menu_id = req.params.menu_id;
     console.log('finding menu_id...' + req.params.menu_id);
     [err, menu] = await to(Menu.findOne({where: {id: menu_id}}));
     if(err) return ReE(res,"err finding menu");
