@@ -140,14 +140,25 @@
 					</div>
 					<h2 class="title">Comments</h2>
 					<div class="comments">
-    					<vue-disqus shortname="lesspod" :identifier="id"></vue-disqus>
-  					</div>
+						<vue-disqus shortname="lesspod" :identifier="id"></vue-disqus>
+					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+	<div class="icon-bar">
+		<a href="https://www.facebook.com/sharer/sharer.php?u=URLENCODED_URL&t=TITLE" class="facebook"><i class="fab fa-facebook-f"></i></a> 
+		<a href="https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT"
+		   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
+		   target="_blank" title="Share on Twitter" class="twitter"><i class="fab fa-twitter"></i>
+		</a>
+		<!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
+		<a href="https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn" class="linkedin"><i class="fab fa-linkedin"></i></a>
+		<!-- <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>  -->
+	</div>
 </section>
+
 </template>
 
 <script type="text/javascript">
@@ -212,102 +223,8 @@ module.exports = {
 
 
 		},
-		savePage: function() {
-			var vm = this;
-			console.log('saving a page...');
-			var title = document.getElementById("title").value;
-			var content = vm.content;
-			console.log('title is ' + title.toString() + ' content is ' + content.toString());
-			if(title.length && content.length) {
-				if(document.getElementById('postId').value.length == 0){
-					axios.post('/v1/posts', {
-						"title" : vm.title.toString(),
-						"content" : vm.content.toString(),
-						"tags" : vm.tagsArray.toString(),
-						"pageURL" : vm.pageURL
-					})
-					.then(function (response) {
-						console.log(response);
-						console.log('Page Id is ' + response.data.post.id.toString());
-						document.getElementById('postId').value = response.data.post.id.toString();
-						Cookies.set("page", response.data.post);
-						vm.$notify('Page saved successfully!', 'success', { 'position': 'bottom-right' });
-					})
-					.catch(function (error) {
-						console.log(error);
-					});
-				}else {
-					axios.put('/v1/posts/' + vm.id, {
-						"id" : vm.id, 
-						"title" : vm.title.toString(),
-						"content" : vm.content.toString(),
-						"tags" : vm.tagsArray.toString()
-					})
-					.then(function (response) {
-						console.log(response);
-						console.log('Page Id is ' + response.data.post.id.toString());
-						document.getElementById('postId').value = response.data.post.id.toString();
-						Cookies.set("page", response.data.post);
-						vm.$notify('Page saved successfully!', 'success');
-					})
-					.catch(function (error) {
-						console.log(error);
-					});
-				}
-			}
-		},
-		saveTags: function() {
-			var vm = this;
-			console.log('saving tags...');
-			var title = document.getElementById("title").value;
-			// var content = this.editor;
-			// console.log('title is ' + title.toString() + ' content is ' + content.toString());
-			if(vm.id && vm.tagsArray) {
-
-				axios.put('/v1/posts/' + vm.id, {
-					"id" : vm.id, 
-					// "title" : title.toString(),
-					// "content" : content.toString(),
-					"tags" : vm.tagsArray.toString()
-				})
-				.then(function (response) {
-					console.log(response);
-					Cookies.set("post", response.data.post);
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-			}
-		},
 		tagClicked: function(tag) {
 			console.log(tag);
-		},
-		addTag: function() {
-			console.log('adding a tag...');
-
-			let tagText = document.getElementById("tag").value;
-			let user = Cookies.getJSON("user");
-
-			if(tagText.length && document.getElementById("postId").value.length) {
-				// axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-				axios.post('/v1/tags', {
-
-					"name" : tagText,
-					"postId" : document.getElementById('postId').value,
-					"userId" : user.id.toString()
-
-				})
-				.then(function (response) {
-					console.log(response);
-					if(response.data.success) {
-						document.getElementById("tag").value = '';
-						console.log('Tag: ' + response.data.tag.name.toString() + ' added successfully.');
-					}
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-			}
 		}
 	}
 };
@@ -320,4 +237,59 @@ section, body, html {
 	padding-top: 0;
 	margin-top: 0;
 };
+
+
+body {margin:0;height:2000px;}
+
+.icon-bar {
+	position: fixed;
+	top: 50%;
+	left: 7%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.icon-bar a {
+	display: block;
+	text-align: center;
+	padding: 16px;
+	transition: all 0.3s ease;
+	color: white;
+	font-size: 20px;
+}
+
+.icon-bar a:hover {
+	background-color: #000;
+}
+
+.facebook {
+	background: #3B5998;
+	color: white;
+}
+
+.twitter {
+	background: #55ACEE;
+	color: white;
+}
+
+.google {
+	background: #dd4b39;
+	color: white;
+}
+
+.linkedin {
+	background: #007bb5;
+	color: white;
+}
+
+.youtube {
+	background: #bb0000;
+	color: white;
+}
+
+.content {
+	margin-left: 75px;
+	font-size: 30px;
+}
 </style>
