@@ -78,7 +78,7 @@
 											<a href="#" @click="editPost(index)" :id="post.id">{{post.title}}</a>
 										</p>
 										<div class="content is-small">
-											{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }}
+											{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}
 											<br>
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)">Edit</a>

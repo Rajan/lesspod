@@ -15,7 +15,7 @@
 							</div>
 
 							<p class="level-item">
-								<a class="button is-success" v-if="fullName.length > 0" href="new-book.html">New Post</a>
+								<a class="button is-success" v-if="fullName.length > 0" href="../newpost">New Post</a>
 							</p>
 
 							<div class="level-item is-hidden-tablet-only">
@@ -57,7 +57,7 @@
 										<div class="content is-small">
 											{{
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
-											}}
+											}} . {{ post.author }}
 											<br>
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)" v-if="fullName.length > 0">Edit</a>
