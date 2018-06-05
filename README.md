@@ -1,4 +1,5 @@
-# Lesspod
+![Lesspod Logotype](https://github.com/Tobaloidee/lesspod/blob/master/images/readme-logo.png)
+
 Serverless Blogging Engine (In Active Development)
 
 
