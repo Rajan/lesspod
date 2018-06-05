@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4
         },
 		title: { type: DataTypes.STRING, allowNull: false },
+        author: { type: DataTypes.STRING, allowNull: false },
 		content: { type: DataTypes.TEXT, allowNull: false },
         tags: { type: DataTypes.STRING, allowNull: false },
         pageURL: { type: DataTypes.STRING, allowNull: true }

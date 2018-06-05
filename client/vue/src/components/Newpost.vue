@@ -42,6 +42,7 @@ import {
 export default {
   data() {
     return {
+      fullName: '',
       editor: '',
       editorOption: {
         modules: {
@@ -88,6 +89,8 @@ export default {
     initPost: function() {
 
       axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+      let user = Cookies.getJSON("user");
+      this.fullName = user.first + ' ' + user.last;
 
     },
     savePost: function() {
@@ -103,12 +106,14 @@ export default {
           LOCALHOST,
           FBASE
         } = globalVariables;
+        
         console.log('deployment target is ' + deploymentTarget);
 
         const postData = {
           "title": title.toString(),
           "content": vm.editor.toString(),
-          "tags": vm.tagsArray.toString()
+          "tags": vm.tagsArray.toString(),
+          "author" : vm.fullName.toString()
         };
 
         switch (deploymentTarget) {

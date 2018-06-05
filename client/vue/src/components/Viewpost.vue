@@ -6,9 +6,9 @@
         <div class="field is-horizontal">
           <div class="field-body">
             <div class="field">
-              <p class="control">
+              <p class="control has-text-centered">
                 <input class="input has-text-centered is-large disabled" style="font-weight: bold;font-size:2rem;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
-                <input class="input has-text-centered is-small disabled" v-model="dateAuthor" id="dateAuthor" type="text" placeholder="March 31, 2018 - Some Author" readonly>
+                <span class="has-text-centered is-large disabled">{{ new Date(createdDate) | moment('MMMM D, YYYY') }} . {{ author }}</span>
               </p>
             </div>
           </div>
@@ -174,8 +174,10 @@ export default {
       pageURL: '',
       id: '',
       title: '',
+      author: '',
+      createdDate: '',
       token: null,
-      dateAuthor: 'March 31, 2018 - Some Author',
+      dateAuthor: '',
     }
   },
   beforeMount: function() {
@@ -211,6 +213,9 @@ export default {
               vm.id = post.id;
               vm.title = post.title;
               vm.editor = post.content;
+              vm.author = post.author;
+              vm.createdDate = post.createdAt;
+              vm.dateAuthor = createdDate.toString() + ' . ' + vm.author;
               vm.tagsArray = post.tags.toString().split(",");
               document.title = post.title;
 
@@ -234,6 +239,7 @@ export default {
                 vm.id = post.id;
                 vm.title = post.title;
                 vm.editor = post.content;
+                // vm.author = post.author; // need to display author and date.
                 vm.tagsArray = post.tags.toString().split(",");
                 document.title = post.title;
 
