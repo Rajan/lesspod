@@ -10,7 +10,7 @@
 						<div class="level-left">
 							<div class="level-item">
 								<p class="subtitle is-5">
-									<strong>{{posts.length}}</strong> Posts
+									<strong>{{filteredPosts.length}}</strong> Posts
 								</p>
 							</div>
 
@@ -98,9 +98,9 @@ export default {
 		filteredPosts: function () {
 			let query = this.query;
 			return this.posts.filter(function (post) {
-				return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
-				(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-					post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
+				return ((post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) ||
+  			(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+  				post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1)) && !(post.pageURL && post.pageURL.length)
 			});	
 		}
 	},
