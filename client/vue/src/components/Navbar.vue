@@ -98,7 +98,7 @@
 								Settings
 							</div>
 						</a>
-						<a class="navbar-item">
+						<a class="navbar-item" href="https://github.com/Rajan/lesspod/issues" target="_blank">
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-bug"></i>
