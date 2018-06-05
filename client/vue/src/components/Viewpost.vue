@@ -149,12 +149,12 @@
   </div>
   </div>
   <div class="icon-bar">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=URLENCODED_URL&t=TITLE" class="facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
+    <a v-bind:href="fbUrl" class="facebook"><i class="fab fa-facebook-f"></i></a>
+    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
       class="twitter"><i class="fab fa-twitter"></i>
 		</a>
     <!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn" class="linkedin"><i class="fab fa-linkedin"></i></a>
+    <a v-bind:href="linkedinUrl" class="linkedin"><i class="fab fa-linkedin"></i></a>
     <!-- <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>  -->
   </div>
 </section>
@@ -169,7 +169,8 @@ export default {
   data() {
     return {
 
-      content: '',
+      // content: '',
+      editor: '',
       tagsArray: [],
       pageURL: '',
       id: '',
@@ -182,6 +183,23 @@ export default {
   },
   beforeMount: function() {
     this.initPost();
+  },
+  computed: {
+    fbUrl() {
+      let fburl = encodeURI('https://www.facebook.com/sharer/sharer.php?u=') + encodeURI(this.pageURL) + '&t=' + escape(this.title);
+      console.log(fburl);
+      return fburl;
+    },
+    twitterUrl() {
+      // https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT
+      let twitterurl = 'https://twitter.com/share?url=' + encodeURI(this.pageURL) + '&text=' + escape(this.title);
+      return twitterurl;
+    },
+    linkedinUrl() {
+      // https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn
+      let linkedinurl = encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') + encodeURI(this.pageURL) + '&title=' + escape(this.title) + '&source=Lesspod';
+      return linkedinurl;
+    }
   },
   methods: {
     initPost: function() {
@@ -215,10 +233,10 @@ export default {
               vm.editor = post.content;
               vm.author = post.author;
               vm.createdDate = post.createdAt;
-              vm.dateAuthor = createdDate.toString() + ' . ' + vm.author;
               vm.tagsArray = post.tags.toString().split(",");
-              document.title = post.title;
-
+              vm.pageURL = window.location.origin + '/post/' + post.id.toString();
+              console.log(vm.pageURL);
+              document.title = post.title.toString() + ' by ' + post.author.toString();
             })
             .catch(function(error) {
               console.log(error);
@@ -261,7 +279,8 @@ export default {
   },
   created: function(){
     document.getElementById("footer").style.visibility = "visible";
-  }
+  },
+
 };
 </script>
 <style>
