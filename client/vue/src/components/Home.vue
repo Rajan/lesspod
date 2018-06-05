@@ -216,6 +216,7 @@ export default {
               // console.log(response);
 
               let posts1 = response.data.posts;
+              posts1.reverse();
               for (var i in posts1) {
 
                 // console.log(posts1[i].title);
