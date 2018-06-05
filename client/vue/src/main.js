@@ -20,9 +20,9 @@ const ImageResize = require( 'quill-image-resize-module' );
 
 Quill.register( 'modules/imageResize', ImageResize );
 // require styles
-import 'quill/dist/quill.core.css'
+// import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+// import 'quill/dist/quill.bubble.css'
 
 import VueDisqus from 'vue-disqus'
 

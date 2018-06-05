@@ -16,7 +16,7 @@
       </div>
       <div class="column is-two-thirds">
 
-        <span v-html="editor" class="has-text-left"></span>
+        <span v-html="editor" class="has-text-left" style="font-size: 1.3rem;"></span>
         <br>
 
         <div class="tags">

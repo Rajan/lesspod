@@ -15,7 +15,7 @@
       </div>
       <div class="column is-two-thirds">
 
-        <quill-editor v-model="editor" :options="editorOption" style="height: 20rem;">
+        <quill-editor v-model="editor" :options="editorOption" style="height: 20rem;font-size: 1.3rem;">
         </quill-editor>
 
         <br><br><br>
@@ -254,5 +254,10 @@ section,
 body,
 html {
   background: white !important;
+}
+
+.ql-container {
+    font-size: 1.3rem;
+    font-family:Avenir, Helvetica, Arial, sans-serif;
 }
 </style>
