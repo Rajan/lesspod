@@ -172,7 +172,7 @@ export default {
       // content: '',
       editor: '',
       tagsArray: [],
-      pageURL: '',
+      postURL: '',
       id: '',
       title: '',
       author: '',
@@ -186,18 +186,18 @@ export default {
   },
   computed: {
     fbUrl() {
-      let fburl = encodeURI('https://www.facebook.com/sharer/sharer.php?u=') + encodeURI(this.pageURL) + '&t=' + escape(this.title);
+      let fburl = encodeURI('https://www.facebook.com/sharer/sharer.php?u=') + encodeURI(this.postURL) + '&t=' + escape(this.title);
       console.log(fburl);
       return fburl;
     },
     twitterUrl() {
       // https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT
-      let twitterurl = 'https://twitter.com/share?url=' + encodeURI(this.pageURL) + '&text=' + escape(this.title);
+      let twitterurl = 'https://twitter.com/share?url=' + encodeURI(this.postURL) + '&text=' + escape(this.title);
       return twitterurl;
     },
     linkedinUrl() {
       // https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn
-      let linkedinurl = encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') + encodeURI(this.pageURL) + '&title=' + escape(this.title) + '&source=Lesspod';
+      let linkedinurl = encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') + encodeURI(this.postURL) + '&title=' + escape(this.title) + '&source=Lesspod';
       return linkedinurl;
     }
   },
@@ -234,8 +234,8 @@ export default {
               vm.author = post.author;
               vm.createdDate = post.createdAt;
               vm.tagsArray = post.tags.toString().split(",");
-              vm.pageURL = window.location.origin + '/post/' + post.id.toString();
-              console.log(vm.pageURL);
+              vm.postURL = window.location.origin + '/post/' + post.id.toString();
+              console.log(vm.postURL);
               document.title = post.title.toString() + ' by ' + post.author.toString();
             })
             .catch(function(error) {

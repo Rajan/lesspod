@@ -312,7 +312,8 @@ export default {
 						"title" : title.toString(),
 						"content" : content.toString(),
 						"tags": [].toString(),
-						"pageURL" : linkedURL.toString()
+						"pageURL" : linkedURL.toString(),
+						"author" : this.fullName
 					})
 					.then(function (response) {
 						console.log(response);
@@ -370,7 +371,7 @@ export default {
 
 			var postId = menu1.postId;
 
-			// console.log('postId in Page: ' + postId);
+			console.log('postId in Navbar: ' + postId);
 
 			axios.get('/v1/posts/' + postId.trim(), {
 				"id" : postId.trim()
@@ -379,7 +380,7 @@ export default {
 				console.log(response);
 				var post = response.data.post;
 				post.title = vm.cleanedSubmenu(post.title)
-				// console.log('post is: ' + post);
+				// console.log('post in Navbar: ' + post);
 				Cookies.set("editpost", JSON.stringify(post));
 				location.href = menu1.linkedURL;
 			})
