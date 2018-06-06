@@ -32,7 +32,7 @@
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-clipboard"></i>
-									</span>
+									</span>&nbsp;
 									Post
 								</div>
 							</a>
@@ -40,7 +40,7 @@
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-bars"></i>
-									</span>
+									</span>&nbsp;
 									Menu
 								</div>
 							</a>
@@ -58,7 +58,7 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a href="#" v-on:click="visitMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name}}
+					<a href="#" v-on:click="visitMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name.trim()}}
 						<div class="navbar-dropdown is-right" v-if="subMenusOf(menuItem.name).length">
 							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)">
 								<div v-if="menu1.postId.length">
@@ -86,7 +86,7 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-user-circle"></i>
-								</span>
+								</span>&nbsp;
 								Profile
 							</div>
 						</a>
@@ -94,7 +94,7 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-cog"></i>
-								</span>
+								</span>&nbsp;
 								Settings
 							</div>
 						</a>
@@ -102,7 +102,7 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-bug"></i>
-								</span>
+								</span>&nbsp;
 								Report bug
 							</div>
 						</a>
@@ -110,7 +110,7 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-arrow-right"></i>
-								</span>
+								</span>&nbsp;
 								Sign Out
 							</div>
 						</a>
