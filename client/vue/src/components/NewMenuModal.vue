@@ -13,7 +13,7 @@
 						<div class="field">
 							<label class="label">New Menu Name</label>
 							<div class="control">
-								<input class="input" v-model="newMenuName" type="text" placeholder="Add Post" required>
+								<input class="input" v-model="newMenuName" type="text" placeholder="About Us" required>
 							</div>
 						</div>
 						<div class="field">
@@ -41,10 +41,11 @@
 					</div>
 				</form>
 			</section>
-			<footer class="modal-card-foot">
-				<button class="button is-success" @click="addMenu(newMenuName)">Add Menu</button>
+			<footer class="modal-card-foot" style="padding-bottom: 2rem; padding-top: 2rem;">
+				<br>
+				<button class="button is-success is-small" @click="addMenu(newMenuName)">Add Menu</button>
 				<!-- <button class="button is-info">Menu Editor</button> -->
-				<button class="button" @click="closeMenu();">Cancel</button>
+				<button class="button is-small" @click="closeMenu();">Cancel</button><br>
 			</footer>
 		</div>
 	</modal>

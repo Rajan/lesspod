@@ -14,7 +14,7 @@
 					</div>
 				</div>
 				<div class="column is-two-thirds">
-					<quill-editor v-model="editor" v-if="editor.length > 0" :options="editorOption" style="background: white;">
+					<quill-editor v-model="editor" v-if="editor.length > 0" :options="editorOption" style="background: white;font-size: 1.3rem;">
 					</quill-editor>
 					<br>
 
@@ -380,11 +380,16 @@ html {
 	background: white !important;
 }
 
-;
+
 #dateAuthor {
 	padding-top: 0;
 	margin-top: 0;
 }
 
-;
+
+.ql-container {
+    font-size: 1.3rem;
+    font-family:Avenir, Helvetica, Arial, sans-serif;
+
+}
 </style>

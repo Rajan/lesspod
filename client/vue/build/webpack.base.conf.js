@@ -79,6 +79,17 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
+      // ,
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
+      //   loader: 'babel-loader'
+      // },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'imports-loader?window.Quill=quill',
+      //   include: path.resolve('./node_modules/quill-image-resize-module')
+      // }
     ]
   },
   node: {

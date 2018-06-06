@@ -28,6 +28,7 @@
     "vue-moment": "^3.2.0",
     "vue-quill": "^1.5.0-0",
     "vue-quill-editor": "^3.0.6",
+    "vue-quill-editor-upload": "^1.1.0",
     "vue-router": "^3.0.1",
     "vue2-notify": "^1.4.0"
   },

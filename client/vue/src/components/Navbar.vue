@@ -1,24 +1,24 @@
 <template lang="html">
 
-	<nav class="navbar has-shadow">
+	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item">
 				<img src="./../assets/images/icon.png">
 			</a>
-			<div class="navbar-burger burger">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
+			<a role="button" class="navbar-burger" data-target="navMenu"  aria-label="menu" aria-expanded="false">
+			  <span aria-hidden="true"></span>
+			  <span aria-hidden="true"></span>
+			  <span aria-hidden="true"></span>
+			</a>
 		</div>
 
-		<div class="navbar-menu">
-			<div class="navbar-start">
+		<div class="navbar-menu" id="navMenu">
+			<div class="navbar-start" id="navStart">
 				<div class="navbar-item">
 					<div>
-						<a href="#" @click="logoClick"><img src="./../assets/images/type.png" width="auto" height="21"></a>
+						<a href="#" id="typeLogo" @click="logoClick"><img src="./../assets/images/type.png" width="auto" height="21"></a>
 						<br>
-						<small>Serverless Blogging Engine</small>
+						<small id="tagline">Serverless Blogging Engine</small>
 					</div>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-clipboard"></i>
-									</span>
+									</span>&nbsp;
 									Post
 								</div>
 							</a>
@@ -40,7 +40,7 @@
 								<div>
 									<span class="icon is-small">
 										<i class="fa fa-bars"></i>
-									</span>
+									</span>&nbsp;
 									Menu
 								</div>
 							</a>
@@ -58,9 +58,9 @@
 				</div>
 
 				<div v-for="menuItem in topLevelMenus" class="navbar-item is-hoverable">
-					<a href="#" v-on:click="visitMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name}}
-						<div class="navbar-dropdown is-right" v-if="subMenusOf(menuItem.name).length">
-							<a class="navbar-item" v-for="menu1 in subMenusOf(menuItem.name)">
+					<a href="#" v-on:click="visitMenu(menuItem)" :class="bindClass(menuItem)">{{menuItem.name.trim()}}
+						<div class="navbar-item navbar-dropdown is-right" v-if="subMenusOf(menuItem.name).length">
+							<a class="" v-for="menu1 in subMenusOf(menuItem.name)">
 								<div v-if="menu1.postId.length">
 									<a href="#" v-on:click.stop="visitMenu(menu1)">{{cleanedSubmenu(menu1.name)}}</a>
 								</div>
@@ -69,7 +69,7 @@
 								</div>
 							</a>
 						</div>
-					</a>    
+					</a>
 					<!-- class="navbar-link"  v-bind:href="properURL(menu1.linkedURL)" v-bind:href="linkedMenu(menu1)"-->
 				</div>
 				
@@ -86,7 +86,7 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-user-circle"></i>
-								</span>
+								</span>&nbsp;
 								Profile
 							</div>
 						</a>
@@ -94,15 +94,15 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-cog"></i>
-								</span>
+								</span>&nbsp;
 								Settings
 							</div>
 						</a>
-						<a class="navbar-item">
+						<a class="navbar-item" href="https://github.com/Rajan/lesspod/issues" target="_blank">
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-bug"></i>
-								</span>
+								</span>&nbsp;
 								Report bug
 							</div>
 						</a>
@@ -110,7 +110,7 @@
 							<div>
 								<span class="icon is-small">
 									<i class="fa fa-arrow-right"></i>
-								</span>
+								</span>&nbsp;
 								Sign Out
 							</div>
 						</a>
@@ -312,7 +312,8 @@ export default {
 						"title" : title.toString(),
 						"content" : content.toString(),
 						"tags": [].toString(),
-						"pageURL" : linkedURL.toString()
+						"pageURL" : linkedURL.toString(),
+						"author" : this.fullName
 					})
 					.then(function (response) {
 						console.log(response);
@@ -370,7 +371,7 @@ export default {
 
 			var postId = menu1.postId;
 
-			// console.log('postId in Page: ' + postId);
+			console.log('postId in Navbar: ' + postId);
 
 			axios.get('/v1/posts/' + postId.trim(), {
 				"id" : postId.trim()
@@ -379,7 +380,7 @@ export default {
 				console.log(response);
 				var post = response.data.post;
 				post.title = vm.cleanedSubmenu(post.title)
-				// console.log('post is: ' + post);
+				// console.log('post in Navbar: ' + post);
 				Cookies.set("editpost", JSON.stringify(post));
 				location.href = menu1.linkedURL;
 			})
@@ -399,3 +400,31 @@ export default {
 }
 };
 </script>
+<style>
+	@media (min-width: 100px) {
+  	/* This style block will only apply on viewports larger than 700px */
+  		#navStart {
+  			visibility: hidden;
+  			display: none;
+  		}
+
+  		a.navbar-link {
+  			padding-left: 0;
+  			padding-bottom: 12px;
+  		}
+
+	}
+
+	@media (min-width: 768px) {
+  	/* This style block will only apply on viewports larger than 700px */
+  		#navStart {
+  			visibility: visible;
+  			display: inline-block;
+  		}
+
+  		div.a.navbar-link {
+  			padding-left: 24px;
+  			padding-bottom: 24px;
+  		}
+	}
+</style>

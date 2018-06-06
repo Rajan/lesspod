@@ -19,7 +19,7 @@
 					<quill-editor v-model="content" ref="myQuillEditor"  v-if="token && token.length > 0"
 						:options="editorOption" style="height: 20rem;">
 					</quill-editor>
-					<span v-else v-html="content" class="has-text-left"></span>
+					<span v-else v-html="content" class="has-text-left" style="font-size: 1.3rem;"></span>
 					<br><br><br>
 
 					<a href="#" class="button is-primary" @click="savePage" v-if="token && token.length > 0">
@@ -243,5 +243,9 @@ module.exports = {
 	}
 	.hide-toolbar .ql-toolbar {
  		 display: none;
+	}
+	.ql-container {
+    	font-size: 1.3rem;
+    	font-family: Avenir, Helvetica, Arial, sans-serif;
 	}
 </style>

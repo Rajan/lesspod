@@ -6,9 +6,9 @@
         <div class="field is-horizontal">
           <div class="field-body">
             <div class="field">
-              <p class="control">
+              <p class="control has-text-centered">
                 <input class="input has-text-centered is-large disabled" style="font-weight: bold;font-size:2rem;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
-                <input class="input has-text-centered is-small disabled" v-model="dateAuthor" id="dateAuthor" type="text" placeholder="March 31, 2018 - Some Author" readonly>
+                <span class="has-text-centered is-large disabled">{{ new Date(createdDate) | moment('MMMM D, YYYY') }} . {{ author }}</span>
               </p>
             </div>
           </div>
@@ -16,7 +16,7 @@
       </div>
       <div class="column is-two-thirds">
 
-        <span v-html="editor" class="has-text-left"></span>
+        <span v-html="editor" class="has-text-left" style="font-size: 1.3rem;"></span>
         <br>
 
         <div class="tags">
@@ -28,116 +28,24 @@
       </div>
       <div class="column is-two-thirds has-text-centered">
         <!-- This div is only for design purposes -->
-        <h2 class="title">Recommended Posts</h2>
+        <h2 class="title">Latest Posts</h2>
         <div class="columns is-multiline">
-          <div class="column is-12-tablet is-6-desktop is-4-widescreen">
-            <article class="box">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-5 is-spaced is-marginless">
-                    <a href="#">One Random Idea</a>
-                  </p>
-                  <div class="content is-small">
-                    March 31, 1984 . Some Author
-                    <br>
-                    <p>
-                      In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
+          <div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
+              <article class="box">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-5 is-spaced is-marginless">
+                      <a href="#" @click="viewPost(index)" :id="post.id">{{post.title}}</a>
                     </p>
+                    <div class="content is-small">
+                      {{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}
+                      <br>
+                      <p v-html="postSummary(post.content)"></p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          </div>
-          <div class="column is-12-tablet is-6-desktop is-4-widescreen">
-            <article class="box">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-5 is-spaced is-marginless">
-                    <a href="#">Last Trip to Paris</a>
-                  </p>
-                  <div class="content is-small">
-                    March 31, 1984 . Some Author
-                    <br>
-                    <p>
-                      In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="column is-12-tablet is-6-desktop is-4-widescreen">
-            <article class="box">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-5 is-spaced is-marginless">
-                    <a href="#">Our New Business Venture</a>
-                  </p>
-                  <div class="content is-small">
-                    March 31, 1984 . Some Author
-                    <br>
-                    <p>
-                      In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="column is-12-tablet is-6-desktop is-4-widescreen">
-            <article class="box">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-5 is-spaced is-marginless">
-                    <a href="#">An Adventure to China</a>
-                  </p>
-                  <div class="content is-small">
-                    March 31, 1984 . Some Author
-                    <br>
-                    <p>
-                      In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="column is-12-tablet is-6-desktop is-4-widescreen">
-            <article class="box">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-5 is-spaced is-marginless">
-                    <a href="#">Of Ghosts and Gods</a>
-                  </p>
-                  <div class="content is-small">
-                    March 31, 1984 . Some Author
-                    <br>
-                    <p>
-                      In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="column is-12-tablet is-6-desktop is-4-widescreen">
-            <article class="box">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-5 is-spaced is-marginless">
-                    <a href="#">Hackers and Painters</a>
-                  </p>
-                  <div class="content is-small">
-                    March 31, 1984 . Some Author
-                    <br>
-                    <p>
-                      In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just. Led all visitor musical calling nor her.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
+              </article>
+            </div>
         </div>
         <h2 class="title">Comments</h2>
         <div class="comments">
@@ -149,12 +57,12 @@
   </div>
   </div>
   <div class="icon-bar">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=URLENCODED_URL&t=TITLE" class="facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
+    <a v-bind:href="fbUrl" class="facebook"><i class="fab fa-facebook-f"></i></a>
+    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
       class="twitter"><i class="fab fa-twitter"></i>
 		</a>
     <!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn" class="linkedin"><i class="fab fa-linkedin"></i></a>
+    <a v-bind:href="linkedinUrl" class="linkedin"><i class="fab fa-linkedin"></i></a>
     <!-- <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>  -->
   </div>
 </section>
@@ -169,17 +77,43 @@ export default {
   data() {
     return {
 
-      content: '',
+      // content: '',
+      editor: '',
       tagsArray: [],
-      pageURL: '',
+      postURL: '',
       id: '',
       title: '',
+      author: '',
+      posts: [],
+      createdDate: '',
       token: null,
-      dateAuthor: 'March 31, 2018 - Some Author',
+      dateAuthor: '',
     }
   },
   beforeMount: function() {
     this.initPost();
+  },
+  computed: {
+    fbUrl() {
+      let fburl = encodeURI('https://www.facebook.com/sharer/sharer.php?u=') + encodeURI(this.postURL) + '&t=' + escape(this.title);
+      console.log(fburl);
+      return fburl;
+    },
+    twitterUrl() {
+      // https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT
+      let twitterurl = 'https://twitter.com/share?url=' + encodeURI(this.postURL) + '&text=' + escape(this.title);
+      return twitterurl;
+    },
+    linkedinUrl() {
+      // https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn
+      let linkedinurl = encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') + encodeURI(this.postURL) + '&title=' + escape(this.title) + '&source=Lesspod';
+      return linkedinurl;
+    },
+    filteredPosts: function() {
+      return this.posts.filter(function(post) {
+        return !(post.pageURL && post.pageURL.length)
+      });
+    }
   },
   methods: {
     initPost: function() {
@@ -211,11 +145,45 @@ export default {
               vm.id = post.id;
               vm.title = post.title;
               vm.editor = post.content;
+              vm.author = post.author;
+              vm.createdDate = post.createdAt;
               vm.tagsArray = post.tags.toString().split(",");
-
+              vm.postURL = window.location.origin + '/post/' + post.id.toString();
+              console.log(vm.postURL);
+              document.title = post.title.toString() + ' by ' + post.author.toString();
             })
             .catch(function(error) {
               console.log(error);
+            });
+
+
+            // Need to display latest posts under the post being viewed.
+
+            axios.get('/v1/posts', {})
+            .then(function(response) {
+
+                  // console.log(response);
+
+                  let posts1 = response.data.posts;
+                  posts1.reverse();
+                  for (var i in posts1) {
+
+                    console.log(posts1[i].title);
+                    if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+                      posts1.splice(i, 1);
+                    }
+                }
+                vm.posts = posts1;
+                  // renderPosts();
+            })
+            .catch(function(error) {
+              console.log(error);
+                  // if error is 401 unauthorize, logout the user.
+
+                  if (error.toString().indexOf('401') !== -1) {
+                    console.log('Logging you out...')
+                    vm.logout();
+                  }
             });
           break;
         case FBASE:
@@ -233,7 +201,9 @@ export default {
                 vm.id = post.id;
                 vm.title = post.title;
                 vm.editor = post.content;
+                // vm.author = post.author; // need to display author and date.
                 vm.tagsArray = post.tags.toString().split(",");
+                document.title = post.title;
 
               } else {
                 console.log("No such post!");
@@ -247,13 +217,33 @@ export default {
 
 
     },
+    postSummary: function(content) {
+      let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g, ', ').substring(0, 140);
+        // console.log('postSummary.length' + postSummary.length);
+        if (postSummary.length == 140) {
+          postSummary = postSummary + '...';
+          return postSummary;
+        } else {
+          return postSummary;
+        }
+    },
+    viewPost: function(index) {
+      var vm = this;
+      let post = vm.filteredPosts[index];
+      let postString = JSON.stringify(vm.filteredPosts[index]);
+
+      console.log('viewing... ' + JSON.stringify(post));
+
+      window.location.href = '../post/' + post.id.toString();
+    },
     tagClicked: function(tag) {
       console.log(tag);
     }
   },
   created: function(){
     document.getElementById("footer").style.visibility = "visible";
-  }
+  },
+
 };
 </script>
 <style>

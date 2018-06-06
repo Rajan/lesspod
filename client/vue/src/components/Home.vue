@@ -19,7 +19,7 @@
 							</button>
 						<!-- </span> -->
 					</div>
-					<div class="subtitle">Note: Clicking on the <a class="tag is-danger is-delete"></a> will delete the menu/page irreversibly.</div>
+					<div class="subtitle">Note: Clicking on the <a class="tag is-danger is-delete"></a> will delete the menu/page permanently.</div>
 					<!-- <div class="tags has-addons">
 						<span class="tag">About Us</span>
 						<a class="tag is-danger is-delete"></a>
@@ -33,7 +33,7 @@
 						<div class="level-left">
 							<div class="level-item">
 								<p class="subtitle is-5">
-									<strong>{{posts.length}}</strong> Posts
+									<strong>{{filteredPosts.length}}</strong> Posts
 								</p>
 							</div>
 
@@ -78,7 +78,7 @@
 											<a href="#" @click="editPost(index)" :id="post.id">{{post.title}}</a>
 										</p>
 										<div class="content is-small">
-											{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }}
+											{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}
 											<br>
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)">Edit</a>
@@ -150,9 +150,9 @@ export default {
   	filteredPosts: function() {
   		var query = this.query;
   		return this.posts.filter(function(post) {
-  			return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) ||
+  			return ((post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) ||
   			(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-  				post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1)
+  				post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1)) && !(post.pageURL && post.pageURL.length)
   		});
   	}
   },
@@ -216,6 +216,7 @@ export default {
               // console.log(response);
 
               let posts1 = response.data.posts;
+              posts1.reverse();
               for (var i in posts1) {
 
                 // console.log(posts1[i].title);

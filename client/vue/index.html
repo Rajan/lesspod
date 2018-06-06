@@ -28,18 +28,50 @@
   <!-- including firebase script manually to ease dev -->
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
   <footer class="has-text-centered" id="footer">
-    Get notified about the latest posts from us.&nbsp;&nbsp;<input type="text" style="min-width: 10rem;height: 1.7rem;font-size: 1rem;margin-top: 0.5rem;" placeholder="email address">
-    <button class="button is-primary is-small" style="height: 1.7rem;margin-top: 0.5rem;">Subscribe</button>
+    <span style="font-size:1.25rem;">Stay updated on the latest posts from us.</span>&nbsp;&nbsp;<input type="text" id="emailSubscribe" style="min-width: 10rem;height: 1.7rem;font-size: 1rem;margin-top: 0.3rem; background-color: transparent; padding-left:0.3rem;border: 2px solid #24D17D; outline: none;margin-right: -0.3rem;" placeholder="email address">
+    <button class="button is-success is-small" style="height: 1.7rem;margin-top: 0.3rem;" onclick="subscribed();">Subscribe</button>
   </footer>
 </body>
 </html>
-<style type="text/css">
-  footer {
-    width: 100%;
-    background-color: #fff;
-    position: fixed;
-    bottom: 0;
-    height: 3rem;
-    border-top: 1px solid grey;
+<script type="text/javascript">
+  function subscribed(){
+    // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
+    window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
+    // alert('subscribed');
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+
+  // Get all "navbar-burger" elements
+  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+
+        // Get the target from the "data-target" attribute
+        var target = $el.dataset.target;
+        var $target = document.getElementById(target);
+
+        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
   }
+
+});
+</script>>
+<style type="text/css">
+footer {
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  height: 3rem;
+  border-top: 1px solid grey;
+}
 </style>

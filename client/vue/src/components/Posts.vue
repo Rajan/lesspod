@@ -10,12 +10,12 @@
 						<div class="level-left">
 							<div class="level-item">
 								<p class="subtitle is-5">
-									<strong>{{posts.length}}</strong> Posts
+									<strong>{{filteredPosts.length}}</strong> Posts
 								</p>
 							</div>
 
 							<p class="level-item">
-								<a class="button is-success" v-if="fullName.length > 0" href="new-book.html">New Post</a>
+								<a class="button is-success" v-if="fullName.length > 0" href="../newpost">New Post</a>
 							</p>
 
 							<div class="level-item is-hidden-tablet-only">
@@ -57,7 +57,7 @@
 										<div class="content is-small">
 											{{
 												new Date(post.createdAt) | moment('MMMM D, YYYY')
-											}}
+											}} . {{ post.author }}
 											<br>
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)" v-if="fullName.length > 0">Edit</a>
@@ -98,9 +98,9 @@ export default {
 		filteredPosts: function () {
 			let query = this.query;
 			return this.posts.filter(function (post) {
-				return (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) || 
-				(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-					post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1) 
+				return ((post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1) ||
+  			(post.content.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+  				post.tags.toString().toLowerCase().indexOf(query.toLowerCase()) !== -1)) && !(post.pageURL && post.pageURL.length)
 			});	
 		}
 	},
@@ -121,7 +121,7 @@ export default {
 							// console.log(response);
 
 							let posts1 = response.data.posts;
-
+							posts1.reverse();
 							for(var i in posts1){
 
 								// console.log(posts1[i].title);
