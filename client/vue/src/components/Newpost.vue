@@ -86,6 +86,9 @@ export default {
   beforeMount() {
     this.initPost();
   },
+  created() {
+    // document.getElementById("footer").style.visibility = "visible";
+  },
   computed: {
     contentCode() {
       return hljs.highlightAuto(this.content).value;

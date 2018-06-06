@@ -86,7 +86,6 @@ export default {
 	created: function() {
 
 		this.fetchData();
-		document.getElementById("footer").style.visibility = "visible";
 
 		// this.$nextTick(function () {
 

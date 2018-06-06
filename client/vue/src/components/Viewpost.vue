@@ -239,10 +239,7 @@ export default {
     tagClicked: function(tag) {
       console.log(tag);
     }
-  },
-  created: function(){
-    document.getElementById("footer").style.visibility = "visible";
-  },
+  }
 
 };
 </script>
