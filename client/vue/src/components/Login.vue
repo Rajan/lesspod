@@ -1,16 +1,16 @@
 <template>
-<section class="hero is-info">
+<section class="hero is-info" style="min-height: calc(100vh - 6rem);">
   <div class="hero-body">
     <div class="container ">
       <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-4-widescreen">
           <form class="box">
-            <div class="field has-text-centered">
+            <div class="field has-text-centered" style="margin:0;padding:0;">
               <!-- <img src="../assets/images/logo-bis.png" width="167"> -->
-              <img src="./../assets/images/icon.png" style="width:5rem;height: 5rem;"><br>
+              <img src="./../assets/images/icon.png" style="width:4rem;height: 4rem;margin:0;padding:0;"><br>
               <a href="#"><img src="./../assets/images/type.png"></a>
               <br>
-              <small>Serverless Blogging Engine</small>
+              <!-- <small>Serverless Blogging Engine</small> -->
             </div>
             <div class="field">
               <label class="label">Email</label>
