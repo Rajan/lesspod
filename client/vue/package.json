@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@voerro/vue-tagsinput": "^1.5.2",
+    "axios": "^0.18.0",
     "bulma-tagsinput": "^1.0.8",
     "highlight.js": "^9.12.0",
+    "js-cookie": "^2.2.0",
     "node-sass": "^4.9.0",
     "quill-image-drop-module": "^1.0.3",
     "quill-image-resize-module": "^3.0.0",
@@ -25,6 +27,7 @@
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.2",
     "vue-input-tag": "^1.0.3",
+    "vue-js-cookie": "^2.1.0",
     "vue-moment": "^3.2.0",
     "vue-quill": "^1.5.0-0",
     "vue-quill-editor": "^3.0.6",

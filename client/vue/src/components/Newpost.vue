@@ -94,8 +94,8 @@ export default {
   methods: {
     initPost: function() {
 
-      axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-      let user = Cookies.getJSON("user");
+      axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+      let user = this.$cookie.getJSON("user");
       this.fullName = user.first + ' ' + user.last;
 
     },
@@ -130,7 +130,7 @@ export default {
             console.log('Post Id is ' + response.data.post.id.toString());
             document.getElementById('postId')
             .value = response.data.post.id.toString();
-            Cookies.set("post", response.data.post);
+            this.$cookie.set("post", response.data.post);
                 // this.$notify('Post saved successfully!', 'success');
                 window.location.href = '../home'
               })
@@ -152,7 +152,7 @@ export default {
 
           const uuidv4 = require('uuid/v4');
           postData.id = uuidv4();
-          postData.createdBy = Cookies.getJSON('user').id;
+          postData.createdBy = this.$cookie.getJSON('user').id;
 
           const moment = require('moment');
           postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
@@ -162,7 +162,7 @@ export default {
           .doc(postData.id)
           .set(postData)
           .then(function(docRef) {
-            Cookies.set("post", postData);
+            this.$cookie.set("post", postData);
                 // this.$notify('Post saved successfully!', 'success');
                 window.location.href = '../home'
 
@@ -177,8 +177,8 @@ export default {
       }
     },
     logout: function() {
-      Cookies.set('token', '');
-      Cookies.set('user', '');
+      this.$cookie.set('token', '');
+      this.$cookie.set('user', '');
       window.location.href = '../';
     },
     onEditorBlur(content) {
@@ -194,10 +194,10 @@ export default {
       console.log('adding a tag...');
 
       let tagText = document.getElementById("tag").value;
-      let user = Cookies.getJSON("user");
+      let user = this.$cookie.getJSON("user");
 
       if (tagText.length && document.getElementById("postId").value.length) {
-        // axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+        // axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
 
         let tagData = {
           "name": tagText,
@@ -235,7 +235,7 @@ export default {
 
           const uuidv4 = require('uuid/v4');
           tagData.id = uuidv4();
-          tagData.createdBy = Cookies.getJSON('user').id;
+          tagData.createdBy = this.$cookie.getJSON('user').id;
 
           const moment = require('moment');
           tagData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');

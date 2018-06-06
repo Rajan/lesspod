@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const webpack = require('webpack')
 
 // webpack.config.js
 // const { VueLoaderPlugin } = require('vue-loader')
@@ -106,5 +107,8 @@ module.exports = {
   },
   plugins: [
     // new VueLoaderPlugin()
+    new webpack.ProvidePlugin({
+      axios: 'axios'
+    })
   ]
 }

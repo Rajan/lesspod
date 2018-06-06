@@ -120,9 +120,9 @@ export default {
 
       var vm = this;
 
-      if (Cookies.get('token') && Cookies.get('token').length) {
-        vm.token = Cookies.get('token');
-        axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+      if (this.$cookie.get('token') && this.$cookie.get('token').length) {
+        vm.token = this.$cookie.get('token');
+        axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
       }
       // fetch the post from server
       let href = location.href;

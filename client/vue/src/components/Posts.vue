@@ -109,8 +109,8 @@ export default {
 		fetchData: function() {
 			// console.log('fetching data...');
 			var vm = this;
-			if(Cookies.get("token") && Cookies.get("token").length){
-				axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			if(this.$cookie.get("token") && this.$cookie.get("token").length){
+				axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
 			}
 
 			axios.get('/v1/posts', {})
@@ -139,7 +139,7 @@ export default {
 					// vm.logout();
 				}
 			});
-			let user = Cookies.getJSON('user');
+			let user = this.$cookie.getJSON('user');
 			if(user){
 				this.fullName = user.first + ' ' + user.last;
 			}
@@ -177,8 +177,8 @@ export default {
 			
 		},
 		logout: function() {
-			Cookies.set('token', '');
-			Cookies.set('user', '');
+			this.$cookie.set('token', '');
+			this.$cookie.set('user', '');
 			window.location.href = '../';
 		}
 	}

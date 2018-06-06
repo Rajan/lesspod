@@ -121,8 +121,8 @@ export default {
               .post('/v1/users/', userData)
               .then(function(response) {
                 console.log(response)
-                Cookies.set('token', response.data.token)
-                Cookies.set('user', JSON.stringify(response.data.user))
+                this.$cookie.set('token', response.data.token)
+                this.$cookie.set('user', JSON.stringify(response.data.user))
 
                 // setting up Authorization Header that will be used for subsequent requests.
                 axios.defaults.headers.common['Authorization'] =
@@ -160,7 +160,7 @@ export default {
                   .doc(userData.id) // documentId is same as userId; easier for future referencing of document
                   .set(userData)
                   .then(function(docRef) {
-                    Cookies.set('user', JSON.stringify(userData))
+                    this.$cookie.set('user', JSON.stringify(userData))
                     window.location.href = '../home'
                   })
                   .catch(function(error) {

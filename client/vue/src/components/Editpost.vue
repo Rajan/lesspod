@@ -80,7 +80,7 @@ watch: {
 	tagsArray: function() {
       // save updated values
       console.log('new tags: ' + this.tagsArray);
-      if (Cookies.get('token') && Cookies.get('token').length && this.tagsArray.length) {
+      if (this.$cookie.get('token') && this.$cookie.get('token').length && this.tagsArray.length) {
       	this.saveTags();
       }
   }
@@ -95,8 +95,8 @@ beforeMount() {
 },
 methods: {
 	initPost: function() {
-      // axios.defaults.headers.common['Authorization'] = Cookies.get("token");
-      // var post = Cookies.getJSON("editpost");
+      // axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+      // var post = this.$cookie.getJSON("editpost");
       // console.log('post is: ' + post);
       // this.id = post.id;
       // this.title = post.title;
@@ -106,9 +106,9 @@ methods: {
 
       var vm = this;
 
-      if (Cookies.get('token') && Cookies.get('token').length) {
-      	vm.token = Cookies.get('token');
-      	axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+      if (this.$cookie.get('token') && this.$cookie.get('token').length) {
+      	vm.token = this.$cookie.get('token');
+      	axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
       }
       // fetch the post from server
       let href = location.href;
@@ -196,7 +196,7 @@ methods: {
   				console.log(response);
   				console.log('Post Id is ' + response.data.post.id.toString());
   				document.getElementById('postId').value = response.data.post.id.toString();
-  				Cookies.set("post", response.data.post);
+  				this.$cookie.set("post", response.data.post);
   				vm.$notify('Post saved successfully!', 'success');
   			})
   			.catch(function(error) {
@@ -222,7 +222,7 @@ methods: {
   			.then(function(docRef) {
   				console.log('Post Id is ' + postData.id.toString());
   				document.getElementById('postId').value = postData.id.toString();
-  				Cookies.set("post", postData);
+  				this.$cookie.set("post", postData);
   				vm.$notify('Post saved successfully!', 'success');
   			})
   			.catch(function(error) {
@@ -261,7 +261,7 @@ methods: {
       	axios.put('/v1/posts/' + vm.id, postData)
       	.then(function(response) {
       		console.log('response@saveTags = ' + response);
-      		Cookies.set("post", response.data.post);
+      		this.$cookie.set("post", response.data.post);
       	})
       	.catch(function(error) {
       		console.log(error);
@@ -288,7 +288,7 @@ methods: {
       		document.getElementById('postId').value = postData.id.toString();
       		postData.title = title.toString();
       		postData.content = content.toString();
-      		Cookies.set("post", postData);
+      		this.$cookie.set("post", postData);
       		vm.$notify('Post saved successfully!', 'success');
       	})
       	.catch(function(error) {
@@ -302,10 +302,10 @@ addTag: function() {
 	console.log('adding a tag...');
 
 	let tagText = document.getElementById("tag").value;
-	let user = Cookies.getJSON("user");
+	let user = this.$cookie.getJSON("user");
 
 	if (tagText.length && document.getElementById("postId").value.length) {
-        // axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+        // axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
         let tagData = {
         	"name": tagText,
         	"postId": document.getElementById('postId').value,
@@ -342,7 +342,7 @@ addTag: function() {
 
         	const uuidv4 = require('uuid/v4');
         	tagData.id = uuidv4();
-        	tagData.createdBy = Cookies.getJSON('user').id;
+        	tagData.createdBy = this.$cookie.getJSON('user').id;
 
         	const moment = require('moment');
         	tagData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
@@ -366,8 +366,8 @@ addTag: function() {
     }
 },
 logout: function() {
-	Cookies.set('token', '');
-	Cookies.set('user', '');
+	this.$cookie.set('token', '');
+	this.$cookie.set('user', '');
 	window.location.href = '../';
 },
 }
