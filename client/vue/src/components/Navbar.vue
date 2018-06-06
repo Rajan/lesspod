@@ -189,7 +189,7 @@ export default {
 					// vm.logout();
 				}
 			});
-			let user = this.$cookie.getJSON('user');
+			let user = vm.$cookie.getJSON('user');
 			if(user) {
 				this.fullName = user.first + ' ' + user.last;
 			}
@@ -313,7 +313,7 @@ export default {
 						"content" : content.toString(),
 						"tags": [].toString(),
 						"pageURL" : linkedURL.toString(),
-						"author" : this.fullName
+						"author" : vm.fullName
 					})
 					.then(function (response) {
 						console.log(response);
@@ -350,7 +350,7 @@ export default {
 					// console.log('New Menu Id is inside: ' + response.toString());
 					// document.getElementById('menuId').value = response.data.menu.id.toString();
 					vm.menus.push(response.data.menu);
-					this.$cookie.set("menu", response.data.menu);
+					vm.$cookie.set("menu", response.data.menu);
 					// this.$router.go(this.$router.currentRoute);
 					// this.$router.go();
 					vm.$notify('Menu added successfully!', 'success');
@@ -381,7 +381,7 @@ export default {
 				var post = response.data.post;
 				post.title = vm.cleanedSubmenu(post.title)
 				// console.log('post in Navbar: ' + post);
-				this.$cookie.set("editpost", JSON.stringify(post));
+				vm.$cookie.set("editpost", JSON.stringify(post));
 				location.href = menu1.linkedURL;
 			})
 			.catch(function(error){

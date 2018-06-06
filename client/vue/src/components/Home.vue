@@ -163,9 +163,9 @@ export default {
   	fetchData: function() {
       // console.log('fetching data...');
       var vm = this;
-      axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+      axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
-      let user = this.$cookie.getJSON('user');
+      let user = vm.$cookie.getJSON('user');
       this.fullName = user.first + ' ' + user.last;
       // console.log(user.first + ' ' + user.last);
 
@@ -270,7 +270,7 @@ export default {
   	let post = vm.filteredPosts[index];
   	let postString = JSON.stringify(vm.filteredPosts[index]);
 
-  	this.$cookie.set("editpost", postString);
+  	vm.$cookie.set("editpost", postString);
   	console.log('Editing... ' + JSON.stringify(post));
 
   	window.location.href = '../editpost/' + post.id.toString();

@@ -106,9 +106,9 @@ methods: {
 
       var vm = this;
 
-      if (this.$cookie.get('token') && this.$cookie.get('token').length) {
-      	vm.token = this.$cookie.get('token');
-      	axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+      if (vm.$cookie.get('token') && vm.$cookie.get('token').length) {
+      	vm.token = vm.$cookie.get('token');
+      	axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
       }
       // fetch the post from server
       let href = location.href;
@@ -196,7 +196,7 @@ methods: {
   				console.log(response);
   				console.log('Post Id is ' + response.data.post.id.toString());
   				document.getElementById('postId').value = response.data.post.id.toString();
-  				this.$cookie.set("post", response.data.post);
+  				vm.$cookie.set("post", response.data.post);
   				vm.$notify('Post saved successfully!', 'success');
   			})
   			.catch(function(error) {
@@ -222,7 +222,7 @@ methods: {
   			.then(function(docRef) {
   				console.log('Post Id is ' + postData.id.toString());
   				document.getElementById('postId').value = postData.id.toString();
-  				this.$cookie.set("post", postData);
+  				vm.$cookie.set("post", postData);
   				vm.$notify('Post saved successfully!', 'success');
   			})
   			.catch(function(error) {
@@ -261,7 +261,7 @@ methods: {
       	axios.put('/v1/posts/' + vm.id, postData)
       	.then(function(response) {
       		console.log('response@saveTags = ' + response);
-      		this.$cookie.set("post", response.data.post);
+      		vm.$cookie.set("post", response.data.post);
       	})
       	.catch(function(error) {
       		console.log(error);
@@ -288,7 +288,7 @@ methods: {
       		document.getElementById('postId').value = postData.id.toString();
       		postData.title = title.toString();
       		postData.content = content.toString();
-      		this.$cookie.set("post", postData);
+      		vm.$cookie.set("post", postData);
       		vm.$notify('Post saved successfully!', 'success');
       	})
       	.catch(function(error) {
@@ -300,9 +300,9 @@ methods: {
 },
 addTag: function() {
 	console.log('adding a tag...');
-
+  var vm = this;
 	let tagText = document.getElementById("tag").value;
-	let user = this.$cookie.getJSON("user");
+	let user = vm.$cookie.getJSON("user");
 
 	if (tagText.length && document.getElementById("postId").value.length) {
         // axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");

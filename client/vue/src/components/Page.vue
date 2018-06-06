@@ -123,10 +123,10 @@ module.exports = {
 		initPage: function() {
 
 			var vm = this;
-			axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+			axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
 
-			var post = this.$cookie.getJSON("editpost");
+			var post = vm.$cookie.getJSON("editpost");
 			console.log('post is: ' + post);
 
 			vm.id = post.id;
@@ -134,7 +134,7 @@ module.exports = {
 			vm.content = post.content;
 			vm.tagsArray = post.tags.toString().split(",");
 
-			vm.token = this.$cookie.get('token');
+			vm.token = vm.$cookie.get('token');
 
 			console.log('token: ' + vm.token);
 
@@ -158,7 +158,7 @@ module.exports = {
 						console.log(response);
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
-						this.$cookie.set("page", response.data.post);
+						vm.$cookie.set("page", response.data.post);
 						vm.$notify('Page saved successfully!', 'success', { 'position': 'bottom-right' });
 					})
 					.catch(function (error) {
@@ -175,7 +175,7 @@ module.exports = {
 						console.log(response);
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
-						this.$cookie.set("page", response.data.post);
+						vm.$cookie.set("page", response.data.post);
 						vm.$notify('Page saved successfully!', 'success');
 					})
 					.catch(function (error) {
@@ -200,7 +200,7 @@ module.exports = {
 				})
 				.then(function (response) {
 					console.log(response);
-					this.$cookie.set("post", response.data.post);
+					vm.$cookie.set("post", response.data.post);
 				})
 				.catch(function (error) {
 					console.log(error);

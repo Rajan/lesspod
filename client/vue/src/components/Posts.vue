@@ -109,8 +109,8 @@ export default {
 		fetchData: function() {
 			// console.log('fetching data...');
 			var vm = this;
-			if(this.$cookie.get("token") && this.$cookie.get("token").length){
-				axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+			if(vm.$cookie.get("token") && vm.$cookie.get("token").length){
+				axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 			}
 
 			axios.get('/v1/posts', {})
@@ -139,7 +139,7 @@ export default {
 					// vm.logout();
 				}
 			});
-			let user = this.$cookie.getJSON('user');
+			let user = vm.$cookie.getJSON('user');
 			if(user){
 				this.fullName = user.first + ' ' + user.last;
 			}

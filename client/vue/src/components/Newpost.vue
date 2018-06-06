@@ -130,7 +130,7 @@ export default {
             console.log('Post Id is ' + response.data.post.id.toString());
             document.getElementById('postId')
             .value = response.data.post.id.toString();
-            this.$cookie.set("post", response.data.post);
+            vm.$cookie.set("post", response.data.post);
                 // this.$notify('Post saved successfully!', 'success');
                 window.location.href = '../home'
               })
@@ -152,7 +152,7 @@ export default {
 
           const uuidv4 = require('uuid/v4');
           postData.id = uuidv4();
-          postData.createdBy = this.$cookie.getJSON('user').id;
+          postData.createdBy = vm.$cookie.getJSON('user').id;
 
           const moment = require('moment');
           postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
@@ -162,7 +162,7 @@ export default {
           .doc(postData.id)
           .set(postData)
           .then(function(docRef) {
-            this.$cookie.set("post", postData);
+            vm.$cookie.set("post", postData);
                 // this.$notify('Post saved successfully!', 'success');
                 window.location.href = '../home'
 
