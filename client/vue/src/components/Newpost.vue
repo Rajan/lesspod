@@ -15,8 +15,12 @@
       </div>
       <div class="column is-two-thirds">
 
-        <quill-editor v-model="editor" :options="editorOption" style="height: 20rem;font-size: 1.3rem;">
+        <quill-editor v-model="content" :options="editorOption" style="height: 20rem;font-size: 1.3rem;">
         </quill-editor>
+        <!-- <div class="quill-code">
+          <div class="title">Code</div>
+          <code class="hljs xml" v-html="contentCode"></code>
+        </div> -->
 
         <br><br><br>
 
@@ -39,11 +43,13 @@ import {
   globalVariables
 } from './../main';
 
+import hljs from 'highlight.js';
+
 export default {
   data() {
     return {
       fullName: '',
-      editor: '',
+      content: '',
       editorOption: {
         modules: {
           toolbar: [
@@ -97,7 +103,7 @@ export default {
       console.log('saving a post...');
       var vm = this;
       var title = document.getElementById("title").value;
-      var content = this.editor;
+      var content = vm.content;
       console.log('title is ' + title.toString() + ' content is ' + content.toString());
       if (title.length && content.length) {
 
@@ -106,12 +112,12 @@ export default {
           LOCALHOST,
           FBASE
         } = globalVariables;
-        
+
         console.log('deployment target is ' + deploymentTarget);
 
         const postData = {
           "title": title.toString(),
-          "content": vm.editor.toString(),
+          "content": vm.content.toString(),
           "tags": vm.tagsArray.toString(),
           "author" : vm.fullName.toString()
         };
@@ -130,7 +136,7 @@ export default {
               })
               .catch(function(error) {
                 console.log(error);
-                if (error.toString().indexOf('401') !== 0) {
+                if (error.toString().indexOf('401') > -1) {
                   vm.logout();
                 }
 
@@ -175,14 +181,14 @@ export default {
       Cookies.set('user', '');
       window.location.href = '../';
     },
-    onEditorBlur(editor) {
-      // console.log('editor blur!', editor)
+    onEditorBlur(content) {
+      // console.log('content blur!', content)
     },
-    onEditorFocus(editor) {
-      // console.log('editor focus!', editor)
+    onEditorFocus(content) {
+      // console.log('content focus!', content)
     },
-    onEditorReady(editor) {
-      // console.log('editor ready!', editor)
+    onEditorReady(content) {
+      // console.log('content ready!', content)
     },
     addTag: function() {
       console.log('adding a tag...');

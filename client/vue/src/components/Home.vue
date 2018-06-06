@@ -19,7 +19,7 @@
 							</button>
 						<!-- </span> -->
 					</div>
-					<div class="subtitle">Note: Clicking on the <a class="tag is-danger is-delete"></a> will delete the menu/page irreversibly.</div>
+					<div class="subtitle">Note: Clicking on the <a class="tag is-danger is-delete"></a> will delete the menu/page permanently.</div>
 					<!-- <div class="tags has-addons">
 						<span class="tag">About Us</span>
 						<a class="tag is-danger is-delete"></a>
