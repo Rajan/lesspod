@@ -1,12 +1,12 @@
 <template>
 	<section class="section">
 		<div class="container">
-			<div class="columns is-centered is-multiline">
+			<!-- <div class="columns is-centered is-multiline">
 				<div class="column is-two-thirds">
 					<div id="output"></div>
 					You're logged in. <a href="#" @click="logout">Logout</a>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="container">
 			<div class="columns is-centered is-multiline">
@@ -77,8 +77,8 @@
 										<p class="title is-5 is-spaced is-marginless">
 											<a href="#" @click="editPost(index)" :id="post.id">{{post.title}}</a>
 										</p>
-										<div class="content is-small">
-											{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}
+										<div class="content ">
+											<span class="content is-small">{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}</span>
 											<br>
 											<p v-html="postSummary(post.content)"></p>
 											<a href="#" @click="editPost(index)">Edit</a>
