@@ -126,6 +126,7 @@
 	</section>
 </template>
 <script type="text/javascript">
+document.getElementById("footer").style.visibility = "visible";
 // var posts;
 import {
 	globalVariables
