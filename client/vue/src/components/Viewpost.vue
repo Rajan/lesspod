@@ -31,21 +31,21 @@
         <h2 class="title">Latest Posts</h2>
         <div class="columns is-multiline">
           <div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
-              <article class="box">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-5 is-spaced is-marginless">
-                      <a href="#" @click="viewPost(index)" :id="post.id">{{post.title}}</a>
-                    </p>
-                    <div class="content ">
-                      <span class="content is-small">{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}</span>
-                      <br>
-                      <p v-html="postSummary(post.content)"></p>
-                    </div>
+            <article class="box">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-5 is-spaced is-marginless">
+                    <a href="#" @click="viewPost(index)" :id="post.id">{{post.title}}</a>
+                  </p>
+                  <div class="content ">
+                    <span class="content is-small">{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}</span>
+                    <br>
+                    <p v-html="postSummary(post.content)"></p>
                   </div>
                 </div>
-              </article>
-            </div>
+              </div>
+            </article>
+          </div>
         </div>
         <h2 class="title">Comments</h2>
         <div class="comments">
@@ -58,8 +58,7 @@
   </div>
   <div class="icon-bar">
     <a v-bind:href="fbUrl" class="fbcalm"><i class="fab fa-facebook-f"></i></a>
-    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
-      class="twcalm"><i class="fab fa-twitter"></i>
+    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter" class="twcalm"><i class="fab fa-twitter"></i>
 		</a>
     <!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
     <a v-bind:href="linkedinUrl" class="licalm"><i class="fab fa-linkedin"></i></a>
@@ -157,33 +156,33 @@ export default {
             });
 
 
-            // Need to display latest posts under the post being viewed.
+          // Need to display latest posts under the post being viewed.
 
-            axios.get('/v1/posts', {})
+          axios.get('/v1/posts', {})
             .then(function(response) {
 
-                  // console.log(response);
+              // console.log(response);
 
-                  let posts1 = response.data.posts;
-                  posts1.reverse();
-                  for (var i in posts1) {
+              let posts1 = response.data.posts;
+              posts1.reverse();
+              for (var i in posts1) {
 
-                    console.log(posts1[i].title);
-                    if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
-                      posts1.splice(i, 1);
-                    }
+                console.log(posts1[i].title);
+                if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+                  posts1.splice(i, 1);
                 }
-                vm.posts = posts1;
-                  // renderPosts();
+              }
+              vm.posts = posts1;
+              // renderPosts();
             })
             .catch(function(error) {
               console.log(error);
-                  // if error is 401 unauthorize, logout the user.
+              // if error is 401 unauthorize, logout the user.
 
-                  if (error.toString().indexOf('401') !== -1) {
-                    console.log('Logging you out...')
-                    vm.logout();
-                  }
+              if (error.toString().indexOf('401') !== -1) {
+                console.log('Logging you out...')
+                vm.logout();
+              }
             });
           break;
         case FBASE:
@@ -212,6 +211,25 @@ export default {
             .catch(function(error) {
               console.log("Error getting post: ", error);
             });
+
+
+          db.collection("posts").where("createdBy", "==", user.id)
+            .get()
+            .then(function(querySnapshot) {
+              let posts1 = [];
+              querySnapshot.forEach(function(doc) {
+                posts1.push(doc.data())
+              });
+              for (var i in posts1) {
+                if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+                  posts1.splice(i, 1);
+                }
+              }
+              vm.posts = posts1;
+            })
+            .catch(function(error) {
+              console.log("Error getting posts: ", error);
+            });
           break;
       }
 
@@ -219,13 +237,13 @@ export default {
     },
     postSummary: function(content) {
       let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g, ', ').substring(0, 140);
-        // console.log('postSummary.length' + postSummary.length);
-        if (postSummary.length == 140) {
-          postSummary = postSummary + '...';
-          return postSummary;
-        } else {
-          return postSummary;
-        }
+      // console.log('postSummary.length' + postSummary.length);
+      if (postSummary.length == 140) {
+        postSummary = postSummary + '...';
+        return postSummary;
+      } else {
+        return postSummary;
+      }
     },
     viewPost: function(index) {
       var vm = this;
@@ -267,7 +285,7 @@ body {
 .icon-bar {
   position: fixed;
   top: 50%;
-  
+
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -276,11 +294,11 @@ body {
 
 @media (min-width: 100px) {
   /* This style block will only apply on viewports larger than 700px */
- 	.icon-bar {
-  		right: 0%;
-  		left: auto;
-  		top:81%;
-	}
+  .icon-bar {
+    right: 0%;
+    left: auto;
+    top: 81%;
+  }
 
   #footer {
     height: 4rem;
@@ -289,11 +307,11 @@ body {
 
 @media (min-width: 768px) {
   /* This style block will only apply on viewports larger than 700px */
- 	.icon-bar {
-  		left: 7%;
-  		right: auto;
-  		top: 50%;
-	}
+  .icon-bar {
+    left: 7%;
+    right: auto;
+    top: 50%;
+  }
   #footer {
     height: 3rem;
   }
