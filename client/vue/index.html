@@ -28,11 +28,18 @@
   <!-- including firebase script manually to ease dev -->
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
   <footer class="has-text-centered" id="footer">
-    Get notified about the latest from us.&nbsp;&nbsp;<input type="text" style="min-width: 10rem;height: 1.7rem;font-size: 1rem;margin-top: 0.5rem; background-color: transparent; padding-left:0.3rem;border: 2px solid #24D17D; outline: none;margin-right: -0.3rem;" placeholder="email address">
-    <button class="button is-success is-small" style="height: 1.7rem;margin-top: 0.5rem;">Subscribe</button>
+    Get notified about the latest from us.&nbsp;&nbsp;<input type="text" id="emailSubscribe" style="min-width: 10rem;height: 1.7rem;font-size: 1rem;margin-top: 0.5rem; background-color: transparent; padding-left:0.3rem;border: 2px solid #24D17D; outline: none;margin-right: -0.3rem;" placeholder="email address">
+    <button class="button is-success is-small" style="height: 1.7rem;margin-top: 0.5rem;" onclick="subscribed();">Subscribe</button>
   </footer>
 </body>
 </html>
+<script type="text/javascript">
+  function subscribed(){
+    // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
+    window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
+    // alert('subscribed');
+  };
+</script>>
 <style type="text/css">
   footer {
     width: 100%;
