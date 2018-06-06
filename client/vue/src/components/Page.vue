@@ -95,9 +95,9 @@ module.exports = {
 			},
 			config: {
 				theme: 'snow',
-				readOnly: ((Cookies.get('token') && Cookies.get('token').length) > 0 ? false : true),
+				readOnly: ((this.$cookie.get('token') && this.$cookie.get('token').length) > 0 ? false : true),
 				"modules": {
-      				"toolbar": (Cookies.get('token') && Cookies.get('token').length) > 0
+      				"toolbar": (this.$cookie.get('token') && this.$cookie.get('token').length) > 0
   				}
 			}
 		}
@@ -111,7 +111,7 @@ module.exports = {
 		tagsArray: function() {
 			// save updated values
 			console.log('new tags: ' + this.tagsArray);
-			if(Cookies.get('token') && Cookies.get('token').length){
+			if(this.$cookie.get('token') && this.$cookie.get('token').length){
 				this.saveTags();
 			}
 		}
@@ -123,10 +123,10 @@ module.exports = {
 		initPage: function() {
 
 			var vm = this;
-			axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+			axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
 
-			var post = Cookies.getJSON("editpost");
+			var post = vm.$cookie.getJSON("editpost");
 			console.log('post is: ' + post);
 
 			vm.id = post.id;
@@ -134,7 +134,7 @@ module.exports = {
 			vm.content = post.content;
 			vm.tagsArray = post.tags.toString().split(",");
 
-			vm.token = Cookies.get('token');
+			vm.token = vm.$cookie.get('token');
 
 			console.log('token: ' + vm.token);
 
@@ -158,7 +158,7 @@ module.exports = {
 						console.log(response);
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
-						Cookies.set("page", response.data.post);
+						vm.$cookie.set("page", response.data.post);
 						vm.$notify('Page saved successfully!', 'success', { 'position': 'bottom-right' });
 					})
 					.catch(function (error) {
@@ -175,7 +175,7 @@ module.exports = {
 						console.log(response);
 						console.log('Page Id is ' + response.data.post.id.toString());
 						document.getElementById('postId').value = response.data.post.id.toString();
-						Cookies.set("page", response.data.post);
+						vm.$cookie.set("page", response.data.post);
 						vm.$notify('Page saved successfully!', 'success');
 					})
 					.catch(function (error) {
@@ -200,7 +200,7 @@ module.exports = {
 				})
 				.then(function (response) {
 					console.log(response);
-					Cookies.set("post", response.data.post);
+					vm.$cookie.set("post", response.data.post);
 				})
 				.catch(function (error) {
 					console.log(error);
@@ -211,10 +211,10 @@ module.exports = {
 			console.log('adding a tag...');
 
 			let tagText = document.getElementById("tag").value;
-			let user = Cookies.getJSON("user");
+			let user = this.$cookie.getJSON("user");
 
 			if(tagText.length && document.getElementById("postId").value.length) {
-				// axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+				// axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
 				axios.post('/v1/tags', {
 
 					"name" : tagText,

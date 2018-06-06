@@ -163,9 +163,9 @@ export default {
   	fetchData: function() {
       // console.log('fetching data...');
       var vm = this;
-      axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+      axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
-      let user = Cookies.getJSON('user');
+      let user = vm.$cookie.getJSON('user');
       this.fullName = user.first + ' ' + user.last;
       // console.log(user.first + ' ' + user.last);
 
@@ -270,7 +270,7 @@ export default {
   	let post = vm.filteredPosts[index];
   	let postString = JSON.stringify(vm.filteredPosts[index]);
 
-  	Cookies.set("editpost", postString);
+  	vm.$cookie.set("editpost", postString);
   	console.log('Editing... ' + JSON.stringify(post));
 
   	window.location.href = '../editpost/' + post.id.toString();
@@ -365,8 +365,8 @@ export default {
           });
   },
   logout: function() {
-  	Cookies.set('token', '');
-  	Cookies.set('user', '');
+  	this.$cookie.set('token', '');
+  	this.$cookie.set('user', '');
   	window.location.href = '../';
   }
 }

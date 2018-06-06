@@ -9,8 +9,9 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
-import NewMenuModal from '@/components/NewMenuModal'
+import Navbar from '@/components/Navbar';
+import NewMenuModal from '@/components/NewMenuModal';
+import axios from 'axios';
 
 export default {
   data() {

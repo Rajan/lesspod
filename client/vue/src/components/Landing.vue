@@ -55,7 +55,7 @@ module.exports = {
 
 		// auto login if credentials are present
 
-		if(Cookies.get('token').length > 0){
+		if(this.$cookie.get('token').length > 0){
 			this.$router.push('/home');
 		}
 	}

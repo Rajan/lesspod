@@ -76,8 +76,8 @@
 // 			}})
 // 		.then(function (response) {
 // 			console.log(response);
-// 			Cookies.set("token", response.data.token);
-// 			Cookies.set("user", JSON.stringify(response.data.user));
+// 			this.$cookie.set("token", response.data.token);
+// 			this.$cookie.set("user", JSON.stringify(response.data.user));
 //             // setting up Authorization Header that will be used for subsequent requests.
 //             axios.defaults.headers.common['Authorization'] = response.data.token;
 //             axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     login: function() {
-      var vm = this
+      var vm = this;
       console.log('email: ' + email.value + '  password: ' + password.value)
 
       if (email.value.length && password.value.length) {
@@ -123,8 +123,8 @@ export default {
               })
               .then(function(response) {
                 console.log(response)
-                Cookies.set('token', response.data.token)
-                Cookies.set('user', JSON.stringify(response.data.user))
+                vm.$cookie.set('token', response.data.token)
+                vm.$cookie.set('user', JSON.stringify(response.data.user))
                 // setting up Authorization Header that will be used for subsequent requests.
                 axios.defaults.headers.common['Authorization'] =
                   response.data.token
@@ -157,7 +157,7 @@ export default {
                   .where('email', '==', email.value)
                   .get()
                   .then(function(querySnapshot) {
-                    Cookies.set(
+                    this.$cookie.set(
                       'user',
                       JSON.stringify(querySnapshot.docs[0].data())
                     )

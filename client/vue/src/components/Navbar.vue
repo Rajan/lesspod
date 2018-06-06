@@ -152,7 +152,7 @@ export default {
 		NewMenuModal
 	},
 	beforeMount() {
-		axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+		axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
 		this.initNavbar();
 	},
 	methods: {
@@ -189,23 +189,23 @@ export default {
 					// vm.logout();
 				}
 			});
-			let user = Cookies.getJSON('user');
+			let user = vm.$cookie.getJSON('user');
 			if(user) {
 				this.fullName = user.first + ' ' + user.last;
 			}
-			// console.log(user.first + ' ' + user.last);
+			console.log(user.first + ' ' + user.last);
 		},
 		isLoggedIn: function() {
-			if(Cookies.get('token') && Cookies.get('token').length){
+			if(this.$cookie.get('token') && this.$cookie.get('token').length){
 				return true;
 			}else {
 				return false;
 			}
 		},
 		logoClick: function() {
-			if(Cookies.get("token") && Cookies.get("token").length) {
+			if(this.$cookie.get("token") && this.$cookie.get("token").length) {
 
-				// console.log(Cookies.get("token"));
+				// console.log(this.$cookie.get("token"));
 				window.location.href = '../home';
 
 			} else {
@@ -313,7 +313,7 @@ export default {
 						"content" : content.toString(),
 						"tags": [].toString(),
 						"pageURL" : linkedURL.toString(),
-						"author" : this.fullName
+						"author" : vm.fullName
 					})
 					.then(function (response) {
 						console.log(response);
@@ -321,7 +321,7 @@ export default {
 						// console.log('Post Id is ' + postId);
 						// document.getElementById('postId').value = postId;
 						vm.createMenu(menuName, linkedURL, postId);
-						// Cookies.set("post", response.data.post);
+						// this.$cookie.set("post", response.data.post);
 						
 					})
 					.catch(function (error) {
@@ -350,7 +350,7 @@ export default {
 					// console.log('New Menu Id is inside: ' + response.toString());
 					// document.getElementById('menuId').value = response.data.menu.id.toString();
 					vm.menus.push(response.data.menu);
-					Cookies.set("menu", response.data.menu);
+					vm.$cookie.set("menu", response.data.menu);
 					// this.$router.go(this.$router.currentRoute);
 					// this.$router.go();
 					vm.$notify('Menu added successfully!', 'success');
@@ -367,7 +367,7 @@ export default {
 			if(menu1.postId && menu1.postId.length){
 
 				console.log('postId in visitMenu: ' + JSON.stringify(menu1.postId));
-			// Cookies.set('postId', menu1.postId);
+			// this.$cookie.set('postId', menu1.postId);
 
 			var postId = menu1.postId;
 
@@ -381,7 +381,7 @@ export default {
 				var post = response.data.post;
 				post.title = vm.cleanedSubmenu(post.title)
 				// console.log('post in Navbar: ' + post);
-				Cookies.set("editpost", JSON.stringify(post));
+				vm.$cookie.set("editpost", JSON.stringify(post));
 				location.href = menu1.linkedURL;
 			})
 			.catch(function(error){
@@ -393,8 +393,8 @@ export default {
 
 	},
 	logout: function() {
-		Cookies.set('token', '');
-		Cookies.set('user', '');
+		this.$cookie.set('token', '');
+		this.$cookie.set('user', '');
 		window.location.href = '../';
 	}
 }

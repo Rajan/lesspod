@@ -85,7 +85,7 @@ export default {
   mounted: function() {
     var vm = this;
 
-    vm.user = Cookies.getJSON('user');
+    vm.user = vm.$cookie.getJSON('user');
     console.log(vm.user);
     vm.fullName = vm.user.first + ' ' + vm.user.last;
     vm.email = vm.user.email;
@@ -125,7 +125,7 @@ export default {
                 vm.user.last = lastName;
                 vm.user.email = vm.email;
                 vm.user.fullName = firstName + ' ' + lastName;
-                Cookies.set('user', vm.user);
+                vm.$cookie.set('user', vm.user);
                 vm.$notify('Profile saved successfully!', 'success');
                 // window.location.href = '../home';
               })
@@ -162,7 +162,7 @@ export default {
                 vm.user.last = lastName;
                 vm.user.email = vm.email;
                 vm.user.fullName = firstName + ' ' + lastName;
-                Cookies.set('user', vm.user);
+                vm.$cookie.set('user', vm.user);
                 vm.$notify('Profile saved successfully!', 'success');
               })
               .catch(function(error) {

@@ -57,12 +57,12 @@
   </div>
   </div>
   <div class="icon-bar">
-    <a v-bind:href="fbUrl" class="facebook"><i class="fab fa-facebook-f"></i></a>
+    <a v-bind:href="fbUrl" class="fbcalm"><i class="fab fa-facebook-f"></i></a>
     <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
-      class="twitter"><i class="fab fa-twitter"></i>
+      class="twcalm"><i class="fab fa-twitter"></i>
 		</a>
     <!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
-    <a v-bind:href="linkedinUrl" class="linkedin"><i class="fab fa-linkedin"></i></a>
+    <a v-bind:href="linkedinUrl" class="licalm"><i class="fab fa-linkedin"></i></a>
     <!-- <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>  -->
   </div>
 </section>
@@ -120,9 +120,9 @@ export default {
 
       var vm = this;
 
-      if (Cookies.get('token') && Cookies.get('token').length) {
-        vm.token = Cookies.get('token');
-        axios.defaults.headers.common['Authorization'] = Cookies.get("token");
+      if (vm.$cookie.get('token') && vm.$cookie.get('token').length) {
+        vm.token = vm.$cookie.get('token');
+        axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
       }
       // fetch the post from server
       let href = location.href;
@@ -274,6 +274,7 @@ body {
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  border: 1px solid lightgrey;
 }
 
 @media (min-width: 100px) {
@@ -301,23 +302,49 @@ body {
   }
 }
 
+.circle:before {
+  content: ' \25CF';
+  font-size: 200px;
+}
+
 .icon-bar a {
   display: block;
   text-align: center;
   padding: 16px;
   transition: all 0.3s ease;
-  color: white;
+  /*color: white;*/
   font-size: 20px;
 }
 
 .icon-bar a:hover {
-  background-color: #000;
+  /*background-color: #000;*/
 }
 
 .facebook {
   background: #3B5998;
   color: white;
 }
+
+.calm {
+  background: white;
+  color: grey;
+}
+
+.fbcalm {
+  background: white;
+  color: #3B5998;
+}
+
+.twcalm {
+  background: white;
+  color: #55ACEE;
+}
+
+.licalm {
+  background: white;
+  color: #007bb5;
+}
+
 
 .twitter {
   background: #55ACEE;
