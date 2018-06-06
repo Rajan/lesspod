@@ -88,15 +88,15 @@ Note: React client is at a very early stage in the development.
 - [x] API Module for SQLite
 - [x] Adding New Pages + Menus
 - [x] Landing Page Design
-- [ ] Deployment to Firebase (pod deploy firebase)
+- [ ] Deployment to Firebase
 - [ ] Unit Tests
 - [x] Logged In Page Design (Dashboard basic)
-- [ ] Blog Post Index Design
-- [ ] Blog Post View Design
+- [x] Blog Post Index Design
+- [x] Blog Post View Design
 - [ ] Blog settings i.e. changing logo, tagline etc.
 - [x] Profile Page
 - [x] Editor Selection and Integration (using Quill editor)
-- [ ] Comments Integration (Disqus, Facebook and ?)
+- [x] Comments Integration (Disqus, Facebook and ?)
 - [ ] Code coverage and e2e testing module
 
 
