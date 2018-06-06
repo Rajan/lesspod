@@ -37,8 +37,8 @@
                     <p class="title is-5 is-spaced is-marginless">
                       <a href="#" @click="viewPost(index)" :id="post.id">{{post.title}}</a>
                     </p>
-                    <div class="content is-small">
-                      {{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}
+                    <div class="content ">
+                      <span class="content is-small">{{ new Date(post.createdAt) | moment('MMMM D, YYYY') }} . {{ post.author }}</span>
                       <br>
                       <p v-html="postSummary(post.content)"></p>
                     </div>
