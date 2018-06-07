@@ -2,10 +2,12 @@ import React from 'react';
 import { Field, Label, Control, Icon, Input, Checkbox, Button } from 'bloomer';
 import MailIcon from 'react-icons/lib/fa/envelope';
 import LockIcon from 'react-icons/lib/fa/lock';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import firebase from 'firebase';
 
 import FormLogo from './../assets/images/logo-bis.png';
 import { blueBg } from './../config/Colors';
+import { getUserDataFromFbase } from '../api/firebase';
 
 const styles = {
   container: {
@@ -13,6 +15,7 @@ const styles = {
     padding: 30,
     borderRadius: 5,
     width: '30%',
+    minWidth: 350,
   },
   logoContainer: {
     textAlign: 'center',
@@ -28,6 +31,41 @@ const styles = {
   },
 };
 class LoginForm extends React.Component {
+  state = {
+    email: '',
+    password: '',
+  };
+
+  onSuccess = data => {
+    this.props.history.push('/home', { user: data });
+  };
+
+  onFailure = error => {
+    console.log(error);
+  };
+
+  onloginClick = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(user => {
+        getUserDataFromFbase(this.state.email, this.onSuccess, this.onFailure);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  handleInputChange = event => {
+    const { target } = event;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
   render() {
     return (
       <div style={styles.container}>
@@ -37,7 +75,13 @@ class LoginForm extends React.Component {
         <Field>
           <Label>Email</Label>
           <Control hasIcons>
-            <Input placeholder="username@example.com" isColor="white" isFocused />
+            <Input
+              name="email"
+              placeholder="user@example.com"
+              isColor="white"
+              isFocused
+              onChange={this.handleInputChange}
+            />
             <Icon isSize="small" isAlign="left">
               <MailIcon />
             </Icon>
@@ -46,7 +90,14 @@ class LoginForm extends React.Component {
         <Field>
           <Label>Password</Label>
           <Control hasIcons>
-            <Input placeholder="********" type="password" isColor="white" isFocused />
+            <Input
+              name="password"
+              placeholder="********"
+              type="password"
+              isColor="white"
+              isFocused
+              onChange={this.handleInputChange}
+            />
             <Icon isSize="small" isAlign="left">
               <LockIcon />
             </Icon>
@@ -65,7 +116,7 @@ class LoginForm extends React.Component {
               alignItems: 'center',
             }}
           >
-            <Button isColor="info">
+            <Button isColor="info" onClick={this.onloginClick}>
               <b>LOGIN</b>
             </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -79,4 +130,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

@@ -5,6 +5,8 @@
   "dependencies": {
     "bloomer": "^0.6.3",
     "bulma": "^0.7.1",
+    "firebase": "^5.0.4",
+    "moment": "^2.22.2",
     "react": "^16.3.2",
     "react-app-rewire-hot-loader": "^1.0.1",
     "react-dom": "^16.3.2",
@@ -12,7 +14,8 @@
     "react-icons": "^2.2.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "sanitize.css": "^5.0.0"
+    "sanitize.css": "^5.0.0",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
