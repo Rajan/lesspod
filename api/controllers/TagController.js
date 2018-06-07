@@ -34,7 +34,7 @@ const getAll = async function(req, res){
     let err, tags;
 
     [err, tags] = await to(user.getPosts({include: [ {association: Tag.Users} ] }));
-
+    
     let tags_json =[]
     for( let i in tags){
         let tag = tags[i];
