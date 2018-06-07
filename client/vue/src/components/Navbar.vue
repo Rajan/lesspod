@@ -166,7 +166,11 @@ export default {
     initNavbar: function() {
       // console.log('fetching menus...');
       var vm = this;
-
+      let user = vm.$cookie.getJSON("user");
+      if (user) {
+        this.fullName = user.first + " " + user.last;
+      }
+      console.log(user.first + " " + user.last);
       const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
       console.log("deployment target is " + deploymentTarget);
 
@@ -199,6 +203,7 @@ export default {
                 // vm.logout();
               }
             });
+
           break;
         case FBASE:
           let db = firebase.firestore();
@@ -209,14 +214,13 @@ export default {
 
           db
             .collection("menus")
-            .where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
               let menus1 = [];
               querySnapshot.forEach(function(doc) {
                 menus1.push(doc.data());
               });
-              for (var i in menus) {
+              for (var i in menus1) {
                 console.log(menus1[i].name);
               }
               if (menus1.length > 0) {
@@ -232,12 +236,6 @@ export default {
 
           break;
       }
-
-      let user = vm.$cookie.getJSON("user");
-      if (user) {
-        this.fullName = user.first + " " + user.last;
-      }
-      console.log(user.first + " " + user.last);
     },
     isLoggedIn: function() {
       if (this.$cookie.get("token") && this.$cookie.get("token").length) {
@@ -247,11 +245,12 @@ export default {
       }
     },
     logoClick: function() {
-      if (this.$cookie.get("token") && this.$cookie.get("token").length) {
-        // console.log(this.$cookie.get("token"));
-        window.location.href = "../home";
+      var vm = this;
+      console.log("token is " + vm.$cookie.get("token"));
+      if (vm.$cookie.get("token") && vm.$cookie.get("token").length) {
+        window.location.href = "/home";
       } else {
-        window.location.href = "../";
+        window.location.href = "/";
       }
     },
     newMenu: function() {
@@ -336,11 +335,11 @@ export default {
       // console.log('vm.$data' + this.$data.toString());
 
       // axios create menu via the api
-      if (result[1]) {
+      if (result[1].length > 0) {
         linkedURL = result[1];
         vm.createMenu(result[0], linkedURL, postId);
       } else {
-        linkedURL = window.location.origin + vm.dashedMenu(menuName);
+        var pageURL = window.location.origin + vm.dashedMenu(menuName);
 
         // if there's no linkedURL, we should create a corresponding page.
         // After the page is created, we should add postId to this menu.
@@ -360,7 +359,7 @@ export default {
             title: title.toString(),
             content: content.toString(),
             tags: [].toString(),
-            pageURL: linkedURL.toString(),
+            pageURL: pageURL.toString(),
             author: vm.fullName
           };
 
@@ -373,7 +372,7 @@ export default {
                   postId = response.data.post.id.toString();
                   // console.log('Post Id is ' + postId);
                   // document.getElementById('postId').value = postId;
-                  vm.createMenu(menuName, linkedURL, postId);
+                  vm.createMenu(menuName, pageURL, postId);
                   // this.$cookie.set("post", response.data.post);
                 })
                 .catch(function(error) {
@@ -396,6 +395,8 @@ export default {
               postData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
               postData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
+              console.log("postData in firebase menupost creation:" + postData);
+
               db
                 .collection("posts")
                 .doc(postData.id)
@@ -404,7 +405,7 @@ export default {
                   postId = postData.id;
                   // console.log('Post Id is ' + postId);
                   // document.getElementById('postId').value = postId;
-                  vm.createMenu(menuName, linkedURL, postId);
+                  vm.createMenu(menuName, pageURL, postId);
                 })
                 .catch(function(error) {
                   console.error("Error adding document: ", error);
