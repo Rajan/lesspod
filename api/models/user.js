@@ -4,17 +4,18 @@ const bcrypt_p          = require('bcrypt-promise');
 const jwt               = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
-    var User = sequelize.define('User', {
+    const User = sequelize.define('User', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        first     : { type: DataTypes.STRING, allowNull: false },
-        last      : { type: DataTypes.STRING, allowNull: false },
-        email     : { type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Phone number invalid."} }},
-        phone     : { type: DataTypes.STRING, allowNull: true, unique: true, validate: { len: {args: [7, 20], msg: "Phone number invalid, too short."}, isNumeric: { msg: "not a valid phone number."} }},
-        password  : { type: DataTypes.STRING, allowNull: false },
+        first      : { type: DataTypes.STRING, allowNull: false },
+        last       : { type: DataTypes.STRING, allowNull: false },
+        email      : { type: DataTypes.STRING, allowNull: true, unique: true, validate: { isEmail: {msg: "Phone number invalid."} }},
+        phone      : { type: DataTypes.STRING, allowNull: true, unique: true, validate: { len: {args: [7, 20], msg: "Phone number invalid, too short."}, isNumeric: { msg: "not a valid phone number."} }},
+        password   : { type: DataTypes.STRING, allowNull: false },
+        profilePic : { type: DataTypes.STRING, allowNull: true }
     });
 
     User.associate = function(models){
@@ -25,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     User.beforeSave(async (user, options) => {
         let err;
         if (user.changed('password')){
-            let salt, hash
+            let salt, hash;
             [err, salt] = await to(bcrypt.genSalt(10));
             if(err) TE(err.message, true);
 
@@ -37,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.prototype.comparePassword = async function (pw) {
-        let err, pass
+        let err, pass;
         if(!this.password) TE('password not set');
 
         [err, pass] = await to(bcrypt_p.compare(pw, this.password));
@@ -46,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
         if(!pass) TE('invalid password');
 
         return this;
-    }
+    };
 
     User.prototype.getJWT = function () {
         let expiration_time = parseInt(CONFIG.jwt_expiration);
@@ -54,8 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     User.prototype.toWeb = function (pw) {
-        let json = this.toJSON();
-        return json;
+        return this.toJSON();
     };
 
     User.sync({force: false});
