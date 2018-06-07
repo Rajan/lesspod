@@ -220,14 +220,14 @@ export default {
           };
           db.settings(settings);
 
-          db.collection("menus").where("createdBy", "==", user.id)
+          db.collection("menus")
             .get()
             .then(function(querySnapshot) {
               let menus1 = [];
               querySnapshot.forEach(function(doc) {
                 menus1.push(doc.data())
               });
-              for (var i in menus) {
+              for (var i in menus1) {
                 console.log(menus1[i].name);
 
               }
