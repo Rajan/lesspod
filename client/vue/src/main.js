@@ -7,6 +7,7 @@ import VueQuill from "vue-quill";
 import VModal from 'vue-js-modal';
 import InputTag from 'vue-input-tag';
 import Notify from 'vue2-notify';
+import vueUpload from '@websanova/vue-upload';
 
 import VueQuillEditor, { Quill } from 'vue-quill-editor';
 import { ImageDrop } from 'quill-image-drop-module';
@@ -51,10 +52,13 @@ Vue.use( VModal );
 
 Vue.use( VueDisqus );
 
+Vue.use( vueUpload );
+
 Vue.use( Notify, {
   itemClass: 'notification',
   position: 'bottom-left'
-} )
+} );
+
 const types = {
   info: {
     itemClass: 'is-info'
@@ -69,10 +73,10 @@ const types = {
     itemClass: 'is-success',
     iconClass: 'fa fa-lg fa-check-circle'
   }
-}
+};
 
 // Initialize Firebase
-var config = {
+const config = {
   apiKey: "AIzaSyD_9U3AZqZ-cz1jr2ZK3TW4DCyyshoiXF4",
   authDomain: "lesspod-dev.firebaseapp.com",
   databaseURL: "https://lesspod-dev.firebaseio.com",
@@ -90,14 +94,15 @@ export const globalVariables = new Vue( {
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }
-} )
+} );
 
 Vue.$notify.setTypes( types );
 
 Vue.component( 'input-tag', InputTag );
-
-Vue.config.productionTip = false
+Vue.http = axios;
+Vue.config.productionTip = false;
 axios.defaults.baseURL = 'http://localhost:1234/';
+
 /* eslint-disable no-new */
 new Vue( { el: '#app', router, components: {
     App

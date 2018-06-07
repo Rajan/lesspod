@@ -29,6 +29,23 @@ const get = async function (req, res) {
 };
 module.exports.get = get;
 
+
+/**
+ * fetches the profile pic of the signed in user
+ *
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
+const getProfilePic = async function (req, res) {
+    if (req.user.profilePic !== null) {
+        return fs.createReadStream(req.user.profilePic).pipe(res);
+    }
+    return ReS(res, {});
+};
+
+module.exports.getPic = getProfilePic;
+
 /**
  * uploads Profile Pic for the logged in user
  *

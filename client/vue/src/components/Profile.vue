@@ -7,9 +7,12 @@
           <form class="box" onsubmit="event.preventDefault();">
             <div class="field has-text-centered">
               <!-- <img src="../assets/images/logo-bis.png" width="167"> -->
-              <span class="icon" style="width: 3rem; height: 3rem;">
-									<i class="fa fa-user-circle fas fa-3x"></i>
-								</span><br> User Profile
+              <span v-if="profilePic === null" class="icon" style="width: 3rem; height: 3rem;">
+									<i  class="fa fa-user-circle fas fa-3x"></i>
+								</span>
+              <img v-if="profilePic !== null" id="profile-pic" width="80" height="80"/>
+              <br>
+              User Profile
             </div>
             <div class="field">
               <label class="label">Full Name (First Last)</label>
@@ -52,15 +55,12 @@
             <div class="field">
               <label class="label">Update Profile Photo</label>
               <div class="control has-icons-left">
-                <form id="uploadbanner" enctype="multipart/form-data" method="post" action="#">
-                  <input id="fileupload" name="profilePic" type="file" accept=".jpg,.png"/>
                   <input type="button" value="Upload" id="uploadProfilePic" @click.stop="updateProfilePic" />
-                </form>
               </div>
             </div>
             <div class="field is-grouped" style="margin-top: 1.5rem;">
               <div class="control">
-                <button class="button is-info" @click.stop="saveProfile">Save Profile</button>
+                <button class="button is-info" @click.stop="saveProfile.bind(this)">Save Profile</button>
               </div>
               <div class="control">
                 <a class="button is-text" style="text-decoration: none;" href="home">Cancel</a>
@@ -82,6 +82,7 @@
 import {
   globalVariables
 } from './../main';
+import {loadImage} from "../utils";
 
 export default {
   data() {
@@ -90,36 +91,45 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
+      profilePic: null,
       user: null
     }
   },
+  created: function(){
+    this.$root.$upload.new('avatar', {
+      url: 'v1/users/pic',
+      name:'avatar',
+      onSuccess:(res) => {
+        console.log(res);
+        this.loadProfilePic();
+      },
+      onError(error) {
+        alert('Unable to upload profile pic');
+      }
+    });
+  },
   mounted: function() {
-    var vm = this;
-
+    const vm = this;
     vm.user = vm.$cookie.getJSON('user');
-    console.log(vm.user);
     vm.fullName = vm.user.first + ' ' + vm.user.last;
     vm.email = vm.user.email;
+    vm.profilePic = vm.user.profilePic;
+    this.loadProfilePic();
   },
   methods: {
-
-    updateProfilePic: () => {
-      $('#fileupload').fileupload({
-        url:'/users/pic',
-        done: function (e, data) {
-          $.each(data.result.files, function (index, file) {
-            $('<p/>').text(file.name).appendTo(document.body);
-          });
-        }
-      });
-      console.log('Uploading Profile Pic');
-      $('#password-confirm').val();
+    loadProfilePic: function(){
+      loadImage('v1/users/pic').then(image => document.getElementById('profile-pic')
+        .setAttribute('src', image));
+    },
+    updateProfilePic: function() {
+      console.log('Uploading Profile Pic...');
+      this.$root.$upload.select('avatar');
     },
 
     saveProfile: function() {
-      var vm = this;
-      var firstName = vm.fullName.split(' ').slice(0, -1).join(' ');
-      var lastName = vm.fullName.split(' ').slice(-1).join(' ');
+      const vm = this;
+      const firstName = vm.fullName.split(' ').slice(0, -1).join(' ');
+      const lastName = vm.fullName.split(' ').slice(-1).join(' ');
       if (vm.password === vm.confirmPassword) {
 
         let userData = {

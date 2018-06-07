@@ -29,7 +29,8 @@ router.put(     '/users',           passport.authenticate('jwt', {session:false}
 router.delete(  '/users',           passport.authenticate('jwt', {session:false}), UserController.remove);     // D
 router.post(    '/users/login',     UserController.login);
 
-router.put(     '/users/pic',       [passport.authenticate('jwt', {session:false}), uploader.single('avatar')], UserController.updatePic);     // U
+router.post(     '/users/pic',       [passport.authenticate('jwt', {session:false}), uploader.single('avatar')], UserController.updatePic);     // U
+router.get(      '/users/pic',       passport.authenticate('jwt', {session:false}), UserController.getPic);                                     // R
 
 router.post(    '/posts',             passport.authenticate('jwt', {session:false}), PostController.create);                  // C
 router.get(     '/posts',             PostController.getAll);                  // R
