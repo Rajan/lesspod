@@ -57,11 +57,14 @@
   </div>
   </div>
   <div class="icon-bar">
-    <a v-bind:href="fbUrl" class="fbcalm"><i class="fab fa-facebook-f"></i></a>
-    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter" class="twcalm"><i class="fab fa-twitter"></i>
+
+    <a v-bind:href="fbUrl" class="calm"><i class="fab fa-facebook-f"></i></a>
+    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
+      class="calm"><i class="fab fa-twitter"></i>
+
 		</a>
     <!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
-    <a v-bind:href="linkedinUrl" class="licalm"><i class="fab fa-linkedin"></i></a>
+    <a v-bind:href="linkedinUrl" class="calm"><i class="fab fa-linkedin"></i></a>
     <!-- <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>  -->
   </div>
 </section>
@@ -294,11 +297,12 @@ body {
 
 @media (min-width: 100px) {
   /* This style block will only apply on viewports larger than 700px */
-  .icon-bar {
-    right: 0%;
-    left: auto;
-    top: 81%;
-  }
+
+ 	.icon-bar {
+  		right: 0%;
+  		left: auto;
+  		top:78%;
+	}
 
   #footer {
     height: 4rem;

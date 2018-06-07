@@ -16,7 +16,10 @@
 			<div class="navbar-start" id="navStart">
 				<div class="navbar-item">
 					<div>
-						<a href="#" id="typeLogo" @click="logoClick"><img src="./../assets/images/type.png" width="auto" height="21"></a>
+						<a href="#" id="typeLogo" @click="logoClick">
+							<img src="./../assets/images/type.png" width="auto">
+							<!-- <span style='font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;height: 5rem;font-size:1.8rem;font-weight: bold;padding-bottom:3rem;'>Rajan Chandi</span> -->
+						</a>
 						<br>
 						<small id="tagline">Serverless Blogging Engine</small>
 					</div>
