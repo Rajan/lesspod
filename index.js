@@ -10,7 +10,7 @@ let app = express();
 // require('./js/index.js')
 const logger 	    = require('morgan');
 const bodyParser = require('body-parser');
-if(process.env.NODE_ENV != 'test') {
+if(process.env.NODE_ENV != 'testing') {
 	app.use(logger('dev'));
 }
 app.use(bodyParser.json());
@@ -148,7 +148,7 @@ app.get('/posts', (req, res) => {
 // const bundler = new Bundler(config.file, config.options);
 
 // app.use(bundler.middleware());
-if(process.env.NODE_ENV != 'test') {
+if(process.env.NODE_ENV != 'testing') {
 	app.listen(1234)
 }
 app.use("index", (req, res) => {
