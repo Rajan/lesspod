@@ -252,13 +252,14 @@ export default {
               querySnapshot.forEach(function(doc) {
                 menus1.push(doc.data())
               });
-              for (var i in menus) {
+              for (var i in menus1) {
                 console.log(menus1[i].name);
 
               }
               if (menus1.length > 0) {
+                console.log('firebase menus array:' + menus1);
                 vm.menus = vm.menus.concat(menus1);
-                // console.log(menus1);
+                
               } else {
                 // console.log(menus1);
               }
@@ -275,7 +276,7 @@ export default {
                 posts1.push(doc.data())
               });
               for (var i in posts1) {
-                console.log('firebase post:' + JSON.stringify(posts1[i]));
+                // console.log('firebase post:' + JSON.stringify(posts1[i]));
                 if (posts1[i].pageURL && posts1[i].pageURL.length > 0) {
                   posts1.splice(i, 1);
                 }
@@ -406,6 +407,7 @@ export default {
           db.settings(settings);
           db.collection("menus").doc(menu.id).delete().then(function() {
             console.log("Menu successfully deleted!");
+            window.location.href = './';
           }).catch(function(error) {
             console.error("Error deleting menu: ", error);
           });
