@@ -245,7 +245,7 @@ export default {
           };
           db.settings(settings);
 
-          db.collection("menus").where("createdBy", "==", user.id)
+          db.collection("menus")
             .get()
             .then(function(querySnapshot) {
               let menus1 = [];
@@ -275,7 +275,8 @@ export default {
                 posts1.push(doc.data())
               });
               for (var i in posts1) {
-                if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+                console.log('firebase post:' + JSON.stringify(posts1[i]));
+                if (posts1[i].pageURL && posts1[i].pageURL.length > 0) {
                   posts1.splice(i, 1);
                 }
               }

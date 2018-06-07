@@ -350,11 +350,11 @@ export default {
       // console.log('vm.$data' + this.$data.toString());
 
       // axios create menu via the api
-      if (result[1]) {
+      if (result[1].length > 0) {
         linkedURL = result[1];
         vm.createMenu(result[0], linkedURL, postId);
       } else {
-        linkedURL = window.location.origin + vm.dashedMenu(menuName);
+        var pageURL = window.location.origin + vm.dashedMenu(menuName);
 
         // if there's no linkedURL, we should create a corresponding page.
         // After the page is created, we should add postId to this menu.
@@ -377,7 +377,7 @@ export default {
             "title": title.toString(),
             "content": content.toString(),
             "tags": [].toString(),
-            "pageURL": linkedURL.toString(),
+            "pageURL": pageURL.toString(),
             "author": vm.fullName
           };
 
@@ -389,7 +389,7 @@ export default {
                   postId = response.data.post.id.toString();
                   // console.log('Post Id is ' + postId);
                   // document.getElementById('postId').value = postId;
-                  vm.createMenu(menuName, linkedURL, postId);
+                  vm.createMenu(menuName, pageURL, postId);
                   // this.$cookie.set("post", response.data.post);
 
                 })
@@ -413,6 +413,8 @@ export default {
               postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
               postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
+              console.log('postData in firebase menupost creation:' + postData);
+
               db.collection("posts")
                 .doc(postData.id)
                 .set(postData)
@@ -420,7 +422,7 @@ export default {
                   postId = postData.id;
                   // console.log('Post Id is ' + postId);
                   // document.getElementById('postId').value = postId;
-                  vm.createMenu(menuName, linkedURL, postId);
+                  vm.createMenu(menuName, pageURL, postId);
 
                 })
                 .catch(function(error) {
@@ -429,9 +431,6 @@ export default {
               break;
           }
         }
-
-
-
       }
 
     },
