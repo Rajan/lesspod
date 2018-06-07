@@ -8,14 +8,16 @@ const MenuController = require('./../api/controllers/MenuController');
 const PageController = require('./../api/controllers/PageController');
 const CompanyController = require('./../api/controllers/CompanyController');
 const HomeController 	= require('./../api/controllers/HomeController');
-
+const uploader = require('../config/uploaderConfig');
 const custom 	        = require('./../api/middleware/custom');
 
 const passport      	= require('passport');
 const path              = require('path');
 
 
-require('./../api/middleware/passport')(passport)
+
+
+require('./../api/middleware/passport')(passport);
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.json({status:"success", message:"Test API", data:{"version_number":"v1.0.0"}})
@@ -27,6 +29,8 @@ router.put(     '/users',           passport.authenticate('jwt', {session:false}
 router.delete(  '/users',           passport.authenticate('jwt', {session:false}), UserController.remove);     // D
 router.post(    '/users/login',     UserController.login);
 
+router.post(     '/users/pic',       [passport.authenticate('jwt', {session:false}), uploader.single('avatar')], UserController.updatePic);     // U
+router.get(      '/users/pic',       passport.authenticate('jwt', {session:false}), UserController.getPic);                                     // R
 
 router.post(    '/posts',             passport.authenticate('jwt', {session:false}), PostController.create);                  // C
 router.get(     '/posts',             PostController.getAll);                  // R

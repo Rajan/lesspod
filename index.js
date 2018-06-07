@@ -10,8 +10,9 @@ let app = express();
 // require('./js/index.js')
 const logger 	    = require('morgan');
 const bodyParser = require('body-parser');
-
-app.use(logger('dev'));
+if(process.env.NODE_ENV != 'testing') {
+	app.use(logger('dev'));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -147,9 +148,9 @@ app.get('/posts', (req, res) => {
 // const bundler = new Bundler(config.file, config.options);
 
 // app.use(bundler.middleware());
-
-app.listen(1234)
-
+if(process.env.NODE_ENV != 'testing') {
+	app.listen(1234)
+}
 app.use("index", (req, res) => {
     app.render("index", {uname: "rajan"});
 })
