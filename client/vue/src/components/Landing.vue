@@ -10,11 +10,11 @@
 						</figure><br>
 						<h6 class="title is-6" style="font-weight: 300;">Image credits: Hackernoon</h6>
 					</div>
-					<div class="column is-6 is-offset-1">
-						<h1 class="title is-2">
+					<div class="column is-6 is-offset-1 has-text-left">
+						<h1 class="title">
 							Serverless Websites
 						</h1>
-						<h2 class="subtitle is-4 has-text-left"><br>
+						<h2 class="subtitle is-4 "><br>
 							Lesspod lets anyone build and deploy website+blog combination to serverless platforms (starting with <a href="https://firebase.google.com/pricing/" target="_blank">Firebase</a>). Key benefits:
 						</h2>
 						<div class="content">
@@ -25,7 +25,7 @@
 							</ul>
 						</div>
 						<br>
-						<p class="has-text-centered">
+						<p class="has-text-left">
 							<a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success is-outlined">
 								<i class="fab fa-github"></i>&nbsp;Lesspod on Github
 							</a>
