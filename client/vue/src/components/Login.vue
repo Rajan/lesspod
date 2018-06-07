@@ -122,14 +122,15 @@ export default {
                 password: password.value
               })
               .then(function(response) {
-                console.log(response)
-                vm.$cookie.set('token', response.data.token)
-                vm.$cookie.set('user', JSON.stringify(response.data.user))
+                console.log(response);
+                console.log('token in Login.vue: ' + response.data.token);
+                vm.$cookie.set('token', response.data.token);
+                vm.$cookie.set('user', JSON.stringify(response.data.user));
                 // setting up Authorization Header that will be used for subsequent requests.
                 axios.defaults.headers.common['Authorization'] =
-                  response.data.token
+                  response.data.token;
                 axios.defaults.headers.post['Content-Type'] = 'application/json'
-                vm.$notify('Logged in successfully!', 'success')
+                vm.$notify('Logged in successfully!', 'success');
                 // console.log(response.headers);
               })
               .then(function(response) {
@@ -160,7 +161,11 @@ export default {
                     vm.$cookie.set(
                       'user',
                       JSON.stringify(querySnapshot.docs[0].data())
-                    )
+                    );
+                    vm.$cookie.set(
+                      'token',
+                       firebase.getInstance().getToken()
+                    );
                     window.location.href = '../home'
                   })
                   .catch(function(error) {

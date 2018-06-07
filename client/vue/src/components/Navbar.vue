@@ -255,14 +255,16 @@ export default {
       }
     },
     logoClick: function() {
-      if (this.$cookie.get("token") && this.$cookie.get("token").length) {
+      var vm = this;
+      console.log('token is ' + vm.$cookie.get("token"));
+      if (vm.$cookie.get("token") && vm.$cookie.get("token").length) {
 
-        // console.log(this.$cookie.get("token"));
-        window.location.href = '../home';
+        
+        window.location.href = '/home';
 
       } else {
 
-        window.location.href = '../';
+        window.location.href = '/';
       }
     },
     newMenu: function() {
