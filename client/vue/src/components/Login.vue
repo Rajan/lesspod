@@ -157,7 +157,7 @@ export default {
                   .where('email', '==', email.value)
                   .get()
                   .then(function(querySnapshot) {
-                    this.$cookie.set(
+                    vm.$cookie.set(
                       'user',
                       JSON.stringify(querySnapshot.docs[0].data())
                     )

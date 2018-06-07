@@ -13,6 +13,7 @@ import {
 
 import icon from './../assets/images/icon.png';
 import textIcon from './../assets/images/logo-text.png';
+import { logout } from './../api/firebase';
 
 const styles = {
   container: {},
@@ -33,6 +34,11 @@ const styles = {
 };
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.logout = logout.bind(this);
+  }
+
   render() {
     return (
       <Navbar style={styles.container}>
@@ -54,7 +60,7 @@ class Header extends React.Component {
                 <NavbarItem href="/">Profile</NavbarItem>
                 <NavbarItem href="/">Settings</NavbarItem>
                 <NavbarDivider />
-                <NavbarItem href="/">Logout</NavbarItem>
+                <NavbarItem onClick={this.logout}>Logout</NavbarItem>
               </NavbarDropdown>
             </NavbarItem>
           </NavbarEnd>
