@@ -7,8 +7,7 @@ import { Link, withRouter } from 'react-router-dom';
 import firebase from 'firebase';
 
 import FormLogo from './../assets/images/logo-bis.png';
-import { blueBg } from './../config/Colors';
-import { addDataToFbase } from './../api/firebase';
+import { updateDataInFbase } from './../api/firebase';
 import { USERS_COLLECTION } from './../config/Constants';
 
 const styles = {
@@ -24,7 +23,7 @@ const styles = {
     marginBottom: 15,
   },
 };
-class RegisterForm extends React.Component {
+class ProfileForm extends React.Component {
   state = {
     name: '',
     email: '',
@@ -37,24 +36,23 @@ class RegisterForm extends React.Component {
   };
   onFailure = () => console.log('failure callback');
 
-  onRegisterClick = () => {
+  onSaveClick = () => {
     if (this.state.password.length > 5 && this.state.password === this.state.confirmPassword) {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(
-          user => {
-            const data = {
-              email: this.state.email,
-              first: this.state.name.split(' ')[0],
-              last: this.state.name.split(' ')[1],
-            };
-            addDataToFbase(USERS_COLLECTION, data, this.onSuccess, this.onFailure);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+        .currentUser.updatePassword(this.state.password)
+        .then(() => {
+          const data = {
+            email: this.state.email,
+            first: this.state.name.split(' ')[0],
+            last: this.state.name.split(' ')[1],
+          };
+          updateDataInFbase(USERS_COLLECTION, this.user.id, data, this.onSuccess, this.onFailure);
+          console.log('password changed in firebase');
+        })
+        .catch(error => {
+          console.log('error in changing password: ', error);
+        });
     }
   };
 
@@ -76,7 +74,14 @@ class RegisterForm extends React.Component {
         <Field>
           <Label>Full Name (First Last)</Label>
           <Control hasIcons>
-            <Input onChange={this.handleInputChange} name="name" placeholder="Alex Johnson" isColor="white" isFocused />
+            <Input
+              onChange={this.handleInputChange}
+              name="name"
+              value={this.state.name}
+              placeholder="Alex Johnson"
+              isColor="white"
+              isFocused
+            />
             <Icon isSize="small" isAlign="left">
               <UserIcon />
             </Icon>
@@ -88,6 +93,7 @@ class RegisterForm extends React.Component {
             <Input
               onChange={this.handleInputChange}
               name="email"
+              value={this.state.email}
               placeholder="username@example.com"
               isColor="white"
               isFocused
@@ -136,12 +142,12 @@ class RegisterForm extends React.Component {
               alignItems: 'center',
             }}
           >
-            <Button isColor="info" onClick={this.onRegisterClick}>
-              <b>CREATE ACCOUNT</b>
+            <Button isColor="info" onClick={this.onSaveClick}>
+              <b>SAVE PROFILE</b>
             </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/login">
-              <b style={{ color: blueBg }}>LOGIN</b>
+            <Link to="/home">
+              <b style={{ color: '#000000' }}>CANCEL</b>
             </Link>
           </div>
         </Field>
@@ -150,4 +156,4 @@ class RegisterForm extends React.Component {
   }
 }
 
-export default withRouter(RegisterForm);
+export default withRouter(ProfileForm);

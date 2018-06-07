@@ -10,24 +10,24 @@
 						</figure><br>
 						<h6 class="title is-6" style="font-weight: 300;">Image credits: Hackernoon</h6>
 					</div>
-					<div class="column is-6 is-offset-1">
-						<h1 class="title is-2">
-							Serverless Blogging Engine
+					<div class="column is-6 is-offset-1 has-text-left">
+						<h1 class="title">
+							Serverless Websites
 						</h1>
-						<h2 class="subtitle is-4"><br>
-							Lesspod lets build and deploy personal website+blog to Firebase. Key benefits are listed below.
+						<h2 class="subtitle is-4 "><br>
+							Lesspod lets anyone build and deploy website+blog combination to serverless platforms (starting with <a href="https://firebase.google.com/pricing/" target="_blank">Firebase</a>). Key benefits:
 						</h2>
-						<!-- <div class="content"> -->
-							<ul style="font-size: 1.3rem;">
-								<li>No fixed recurring hosting fees.</li>
+						<div class="content">
+							<ul style="font-size: 1.3rem;" class="has-text-left block">
+								<li>No fixed yearly/monthly hosting fees.</li>
 								<li>Infinite scalability of the cloud.</li>
 								<li>Free hosting till you're very popular!</li>
 							</ul>
-						<!-- </div> -->
+						</div>
 						<br>
-						<p class="has-text-centered">
+						<p class="has-text-left">
 							<a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success is-outlined">
-								Lesspod on Github
+								<i class="fab fa-github"></i>&nbsp;Lesspod on Github
 							</a>
 						</p>
 					</div>
@@ -61,3 +61,10 @@ module.exports = {
 	}
 };
 </script>
+<style>
+	section,
+	body,
+	html {
+	  background: white !important;
+	}
+</style>

@@ -4,7 +4,7 @@
   "description": "serverless blogging engine",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test DB_NAME=lesspod-test mocha api/test/*"
+    "test": "NODE_ENV=testing DB_NAME=lesspod-test mocha api/test/*"
   },
   "repository": {
     "type": "git",
