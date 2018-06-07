@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueQuill from 'vue-quill';
+import VueQuill from 'vue-quill'
 import VModal from 'vue-js-modal'
 import InputTag from 'vue-input-tag'
 import Notify from 'vue2-notify'
@@ -31,8 +31,7 @@ const ImageResize = require('quill-image-resize-module')
 Quill.register('modules/imageResize', ImageResize)
 Quill.register('modules/imageDrop', ImageDrop)
 
-
-//////////////////////////////
+/// ///////////////////////////
 const toolbar = [ [ 'image' ] ]
 const modules = {
   toolbar,
@@ -41,7 +40,7 @@ const modules = {
 
 VueCookie.install(Vue)
 Vue.use(VueQuill1, { modules })
-////////////////////////////////////
+/// /////////////////////////////////
 
 Vue.use(VueQuillEditor /* { default global options } */)
 
@@ -86,7 +85,7 @@ firebase.initializeApp(config)
 // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'firebase',
+    deploymentTarget: 'localhost',
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }
@@ -100,8 +99,8 @@ Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://localhost:1234/'
 /* eslint-disable no-new */
 new Vue({ el: '#app',
-router,
-components: {
-  App
-},
-template: '<App/>' })
+  router,
+  components: {
+    App
+  },
+  template: '<App/>' })
