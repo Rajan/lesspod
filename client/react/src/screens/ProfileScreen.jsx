@@ -2,7 +2,7 @@ import React from 'react';
 
 import Header from './../components/Header';
 import { blueBg } from './../config/Colors';
-import LoginForm from './../components/LoginForm';
+import ProfileForm from './../components/ProfileForm';
 
 const styles = {
   formContainer: {
@@ -15,17 +15,17 @@ const styles = {
   },
 };
 
-class LoginScreen extends React.Component {
+class ProfileScreen extends React.Component {
   render() {
     return (
       <div>
         <Header />
         <div style={styles.formContainer}>
-          <LoginForm />
+          <ProfileForm />
         </div>
       </div>
     );
   }
 }
 
-export default LoginScreen;
+export default ProfileScreen;

@@ -1,19 +1,10 @@
 import React from 'react';
-import {
-  Navbar,
-  NavbarMenu,
-  NavbarBrand,
-  NavbarItem,
-  NavbarStart,
-  NavbarEnd,
-  NavbarDropdown,
-  NavbarLink,
-  NavbarDivider,
-} from 'bloomer';
+import { Navbar, NavbarMenu, NavbarBrand, NavbarItem, NavbarStart, NavbarEnd } from 'bloomer';
+import { Link } from 'react-router-dom';
 
 import icon from './../assets/images/icon.png';
 import textIcon from './../assets/images/logo-text.png';
-import { logout } from './../api/firebase';
+import LoginNavItem from './LoginNavItem';
 
 const styles = {
   container: {},
@@ -34,16 +25,11 @@ const styles = {
 };
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.logout = logout.bind(this);
-  }
-
   render() {
     return (
       <Navbar style={styles.container}>
         <NavbarBrand style={styles.iconContainer}>
-          <img src={icon} alt="lesspod-logo-icon" />
+          <img height="160" width="50" src={icon} alt="lesspod-logo-icon" />
         </NavbarBrand>
         <NavbarMenu onClick={this.onClickNav}>
           <NavbarStart isUnselectable>
@@ -53,16 +39,10 @@ class Header extends React.Component {
             </div>
           </NavbarStart>
           <NavbarEnd>
-            <NavbarItem href="/">Home</NavbarItem>
-            <NavbarItem hasDropdown isHoverable>
-              <NavbarLink>User Name</NavbarLink>
-              <NavbarDropdown>
-                <NavbarItem href="/">Profile</NavbarItem>
-                <NavbarItem href="/">Settings</NavbarItem>
-                <NavbarDivider />
-                <NavbarItem onClick={this.logout}>Logout</NavbarItem>
-              </NavbarDropdown>
+            <NavbarItem>
+              <Link to="/">Home</Link>
             </NavbarItem>
+            <LoginNavItem />
           </NavbarEnd>
         </NavbarMenu>
       </Navbar>
