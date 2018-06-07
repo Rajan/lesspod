@@ -34,7 +34,7 @@
       const visibleList = /\/post\/|\/blog/;
       const currentPath = this.$router.history.current.fullPath;
       if(visibleList.test(currentPath)) {
-        document.getElementById('footer').style.visibility = "visible";
+        document.getElementById('stickyfooter').style.visibility = "visible";
       }
     }
   };

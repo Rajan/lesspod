@@ -163,7 +163,7 @@ export default {
           db.settings(settings);
 
 
-          db.collection("posts").where("createdBy", "==", user.id)
+          db.collection("posts")
             .get()
             .then(function(querySnapshot) {
               let posts1 = [];
