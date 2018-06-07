@@ -169,7 +169,11 @@ export default {
 
       // console.log('fetching menus...');
       var vm = this;
-
+      let user = vm.$cookie.getJSON('user');
+      if (user) {
+        this.fullName = user.first + ' ' + user.last;
+      }
+      console.log(user.first + ' ' + user.last);
       const {
         deploymentTarget,
         LOCALHOST,
@@ -207,6 +211,7 @@ export default {
                 // vm.logout();
               }
             });
+           
           break;
         case FBASE:
           let db = firebase.firestore();
@@ -241,11 +246,8 @@ export default {
       }
 
 
-      let user = vm.$cookie.getJSON('user');
-      if (user) {
-        this.fullName = user.first + ' ' + user.last;
-      }
-      console.log(user.first + ' ' + user.last);
+      
+      
     },
     isLoggedIn: function() {
       if (this.$cookie.get('token') && this.$cookie.get('token').length) {
