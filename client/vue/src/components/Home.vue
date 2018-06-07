@@ -257,7 +257,7 @@ export default {
 
               }
               if (menus1.length > 0) {
-                console.log('firebase menus array:' + menus1);
+                // console.log('firebase menus array:' + menus1);
                 vm.menus = vm.menus.concat(menus1);
                 
               } else {
@@ -276,7 +276,7 @@ export default {
                 posts1.push(doc.data())
               });
               for (var i in posts1) {
-                // console.log('firebase post:' + JSON.stringify(posts1[i]));
+                console.log('firebase post:' + JSON.stringify(posts1[i]));
                 if (posts1[i].pageURL && posts1[i].pageURL.length > 0) {
                   posts1.splice(i, 1);
                 }

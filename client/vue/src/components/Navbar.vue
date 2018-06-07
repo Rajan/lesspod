@@ -413,7 +413,7 @@ export default {
               postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
               postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
-              console.log('postData in firebase menupost creation:' + postData);
+              console.log('postData in firebase menupost creation:' + JSON.stringify(postData));
 
               db.collection("posts")
                 .doc(postData.id)

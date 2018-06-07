@@ -42,6 +42,8 @@ export default {
       id: '',
       title: '',
       editor: '',
+      author: '',
+      pageURL: '',
       editorOption: {
         modules: {
           toolbar: [
@@ -132,7 +134,7 @@ export default {
               vm.title = post.title;
               vm.editor = post.content;
               vm.tagsArray = post.tags.toString().split(",");
-
+              vm.pageURL = post.pageURL;
             })
             .catch(function(error) {
               console.log(error);
@@ -154,6 +156,7 @@ export default {
                 vm.title = post.title;
                 vm.editor = post.content;
                 vm.tagsArray = post.tags.toString().split(",");
+                vm.pageURL = post.pageURL;
 
               } else {
                 console.log("No such post!");
@@ -179,7 +182,8 @@ export default {
           "id": vm.id,
           "title": title.toString(),
           "content": content.toString(),
-          "tags": this.tagsArray.toString()
+          "tags": vm.tagsArray.toString(),
+          "pageURL" : vm.pageURL
         };
 
         const {
