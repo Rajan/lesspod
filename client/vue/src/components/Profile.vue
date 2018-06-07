@@ -47,6 +47,17 @@
 									</span>
               </div>
             </div>
+
+            <!-- update photo -->
+            <div class="field">
+              <label class="label">Update Profile Photo</label>
+              <div class="control has-icons-left">
+                <form id="uploadbanner" enctype="multipart/form-data" method="post" action="#">
+                  <input id="fileupload" name="profilePic" type="file" accept=".jpg,.png"/>
+                  <input type="button" value="Upload" id="uploadProfilePic" @click.stop="updateProfilePic" />
+                </form>
+              </div>
+            </div>
             <div class="field is-grouped" style="margin-top: 1.5rem;">
               <div class="control">
                 <button class="button is-info" @click.stop="saveProfile">Save Profile</button>
@@ -92,6 +103,19 @@ export default {
   },
   methods: {
 
+    updateProfilePic: () => {
+      $('#fileupload').fileupload({
+        url:'/users/pic',
+        done: function (e, data) {
+          $.each(data.result.files, function (index, file) {
+            $('<p/>').text(file.name).appendTo(document.body);
+          });
+        }
+      });
+      console.log('Uploading Profile Pic');
+      $('#password-confirm').val();
+    },
+
     saveProfile: function() {
       var vm = this;
       var firstName = vm.fullName.split(' ').slice(0, -1).join(' ');
@@ -99,12 +123,10 @@ export default {
       if (vm.password === vm.confirmPassword) {
 
         let userData = {
-
           "first": firstName,
           "last": lastName,
           "email": vm.email,
           "password": vm.password
-
         };
 
         const {

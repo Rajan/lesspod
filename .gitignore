@@ -74,3 +74,5 @@ db.sqlite
 package-lock.json
 
 firebase_init.txt
+/.idea
+/uploads
