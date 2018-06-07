@@ -4,6 +4,7 @@ import 'sanitize.css';
 import 'bulma/css/bulma.css';
 import './styles/common.css';
 
+import './startup/init';
 import Routes from './config/Routes';
 
 class App extends Component {
