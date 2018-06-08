@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@voerro/vue-tagsinput": "^1.5.2",
+    "@websanova/vue-upload": "^0.2.14-beta",
     "axios": "^0.18.0",
     "bulma-tagsinput": "^1.0.8",
     "highlight.js": "^9.12.0",
