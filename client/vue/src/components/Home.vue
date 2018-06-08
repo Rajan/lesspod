@@ -387,9 +387,10 @@ export default {
             })
             .then(function(response) {
               let menu1 = response.data.menu;
-              console.log('Deleted... ' + JSON.stringify(response));
+              console.log("Menu successfully deleted!");
+              // console.log('Deleted... ' + JSON.stringify(response));
               // vm.menus.splice(index, 1); // should never run
-              window.location.href = './';
+              location.reload();
             })
             .catch(function(error) {
               console.log(error);
@@ -408,7 +409,8 @@ export default {
           db.settings(settings);
           db.collection("menus").doc(menu.id).delete().then(function() {
             console.log("Menu successfully deleted!");
-            window.location.href = './';
+            location.reload();
+            // window.location.href = '/home';
           }).catch(function(error) {
             console.error("Error deleting menu: ", error);
           });
@@ -423,5 +425,10 @@ export default {
     }
   }
 
-}
+};
 </script>
+<style type="text/css">
+  html {
+    /*background-color: whitesmoke;*/
+  }
+</style>>

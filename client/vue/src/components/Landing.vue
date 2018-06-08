@@ -65,6 +65,6 @@ module.exports = {
 	section,
 	body,
 	html {
-	  background: white !important;
+	  background: white;
 	}
 </style>
