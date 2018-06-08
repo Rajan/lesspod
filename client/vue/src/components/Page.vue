@@ -155,14 +155,14 @@ export default {
       console.log('title is ' + title.toString() + ' content is ' + content.toString());
       if (title.length && content.length) {
 
-        let postData = {
-          "title": vm.title.toString(),
-          "content": vm.content.toString(),
-          "tags": vm.tagsArray.toString(),
-          "pageURL": vm.pageURL
-        };
-
         if (document.getElementById('postId').value.length == 0) {
+          let postData = {
+            "title": vm.title.toString(),
+            "content": vm.content.toString(),
+            "tags": vm.tagsArray.toString(),
+            "pageURL": vm.pageURL
+          };
+
           const {
             deploymentTarget,
             LOCALHOST,
@@ -200,6 +200,7 @@ export default {
               postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
               postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
+
               db.collection("posts")
                 .doc(postData.id)
                 .set(postData)
@@ -221,6 +222,12 @@ export default {
           }
 
         } else {
+
+          let postData = {
+            "title": vm.title.toString(),
+            "content": vm.content.toString(),
+            "tags": vm.tagsArray.toString(),
+          };
 
           const {
             deploymentTarget,
@@ -255,11 +262,11 @@ export default {
               const moment = require('moment');
               postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
+
               db.collection("posts")
                 .doc(postData.id)
                 .update(postData)
                 .then(function(docRef) {
-                  console.log(response);
                   console.log('Page Id is ' + postData.id);
                   document.getElementById('postId').value = postData.id;
                   vm.$cookie.set("page", postData);
@@ -280,7 +287,7 @@ export default {
       var vm = this;
       console.log('saving tags...');
       var title = document.getElementById("title").value;
-      // var content = this.editor;
+      //var content = this.editor;
       // console.log('title is ' + title.toString() + ' content is ' + content.toString());
       if (vm.id && vm.tagsArray) {
         const {
@@ -322,7 +329,7 @@ export default {
               .update(postData)
               .then(function(docRef) {
                 postData.title = title.toString();
-                postData.content = content.toString();
+                //postData.content = content.toString();
                 vm.$cookie.set("post", postData);
                 console.log(postData);
               })
