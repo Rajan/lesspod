@@ -259,7 +259,7 @@ export default {
               if (menus1.length > 0) {
                 // console.log('firebase menus array:' + menus1);
                 vm.menus = vm.menus.concat(menus1);
-                
+
               } else {
                 // console.log(menus1);
               }
@@ -349,6 +349,7 @@ export default {
           db.settings(settings);
           db.collection("posts").doc(post.id).delete().then(function() {
             console.log("Post successfully deleted!");
+            vm.posts.splice(index, 1);
           }).catch(function(error) {
             console.error("Error deleting post: ", error);
           });

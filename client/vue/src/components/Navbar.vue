@@ -126,17 +126,17 @@
 
 </template>
 <script type="text/javascript">
-import { globalVariables } from "./../main";
+import {
+  globalVariables
+} from "./../main";
 import NewMenuModal from "@/components/NewMenuModal";
 export default {
   data() {
     return {
-      menus: [
-        {
-          name: "Blog",
-          linkedURL: document.location.origin + "/blog"
-        }
-      ],
+      menus: [{
+        name: "Blog",
+        linkedURL: document.location.origin + "/blog"
+      }],
       showModal: false,
       newMenuName: "",
       fullName: "Alex Johnson"
@@ -171,7 +171,11 @@ export default {
         this.fullName = user.first + " " + user.last;
       }
       console.log(user.first + " " + user.last);
-      const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+      const {
+        deploymentTarget,
+        LOCALHOST,
+        FBASE
+      } = globalVariables;
       console.log("deployment target is " + deploymentTarget);
 
       switch (deploymentTarget) {
@@ -256,11 +260,9 @@ export default {
     newMenu: function() {
       // console.log('creating new menu...');
       this.$modal.show(
-        "new-menu-modal",
-        {
+        "new-menu-modal", {
           menus: this.topLevelMenus
-        },
-        {}
+        }, {}
       );
       // this.menus.push('NewM');
     },
@@ -351,7 +353,11 @@ export default {
           "title is " + title.toString() + " content is " + content.toString()
         );
         if (title.length && content.length) {
-          const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+          const {
+            deploymentTarget,
+            LOCALHOST,
+            FBASE
+          } = globalVariables;
 
           console.log("deployment target is " + deploymentTarget);
 
@@ -419,11 +425,11 @@ export default {
       var vm = this;
       console.log(
         "creating menu..." +
-          menuName +
-          ", LinkedURL =" +
-          linkedURL +
-          ", postId = " +
-          postId
+        menuName +
+        ", LinkedURL =" +
+        linkedURL +
+        ", postId = " +
+        postId
       );
 
       if (menuName) {
@@ -433,7 +439,11 @@ export default {
           postId: postId.toString()
         };
 
-        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables;
         console.log("deployment target is " + deploymentTarget);
 
         switch (deploymentTarget) {
@@ -499,7 +509,11 @@ export default {
 
         console.log("postId in Navbar: " + postId);
 
-        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables;
         console.log("deployment target is " + deploymentTarget);
 
         switch (deploymentTarget) {

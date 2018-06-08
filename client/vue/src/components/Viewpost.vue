@@ -59,8 +59,7 @@
   <div class="icon-bar">
 
     <a v-bind:href="fbUrl" class="calm"><i class="fab fa-facebook-f"></i></a>
-    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"
-      class="calm"><i class="fab fa-twitter"></i>
+    <a v-bind:href="twitterUrl" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter" class="calm"><i class="fab fa-twitter"></i>
 
 		</a>
     <!-- <a href="#" class="google"><i class="fab fa-google"></i></a>  -->
@@ -203,10 +202,12 @@ export default {
                 vm.id = post.id;
                 vm.title = post.title;
                 vm.editor = post.content;
-                // vm.author = post.author; // need to display author and date.
+                vm.author = post.author;
+                vm.createdDate = post.createdAt;
                 vm.tagsArray = post.tags.toString().split(",");
-                document.title = post.title;
-
+                vm.postURL = window.location.origin + '/post/' + post.id.toString();
+                console.log(vm.postURL);
+                document.title = post.title.toString() + ' by ' + post.author.toString();
               } else {
                 console.log("No such post!");
               }
@@ -297,12 +298,11 @@ body {
 
 @media (min-width: 100px) {
   /* This style block will only apply on viewports larger than 700px */
-
- 	.icon-bar {
-  		right: 0%;
-  		left: auto;
-  		top:78%;
-	}
+  .icon-bar {
+    right: 0%;
+    left: auto;
+    top: 78%;
+  }
 
   #footer {
     height: 4rem;
