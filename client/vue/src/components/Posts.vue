@@ -40,7 +40,7 @@
               <div class="select">
                 <select>
 										<option>Publish date</option>
-										<option>Page Views</option>
+										<!-- <option>Page Views</option> -->
 									</select>
               </div>
             </div>

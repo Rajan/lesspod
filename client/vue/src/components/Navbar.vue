@@ -459,6 +459,7 @@ export default {
                 // this.$router.go(this.$router.currentRoute);
                 // this.$router.go();
                 vm.$notify("Menu added successfully!", "success");
+                location.reload();
               })
               .catch(function(error) {
                 console.log(error);

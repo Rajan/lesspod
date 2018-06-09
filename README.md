@@ -5,8 +5,11 @@ Serverless Blogging Engine (In Active Development)
 
 ## Why Lesspod?
 
-WordPress is a very successful blogging platform which requires servers to host and most of the servers are running over their actual web traffic. Given that 28% of the websites on the internet use Wordpress, there are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. Of course, the goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
+There are 16 million websites being added to the Internet every month. Most websites require servers to host and most of the servers are underutilized. There are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. 
 
+Lesspod's mission is to transition the Internet from server architecture to serverless architecture ASAP. To that end, we're building it as an open source project that anyone can utilize.
+
+Our goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
 
 ## Free Forever Web Hosting (Cloud Limits Apply)
 
