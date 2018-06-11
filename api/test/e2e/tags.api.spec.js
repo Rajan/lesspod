@@ -7,8 +7,9 @@ chai.use(chaiHTTP);
 const server = require('../../../index');
 
 const DUMMY_USER = global.DUMMY_USER;
+const DUMMY_TAG = global.DUMMY_TAG;
 
-describe.only('/tags API Test', function() {
+describe('/tags API Test', function() {
   it(`POST should fail if Authorization header not set`, function(done) {
     chai.request(server)
     .post('/v1/tags')
@@ -31,17 +32,18 @@ describe.only('/tags API Test', function() {
       expect(err).to.be.null;
       expect(res.status).to.equal(201);
       expect(res.body).to.be.ok;
+      expect(res.body.tag).to.be.an('object').that.include.all.keys('id', 'name', 'postId', 'userId');
       expect(res.body.success).to.be.true;
       done();
     })
   });
   it(`GET should return a tag`, function(done) {
     chai.request(server)
-    .get('/v1/tags')
+    .get('/v1/tags/'+DUMMY_TAG.id)
     .set('Authorization', global.HEADER_TOKEN)
     .end((err, res) => {
-      console.log('tags2 ', res.body);
       expect(err).to.be.null;
+      expect(res.body.tag).to.be.an('object').that.include.all.keys('id', 'name', 'postId', 'userId');
       expect(res.status).to.equal(200);
       done();
     })
@@ -57,22 +59,28 @@ describe.only('/tags API Test', function() {
     })
   });
   it(`PUT should update a tag`, function(done) {
+    const newTagName = faker.random.word();
     chai.request(server)
-    .put('/v1/tags')
+    .put('/v1/tags/'+DUMMY_TAG.id)
     .set('Authorization', global.HEADER_TOKEN)
+    .send({
+      name: newTagName,
+    })
     .end((err, res) => {
       expect(err).to.be.null;
-      expect(res.status).to.equal(404);
+      expect(res.body.tag).to.be.an('object').that.include.all.keys('id', 'name', 'postId', 'userId');
+      expect(res.body.tag.name).to.equal(newTagName);
+      expect(res.status).to.equal(200);
       done();
     })
   });
   it(`DELETE should remove a tag`, function(done) {
     chai.request(server)
-    .del('/v1/tags')
+    .del('/v1/tags/'+DUMMY_TAG.id)
     .set('Authorization', global.HEADER_TOKEN)
     .end((err, res) => {
       expect(err).to.be.null;
-      expect(res.status).to.equal(404);
+      expect(res.status).to.equal(204);
       done();
     })
   });

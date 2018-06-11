@@ -7,80 +7,77 @@ chai.use(chaiHTTP);
 const server = require('../../../index');
 
 const DUMMY_USER = global.DUMMY_USER;
-const DUMMY_PAGE = global.DUMMY_PAGE;
+const DUMMY_COMPANY = global.DUMMY_COMPANY;
 
-describe('/pages API Test', function() {
-  it('GETALL should fail if Authorization header not set', function(done) {
+
+describe('/company API Test', function() {
+  it('GET should fail if Authorization header not set', function(done) {
     chai.request(server)
-    .get('/v1/pages')
+    .get('/v1/companies')
     .end((err, res) => {
       expect(err).to.be.null;
       expect(res.status).to.be.equal(401);
       done();
     })
   })
-  it('GETALL should fetch all pages', function(done) {
+  it.skip('GETALL should get all companies', function(done) {
     chai.request(server)
-    .get('/v1/pages')
+    .get('/v1/companies')
     .set('Authorization', global.HEADER_TOKEN)
     .end((err, res) => {
       expect(err).to.be.null;
-      expect(res.body.pages).to.be.an('array');
-      expect(res.body.success).to.be.true;
       expect(res.status).to.be.equal(200);
       done();
     })
   })
-  it('GET should get a new page with id', function(done) {
+  it.skip('GET should get a company with id', function(done) {
     chai.request(server)
-    .get('/v1/pages/'+DUMMY_PAGE.id)
+    .get('/v1/companies/'+DUMMY_COMPANY.id)
     .set('Authorization', global.HEADER_TOKEN)
     .end((err, res) => {
       expect(err).to.be.null;
       expect(res.body.success).to.be.true;
-      expect(res.body.page).to.be.an('object').that.include.all.keys('id', 'name', 'menuId', 'userId');
+      expect(res.body.company).to.be.an('object').that.include.all.keys('id', 'name');
       expect(res.status).to.be.equal(200);
       done();
     });
   })
-  it('POST should create a new page', function(done) {
-    const test_page = {
-      name: faker.commerce.productName(),
-      menuId: faker.random.uuid(),
-      userId: DUMMY_USER.id,
+  it('POST should create a new company', function(done) {
+    const test_company = {
+      name: faker.random.word(),
     };
     chai.request(server)
-    .post('/v1/pages')
+    .post('/v1/companies')
     .set('Authorization', global.HEADER_TOKEN)
-    .send(test_page)
+    .send(test_company)
     .end((err, res) => {
       expect(err).to.be.null;
       expect(res.body.success).to.be.true;
-      expect(res.body.page).to.be.an('object').that.include.all.keys('id', 'name', 'menuId', 'userId');
+      expect(res.body.company).to.be.an('object').that.include.all.keys('id', 'name');
       expect(res.status).to.be.equal(201);
       done();
     });
   })
-  it('PUT should update existing page', function(done) {
-    const newPageName = faker.commerce.productName();
+  it.skip('PUT should update an existing company', function(done) {
+    const newCompanyName = faker.lorem.word();
     chai.request(server)
-    .put('/v1/pages/'+DUMMY_PAGE.id)
+    .put('/v1/companies/'+DUMMY_COMPANY.id)
     .set('Authorization', global.HEADER_TOKEN)
     .send({
-      name: newPageName
+      name: newCompanyName
     })
     .end((err, res) => {
       expect(err).to.be.null;
       expect(res.body.success).to.be.true;
-      expect(res.body.page).to.be.an('object').that.include.all.keys('id', 'name', 'menuId', 'userId');
-      expect(res.body.page.name).to.equal(newPageName);
+      expect(res.body.company).to.be.an('object').that.include.all.keys('id', 'name');
+      expect(res.body.company.name).to.equal(newCompanyName);
       expect(res.status).to.be.equal(200);
       done();
     });
   })
-  it('DEL should delete existing page', function(done) {
+  it.skip('DEL should delete an existing company', function(done) {
     chai.request(server)
-    .del('/v1/pages/'+DUMMY_PAGE.id)
+    .del('/v1/companies/'+DUMMY_COMPANY.id)
     .set('Authorization', global.HEADER_TOKEN)
     .end((err, res) => {
       expect(err).to.be.null;
