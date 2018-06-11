@@ -79,83 +79,92 @@
 </section>
 </template>
 <script type="text/javascript">
-import {
-  globalVariables
-} from './../main';
-import {loadImage} from "../utils";
+import { globalVariables } from "./../main";
+import { loadImage } from "../utils";
 
 export default {
   data() {
     return {
-      fullName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       profilePic: null,
       user: null
-    }
+    };
   },
-  created: function(){
-    this.$root.$upload.new('avatar', {
-      url: 'v1/users/pic',
-      name:'avatar',
-      onSuccess:(res) => {
-        console.log(res);
+  created: function() {
+    this.$root.$upload.new("avatar", {
+      url: "v1/users/pic",
+      name: "avatar",
+      onSuccess: res => {
+        const user = this.$cookie.getJSON("user");
+        this.profilePic = true;
+        user.profilePic = true;
+        this.$cookie.set("user", JSON.stringify(user));
         this.loadProfilePic();
       },
       onError(error) {
-        alert('Unable to upload profile pic');
+        alert("Unable to upload profile pic");
       }
     });
   },
   mounted: function() {
-    
+    const vm = this;
+    vm.user = vm.$cookie.getJSON("user");
+    vm.fullName = vm.user.first + " " + vm.user.last;
+    vm.email = vm.user.email;
+    vm.profilePic = vm.user.profilePic;
+    this.loadProfilePic();
+
   },
   methods: {
-    loadProfilePic: function(){
-      if(document.getElementById('profile-pic')){
-        loadImage('v1/users/pic').then(image => document.getElementById('profile-pic')
-        .setAttribute('src', image));
-      }
+    loadProfilePic: function() {
+      loadImage("v1/users/pic").then(image => {
+        if (document.getElementById("profile-pic")) {
+          document.getElementById("profile-pic").setAttribute("src", image);
+        }
+      });
     },
     updateProfilePic: function() {
-      console.log('Uploading Profile Pic...');
-      this.$root.$upload.select('avatar');
+      this.$root.$upload.select("avatar");
     },
 
     saveProfile: function() {
       const vm = this;
-      const firstName = vm.fullName.split(' ').slice(0, -1).join(' ');
-      const lastName = vm.fullName.split(' ').slice(-1).join(' ');
+      const firstName = vm.fullName
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
+      const lastName = vm.fullName
+        .split(" ")
+        .slice(-1)
+        .join(" ");
       if (vm.password === vm.confirmPassword) {
-
         let userData = {
-          "first": firstName,
-          "last": lastName,
-          "email": vm.email,
-          "password": vm.password
+          first: firstName,
+          last: lastName,
+          email: vm.email,
+          password: vm.password
         };
 
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables;
-        console.log('deployment target is ' + deploymentTarget);
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        console.log("deployment target is " + deploymentTarget);
 
         // update user
         switch (deploymentTarget) {
           case LOCALHOST:
-            axios.put('/v1/users', userData)
+            axios
+              .put("/v1/users", userData)
               .then(function(response) {
-                console.log('saving user response: ' + response);
+                console.log("saving user response: " + response);
 
                 vm.user.first = firstName;
                 vm.user.last = lastName;
                 vm.user.email = vm.email;
-                vm.user.fullName = firstName + ' ' + lastName;
-                vm.$cookie.set('user', vm.user);
-                vm.$notify('Profile saved successfully!', 'success');
+                vm.user.fullName = firstName + " " + lastName;
+                vm.$cookie.set("user", vm.user);
+                vm.$notify("Profile saved successfully!", "success");
                 // window.location.href = '../home';
               })
               .catch(function(err) {
@@ -163,15 +172,17 @@ export default {
               });
             break;
           case FBASE:
-
             // change password in firebase only if
             if (vm.password.length > 5) {
               const user = firebase.auth().currentUser;
-              user.updatePassword(vm.password).then(function() {
-                console.log('password changed in firebase');
-              }).catch(function(error) {
-                console.log('error in changing password: ', error);
-              });
+              user
+                .updatePassword(vm.password)
+                .then(function() {
+                  console.log("password changed in firebase");
+                })
+                .catch(function(error) {
+                  console.log("error in changing password: ", error);
+                });
             }
 
             let db = firebase.firestore();
@@ -180,30 +191,28 @@ export default {
             };
             db.settings(settings);
 
-            const moment = require('moment');
-            userData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+            const moment = require("moment");
+            userData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
-            db.collection("users")
+            db
+              .collection("users")
               .doc(vm.user.id)
               .update(userData)
               .then(function(docRef) {
                 vm.user.first = firstName;
                 vm.user.last = lastName;
                 vm.user.email = vm.email;
-                vm.user.fullName = firstName + ' ' + lastName;
-                vm.$cookie.set('user', vm.user);
-                vm.$notify('Profile saved successfully!', 'success');
+                vm.user.fullName = firstName + " " + lastName;
+                vm.$cookie.set("user", vm.user);
+                vm.$notify("Profile saved successfully!", "success");
               })
               .catch(function(error) {
                 console.error("Error updating Profile: ", error);
               });
             break;
         }
-
-
       }
     }
-
   }
-}
+};
 </script>
