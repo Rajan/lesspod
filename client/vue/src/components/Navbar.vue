@@ -169,8 +169,9 @@ export default {
       let user = vm.$cookie.getJSON("user");
       if (user) {
         this.fullName = user.first + " " + user.last;
+        console.log(user.first + " " + user.last);
       }
-      console.log(user.first + " " + user.last);
+      
       const {
         deploymentTarget,
         LOCALHOST,
