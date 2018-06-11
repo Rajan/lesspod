@@ -26,7 +26,7 @@
 												</span>
 											</span>
 											<span class="file-name">
-												square-logo.png
+												{{sqLogo}}
 											</span>
 										</label>
 									</div>
@@ -47,7 +47,7 @@
 												</span>
 											</span>
 											<span class="file-name">
-												text-horiz-logo.png
+												{{rectLogo}}
 											</span>
 										</label>
 									</div>
@@ -65,7 +65,7 @@
 								<div class="control has-icons-left">
 									<div class="control">
 										<label class="checkbox">
-											<input type="checkbox">
+											<input type="checkbox" v-model="disableBlog">
 											Disable Blog Menu
 										</label>	
 									</div>
@@ -76,7 +76,7 @@
 								<div class="control has-icons-left">
 									<div class="control">
 										<label class="checkbox">
-											<input type="checkbox">
+											<input type="checkbox" v-model="disableSignups">
 											Disable New Registrations
 										</label>	
 									</div>
@@ -104,15 +104,119 @@
 </template>
 <script type="text/javascript">
 
-module.exports = {
+export default {
 	data(){
 		return {
-			tagline: ''
+			sqLogo: '', // './../assets/images/icon.png',
+			rectLogo: '', // './../assets/images/type.png',
+			tagline: '', // 'Serverless Blogging Engine',
+			disableBlog: false,
+			disableSignups: false,
+			settingName: ['sqLogo', 'rectLogo', 'tagline', 'disableBlog', 'disableSignups'],
+			settings: []
 		}
 	}, 
+	created: function() {
+		// fetch settings and set values
+		var vm = this;
+		axios
+            .get("/v1/settings", {})
+            .then(function(response) {
+              console.log(response);
+              let settings = response.data.settings;
+              vm.settings = settings;
+              for(let i in settings) {
+              	let setting  = settings[i];
+              	switch(setting.name){
+              		case "disableBlog": 
+              		case "disableSignups":
+              			vm[setting.name] = setting.value === "1";
+              		break;
+              		default:
+              			vm[setting.name] = setting.value;
+              	};
+              }
+
+          	})
+          	.catch(function(error) {
+              console.log(error);
+              // if error is 401 unauthorize, logout the user.
+
+              if (error.toString().indexOf("401") !== -1) {
+                console.log('Logging you out...')
+                vm.logout();
+              }
+            });
+	},
 	methods: {
 		saveSettings: function(){
+			var vm = this;
+			let settings = vm.settings;
 
+			// updating existing settings
+			for(let i in settings) {
+				let setting = settings[i];
+				// switch(setting.name){
+					// case "tagline":
+						let settingData = {
+							id: setting.id,
+			  			 	name: setting.name,
+			  		  		// value: vm.tagline
+			  		  		value: vm[setting.name]
+			  			};
+			  			if(setting.name) {
+			  				axios
+		              		.put("/v1/settings/" + setting.id, settingData)
+		              		.then(function(response) {
+		              			console.log(response);
+		              		})
+		              		.catch(function(error) {
+		              			console.log(error);
+		              		});
+			  			}
+		              	// break;
+
+				// }
+			}
+			for(let settingKey of vm.settingName) {
+				const found = vm.settings.find(f => settingKey === f.name);
+				if(!found && vm[settingKey]) {
+					axios
+              		.post("/v1/settings/", {name: settingKey, value: vm[settingKey]})
+              		.then(function(response) {
+              			console.log(response);
+              		})
+              		.catch(function(error) {
+              			console.log(error);
+              		});
+				}
+			}
+			// creating a setting if it didn't exist before
+			/*
+			var notThere = true;
+			if(vm.tagline.length){
+				// if the tagline isn't there in vm.settings, create it.
+				for(let i in settings) {
+					let setting = settings[i];
+					if(setting.name == 'tagline') notThere = false;
+				}
+				if(notThere) {
+					// create the new setting if it's not there
+					let settingData = {
+			  			name: 'tagline',
+			  		  	value: vm.tagline
+			  		};
+					axios
+		              	.post("/v1/settings", settingData)
+		              	.then(function(response) {
+		              		console.log(response);
+		              	})
+		              	.catch(function(error) {
+		              		console.log(error);
+		            	});
+				}
+			}
+			*/
 		}
 	}
 }

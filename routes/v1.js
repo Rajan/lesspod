@@ -5,6 +5,7 @@ const UserController 	= require('./../api/controllers/UserController');
 const PostController = require('./../api/controllers/PostController');
 const TagController = require('./../api/controllers/TagController');
 const MenuController = require('./../api/controllers/MenuController');
+const SettingController = require('./../api/controllers/SettingController');
 const PageController = require('./../api/controllers/PageController');
 const CompanyController = require('./../api/controllers/CompanyController');
 const HomeController 	= require('./../api/controllers/HomeController');
@@ -46,6 +47,13 @@ router.get(     '/menus',	MenuController.getAll);                  // R
 router.get(     '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.get);     // R
 router.put(     '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.update);  // U
 router.delete(  '/menus/:menu_id', passport.authenticate('jwt', {session:false}), custom.menu, MenuController.remove);  // D
+
+router.post(    '/settings',             passport.authenticate('jwt', {session:false}), SettingController.create);                  // C
+router.get(     '/settings',	SettingController.getAll);                  // R
+
+router.get(     '/settings/:setting_id', passport.authenticate('jwt', {session:false}), custom.setting, SettingController.get);     // R
+router.put(     '/settings/:setting_id', passport.authenticate('jwt', {session:false}), custom.setting, SettingController.update);  // U
+router.delete(  '/settings/:setting_id', passport.authenticate('jwt', {session:false}), custom.setting, SettingController.remove);  // D
 
 router.post(    '/pages',             passport.authenticate('jwt', {session:false}), PageController.create);                  // C
 router.get(     '/pages',             passport.authenticate('jwt', {session:false}), PageController.getAll);                  // R

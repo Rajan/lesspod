@@ -76,6 +76,24 @@ let menu = async function (req, res, next) {
 }
 module.exports.menu = menu;
 
+const Setting = Models.Setting;
+
+let setting = async function (req, res, next) {
+    let setting_id, err;
+    setting_id = req.params.setting_id;
+    console.log('finding setting_id...' + req.params.setting_id);
+    [err, setting] = await to(Setting.findOne({where: {id: setting_id}}));
+    if(err) return ReE(res,"err finding setting");
+
+    if(!setting) return ReE(res, "Setting not found with id: " + setting_id);
+    let user;
+    user = req.user;
+
+    req.setting = setting;
+    next();
+}
+module.exports.setting = setting;
+
 // const Page               = require('./../models/page');
 const Page               = Models.Page;
 
