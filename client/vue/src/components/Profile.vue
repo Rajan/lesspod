@@ -118,8 +118,10 @@ export default {
   },
   methods: {
     loadProfilePic: function(){
-      loadImage('v1/users/pic').then(image => document.getElementById('profile-pic')
+      if(document.getElementById('profile-pic')){
+        loadImage('v1/users/pic').then(image => document.getElementById('profile-pic')
         .setAttribute('src', image));
+      }
     },
     updateProfilePic: function() {
       console.log('Uploading Profile Pic...');
