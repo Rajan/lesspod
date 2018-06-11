@@ -1,6 +1,6 @@
 const Models = require('./../models/index');
-const Company 			    = require('./../models/company');
-
+// const Company 			    = require('./../models/company');
+const Company = Models.Company;
 let company = async function (req, res, next) {
     let company_id, err, company;
     company_id = req.params.company_id;
@@ -39,7 +39,8 @@ let post = async function (req, res, next) {
 }
 module.exports.post = post;
 
-const Tag               = require('./../models/tag');
+// const Tag               = require('./../models/tag');
+const Tag = Models.Tag;
 
 let tag = async function (req, res, next) {
     let tag_id, err, tag;
@@ -75,7 +76,8 @@ let menu = async function (req, res, next) {
 }
 module.exports.menu = menu;
 
-const Page               = require('./../models/page');
+// const Page               = require('./../models/page');
+const Page               = Models.Page;
 
 let page = async function (req, res, next) {
     let page_id, err, page;
