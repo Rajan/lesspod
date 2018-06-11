@@ -9,7 +9,7 @@
               <!-- <img src="../assets/images/logo-bis.png" width="167"> -->
               <span v-if="profilePic === null" class="icon" style="width: 3rem; height: 3rem;">
 									<i  class="fa fa-user-circle fas fa-3x"></i>
-								</span>
+							</span>
               <img v-if="profilePic !== null" id="profile-pic" width="80" height="80"/>
               <br>
               User Profile
@@ -109,12 +109,7 @@ export default {
     });
   },
   mounted: function() {
-    const vm = this;
-    vm.user = vm.$cookie.getJSON('user');
-    vm.fullName = vm.user.first + ' ' + vm.user.last;
-    vm.email = vm.user.email;
-    vm.profilePic = vm.user.profilePic;
-    this.loadProfilePic();
+    
   },
   methods: {
     loadProfilePic: function(){

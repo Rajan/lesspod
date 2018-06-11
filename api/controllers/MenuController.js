@@ -14,7 +14,7 @@ const create = async function(req, res){
         return ReE(res, err, 422);
     }
 
-    menu.addUser(user, { through: { status: 'menuadded' }})
+    menu.addUser(user, { through: { status: 'menuadded' }});
 
     [err, menu] = await to(menu.save());
     if(err) {

@@ -9,7 +9,7 @@
 								<span class="icon" style="width: 3rem; height: 3rem;">
 									<i class="fa fa-cog fas fa-3x"></i>
 								</span><br>
-								Settings
+								Site Settings
 							</div>
 							<div class="field">
 								<label class="label">Square Logo</label>
@@ -33,7 +33,7 @@
 								</div>
 							</div><br>
 							<div class="field">
-								<label class="label">Text Logo</label>
+								<label class="label">Horizontal Logo</label>
 								<div class="control has-icons-left">
 									<div class="file has-name is-boxed">
 										<label class="file-label">
@@ -47,7 +47,7 @@
 												</span>
 											</span>
 											<span class="file-name">
-												text-rectangle-logo.png
+												text-horiz-logo.png
 											</span>
 										</label>
 									</div>
@@ -67,6 +67,17 @@
 										<label class="checkbox">
 											<input type="checkbox">
 											Disable Blog Menu
+										</label>	
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<label class="label">New Registrations?</label>
+								<div class="control has-icons-left">
+									<div class="control">
+										<label class="checkbox">
+											<input type="checkbox">
+											Disable New Registrations
 										</label>	
 									</div>
 								</div>
