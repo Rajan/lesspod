@@ -15,7 +15,7 @@
         </div>
         <div class="column is-two-thirds">
 
-          <quill-editor v-model="content" :options="editorOption" style="height: 20rem;font-size: 1.3rem;">
+          <quill-editor ref="editor" v-model="content" :options="editorOption" style="height: 20rem;font-size: 1.3rem;">
           </quill-editor>
         <!-- <div class="quill-code">
           <div class="title">Code</div>
@@ -25,45 +25,68 @@
         <br><br><br>
 
         <a href="#" class="button is-primary" @click="savePost">
-         Save Post
-       </a><br><br><br>
-       <!-- <input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag> -->
-       <br><br>
-       <input type="hidden" name="postId" id="postId" value="" />
-     </div>
-
-   </div>
- </div>
+        Save Post
+      </a><br><br><br>
+      <!-- <input-tag :tags.sync="tagsArray" placeholder="Add Tag"></input-tag> -->
+      <br><br>
+      <input type="hidden" name="postId" id="postId" value="" />
+    </div>
+  </div>
 </div>
 </section>
 </template>
 
 <script type="text/javascript">
-import {
-  globalVariables
-} from './../main';
+import { globalVariables } from "./../main";
 
-import hljs from 'highlight.js';
+import hljs from "highlight.js";
 
+function imageHandler(img, cb) {
+  const input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.click();
+  input.onchange = () => {
+    const file = input.files[0];
+    if (/^image\//.test(file.type)) {
+      uploadImage.call(this, file);
+    } else {
+      alert("You could only upload images.");
+    }
+  };
+}
+function uploadImage(file) {
+  // Upload file and get url from server.
+  const url = "https://avatars2.githubusercontent.com/u/16257851?s=88&v=4";
+  const range = this.$refs.editor.quill.getSelection();
+  this.$refs.editor.quill.insertEmbed(range.index, "image", url);
+}
 export default {
   data() {
     return {
-      fullName: '',
-      content: '',
+      fullName: "",
+      content: "",
       editorOption: {
         modules: {
-          toolbar: [
-          [{
-            'size': ['small', false, 'large']
-          }],
-          ['bold', 'italic'],
-          [{
-            'list': 'ordered'
-          }, {
-            'list': 'bullet'
-          }],
-          ['link', 'image', 'video']
-          ],
+          toolbar: {
+            handlers: { image: imageHandler.bind(this) },
+            container: [
+              [
+                {
+                  size: ["small", false, "large"]
+                }
+              ],
+              ["bold", "italic"],
+              [
+                {
+                  list: "ordered"
+                },
+                {
+                  list: "bullet"
+                }
+              ],
+              ["link", "image", "video"]
+            ]
+          },
           history: {
             delay: 1000,
             maxStack: 50,
@@ -81,7 +104,7 @@ export default {
         }
       },
       tagsArray: []
-    }
+    };
   },
   beforeMount() {
     this.initPost();
@@ -96,93 +119,91 @@ export default {
   },
   methods: {
     initPost: function() {
-
-      axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
+      axios.defaults.headers.common["Authorization"] = this.$cookie.get(
+        "token"
+      );
       let user = this.$cookie.getJSON("user");
-      this.fullName = user.first + ' ' + user.last;
-
+      this.fullName = user.first + " " + user.last;
     },
     savePost: function() {
-      console.log('saving a post...');
+      console.log("saving a post...");
       var vm = this;
       var title = document.getElementById("title").value;
       var content = vm.content;
-      console.log('title is ' + title.toString() + ' content is ' + content.toString());
+      console.log(
+        "title is " + title.toString() + " content is " + content.toString()
+      );
       if (title.length && content.length) {
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
 
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables;
-
-        console.log('deployment target is ' + deploymentTarget);
+        console.log("deployment target is " + deploymentTarget);
 
         const postData = {
-          "title": title.toString(),
-          "content": vm.content.toString(),
-          "tags": vm.tagsArray.toString(),
-          "author" : vm.fullName.toString()
+          title: title.toString(),
+          content: vm.content.toString(),
+          tags: vm.tagsArray.toString(),
+          author: vm.fullName.toString()
         };
 
         switch (deploymentTarget) {
           case LOCALHOST:
-          axios.post('/v1/posts', postData)
-          .then(function(response) {
-            console.log(response);
-            console.log('Post Id is ' + response.data.post.id.toString());
-            document.getElementById('postId')
-            .value = response.data.post.id.toString();
-            vm.$cookie.set("post", response.data.post);
+            axios
+              .post("/v1/posts", postData)
+              .then(function(response) {
+                console.log(response);
+                console.log("Post Id is " + response.data.post.id.toString());
+                document.getElementById(
+                  "postId"
+                ).value = response.data.post.id.toString();
+                vm.$cookie.set("post", response.data.post);
                 // this.$notify('Post saved successfully!', 'success');
-                window.location.href = '../home'
+                window.location.href = "../home";
               })
-          .catch(function(error) {
-            console.log(error);
-            if (error.toString().indexOf('401') > -1) {
-              vm.logout();
-            }
-
-          });
-          break;
+              .catch(function(error) {
+                console.log(error);
+                if (error.toString().indexOf("401") > -1) {
+                  vm.logout();
+                }
+              });
+            break;
 
           case FBASE:
-          let db = firebase.firestore();
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
+            let db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
 
-          const uuidv4 = require('uuid/v4');
-          postData.id = uuidv4();
-          postData.createdBy = vm.$cookie.getJSON('user').id;
+            const uuidv4 = require("uuid/v4");
+            postData.id = uuidv4();
+            postData.createdBy = vm.$cookie.getJSON("user").id;
 
-          const moment = require('moment');
-          postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
-          postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+            const moment = require("moment");
+            postData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+            postData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
-          db.collection("posts")
-          .doc(postData.id)
-          .set(postData)
-          .then(function(docRef) {
-            vm.$cookie.set("post", postData);
+            db
+              .collection("posts")
+              .doc(postData.id)
+              .set(postData)
+              .then(function(docRef) {
+                vm.$cookie.set("post", postData);
                 // this.$notify('Post saved successfully!', 'success');
-                window.location.href = '../home'
-
+                window.location.href = "../home";
               })
-          .catch(function(error) {
-            console.error("Error adding document: ", error);
-          });
-          break;
+              .catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
+            break;
         }
       } else {
-        console.log('nothing to save...');
+        console.log("nothing to save...");
       }
     },
     logout: function() {
-      this.$cookie.set('token', '');
-      this.$cookie.set('user', '');
-      window.location.href = '../';
+      this.$cookie.set("token", "");
+      this.$cookie.set("user", "");
+      window.location.href = "../";
     },
     onEditorBlur(content) {
       // console.log('content blur!', content)
@@ -194,7 +215,7 @@ export default {
       // console.log('content ready!', content)
     },
     addTag: function() {
-      console.log('adding a tag...');
+      console.log("adding a tag...");
 
       let tagText = document.getElementById("tag").value;
       let user = this.$cookie.getJSON("user");
@@ -203,60 +224,62 @@ export default {
         // axios.defaults.headers.common['Authorization'] = this.$cookie.get("token");
 
         let tagData = {
-          "name": tagText,
-          "postId": document.getElementById('postId').value,
-          "userId": user.id.toString()
+          name: tagText,
+          postId: document.getElementById("postId").value,
+          userId: user.id.toString()
         };
 
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables;
-        console.log('deployment target is ' + deploymentTarget);
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        console.log("deployment target is " + deploymentTarget);
 
         switch (deploymentTarget) {
           case LOCALHOST:
-          axios.post('/v1/tags', tagData)
-          .then(function(response) {
-            console.log(response);
-            if (response.data.success) {
-              document.getElementById("tag").value = '';
-              console.log('Tag: ' + response.data.tag.name.toString() + ' added successfully.');
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-          break;
+            axios
+              .post("/v1/tags", tagData)
+              .then(function(response) {
+                console.log(response);
+                if (response.data.success) {
+                  document.getElementById("tag").value = "";
+                  console.log(
+                    "Tag: " +
+                      response.data.tag.name.toString() +
+                      " added successfully."
+                  );
+                }
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+            break;
           case FBASE:
-          let db = firebase.firestore();
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
+            let db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
 
-          const uuidv4 = require('uuid/v4');
-          tagData.id = uuidv4();
-          tagData.createdBy = this.$cookie.getJSON('user').id;
+            const uuidv4 = require("uuid/v4");
+            tagData.id = uuidv4();
+            tagData.createdBy = this.$cookie.getJSON("user").id;
 
-          const moment = require('moment');
-          tagData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
-          tagData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+            const moment = require("moment");
+            tagData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+            tagData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
-          db.collection("tags")
-          .doc(tagData.id)
-          .set(tagData)
-          .then(function(docRef) {
-            document.getElementById("tag").value = '';
-            console.log('Tag: ' + tagData.name.toString() + ' added successfully.');
-
-          })
-          .catch(function(error) {
-            console.error("Error adding document: ", error);
-          });
-          break;
-
+            db
+              .collection("tags")
+              .doc(tagData.id)
+              .set(tagData)
+              .then(function(docRef) {
+                document.getElementById("tag").value = "";
+                console.log(
+                  "Tag: " + tagData.name.toString() + " added successfully."
+                );
+              })
+              .catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
+            break;
         }
       }
     }
@@ -265,7 +288,6 @@ export default {
 </script>
 
 <style>
-
 section,
 body,
 html {
@@ -274,6 +296,6 @@ html {
 
 .ql-container {
   font-size: 1.3rem;
-  font-family:Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 </style>
