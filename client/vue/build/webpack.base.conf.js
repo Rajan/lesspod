@@ -8,7 +8,6 @@ const webpack = require('webpack')
 // webpack.config.js
 // const { VueLoaderPlugin } = require('vue-loader')
 
-
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -40,7 +39,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      '@': resolve('src')
     }
   },
   module: {
@@ -48,7 +47,7 @@ module.exports = {
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
-        loader: 'vue-loader' //,
+        loader: 'vue-loader' //, 
         // options: vueLoaderConfig
       },
       {
@@ -109,6 +108,7 @@ module.exports = {
     // new VueLoaderPlugin()
     new webpack.ProvidePlugin({
       axios: 'axios'
-    })
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]
 }
