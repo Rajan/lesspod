@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="column is-two-thirds">
-        <quill-editor v-model="editor" v-if="editor.length > 0" :options="editorOption" style="background: white;font-size: 1.3rem;">
+        <quill-editor v-model="editor" v-if="editor.length > 0" :options="editorOption" style="background: white;font-size: 1.3rem;" ref="editor">
         </quill-editor>
         <br>
 
@@ -36,6 +36,18 @@ import {
   globalVariables
 } from './../main';
 
+import hljs from "highlight.js";
+
+function videoHandler(vid1) {
+  // console.log("video info = " + vid1);
+  this.$refs.editor.quill.root.quill = this.$refs.editor.quill;
+  // Embed the video into the editor: https://www.youtube.com/watch?v=bz7sibZsOLs
+  const vidurl = prompt("enter video url").toString().replace('watch?v=','embed/');
+  let src = 'https://www.youtube.com/embed/o-KdQiObAGM'
+  const range = this.$refs.editor.quill.getSelection();
+  this.$refs.editor.quill.insertEmbed(range.index, 'video', vidurl, 'user');
+}
+
 export default {
   data() {
     return {
@@ -46,31 +58,43 @@ export default {
       pageURL: '',
       editorOption: {
         modules: {
-          toolbar: [
-            [{
-              'size': ['small', false, 'large']
-            }],
-            ['bold', 'italic'],
-            [{
-              'list': 'ordered'
-            }, {
-              'list': 'bullet'
-            }],
-            ['link', 'image', 'video']
-          ],
+          toolbar: {
+            // removing the handler will revert back to base64 images in the file
+            handlers: { 
+              // image: imageHandler.bind(this), 
+              video: videoHandler.bind(this) 
+            },
+            container: [
+              [
+                {
+                  size: ["small", false, "large"]
+                }
+              ],
+              ["bold", "italic"],
+              [
+                {
+                  list: "ordered"
+                },
+                {
+                  list: "bullet"
+                }
+              ],
+              ["link", "image", "video"]
+            ]
+          },
           history: {
             delay: 1000,
             maxStack: 50,
             userOnly: false
           },
-          imageDrop: true,
+          imageDrop: true
           // imageResize: {
-          // 	displayStyles: {
-          // 		backgroundColor: 'black',
-          // 		border: 'none',
-          // 		color: 'white'
-          // 	},
-          // 	modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+          //   displayStyles: {
+          //     backgroundColor: 'black',
+          //     border: 'none',
+          //     color: 'white'
+          //   },
+          //   modules: ['Resize', 'DisplaySize', 'Toolbar']
           // }
         }
       },
@@ -170,6 +194,7 @@ export default {
 
 
     },
+
     savePost: function() {
       var vm = this;
       console.log('saving a post...');

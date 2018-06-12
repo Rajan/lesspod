@@ -384,6 +384,9 @@ body {
   background: #bb0000;
   color: white;
 }
+.td-quill-video-toolbar {
+  display: none;
+}
 
 /*.content {
 	margin-left: 75px;

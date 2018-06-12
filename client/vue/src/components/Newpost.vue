@@ -64,7 +64,7 @@ function uploadImage(file) {
 }
 
 function videoHandler(vid1) {
-  console.log("video info = " + vid1);
+  // console.log("video info = " + vid1);
   this.$refs.editor.quill.root.quill = this.$refs.editor.quill;
   // Embed the video into the editor: https://www.youtube.com/watch?v=bz7sibZsOLs
   const vidurl = prompt("enter video url").toString().replace('watch?v=','embed/');
