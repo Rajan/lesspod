@@ -57,7 +57,7 @@ function uploadImage(file) {
 
   const user = this.$cookie.getJSON("user");
   const moment = require("moment");
-  const now = moment().format();
+  const now = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
   const storagePath = `${user.id}/images/${now}_${file.name}`;
   firebase
     .storage()
