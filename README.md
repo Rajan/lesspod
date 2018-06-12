@@ -1,6 +1,6 @@
 ![Lesspod Logotype](https://github.com/Tobaloidee/lesspod/blob/master/images/readme-logo.png)
 
-Serverless Blogging Engine (In Active Development)
+Serverless CMS (Website + Blog Engine) (In Active Development)
 
 
 ## Why Lesspod?
@@ -91,12 +91,12 @@ Note: React client is at a very early stage in the development.
 - [x] API Module for SQLite
 - [x] Adding New Pages + Menus
 - [x] Landing Page Design
-- [ ] Deployment to Firebase
+- [ ] Deployment to Firebase (WIP)
 - [ ] Unit Tests
 - [x] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
 - [x] Blog Post View Design
-- [ ] Blog settings i.e. changing logo, tagline etc.
+- [ ] Blog settings i.e. changing logo, tagline etc. (WIP)
 - [x] Profile Page
 - [x] Editor Selection and Integration (using Quill editor)
 - [x] Comments Integration (Disqus, Facebook and ?)
