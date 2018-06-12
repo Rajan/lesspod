@@ -245,7 +245,7 @@ export default {
           };
           db.settings(settings);
 
-          db.collection("menus")
+          db.collection("menus").where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
               let menus1 = [];
@@ -428,7 +428,7 @@ export default {
 };
 </script>
 <style type="text/css">
-  html {
-    /*background-color: whitesmoke;*/
-  }
+html {
+  /*background-color: whitesmoke;*/
+}
 </style>>

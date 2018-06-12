@@ -218,7 +218,7 @@ export default {
           db.settings(settings);
 
           db
-            .collection("menus")
+            .collection("menus").where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
               let menus1 = [];
