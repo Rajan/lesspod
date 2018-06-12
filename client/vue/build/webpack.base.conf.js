@@ -107,7 +107,8 @@ module.exports = {
   plugins: [
     // new VueLoaderPlugin()
     new webpack.ProvidePlugin({
-      axios: 'axios'
+      axios: 'axios',
+      Quill: 'quill'
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]

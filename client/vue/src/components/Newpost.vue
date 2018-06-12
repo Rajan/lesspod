@@ -41,7 +41,8 @@ import { globalVariables } from "./../main";
 
 import hljs from "highlight.js";
 
-function imageHandler(img, cb) {
+
+function imageHandler(img) {
   const input = document.createElement("input");
   input.setAttribute("type", "file");
   input.click();
@@ -61,6 +62,17 @@ function uploadImage(file) {
   const range = this.$refs.editor.quill.getSelection();
   this.$refs.editor.quill.insertEmbed(range.index, "image", url);
 }
+
+function videoHandler(vid1) {
+  console.log("video info = " + vid1);
+  this.$refs.editor.quill.root.quill = this.$refs.editor.quill;
+  // Embed the video into the editor: https://www.youtube.com/watch?v=bz7sibZsOLs
+  const vidurl = prompt("enter video url").toString().replace('watch?v=','embed/');
+  let src = 'https://www.youtube.com/embed/o-KdQiObAGM'
+  const range = this.$refs.editor.quill.getSelection();
+  this.$refs.editor.quill.insertEmbed(range.index, 'video', vidurl, 'user');
+}
+
 export default {
   data() {
     return {
@@ -70,7 +82,10 @@ export default {
         modules: {
           toolbar: {
             // removing the handler will revert back to base64 images in the file
-            handlers: { image: imageHandler.bind(this) },
+            handlers: { 
+              image: imageHandler.bind(this), 
+              video: videoHandler.bind(this) 
+            },
             container: [
               [
                 {

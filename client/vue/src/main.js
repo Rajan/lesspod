@@ -17,6 +17,9 @@ import { ImageDrop } from 'quill-image-drop-module';
 
 import VueQuill1 from 'vue-quill-editor';
 
+
+
+
 // require styles
 // import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css';
@@ -28,6 +31,14 @@ import VueCookie from 'vue-js-cookie';
 // var VueCookie = require('vue-cookie');
 
 window.Quill = Quill;
+
+// Import the format
+import { Video } from './assets/quill/quill-video-resize.js'
+require("./assets/quill/quill-video-resize.css");
+
+
+// register with Quill
+Quill.register({ 'formats/video': Video });
 
 const ImageResize = require('quill-image-resize-module');
 
@@ -80,12 +91,12 @@ const types = {
 // Initialize Firebase
 
 const config = {
-  apiKey: "AIzaSyD_9U3AZqZ-cz1jr2ZK3TW4DCyyshoiXF4",
-  authDomain: "lesspod-dev.firebaseapp.com",
-  databaseURL: "https://lesspod-dev.firebaseio.com",
-  projectId: "lesspod-dev",
+  apiKey: "AIzaSyB75SfBhAm6Kiy2EcHFZ0_PE7bGrRnw3D4",
+  authDomain: "lesspodorg.firebaseapp.com",
+  databaseURL: "https://lesspodorg.firebaseio.com",
+  projectId: "lesspodorg",
   storageBucket: "",
-  messagingSenderId: "406114890288"
+  messagingSenderId: "735546418007"
 };
 firebase.initializeApp( config );
 
@@ -93,7 +104,7 @@ firebase.initializeApp( config );
 // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'firebase',
+    deploymentTarget: 'localhost',
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }
