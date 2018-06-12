@@ -163,8 +163,17 @@ export default {
                       'user',
                       JSON.stringify(querySnapshot.docs[0].data())
                       );
+                      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                          // Send token to your backend via HTTPS
+                          vm.$cookie.set(
+                            'token',
+                            idToken
+                            );
+                            window.location.href = '../home';
+                        }).catch(function(error) {
+                          // Handle error
+                        });
                   }
-                  window.location.href = '../home';
                 })
                 .catch(function(error) {
                   console.log('Error getting documents: ', error);
@@ -173,15 +182,6 @@ export default {
           .catch(function(error) {
             console.error(error.message);
           });
-          firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-              // Send token to your backend via HTTPS
-              vm.$cookie.set(
-                'token',
-                idToken
-                );
-            }).catch(function(error) {
-              // Handle error
-            });  
             break;
 
           }

@@ -159,15 +159,24 @@ export default {
                   .doc(userData.id) // documentId is same as userId; easier for future referencing of document
                   .set(userData)
                   .then(function(docRef) {
-                    vm.$cookie.set('user', JSON.stringify(userData))
-                    window.location.href = '../home'
+                    vm.$cookie.set('user', JSON.stringify(userData));
+                    firebase.auth().currentUser.getIdToken( /* forceRefresh */ true).then(function(idToken) {
+                      // Send token to your backend via HTTPS
+                      vm.$cookie.set(
+                        'token',
+                        idToken
+                      );
+                      window.location.href = '../home';
+                    }).catch(function(error) {
+                      // Handle error
+                    });
                   })
                   .catch(function(error) {
                     console.error('Error adding document: ', error)
                   })
               })
               .catch(function(error) {
-                console.error(error.message)
+                console.error('error registering account: ' + error.message)
               })
             break
         }
