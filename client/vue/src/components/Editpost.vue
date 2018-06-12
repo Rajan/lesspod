@@ -38,11 +38,73 @@ import {
 
 import hljs from "highlight.js";
 
+function imageHandler(img) {
+  const input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.click();
+  input.onchange = () => {
+    const file = input.files[0];
+    if (/^image\//.test(file.type)) {
+      uploadImage.call(this, file);
+    } else {
+      alert("You could only upload images.");
+    }
+  };
+}
+
+function uploadImage(file) {
+  // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor.
+
+  const user = this.$cookie.getJSON("user");
+  const moment = require("moment");
+  const now = moment().format();
+  const storagePath = `${user.id}/images/${now}_${file.name}`;
+  firebase
+    .storage()
+    .ref(storagePath)
+    .put(file)
+    .then(snapshot => {
+      console.log('image upload success');
+      return snapshot.ref.getDownloadURL();
+    })
+    .then(downloadURL => {
+      console.log('writing download url to db');
+      //const url = "https://avatars2.githubusercontent.com/u/16257851?s=88&v=4";
+      const url = downloadURL;
+      const range = this.$refs.editor.quill.getSelection();
+      this.$refs.editor.quill.insertEmbed(range.index, "image", url);
+
+      let db = firebase.firestore();
+      const settings = {
+        timestampsInSnapshots: true
+      };
+      db.settings(settings);
+
+      db.collection('images').add({
+          name: file.name,
+          path: storagePath,
+          publicUrl: url,
+          createdBy: user.id,
+          createdAt: now,
+        })
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+    })
+    .catch(error => {
+      console.error(error);
+      this._alert(true, 'error', error.message);
+    });
+}
+
 function videoHandler(vid1) {
   // console.log("video info = " + vid1);
   this.$refs.editor.quill.root.quill = this.$refs.editor.quill;
   // Embed the video into the editor: https://www.youtube.com/watch?v=bz7sibZsOLs
-  const vidurl = prompt("enter video url").toString().replace('watch?v=','embed/');
+  const vidurl = prompt("enter video url").toString().replace('watch?v=', 'embed/');
   let src = 'https://www.youtube.com/embed/o-KdQiObAGM'
   const range = this.$refs.editor.quill.getSelection();
   this.$refs.editor.quill.insertEmbed(range.index, 'video', vidurl, 'user');
@@ -60,19 +122,16 @@ export default {
         modules: {
           toolbar: {
             // removing the handler will revert back to base64 images in the file
-            handlers: { 
-              // image: imageHandler.bind(this), 
-              video: videoHandler.bind(this) 
+            handlers: {
+              image: imageHandler.bind(this),
+              video: videoHandler.bind(this)
             },
             container: [
-              [
-                {
-                  size: ["small", false, "large"]
-                }
-              ],
+              [{
+                size: ["small", false, "large"]
+              }],
               ["bold", "italic"],
-              [
-                {
+              [{
                   list: "ordered"
                 },
                 {
@@ -139,8 +198,7 @@ export default {
       // fetch the post from server
       let href = location.href;
 
-      let postId = href.substr(href.lastIndexOf('/') + 1);
-
+      let postId = href.substr(href.lastIndexOf('/') + 1).replace('#', '');
       const {
         deploymentTarget,
         LOCALHOST,
@@ -208,7 +266,7 @@ export default {
           "title": title.toString(),
           "content": content.toString(),
           "tags": vm.tagsArray.toString(),
-          "pageURL" : vm.pageURL
+          "pageURL": vm.pageURL ? vm.pageURL : null
         };
 
         const {

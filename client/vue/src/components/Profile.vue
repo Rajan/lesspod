@@ -10,9 +10,8 @@
               <span v-if="profilePic === null" class="icon" style="width: 3rem; height: 3rem;">
 									<i  class="fa fa-user-circle fas fa-3x"></i>
 							</span>
-              <img v-if="profilePic !== null" id="profile-pic" width="80" height="80"/>
-              <br>
-              User Profile
+              <img v-if="profilePic !== null" id="profile-pic" width="80" height="80" />
+              <br> User Profile
             </div>
             <div class="field">
               <label class="label">Full Name (First Last)</label>
@@ -55,7 +54,7 @@
             <div class="field">
               <label class="label">Update Profile Photo</label>
               <div class="control has-icons-left">
-                  <input type="button" value="Upload" id="uploadProfilePic" @click.stop="updateProfilePic" />
+                <input type="button" value="Upload" id="uploadProfilePic" @click.stop="updateProfilePic" />
               </div>
             </div>
             <div class="field is-grouped" style="margin-top: 1.5rem;">
@@ -79,8 +78,12 @@
 </section>
 </template>
 <script type="text/javascript">
-import { globalVariables } from "./../main";
-import { loadImage } from "../utils";
+import {
+  globalVariables
+} from "./../main";
+import {
+  loadImage
+} from "../utils";
 
 export default {
   data() {
@@ -148,7 +151,11 @@ export default {
           password: vm.password
         };
 
-        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables;
         console.log("deployment target is " + deploymentTarget);
 
         // update user
