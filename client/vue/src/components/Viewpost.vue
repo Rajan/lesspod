@@ -216,7 +216,7 @@ export default {
               console.log("Error getting post: ", error);
             });
 
-
+          const user = this.$cookie.getJSON('user');
           db.collection("posts").where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
@@ -384,6 +384,7 @@ body {
   background: #bb0000;
   color: white;
 }
+
 .td-quill-video-toolbar {
   display: none;
 }
