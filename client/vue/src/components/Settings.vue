@@ -107,7 +107,7 @@
 export default {
 	data(){
 		return {
-			sqLogo: '', // './../assets/images/icon.png',
+			sqLogo: './../assets/images/icon.png',
 			rectLogo: '', // './../assets/images/type.png',
 			tagline: '', // 'Serverless Blogging Engine',
 			disableBlog: false,

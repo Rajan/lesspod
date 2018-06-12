@@ -158,11 +158,12 @@ export default {
                 .where('email', '==', email.value)
                 .get()
                 .then(function(querySnapshot) {
-                  vm.$cookie.set(
-                    'user',
-                    JSON.stringify(querySnapshot.docs[0].data())
-                    );
-                  
+                  if(querySnapshot.docs[0]){
+                    vm.$cookie.set(
+                      'user',
+                      JSON.stringify(querySnapshot.docs[0].data())
+                      );
+                  }
                   window.location.href = '../home';
                 })
                 .catch(function(error) {

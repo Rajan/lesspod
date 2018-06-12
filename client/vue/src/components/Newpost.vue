@@ -55,7 +55,8 @@ function imageHandler(img, cb) {
   };
 }
 function uploadImage(file) {
-  // Upload file and get url from server.
+  // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor.
+
   const url = "https://avatars2.githubusercontent.com/u/16257851?s=88&v=4";
   const range = this.$refs.editor.quill.getSelection();
   this.$refs.editor.quill.insertEmbed(range.index, "image", url);
@@ -68,6 +69,7 @@ export default {
       editorOption: {
         modules: {
           toolbar: {
+            // removing the handler will revert back to base64 images in the file
             handlers: { image: imageHandler.bind(this) },
             container: [
               [
