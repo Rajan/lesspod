@@ -1,71 +1,101 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 
+<head>
+  <title>Lesspod</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/static/favicons/site.webmanifest">
+  <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/static/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-config" content="/static/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+  <link rel="canonical" href="https://lesspod.org" />
+  <meta name="author" content="Lesspod">
+  <meta name="robots" content="index, follow">
+  <meta name="news_keywords" content="Lesspod, serverless, firebase, blog, blogging, website, new website, create website, wordpress, wordpress alternative"
+  />
+  <meta name="keywords" content="Lesspod, serverless, firebase, blog, blogging, website, new website, create website, wordpress, wordpress alternative"
+  />
+  <meta property="og:site_name" content="Lesspod" />
+  <meta property="og:url" content="https://lesspod.org" />
+  <meta property="og:title" content="Lesspod - Serverless Websites" />
+  <meta property="og:image" content="https://lesspod.org/static/favicons/favicon-32x32.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:site" content="@lesspod1" />
+  <meta name="twitter:url" content="https://twitter.com/lesspod1" />
+  <meta name="twitter:title" content="Lesspod - Serverless Websites" />
+  <meta name="description" content="Lesspod - Build and deploy your website to serverless platforms" />
+  <meta property="og:description" content="Lesspod - Build and deploy your website to serverless platforms" />
+  <meta name="twitter:description" content="Lesspod - Build and deploy your website to serverless platforms" />
+  <meta name="twitter:image" content="https://lesspod.org/static/favicons/favicon-32x32.png" />
+  <meta name="twitter:card" content="summary">
+  <meta name="title" content="Lesspod - Serverless Websites" />
+  <meta name="medium" content="index" />
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+    crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="/static/main.css">
   <link rel="stylesheet" type="text/css" href="/static/minireset.css">
-  <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
-  <!-- Include stylesheet -->
-  <!-- <link href="/static/quill/quill.snow.css" rel="stylesheet"> -->
   <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-
-
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/af.js"></script> -->
-  <title>Lesspod</title>
 </head>
+
 <body class="Site">
   <div id="app"></div>
   <!-- built files will be auto injected -->
 
   <!-- including firebase script manually to ease dev -->
-  
+
 </body>
+
 </html>
 <script type="text/javascript">
-  function subscribed(){
+  function subscribed() {
     // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
     window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
     // alert('subscribed');
   };
   document.addEventListener('DOMContentLoaded', function () {
 
-  // Get all "navbar-burger" elements
-  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    // Get all "navbar-burger" elements
+    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
 
-    // Add a click event on each of them
-    $navbarBurgers.forEach(function ($el) {
-      $el.addEventListener('click', function () {
+      // Add a click event on each of them
+      $navbarBurgers.forEach(function ($el) {
+        $el.addEventListener('click', function () {
 
-        // Get the target from the "data-target" attribute
-        var target = $el.dataset.target;
-        var $target = document.getElementById(target);
+          // Get the target from the "data-target" attribute
+          var target = $el.dataset.target;
+          var $target = document.getElementById(target);
 
-        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-        $el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
+          // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+          $el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
 
+        });
       });
-    });
-  }
+    }
 
-});
+  });
 </script>
 <style type="text/css">
-#stickyfooter {
-  width: 100%;
-  background-color: #fff;
-  position: fixed;
-  bottom: 0;
-  height: 3rem;
-  border-top: 1px solid grey;
-  visibility: hidden;
-}
+  #stickyfooter {
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    height: 3rem;
+    border-top: 1px solid grey;
+    visibility: hidden;
+  }
 </style>
