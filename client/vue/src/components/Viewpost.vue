@@ -216,7 +216,7 @@ export default {
             });
 
           const user = this.$cookie.getJSON('user');
-          db.collection("posts").where("createdBy", "==", user.id)
+          db.collection("posts") // .where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
               let posts1 = [];
