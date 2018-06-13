@@ -212,13 +212,14 @@ export default {
           break;
         case FBASE:
           let db = firebase.firestore();
+
           const settings = {
             timestampsInSnapshots: true
           };
           db.settings(settings);
 
           db
-            .collection("menus").where("createdBy", "==", user.id)
+            .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
               let menus1 = [];

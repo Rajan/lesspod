@@ -34,7 +34,7 @@
 				</div>
 				<div class="columns has-text-centered is-multiline">
 					<div class="column has-text-centered"><br><br>
-						<h2 class="title">Latest Posts</h2>
+						<h2 class="title" v-if="filteredPosts.length > 0">Latest Posts</h2>
 						<div class="columns is-multiline">
 							<div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
 								<article class="box">
