@@ -18,8 +18,6 @@ import { ImageDrop } from 'quill-image-drop-module';
 import VueQuill1 from 'vue-quill-editor';
 
 
-
-
 // require styles
 // import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css';
@@ -113,7 +111,7 @@ firebase.initializeApp( config );
 // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'firebase',
+    deploymentTarget: 'localhost',
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }

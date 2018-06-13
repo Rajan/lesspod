@@ -27,7 +27,6 @@
         <input type="hidden" v-model="id" name="postId" id="postId" value="" />
       </div>
       <div class="column is-two-thirds has-text-centered">
-        <!-- This div is only for design purposes -->
         <h2 class="title">Latest Posts</h2>
         <div class="columns is-multiline">
           <div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
@@ -236,8 +235,6 @@ export default {
             });
           break;
       }
-
-
     },
     postSummary: function(content) {
       let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g, ', ').substring(0, 140);
