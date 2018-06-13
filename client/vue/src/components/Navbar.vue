@@ -3,7 +3,7 @@
 	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item">
-				<img src="./../assets/images/icon.png">
+				<img id="squareLogo">
 			</a>
 			<a role="button" class="navbar-burger" data-target="navMenu"  aria-label="menu" aria-expanded="false">
 			  <span aria-hidden="true"></span>
@@ -17,7 +17,7 @@
 				<div class="navbar-item">
 					<div>
 						<a href="#" id="typeLogo" @click="logoClick">
-							<img src="./../assets/images/type.png" width="auto">
+							<img id="horizontalLogo" width="auto">
 							<!-- <span style='font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;height: 5rem;font-size:1.8rem;font-weight: bold;padding-bottom:3rem;'>Rajan Chandi</span> -->
 						</a>
 						<br>
@@ -130,6 +130,10 @@ import {
   globalVariables
 } from "./../main";
 import NewMenuModal from "@/components/NewMenuModal";
+import {
+  loadImage
+} from "../utils";
+
 export default {
   data() {
     return {
@@ -161,6 +165,18 @@ export default {
   beforeMount() {
     axios.defaults.headers.common["Authorization"] = this.$cookie.get("token");
     this.initNavbar();
+  },
+  mounted:function(){
+    loadImage("/v1/settings/logo?name=squareLogo").then(image => {
+      if (document.getElementById("squareLogo")) {
+        document.getElementById("squareLogo").setAttribute("src", image);
+      }
+    });
+    loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
+      if (document.getElementById("horizontalLogo")) {
+        document.getElementById("horizontalLogo").setAttribute("src", image);
+      }
+    });
   },
   methods: {
     initNavbar: function() {
