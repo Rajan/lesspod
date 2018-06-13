@@ -11,6 +11,8 @@ Lesspod's mission is to transition the Internet from server architecture to serv
 
 Our goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
 
+Demo website: https://lesspod.org
+
 ## Free Forever Web Hosting (Cloud Limits Apply)
 
 Lesspod will enable free websites and blogs for people who don't want to pay for recurring hosting fees within free limits offered by cloud providers like Google Firebase and AWS Lambda. Lesspod is dynamic and offers a better alternative to static sites which can be difficult to install and manage.
@@ -91,7 +93,7 @@ Note: React client is at a very early stage in the development.
 - [x] API Module for SQLite
 - [x] Adding New Pages + Menus
 - [x] Landing Page Design
-- [ ] Deployment to Firebase (WIP)
+- [x] Deployment to Firebase (WIP)
 - [ ] Unit Tests
 - [x] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
