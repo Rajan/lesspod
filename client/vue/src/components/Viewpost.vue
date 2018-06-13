@@ -293,7 +293,7 @@ body {
   border: 1px solid lightgrey;
 }
 
-@media (min-width: 100px) {
+@media (min-width: 100px) and (max-width: 767px) {
   /* This style block will only apply on viewports larger than 700px */
   .icon-bar {
     right: 0%;
@@ -301,9 +301,6 @@ body {
     top: 78%;
   }
 
-  #footer {
-    height: 6rem;
-  }
 }
 
 @media (min-width: 768px) {
@@ -313,9 +310,7 @@ body {
     right: auto;
     top: 50%;
   }
-  #footer {
-    height: 3rem;
-  }
+
 }
 
 .circle:before {
