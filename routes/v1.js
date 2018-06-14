@@ -51,10 +51,11 @@ router.delete(  '/menus/:menu_id', passport.authenticate('jwt', {session:false})
 router.post(    '/settings',             passport.authenticate('jwt', {session:false}), SettingController.create);                  // C
 router.get(     '/settings',	SettingController.getAll);                  // R
 
-router.post(     '/settings/logo',       passport.authenticate('jwt', {session:false}), uploader.single('logo'), SettingController.updateLogo);     // U
+router.post(    '/settings/logo',       passport.authenticate('jwt', {session:false}), uploader.single('logo'), SettingController.updateLogo);     // U
 router.get(     '/settings/logo',       SettingController.getLogo);     // R
 
-router.get(     '/settings/:setting_id', passport.authenticate('jwt', {session:false}), custom.setting, SettingController.get);     // R
+router.get(     '/settings/byName/:setting_name', custom.settingByName, SettingController.get);     // R
+router.get(     '/settings/:setting_id', custom.setting, SettingController.get);     // R
 router.put(     '/settings/:setting_id', passport.authenticate('jwt', {session:false}), custom.setting, SettingController.update);  // U
 router.delete(  '/settings/:setting_id', passport.authenticate('jwt', {session:false}), custom.setting, SettingController.remove);  // D
 
