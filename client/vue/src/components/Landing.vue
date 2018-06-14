@@ -17,18 +17,26 @@
 						<h2 class="subtitle is-4 "><br>
 							Lesspod lets anyone build and deploy website+blog combination to serverless platforms (starting with <a href="https://firebase.google.com/pricing/" target="_blank">Firebase</a>). Key benefits:
 						</h2>
-						<div class="content">
-							<ul style="font-size: 1.3rem;" class="has-text-left block">
+						<div class="content" style="font-size: 1.3rem;" >
+							<ul class="has-text-left block" style="margin-bottom: 0.5rem;">
 								<li>No fixed yearly/monthly hosting fees.</li>
 								<li>Infinite scalability of the cloud.</li>
 								<li>Free hosting till you're very popular!</li>
 							</ul>
+							This is a <em>serverless website</em> hosted freely on Firebase.
 						</div>
-						<br>
 						<p class="has-text-left">
-							<a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success is-outlined">
+							<!-- <a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success">
 								<i class="fab fa-github"></i>&nbsp;Lesspod on Github
-							</a>
+							</a> -->
+							<b style="font-size:1.3rem;padding-bottom: 1rem;">Star us on Github or Follow on Twitter:</b><br><br>
+							<!-- Place this tag where you want the button to render. -->
+							<a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name=false>Follow Lesspod</a>
+							<!-- <a class="twitter-follow-button"
+							  href="https://twitter.com/less_pod"
+							  data-size="large">
+							Follow @Lesspod</a> -->
 						</p>
 					</div>
 				</div>
@@ -91,7 +99,7 @@ export default {
 
 		// auto login if credentials are present
 
-		if(this.$cookie.get('token').length > 0){
+		if(this.$cookie.get('token') && this.$cookie.get('token').length > 0){
 			this.$router.push('/home');
 		}
 		this.initLanding();
@@ -166,37 +174,16 @@ export default {
 	              }
 	          });
 	          break;
-	          case FBASE:
+	        
+	        case FBASE:
 	          let db = firebase.firestore();
 	          const settings = {
 	          	timestampsInSnapshots: true
 	          };
 	          db.settings(settings);
 
-	          db.collection("posts").doc(postId)
-	          .get()
-	          .then(function(doc) {
-	          	if (doc.exists) {
-	          		const post = doc.data();
-	          		vm.id = post.id;
-	          		vm.title = post.title;
-	          		vm.editor = post.content;
-	          		vm.author = post.author;
-	          		vm.createdDate = post.createdAt;
-	          		vm.tagsArray = post.tags.toString().split(",");
-	          		vm.postURL = window.location.origin + '/post/' + post.id.toString();
-	          		console.log(vm.postURL);
-	          		document.title = post.title.toString() + ' by ' + post.author.toString();
-	          	} else {
-	          		console.log("No such post!");
-	          	}
-	          })
-	          .catch(function(error) {
-	          	console.log("Error getting post: ", error);
-	          });
-
 	          const user = this.$cookie.getJSON('user');
-	          db.collection("posts").where("createdBy", "==", user.id)
+	          db.collection("posts")
 	          .get()
 	          .then(function(querySnapshot) {
 	          	let posts1 = [];
@@ -225,6 +212,15 @@ export default {
       } else {
         return postSummary;
       }
+    },
+    viewPost: function(index) {
+      var vm = this;
+      let post = vm.filteredPosts[index];
+      let postString = JSON.stringify(vm.filteredPosts[index]);
+
+      console.log('viewing... ' + JSON.stringify(post));
+
+      window.location.href = '../post/' + post.id.toString();
     }
 }
 };
