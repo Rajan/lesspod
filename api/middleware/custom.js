@@ -17,7 +17,7 @@ let company = async function (req, res, next) {
 
     req.company = company;
     next();
-}
+};
 module.exports.company = company;
 
 
@@ -36,7 +36,7 @@ let post = async function (req, res, next) {
 
     req.post = post;
     next();
-}
+};
 module.exports.post = post;
 
 // const Tag               = require('./../models/tag');
@@ -54,7 +54,7 @@ let tag = async function (req, res, next) {
     user = req.user;
     req.tag = tag;
     next();
-}
+};
 module.exports.tag = tag;
 
 
@@ -73,7 +73,7 @@ let menu = async function (req, res, next) {
 
     req.menu = menu;
     next();
-}
+};
 module.exports.menu = menu;
 
 const Setting = Models.Setting;
@@ -91,8 +91,25 @@ let setting = async function (req, res, next) {
 
     req.setting = setting;
     next();
-}
+};
 module.exports.setting = setting;
+
+let settingByName = async function (req, res, next) {
+    let setting_name, err;
+    setting_name = req.params.setting_name;
+    console.log('finding setting_name...' + req.params.setting_name);
+    [err, setting] = await to(Setting.findOne({where: {name: setting_name}}));
+    if(err) return ReE(res,"err finding setting");
+
+    if(!setting) return ReE(res, "Setting not found with name: " + setting_name);
+    let user;
+    user = req.user;
+
+    req.setting = setting;
+    next();
+};
+module.exports.settingByName = settingByName;
+
 
 // const Page               = require('./../models/page');
 const Page               = Models.Page;
@@ -109,5 +126,5 @@ let page = async function (req, res, next) {
     user = req.user;
     req.page = page;
     next();
-}
+};
 module.exports.page = page;
