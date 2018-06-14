@@ -190,6 +190,9 @@ export default {
       console.log(
         "title is " + title.toString() + " content is " + content.toString()
       );
+      if(title.toString().trim().length == 0 || content.toString().trim().length == 0){
+        alert('Post title or post content missing. Add them and save again!');
+      }
       if (title.length && content.length) {
         const {
           deploymentTarget,
