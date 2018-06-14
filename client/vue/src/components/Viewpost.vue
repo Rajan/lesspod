@@ -7,8 +7,8 @@
           <div class="field-body">
             <div class="field">
               <p class="control has-text-centered">
-                <input class="input has-text-centered is-large disabled" style="font-weight: bold;font-size:2rem;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
-                <span class="has-text-centered is-large disabled">{{ new Date(createdDate) | moment('MMMM D, YYYY') }} . {{ author }}</span>
+                <input v-if="title && title.length > 0" class="input has-text-centered is-large disabled" style="font-weight: bold;font-size:2rem;" v-model="title" id="title" type="text" placeholder="Post Title" readonly>
+                <span v-if="author && author.length > 0" class="has-text-centered is-large disabled">{{ new Date(createdDate) | moment('MMMM D, YYYY') }} . {{ author }}</span>
               </p>
             </div>
           </div>
@@ -46,7 +46,7 @@
             </article>
           </div>
         </div>
-        <h2 class="title">Comments</h2>
+        <h2 class="title" v-if="title && title.length > 0">Comments</h2>
         <div class="comments">
           <vue-disqus shortname="lesspod" :identifier="id"></vue-disqus>
         </div>

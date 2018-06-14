@@ -206,6 +206,15 @@ export default {
       } else {
         return postSummary;
       }
+    },
+    viewPost: function(index) {
+      var vm = this;
+      let post = vm.filteredPosts[index];
+      let postString = JSON.stringify(vm.filteredPosts[index]);
+
+      console.log('viewing... ' + JSON.stringify(post));
+
+      window.location.href = '../post/' + post.id.toString();
     }
 }
 };
