@@ -17,12 +17,13 @@
 						<h2 class="subtitle is-4 "><br>
 							Lesspod lets anyone build and deploy website+blog combination to serverless platforms (starting with <a href="https://firebase.google.com/pricing/" target="_blank">Firebase</a>). Key benefits:
 						</h2>
-						<div class="content">
-							<ul style="font-size: 1.3rem;" class="has-text-left block">
+						<div class="content" style="font-size: 1.3rem;" >
+							<ul class="has-text-left block" style="margin-bottom: 0.5rem;">
 								<li>No fixed yearly/monthly hosting fees.</li>
 								<li>Infinite scalability of the cloud.</li>
 								<li>Free hosting till you're very popular!</li>
 							</ul>
+							This is a <em>serverless website</em> hosted freely on Firebase.
 						</div>
 						<p class="has-text-left">
 							<!-- <a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success">
