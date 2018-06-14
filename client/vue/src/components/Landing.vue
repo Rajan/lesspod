@@ -166,37 +166,16 @@ export default {
 	              }
 	          });
 	          break;
-	          case FBASE:
+	        
+	        case FBASE:
 	          let db = firebase.firestore();
 	          const settings = {
 	          	timestampsInSnapshots: true
 	          };
 	          db.settings(settings);
 
-	          db.collection("posts").doc(postId)
-	          .get()
-	          .then(function(doc) {
-	          	if (doc.exists) {
-	          		const post = doc.data();
-	          		vm.id = post.id;
-	          		vm.title = post.title;
-	          		vm.editor = post.content;
-	          		vm.author = post.author;
-	          		vm.createdDate = post.createdAt;
-	          		vm.tagsArray = post.tags.toString().split(",");
-	          		vm.postURL = window.location.origin + '/post/' + post.id.toString();
-	          		console.log(vm.postURL);
-	          		document.title = post.title.toString() + ' by ' + post.author.toString();
-	          	} else {
-	          		console.log("No such post!");
-	          	}
-	          })
-	          .catch(function(error) {
-	          	console.log("Error getting post: ", error);
-	          });
-
 	          const user = this.$cookie.getJSON('user');
-	          db.collection("posts").where("createdBy", "==", user.id)
+	          db.collection("posts")
 	          .get()
 	          .then(function(querySnapshot) {
 	          	let posts1 = [];
