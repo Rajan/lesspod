@@ -3,7 +3,7 @@
 	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item">
-				<img src="./../assets/images/icon.png">
+				<img id="squareLogo">
 			</a>
 			<a role="button" class="navbar-burger" data-target="navMenu"  aria-label="menu" aria-expanded="false">
        <span aria-hidden="true"></span>
@@ -17,7 +17,7 @@
       <div class="navbar-item">
        <div>
         <a href="#" id="typeLogo" @click="logoClick">
-         <img src="./../assets/images/type.png" width="auto">
+         <img id="horizontalLogo" width="auto">
          <!-- <span style='font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;height: 5rem;font-size:1.8rem;font-weight: bold;padding-bottom:3rem;'>Rajan Chandi</span> -->
        </a>
        <br>
@@ -47,6 +47,7 @@
     Menu
   </div>
 </a>
+
 							<!-- <a class="navbar-item">
 								<div>
 									<span class="icon is-small">
@@ -130,6 +131,10 @@ import {
   globalVariables
 } from "./../main";
 import NewMenuModal from "@/components/NewMenuModal";
+import {
+  loadImage
+} from "../utils";
+
 export default {
   data() {
     return {
@@ -161,6 +166,22 @@ export default {
   beforeMount() {
     axios.defaults.headers.common["Authorization"] = this.$cookie.get("token");
     this.initNavbar();
+  },
+  mounted:function(){
+    loadImage("/v1/settings/logo?name=squareLogo").then(image => {
+      if (document.getElementById("squareLogo")) {
+        document.getElementById("squareLogo").setAttribute("src", image);
+      }
+    });
+    loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
+      if (document.getElementById("horizontalLogo")) {
+        document.getElementById("horizontalLogo").setAttribute("src", image);
+      }
+    });
+
+    /* load the tagline */
+    axios.get('/v1/settings/byName/tagline').then(response =>document.getElementById("tagline").innerHTML = response.data.setting.value).catch(e => console.log(e));
+
   },
   methods: {
     initNavbar: function() {
@@ -341,13 +362,13 @@ export default {
       } else return url;
     },
     newMenuAdded: function(newMenu) {
-      var vm = this;
+      const vm = this;
       console.log("new menu in Navbar: " + newMenu);
-      var result = newMenu.split(",");
-      var menuName = result[0];
+      const result = newMenu.split(",");
+      const menuName = result[0];
       vm.menus.push(menuName);
-      var linkedURL = "";
-      var postId = "";
+      let linkedURL = "";
+      let postId = "";
       // result[1] will contain the linked url.
       // console.log('vm.$data' + this.$data.toString());
 
@@ -356,14 +377,14 @@ export default {
         linkedURL = result[1];
         vm.createMenu(result[0], linkedURL, postId);
       } else {
-        var pageURL = window.location.origin + vm.dashedMenu(menuName);
+        const pageURL = window.location.origin + vm.dashedMenu(metaglinenuName);
 
         // if there's no linkedURL, we should create a corresponding page.
         // After the page is created, we should add postId to this menu.
         // This postId can be retrieved later when someone clicks on the menu.
 
-        var title = menuName;
-        var content = "<br>";
+        const title = menuName;
+        const content = "<br>";
         console.log(
           "title is " + title.toString() + " content is " + content.toString()
           );
