@@ -24,11 +24,13 @@
 								<li>Free hosting till you're very popular!</li>
 							</ul>
 						</div>
-						<br>
 						<p class="has-text-left">
-							<a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success is-outlined">
+							<!-- <a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success">
 								<i class="fab fa-github"></i>&nbsp;Lesspod on Github
-							</a>
+							</a> -->
+							<b style="font-size:1.3rem;padding-bottom: 1rem;">Star us on Github:</b><br><br>
+							<!-- Place this tag where you want the button to render. -->
+							<a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
 						</p>
 					</div>
 				</div>
