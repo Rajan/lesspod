@@ -136,7 +136,7 @@
         body:{'logoType':'squareLogo'},
         onSuccess: res => {
           console.log('Logo uploaded Successfully');
-          // location.reload();
+          location.reload();
         },
         onError(error) {
           alert("Unable to upload profile pic");
@@ -149,7 +149,7 @@
         body:{'logoType':'horizontalLogo'},
         onSuccess: res => {
           console.log('Logo uploaded Successfully');
-          // location.reload();
+          location.reload();
         },
         onError(error) {
           alert("Unable to upload profile pic");
