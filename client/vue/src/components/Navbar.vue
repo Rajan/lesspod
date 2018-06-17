@@ -27,11 +27,11 @@
  </div>
 
  <div class="navbar-end">
-  <div class="navbar-item has-dropdown is-hoverable"  v-if="isLoggedIn()">
+  <div id="create-new" class="navbar-item has-dropdown is-hoverable"  v-if="isLoggedIn()">
    <div class="navbar-link">
     New
     <div class="navbar-dropdown is-right">
-     <a class="navbar-item" onclick="window.location.href = '../newpost';">
+     <a id="new-post" class="navbar-item" onclick="window.location.href = '../newpost';">
       <div>
        <span class="icon is-small">
         <i class="fa fa-clipboard"></i>
@@ -39,7 +39,7 @@
       Post
     </div>
   </a>
-  <a class="navbar-item" @click="newMenu();">
+  <a id="new-menu" class="navbar-item" @click="newMenu();">
     <div>
      <span class="icon is-small">
       <i class="fa fa-bars"></i>
@@ -127,21 +127,19 @@
 
 </template>
 <script type="text/javascript">
-import {
-  globalVariables
-} from "./../main";
+import { globalVariables } from "./../main";
 import NewMenuModal from "@/components/NewMenuModal";
-import {
-  loadImage
-} from "../utils";
+import { loadImage } from "../utils";
 
 export default {
   data() {
     return {
-      menus: [{
-        name: "Blog",
-        linkedURL: document.location.origin + "/blog"
-      }],
+      menus: [
+        {
+          name: "Blog",
+          linkedURL: document.location.origin + "/blog"
+        }
+      ],
       showModal: false,
       newMenuName: "",
       fullName: "Alex Johnson"
@@ -167,33 +165,36 @@ export default {
     axios.defaults.headers.common["Authorization"] = this.$cookie.get("token");
     this.initNavbar();
   },
-  mounted:function(){
-    const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
+  mounted: function() {
+    const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
     switch (deploymentTarget) {
-          case LOCALHOST:
+      case LOCALHOST:
+        loadImage("/v1/settings/logo?name=squareLogo").then(image => {
+          if (document.getElementById("squareLogo")) {
+            document.getElementById("squareLogo").setAttribute("src", image);
+          }
+        });
+        loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
+          if (document.getElementById("horizontalLogo")) {
+            document
+              .getElementById("horizontalLogo")
+              .setAttribute("src", image);
+          }
+        });
 
-            loadImage("/v1/settings/logo?name=squareLogo").then(image => {
-              if (document.getElementById("squareLogo")) {
-                document.getElementById("squareLogo").setAttribute("src", image);
-              }
-            });
-            loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
-              if (document.getElementById("horizontalLogo")) {
-                document.getElementById("horizontalLogo").setAttribute("src", image);
-              }
-            });
-
-            /* load the tagline */
-            axios.get('/v1/settings/byName/tagline').then(response =>document.getElementById("tagline").innerHTML = response.data.setting.value).catch(e => console.log(e));
-            break;
-          case FBASE:
-            break;
+        /* load the tagline */
+        axios
+          .get("/v1/settings/byName/tagline")
+          .then(
+            response =>
+              (document.getElementById("tagline").innerHTML =
+                response.data.setting.value)
+          )
+          .catch(e => console.log(e));
+        break;
+      case FBASE:
+        break;
     }
-
   },
   methods: {
     initNavbar: function() {
@@ -205,27 +206,19 @@ export default {
         console.log(user.first + " " + user.last);
       }
 
-      const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
+      const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
       console.log("deployment target is " + deploymentTarget);
 
-
       let menus1 = vm.$cookie.getJSON("menus");
-      if(menus1 && menus1.length) {
+      if (menus1 && menus1.length) {
         vm.menus = menus1;
-        console.log('menus already present: ' + menus1.toString);
+        console.log("menus already present: " + menus1.toString);
       } else {
-
         switch (deploymentTarget) {
           case LOCALHOST:
-
-
-          axios
-          .get("/v1/menus", {})
-          .then(function(response) {
+            axios
+              .get("/v1/menus", {})
+              .then(function(response) {
                 // console.log(response);
 
                 let menus1 = response.data.menus;
@@ -242,7 +235,7 @@ export default {
                 }
                 // renderPosts();
               })
-          .catch(function(error) {
+              .catch(function(error) {
                 // console.log(error);
                 // if error is 401 unauthorize, logout the user.
 
@@ -252,40 +245,38 @@ export default {
                 }
               });
 
-          break;
+            break;
           case FBASE:
+            let db = firebase.firestore();
 
-          let db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
 
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
-
-          db
-          .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
-          .get()
-          .then(function(querySnapshot) {
-            let menus1 = [];
-            querySnapshot.forEach(function(doc) {
-              menus1.push(doc.data());
-            });
-            for (var i in menus1) {
-              console.log(menus1[i].name);
-            }
-            if (menus1.length > 0) {
-              vm.menus = vm.menus.concat(menus1);
-              vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
-              // console.log(menus1);
-            } else {
-              // console.log(menus1);
-            }
-          })
-          .catch(function(error) {
-            console.log("Error getting menus: ", error);
-          });
-          break;
-
+            db
+              .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
+              .get()
+              .then(function(querySnapshot) {
+                let menus1 = [];
+                querySnapshot.forEach(function(doc) {
+                  menus1.push(doc.data());
+                });
+                for (var i in menus1) {
+                  console.log(menus1[i].name);
+                }
+                if (menus1.length > 0) {
+                  vm.menus = vm.menus.concat(menus1);
+                  vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
+                  // console.log(menus1);
+                } else {
+                  // console.log(menus1);
+                }
+              })
+              .catch(function(error) {
+                console.log("Error getting menus: ", error);
+              });
+            break;
         }
       }
     },
@@ -308,10 +299,12 @@ export default {
     newMenu: function() {
       // console.log('creating new menu...');
       this.$modal.show(
-        "new-menu-modal", {
+        "new-menu-modal",
+        {
           menus: this.topLevelMenus
-        }, {}
-        );
+        },
+        {}
+      );
       // this.menus.push('NewM');
     },
     beforeOpen: function(event) {
@@ -337,9 +330,9 @@ export default {
       } else {
         // console.log('menuItem.name: ' + menuItem.name);
         let dashed = menuName
-        .trim()
-        .split(" ")
-        .join("-");
+          .trim()
+          .split(" ")
+          .join("-");
         return "/" + dashed.toLowerCase();
       }
     },
@@ -399,13 +392,9 @@ export default {
         const content = "<br>";
         console.log(
           "title is " + title.toString() + " content is " + content.toString()
-          );
+        );
         if (title.length && content.length) {
-          const {
-            deploymentTarget,
-            LOCALHOST,
-            FBASE
-          } = globalVariables;
+          const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
 
           console.log("deployment target is " + deploymentTarget);
 
@@ -419,52 +408,55 @@ export default {
 
           switch (deploymentTarget) {
             case LOCALHOST:
-            axios
-            .post("/v1/posts", postData)
-            .then(function(response) {
-              console.log(response);
-              postId = response.data.post.id.toString();
+              axios
+                .post("/v1/posts", postData)
+                .then(function(response) {
+                  console.log(response);
+                  postId = response.data.post.id.toString();
                   // console.log('Post Id is ' + postId);
                   // document.getElementById('postId').value = postId;
                   vm.createMenu(menuName, pageURL, postId);
                   // this.$cookie.set("post", response.data.post);
                 })
-            .catch(function(error) {
-              console.log(error);
-            });
-            break;
+                .catch(function(error) {
+                  console.log(error);
+                });
+              break;
 
             case FBASE:
-            let db = firebase.firestore();
-            const settings = {
-              timestampsInSnapshots: true
-            };
-            db.settings(settings);
+              let db = firebase.firestore();
+              const settings = {
+                timestampsInSnapshots: true
+              };
+              db.settings(settings);
 
-            const uuidv4 = require("uuid/v4");
-            postData.id = uuidv4();
-            postData.createdBy = vm.$cookie.getJSON("user").id;
+              const uuidv4 = require("uuid/v4");
+              postData.id = uuidv4();
+              postData.createdBy = vm.$cookie.getJSON("user").id;
 
-            const moment = require("moment");
-            postData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
-            postData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+              const moment = require("moment");
+              postData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+              postData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
-            console.log('postData in firebase menupost creation:' + JSON.stringify(postData));
+              console.log(
+                "postData in firebase menupost creation:" +
+                  JSON.stringify(postData)
+              );
 
-            db
-            .collection("posts")
-            .doc(postData.id)
-            .set(postData)
-            .then(function(docRef) {
-              postId = postData.id;
+              db
+                .collection("posts")
+                .doc(postData.id)
+                .set(postData)
+                .then(function(docRef) {
+                  postId = postData.id;
                   // console.log('Post Id is ' + postId);
                   // document.getElementById('postId').value = postId;
                   vm.createMenu(menuName, pageURL, postId);
                 })
-            .catch(function(error) {
-              console.error("Error adding document: ", error);
-            });
-            break;
+                .catch(function(error) {
+                  console.error("Error adding document: ", error);
+                });
+              break;
           }
         }
       }
@@ -473,12 +465,12 @@ export default {
       var vm = this;
       console.log(
         "creating menu..." +
-        menuName +
-        ", LinkedURL =" +
-        linkedURL +
-        ", postId = " +
-        postId
-        );
+          menuName +
+          ", LinkedURL =" +
+          linkedURL +
+          ", postId = " +
+          postId
+      );
 
       if (menuName) {
         let menuData = {
@@ -487,19 +479,15 @@ export default {
           postId: postId.toString()
         };
 
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables;
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
         console.log("deployment target is " + deploymentTarget);
 
         switch (deploymentTarget) {
           case LOCALHOST:
-          axios
-          .post("/v1/menus", menuData)
-          .then(function(response) {
-            console.log("menu create response: " + response);
+            axios
+              .post("/v1/menus", menuData)
+              .then(function(response) {
+                console.log("menu create response: " + response);
                 // console.log('New Menu Id is inside: ' + response.toString());
                 // document.getElementById('menuId').value = response.data.menu.id.toString();
                 vm.menus.push(response.data.menu);
@@ -509,41 +497,41 @@ export default {
                 vm.$notify("Menu added successfully!", "success");
                 location.reload();
               })
-          .catch(function(error) {
-            console.log(error);
-          });
-          break;
+              .catch(function(error) {
+                console.log(error);
+              });
+            break;
           case FBASE:
-          let db = firebase.firestore();
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
+            let db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
 
-          menuData.postId = postId.toString();
+            menuData.postId = postId.toString();
 
-          const uuidv4 = require("uuid/v4");
-          menuData.id = uuidv4();
-          menuData.createdBy = vm.$cookie.getJSON("user").id;
+            const uuidv4 = require("uuid/v4");
+            menuData.id = uuidv4();
+            menuData.createdBy = vm.$cookie.getJSON("user").id;
 
-          const moment = require("moment");
-          menuData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
-          menuData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+            const moment = require("moment");
+            menuData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+            menuData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
-          db
-          .collection("menus")
-          .doc(menuData.id)
-          .set(menuData)
-          .then(function(docRef) {
-            vm.menus.push(menuData);
-            vm.$cookie.set("menu", menuData);
-            vm.$notify("Menu added successfully!", "success");
-          })
-          .catch(function(error) {
-            console.error("Error adding document: ", error);
-          });
+            db
+              .collection("menus")
+              .doc(menuData.id)
+              .set(menuData)
+              .then(function(docRef) {
+                vm.menus.push(menuData);
+                vm.$cookie.set("menu", menuData);
+                vm.$notify("Menu added successfully!", "success");
+              })
+              .catch(function(error) {
+                console.error("Error adding document: ", error);
+              });
 
-          break;
+            break;
         }
       }
     },
@@ -558,56 +546,52 @@ export default {
 
         console.log("postId in Navbar: " + postId);
 
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables;
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
         console.log("deployment target is " + deploymentTarget);
 
         switch (deploymentTarget) {
           case LOCALHOST:
-          axios
-          .get("/v1/posts/" + postId.trim(), {
-            id: postId.trim()
-          })
-          .then(function(response) {
-            console.log(response);
-            var post = response.data.post;
-            post.title = vm.cleanedSubmenu(post.title);
+            axios
+              .get("/v1/posts/" + postId.trim(), {
+                id: postId.trim()
+              })
+              .then(function(response) {
+                console.log(response);
+                var post = response.data.post;
+                post.title = vm.cleanedSubmenu(post.title);
                 // console.log('post in Navbar: ' + post);
                 vm.$cookie.set("editpost", JSON.stringify(post));
                 location.href = menu1.linkedURL;
               })
-          .catch(function(error) {
-            console.log(error);
-          });
-          break;
+              .catch(function(error) {
+                console.log(error);
+              });
+            break;
           case FBASE:
-          let db = firebase.firestore();
-          const settings = {
-            timestampsInSnapshots: true
-          };
-          db.settings(settings);
+            let db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
 
-          db
-          .collection("posts")
-          .doc(postId.trim())
-          .get()
-          .then(function(doc) {
-            if (doc.exists) {
-              const post = doc.data();
-              post.title = vm.cleanedSubmenu(post.title);
-              vm.$cookie.set("editpost", JSON.stringify(post));
-              location.href = menu1.linkedURL;
-            } else {
-              console.log("No such post!");
-            }
-          })
-          .catch(function(error) {
-            console.log("Error getting post: ", error);
-          });
-          break;
+            db
+              .collection("posts")
+              .doc(postId.trim())
+              .get()
+              .then(function(doc) {
+                if (doc.exists) {
+                  const post = doc.data();
+                  post.title = vm.cleanedSubmenu(post.title);
+                  vm.$cookie.set("editpost", JSON.stringify(post));
+                  location.href = menu1.linkedURL;
+                } else {
+                  console.log("No such post!");
+                }
+              })
+              .catch(function(error) {
+                console.log("Error getting post: ", error);
+              });
+            break;
         }
       } else {
         window.open(vm.properURL(menu1.linkedURL), "_blank");

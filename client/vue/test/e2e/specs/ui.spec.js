@@ -50,7 +50,7 @@ module.exports = {
       .click('#signout')
       .pause(2000)
   },
-  'Login e2e': ' ' + function (browser) {
+  'Login e2e': function (browser) {
     // const devServer = browser.globals.devServerURL
     browser
       .assert.elementPresent('a[href="/login"]')
@@ -72,6 +72,26 @@ module.exports = {
       .pause(2000)
   },
   'Post e2e': function (browser) {
-
+    browser
+      .click('p a[href="../newpost"]')
+      .pause(10000)
+      .setValue('input[id="title"]', faker.random.word())
+      .click('div[contenteditable=true]')
+      .pause(1000)
+      .setValue('div[contenteditable=true]', faker.lorem.text())
+      .pause(2000)
+      .click('a[class="button is-primary"]')
+      .pause(2000)
+  },
+  'Menu e2e': function (browser) {
+    browser
+      .moveToElement('#create-new', 10, 10)
+      .click('#new-menu')
+      .pause(10000)
+      .setValue('input[placeholder="About Us"]', faker.lorem.word())
+      .setValue('input[placeholder="http://www.example.com"]', faker.internet.url())
+      .pause(2000)
+      .click('button[class="button is-success is-small"]')
+      .pause(2000)
   }
 }
