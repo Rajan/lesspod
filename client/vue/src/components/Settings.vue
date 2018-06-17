@@ -4,7 +4,7 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-5-tablet is-4-desktop is-4-widescreen">
-            <form class="box">
+            <form class="box" onsubmit="event.preventDefault();">
               <div class="field has-text-centered">
               <span class="icon" style="width: 3rem; height: 3rem;">
 									<i class="fa fa-cog fas fa-3x"></i>
@@ -136,7 +136,7 @@
         body:{'logoType':'squareLogo'},
         onSuccess: res => {
           console.log('Logo uploaded Successfully');
-          location.reload();
+          // location.reload();
         },
         onError(error) {
           alert("Unable to upload profile pic");
@@ -149,7 +149,7 @@
         body:{'logoType':'horizontalLogo'},
         onSuccess: res => {
           console.log('Logo uploaded Successfully');
-          location.reload();
+          // location.reload();
         },
         onError(error) {
           alert("Unable to upload profile pic");
@@ -371,5 +371,5 @@
               */
       }
     }
-  }
+  };
 </script>
