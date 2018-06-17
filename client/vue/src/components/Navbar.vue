@@ -3,7 +3,7 @@
 	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item">
-				<img id="squareLogo">
+				<img id="squareLogo" src="../assets/images/icon.png" >
 			</a>
 			<a role="button" class="navbar-burger" data-target="navMenu"  aria-label="menu" aria-expanded="false">
        <span aria-hidden="true"></span>
@@ -16,8 +16,8 @@
      <div class="navbar-start" id="navStart">
       <div class="navbar-item">
        <div>
-        <a href="#" id="typeLogo" @click="logoClick">
-         <img id="horizontalLogo" width="auto">
+        <a href="#" id="typeLogo"  @click="logoClick">
+         <img id="horizontalLogo" src="../assets/images/type.png" width="auto">
          <!-- <span style='font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;height: 5rem;font-size:1.8rem;font-weight: bold;padding-bottom:3rem;'>Rajan Chandi</span> -->
        </a>
        <br>
@@ -168,19 +168,31 @@ export default {
     this.initNavbar();
   },
   mounted:function(){
-    loadImage("/v1/settings/logo?name=squareLogo").then(image => {
-      if (document.getElementById("squareLogo")) {
-        document.getElementById("squareLogo").setAttribute("src", image);
-      }
-    });
-    loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
-      if (document.getElementById("horizontalLogo")) {
-        document.getElementById("horizontalLogo").setAttribute("src", image);
-      }
-    });
+    const {
+        deploymentTarget,
+        LOCALHOST,
+        FBASE
+      } = globalVariables;
+    switch (deploymentTarget) {
+          case LOCALHOST:
 
-    /* load the tagline */
-    axios.get('/v1/settings/byName/tagline').then(response =>document.getElementById("tagline").innerHTML = response.data.setting.value).catch(e => console.log(e));
+            loadImage("/v1/settings/logo?name=squareLogo").then(image => {
+              if (document.getElementById("squareLogo")) {
+                document.getElementById("squareLogo").setAttribute("src", image);
+              }
+            });
+            loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
+              if (document.getElementById("horizontalLogo")) {
+                document.getElementById("horizontalLogo").setAttribute("src", image);
+              }
+            });
+
+            /* load the tagline */
+            axios.get('/v1/settings/byName/tagline').then(response =>document.getElementById("tagline").innerHTML = response.data.setting.value).catch(e => console.log(e));
+            break;
+          case FBASE:
+            break;
+    }
 
   },
   methods: {

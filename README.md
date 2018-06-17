@@ -21,13 +21,15 @@ Lesspod will enable free websites and blogs for people who don't want to pay for
 
 We want to keep Lesspod as simple as possible for everyone to customize and build upon and it requires us to be as minimalist as practically posible.
 
-- SQLite 3 (using sequelize ORM locally)
+- SQLite 3 (using sequelize ORM LOCAL ONLY for development purpose)
 - Express 4 (Most popular node.js framework)
 - ~~EJS~~ VueJS (Clean, Fast and Easiest to Learn)
 - Serverless support (aws/firebase/azure etc)
 - Bulma CSS framework for design
 - ~~Parcel.js~~ Webpack 3/4 as a bundler
 - js-cookie npm module (In future: Store for local storage: https://www.npmjs.com/package/store)
+
+Note: The local api gets discarded on deploying to Firebase. So, It's vuejs talking directly to Firebase.
 
 
 ## Contributing To Lesspod

@@ -29,7 +29,7 @@
       <div class="column is-two-thirds has-text-centered">
         <h2 class="title" v-if="filteredPosts.length > 0">Latest Posts</h2>
         <div class="columns is-multiline">
-          <div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
+          <div v-for="(post, index) in filteredPosts.slice(0, 6)" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
             <article class="box">
               <div class="media">
                 <div class="media-content">
