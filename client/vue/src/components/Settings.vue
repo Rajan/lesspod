@@ -235,6 +235,33 @@ export default {
       } = globalVariables;
       console.log('deployment target is ' + deploymentTarget);
 
+
+      this.$root.$upload.new("squareLogo", {
+        url: "v1/settings/logo",
+        name: "logo",
+        body:{'logoType':'squareLogo'},
+        onSuccess: res => {
+          console.log('Logo uploaded Successfully');
+          location.reload();
+        },
+        onError(error) {
+          alert("Unable to upload profile pic");
+        }
+      });
+
+      this.$root.$upload.new("horizontalLogo", {
+        url: "v1/settings/logo",
+        name: "logo",
+        body:{'logoType':'horizontalLogo'},
+        onSuccess: res => {
+          console.log('Logo uploaded Successfully');
+          location.reload();
+        },
+        onError(error) {
+          alert("Unable to upload profile pic");
+        }
+      });
+
       switch (deploymentTarget) {
         case LOCALHOST:
           // updating existing settings
@@ -248,6 +275,7 @@ export default {
               // value: vm.tagline
               value: vm[setting.name]
             };
+
 
 
             if (setting.name) {
