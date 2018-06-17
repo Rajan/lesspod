@@ -199,31 +199,23 @@ export default {
         db.settings(dbSettings);
 
         const user = this.$cookie.getJSON('user');
-        db.collection("settings").where("createdBy", "==", user.id)
-          .get()
-          .then(function(querySnapshot) {
 
-            let settings = [];
-            querySnapshot.forEach(function(doc) {
+        var docRef = db.collection("settings").doc(user.id);
 
-              settings.push(doc.data())
-            });
-            for (let i in settings) {
-              let setting = settings[i];
-              switch (setting.name) {
-                case "disableBlog":
-                case "disableSignups":
-                  vm[setting.name] = setting.value === "1";
-                  break;
-                default:
-                  vm[setting.name] = setting.value;
-              }
+        docRef.get().then(function(doc) {
+          if (doc.exists) {
+            const settingsData = doc.data();
+            for (let key in settingsData) {
+              vm[key] = settingsData[key];
             }
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No user settings data yet!");
+          }
+        }).catch(function(error) {
+          console.log("Error getting document:", error);
+        });
 
-          })
-          .catch(function(error) {
-            console.log("Error getting settings: ", error);
-          });
         break;
     }
 
@@ -293,7 +285,35 @@ export default {
           }
           break;
         case FBASE:
+          let settingsData = {};
+          for (let key of vm.settingName) {
+            settingsData[key] = vm[key];
+          }
 
+          let db = firebase.firestore();
+          const dbSettings = {
+            timestampsInSnapshots: true
+          };
+          db.settings(dbSettings);
+
+          const user = vm.$cookie.getJSON("user");
+
+          settingsData.createdBy = user.id;
+
+          const moment = require("moment");
+          settingsData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+
+          db
+            .collection("settings")
+            .doc(user.id)
+            .set(settingsData)
+            .then(function(docRef) {
+              console.log('settings added!');
+              window.location.reload();
+            })
+            .catch(function(error) {
+              console.error("Error adding document: ", error);
+            });
           break;
 
       }
