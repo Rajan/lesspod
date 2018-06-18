@@ -111,7 +111,7 @@ firebase.initializeApp( config );
 // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'localhost',
+    deploymentTarget: 'firebase',
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }

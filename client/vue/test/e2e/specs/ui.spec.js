@@ -98,8 +98,9 @@ module.exports = {
   },
   'Post UPDATE': function (browser) {
     browser
+      .pause(2000)
       .click('div[class="media"] div[class="content "] a:nth-child(4)')
-      .pause(1000)
+      .pause(3000)
       .assert.urlContains('/editpost')
       .setValue('input[id="title"]', ' ' + faker.random.word())
       .setValue('div[contenteditable=true]', ' ' + faker.lorem.text())
