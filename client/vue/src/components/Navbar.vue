@@ -245,7 +245,7 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
-                  vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
+                  // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
                   // console.log(menus1);
@@ -285,7 +285,7 @@ export default {
             }
             if (menus1.length > 0) {
               vm.menus = vm.menus.concat(menus1);
-              vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
+              // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
               // console.log(menus1);
             } else {
               // console.log(menus1);
@@ -513,7 +513,7 @@ export default {
                 // console.log('New Menu Id is inside: ' + response.toString());
                 // document.getElementById('menuId').value = response.data.menu.id.toString();
                 vm.menus.push(response.data.menu);
-                vm.$cookie.set("menu", response.data.menu);
+                // vm.$cookie.set("menu", response.data.menu, 1);
                 // this.$router.go(this.$router.currentRoute);
                 // this.$router.go();
                 vm.$notify("Menu added successfully!", "success");
@@ -546,7 +546,7 @@ export default {
           .set(menuData)
           .then(function(docRef) {
             vm.menus.push(menuData);
-            vm.$cookie.set("menu", menuData);
+            // vm.$cookie.set("menu", menuData);
             vm.$notify("Menu added successfully!", "success");
           })
           .catch(function(error) {
