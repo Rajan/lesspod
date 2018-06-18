@@ -170,12 +170,19 @@ export default {
     switch (deploymentTarget) {
       case LOCALHOST:
         loadImage("/v1/settings/logo?name=squareLogo").then(image => {
-          if (document.getElementById("squareLogo")) {
+          // console.log('image is ' + image);
+          if (
+            document.getElementById("squareLogo") &&
+            !atob(image.substring(13)).includes("error")
+          ) {
             document.getElementById("squareLogo").setAttribute("src", image);
           }
         });
         loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
-          if (document.getElementById("horizontalLogo")) {
+          if (
+            document.getElementById("horizontalLogo") &&
+            !atob(image.substring(13)).includes("error")
+          ) {
             document
               .getElementById("horizontalLogo")
               .setAttribute("src", image);
@@ -185,11 +192,12 @@ export default {
         /* load the tagline */
         axios
           .get("/v1/settings/byName/tagline")
-          .then(
-            response =>
-              (document.getElementById("tagline").innerHTML =
-                response.data.setting.value)
-          )
+          .then(function(response) {
+            if (response.data.setting) {
+              document.getElementById("tagline").innerHTML =
+                response.data.setting.value;
+            }
+          })
           .catch(e => console.log(e));
         break;
       case FBASE:
