@@ -169,29 +169,39 @@ export default {
   },
   mounted:function(){
     const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
+      deploymentTarget,
+      LOCALHOST,
+      FBASE
+    } = globalVariables;
     switch (deploymentTarget) {
-          case LOCALHOST:
+      case LOCALHOST:
 
-            loadImage("/v1/settings/logo?name=squareLogo").then(image => {
-              if (document.getElementById("squareLogo")) {
-                document.getElementById("squareLogo").setAttribute("src", image);
-              }
-            });
-            loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
-              if (document.getElementById("horizontalLogo")) {
-                document.getElementById("horizontalLogo").setAttribute("src", image);
-              }
-            });
+      loadImage("/v1/settings/logo?name=squareLogo").then(image => {
+        // console.log('image is ' + image);
+        if (document.getElementById("squareLogo") && !atob(image.substring(13)).includes('error')) {
+          document.getElementById("squareLogo").setAttribute("src", image);
+        }
+      });
+      loadImage("/v1/settings/logo?name=horizontalLogo").then(image => {
+        if (document.getElementById("horizontalLogo") && !atob(image.substring(13)).includes('error')) {
+          document.getElementById("horizontalLogo").setAttribute("src", image);
+        }
+      });
 
-            /* load the tagline */
-            axios.get('/v1/settings/byName/tagline').then(response =>document.getElementById("tagline").innerHTML = response.data.setting.value).catch(e => console.log(e));
-            break;
-          case FBASE:
-            break;
+      /* load the tagline */
+      axios.get('/v1/settings/byName/tagline')
+      .then(
+        function(response) {
+          if(response.data.setting){
+            document.getElementById("tagline").innerHTML = response.data.setting.value;
+          }
+        })
+      .catch(
+        e => console.log(e)
+        );
+      break;
+      case FBASE:
+      break;
     }
 
   },

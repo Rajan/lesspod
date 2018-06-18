@@ -131,16 +131,18 @@ export default {
 	      	axios.get('/v1/posts/' + postId, {})
 	      	.then(function(response) {
 	      		console.log(response.data.post);
-	      		let post = response.data.post;
-	      		vm.id = post.id;
-	      		vm.title = post.title;
-	      		vm.editor = post.content;
-	      		vm.author = post.author;
-	      		vm.createdDate = post.createdAt;
-	      		vm.tagsArray = post.tags.toString().split(",");
-	      		vm.postURL = window.location.origin + '/post/' + post.id.toString();
-	      		console.log(vm.postURL);
-	      		document.title = post.title.toString() + ' by ' + post.author.toString();
+	      		if(response.data.post){
+		      		let post = response.data.post;
+		      		vm.id = post.id;
+		      		vm.title = post.title;
+		      		vm.editor = post.content;
+		      		vm.author = post.author;
+		      		vm.createdDate = post.createdAt;
+		      		vm.tagsArray = post.tags.toString().split(",");
+		      		vm.postURL = window.location.origin + '/post/' + post.id.toString();
+		      		console.log(vm.postURL);
+		      		document.title = post.title.toString() + ' by ' + post.author.toString();
+	      		}
 	      	})
 	      	.catch(function(error) {
 	      		console.log(error);
