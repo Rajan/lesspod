@@ -1,5 +1,6 @@
 <template>
 <section class="section">
+  <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
   <div class="container">
     <!-- <div class="columns is-centered is-multiline">
 				<div class="column is-two-thirds">
@@ -132,6 +133,12 @@ import {
   globalVariables
 } from './../main';
 
+
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.min.css';
+
 export default {
   // props: ["posts"],
   data() {
@@ -139,7 +146,8 @@ export default {
       query: '',
       fullName: '',
       posts: [],
-      menus: []
+      menus: [],
+      isLoading: false
     };
   },
   created: function() {
@@ -158,12 +166,16 @@ export default {
     }
   },
   methods: {
+    whenCancelled() {
+      console.log("User cancelled the loader.");
+    },
     newPost: function() {
       console.log('new post');
     },
     fetchData: function() {
       // console.log('fetching data...');
       var vm = this;
+      vm.isLoading = true;
       axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
       let user = vm.$cookie.getJSON('user');
@@ -176,9 +188,6 @@ export default {
         FBASE
       } = globalVariables;
       console.log('deployment target is ' + deploymentTarget);
-
-
-      var vm = this;
 
       switch (deploymentTarget) {
         case LOCALHOST:
@@ -213,7 +222,7 @@ export default {
 
           axios.get('/v1/posts', {})
             .then(function(response) {
-
+              vm.isLoading = false;
               // console.log(response);
 
               let posts1 = response.data.posts;
@@ -271,6 +280,7 @@ export default {
           db.collection("posts").where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
+              vm.isLoading = false;
               let posts1 = [];
               querySnapshot.forEach(function(doc) {
                 posts1.push(doc.data())
