@@ -41,7 +41,7 @@ module.exports = {
       .pause(10000)
       .assert.urlContains('/home')
       .getCookies(function (result) {
-        this.assert.equal(result.value.length, 3) // user and token
+        this.assert.equal(result.value.length, 2) // user and token
         const actualKeys = result.value.map(k => k.name)
         const expectedKeys = ['user', 'token']
         expect(actualKeys).to.include.members(expectedKeys)
@@ -65,7 +65,7 @@ module.exports = {
       .pause(10000)
       .assert.urlContains('/home')
       .getCookies(function (result) {
-        this.assert.equal(result.value.length, 3) // user and token
+        this.assert.equal(result.value.length, 2) // user and token
         const actualKeys = result.value.map(k => k.name)
         const expectedKeys = ['user', 'token']
         expect(actualKeys).to.include.members(expectedKeys)
