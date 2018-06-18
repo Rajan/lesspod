@@ -86,6 +86,8 @@ module.exports = {
   },
   'Post VIEW': function (browser) {
     browser
+      .refresh()
+      .pause(5000)
       .click('div[class="media"] div[class="content "] a:nth-child(6)')
       .pause(1000)
       .assert.urlContains('/post')
@@ -103,12 +105,12 @@ module.exports = {
       .setValue('div[contenteditable=true]', ' ' + faker.lorem.text())
       .pause(2000)
       .click('a[class="button is-primary"]')
-      .pause(5000)
+      .pause(3000)
   },
   'Post DELETE': function (browser) {
     browser
-      .assert.urlContains('/home')
-      .pause(10000)
+      .click('a[id="typeLogo"]')
+      .pause(5000)
       .click('div[class="media"] div[class="content "] a:nth-child(8)')
       .pause(2000)
   },
@@ -125,6 +127,8 @@ module.exports = {
   },
   'Menu DELETE': function (browser) {
     browser
+      .refresh()
+      .pause(5000)
       .click('button a[class="tag is-danger is-delete"]')
       .pause(10000)
   },
