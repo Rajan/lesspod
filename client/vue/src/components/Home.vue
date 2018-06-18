@@ -150,6 +150,9 @@ export default {
       isLoading: false
     };
   },
+  components: {
+    Loading
+  },
   created: function() {
 
     this.fetchData();
