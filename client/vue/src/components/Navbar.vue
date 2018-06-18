@@ -236,7 +236,7 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
-                  vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
+                  // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
                   // console.log(menus1);
@@ -261,6 +261,30 @@ export default {
               timestampsInSnapshots: true
             };
             db.settings(settings);
+
+            db
+              .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
+              .get()
+              .then(function(querySnapshot) {
+                let menus1 = [];
+                querySnapshot.forEach(function(doc) {
+                  menus1.push(doc.data());
+                });
+                for (var i in menus1) {
+                  console.log(menus1[i].name);
+                }
+                if (menus1.length > 0) {
+                  vm.menus = vm.menus.concat(menus1);
+                  // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
+                  // console.log(menus1);
+                } else {
+                  // console.log(menus1);
+                }
+              })
+              .catch(function(error) {
+                console.log("Error getting menus: ", error);
+              });
+            break;
 
             db
               .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
@@ -390,7 +414,7 @@ export default {
         linkedURL = result[1];
         vm.createMenu(result[0], linkedURL, postId);
       } else {
-        const pageURL = window.location.origin + vm.dashedMenu(metaglinenuName);
+        const pageURL = window.location.origin + vm.dashedMenu(menuName);
 
         // if there's no linkedURL, we should create a corresponding page.
         // After the page is created, we should add postId to this menu.
@@ -499,7 +523,7 @@ export default {
                 // console.log('New Menu Id is inside: ' + response.toString());
                 // document.getElementById('menuId').value = response.data.menu.id.toString();
                 vm.menus.push(response.data.menu);
-                vm.$cookie.set("menu", response.data.menu);
+                // vm.$cookie.set("menu", response.data.menu, 1);
                 // this.$router.go(this.$router.currentRoute);
                 // this.$router.go();
                 vm.$notify("Menu added successfully!", "success");
@@ -532,7 +556,7 @@ export default {
               .set(menuData)
               .then(function(docRef) {
                 vm.menus.push(menuData);
-                vm.$cookie.set("menu", menuData);
+                // vm.$cookie.set("menu", menuData);
                 vm.$notify("Menu added successfully!", "success");
               })
               .catch(function(error) {

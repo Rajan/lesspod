@@ -390,6 +390,7 @@ export default {
               console.log("Menu successfully deleted!");
               // console.log('Deleted... ' + JSON.stringify(response));
               // vm.menus.splice(index, 1); // should never run
+              // vm.$cookie.set("menu", null, 1);
               location.reload();
             })
             .catch(function(error) {
