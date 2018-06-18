@@ -399,7 +399,7 @@ export default {
         linkedURL = result[1];
         vm.createMenu(result[0], linkedURL, postId);
       } else {
-        const pageURL = window.location.origin + vm.dashedMenu(metaglinenuName);
+        const pageURL = window.location.origin + vm.dashedMenu(menuName);
 
         // if there's no linkedURL, we should create a corresponding page.
         // After the page is created, we should add postId to this menu.
