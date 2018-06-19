@@ -1,6 +1,7 @@
 <template lang="html">
-
+  
 	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+    <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
 		<div class="navbar-brand">
 			<a class="navbar-item">
 				<img id="squareLogo" src="../assets/images/icon.png" >
@@ -131,6 +132,11 @@ import { globalVariables } from "./../main";
 import NewMenuModal from "@/components/NewMenuModal";
 import { loadImage } from "../utils";
 
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.min.css';
+
 export default {
   data() {
     return {
@@ -142,7 +148,8 @@ export default {
       ],
       showModal: false,
       newMenuName: "",
-      fullName: "Alex Johnson"
+      fullName: "Alex Johnson",
+      isLoading: false
     };
   },
   computed: {
@@ -159,7 +166,7 @@ export default {
     allMenus: this.menus
   },
   components: {
-    NewMenuModal
+    NewMenuModal, Loading
   },
   beforeMount() {
     axios.defaults.headers.common["Authorization"] = this.$cookie.get("token");
@@ -208,6 +215,7 @@ export default {
     initNavbar: function() {
       // console.log('fetching menus...');
       var vm = this;
+      vm.isLoading = true;
       let user = vm.$cookie.getJSON("user");
       if (user) {
         this.fullName = user.first + " " + user.last;
@@ -228,7 +236,7 @@ export default {
               .get("/v1/menus", {})
               .then(function(response) {
                 // console.log(response);
-
+                vm.isLoading = false;
                 let menus1 = response.data.menus;
 
                 for (var i in menus1) {
@@ -266,6 +274,7 @@ export default {
               .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
               .get()
               .then(function(querySnapshot) {
+                vm.isLoading = false;
                 let menus1 = [];
                 querySnapshot.forEach(function(doc) {
                   menus1.push(doc.data());
@@ -569,7 +578,7 @@ export default {
     },
     visitMenu: function(menu1) {
       var vm = this;
-
+      vm.isLoading = true;
       if (menu1.postId && menu1.postId.length) {
         console.log("postId in visitMenu: " + JSON.stringify(menu1.postId));
         // this.$cookie.set('postId', menu1.postId);
@@ -588,6 +597,7 @@ export default {
                 id: postId.trim()
               })
               .then(function(response) {
+                vm.isLoading = false;
                 console.log(response);
                 var post = response.data.post;
                 post.title = vm.cleanedSubmenu(post.title);
@@ -611,6 +621,7 @@ export default {
               .doc(postId.trim())
               .get()
               .then(function(doc) {
+                vm.isLoading = false;
                 if (doc.exists) {
                   const post = doc.data();
                   post.title = vm.cleanedSubmenu(post.title);
