@@ -118,7 +118,21 @@ export default {
     vm.fullName = vm.user.first + " " + vm.user.last;
     vm.email = vm.user.email;
     vm.profilePic = vm.user.profilePic;
-    this.loadProfilePic();
+    const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables;
+    // update user
+    switch (deploymentTarget) {
+      case LOCALHOST:
+        this.loadProfilePic();
+        break;
+      case FBASE:
+        // firebase code to load profile pic.
+
+    }    
+    
 
   },
   methods: {
@@ -214,8 +228,6 @@ export default {
 
             const moment = require("moment");
             userData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
-
-            
 
             db
               .collection("users")
