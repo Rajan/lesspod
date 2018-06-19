@@ -212,6 +212,9 @@ export default {
     }
   },
   methods: {
+    whenCancelled() {
+          console.log("User cancelled the loader.");
+    },
     initNavbar: function() {
       // console.log('fetching menus...');
       var vm = this;

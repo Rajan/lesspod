@@ -59,7 +59,7 @@
             </div>
             <div class="field is-grouped" style="margin-top: 1.5rem;">
               <div class="control">
-                <button class="button is-info" @click.stop="saveProfile.bind(this)">Save Profile</button>
+                <button class="button is-info" @click.stop="saveProfile">Save Profile</button>
               </div>
               <div class="control">
                 <a class="button is-text" style="text-decoration: none;" href="home">Cancel</a>
@@ -135,6 +135,7 @@ export default {
 
     saveProfile: function() {
       const vm = this;
+      console.log('saving profile...');
       const firstName = vm.fullName
         .split(" ")
         .slice(0, -1)
