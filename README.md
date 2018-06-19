@@ -7,7 +7,7 @@ Serverless CMS (Website + Blog Engine) (In Active Development)
 
 There are 16 million websites being added to the Internet every month. Most websites require servers to host and most of the servers are underutilized. There are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. 
 
-Lesspod's mission is to transition the Internet from server architecture to serverless architecture ASAP. To that end, we're building it as an open source project that anyone can utilize.
+Lesspod's mission is to transition the Internet from server architecture to serverless architecture as soon as possible. To that end, we're building it as an open source project that anyone can utilize.
 
 Our goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
 
@@ -96,19 +96,19 @@ Note: React client is at a very early stage in the development.
 - [x] Adding New Pages + Menus
 - [x] Landing Page Design
 - [x] Deployment to Firebase (WIP)
-- [ ] Unit Tests
+- [x] Unit Tests for local SQLite API
 - [x] Logged In Page Design (Dashboard basic)
 - [x] Blog Post Index Design
 - [x] Blog Post View Design
-- [ ] Blog settings i.e. changing logo, tagline etc. (WIP)
+- [x] Blog settings i.e. changing logo, tagline etc. (WIP)
 - [x] Profile Page
 - [x] Editor Selection and Integration (using Quill editor)
 - [x] Comments Integration (Disqus, Facebook and ?)
-- [ ] Code coverage and e2e testing module
+- [x] e2e testing using npm run e2e inside /client/vue dir
 
 
 ### Midterm Feature Goals
-
+- [ ] Code coverage testing
 - [ ] Page views tracking and reporting
 - [ ] React client for Lesspod (Sai is on it)
 - [ ] Theming System Design/Dev
