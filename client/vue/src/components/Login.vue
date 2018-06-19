@@ -161,6 +161,7 @@ export default {
           .auth()
           .signInWithEmailAndPassword(email.value, password.value)
           .then(function(user) {
+                console.log('user in login.vue: ' + JSON.stringify(user));
                 // query for "users" collection based on email because fbase's user object won't have profile data
                 const settings = {
                   timestampsInSnapshots: true

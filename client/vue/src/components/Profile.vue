@@ -136,6 +136,7 @@ export default {
     saveProfile: function() {
       const vm = this;
       console.log('saving profile...');
+
       const firstName = vm.fullName
         .split(" ")
         .slice(0, -1)
@@ -165,7 +166,7 @@ export default {
             axios
               .put("/v1/users", userData)
               .then(function(response) {
-                console.log("saving user response: " + response);
+                // console.log("saving user response: " + response);
 
                 vm.user.first = firstName;
                 vm.user.last = lastName;
@@ -181,16 +182,28 @@ export default {
             break;
           case FBASE:
             // change password in firebase only if
+            const user = firebase.auth().currentUser;
             if (vm.password.length > 5) {
-              const user = firebase.auth().currentUser;
+              
               user
                 .updatePassword(vm.password)
                 .then(function() {
-                  console.log("password changed in firebase");
+                  // console.log("password changed in firebase");
                 })
                 .catch(function(error) {
-                  console.log("error in changing password: ", error);
+                  // console.log("error in changing password: ", error);
                 });
+            }
+            // console.log('vm.email=' + vm.email + ' vm.user.email=' + vm.user.email);
+            if(vm.email.toString() != vm.user.email.toString()){
+              // console.log('updating email...');
+              user.updateEmail(vm.email).then(function() {
+                // console.log('email updated');
+                // Update successful.
+              }).catch(function(error) {
+                // An error happened.
+                // console.log('email update failed.');
+              });
             }
 
             let db = firebase.firestore();
@@ -201,6 +214,8 @@ export default {
 
             const moment = require("moment");
             userData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
+
+            
 
             db
               .collection("users")
