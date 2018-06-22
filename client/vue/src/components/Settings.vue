@@ -16,7 +16,7 @@
                 <div class="file has-name is-boxed">
                   <label class="file-label">
                       <input class="file-input" type="button" name="resume"
-                             @click.stop="updateProfilePic('squareLogo')">
+                             @click.stop="updateLogoPic('squareLogo')">
                       <span class="file-cta">
 												<span class="file-icon">
 													<i class="fas fa-upload"></i>
@@ -39,7 +39,7 @@
                 <div class="file has-name is-boxed">
                   <label class="file-label">
                       <input class="file-input" type="button" name="resume"
-                             @click.stop="updateProfilePic('horizontalLogo')">
+                             @click.stop="updateLogoPic('horizontalLogo')">
                       <span class="file-cta">
 												<span class="file-icon">
 													<i class="fas fa-upload"></i>
@@ -221,8 +221,25 @@ export default {
 
   },
   methods: {
-    updateProfilePic: function(logoType) {
-      this.$root.$upload.select(logoType);
+    updateLogoPic: function(logoType) {
+
+      // updating of square of horizontal logo
+      const {
+        deploymentTarget,
+        LOCALHOST,
+        FBASE
+      } = globalVariables;
+      switch (deploymentTarget) {
+        case LOCALHOST:
+              this.$root.$upload.select(logoType);
+              break;
+
+        case FBASE:
+              // Firebase code to upload pic.
+              
+              break;
+      }      
+      
     },
     saveSettings: function() {
       const vm = this;

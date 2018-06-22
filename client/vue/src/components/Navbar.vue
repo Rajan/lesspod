@@ -208,6 +208,7 @@ export default {
           .catch(e => console.log(e));
         break;
       case FBASE:
+        // Firebase code to retrieve logo pics.
         break;
     }
   },
