@@ -27,48 +27,48 @@ import 'quill/dist/quill.snow.css';
 import VueDisqus from 'vue-disqus';
 import VueCookie from 'vue-js-cookie';
 
+// Import the format
+import { Video } from './assets/quill/quill-video-resize.js'
+
 // var VueCookie = require('vue-cookie');
 
 window.Quill = Quill;
-
-// Import the format
-import { Video } from './assets/quill/quill-video-resize.js'
-require("./assets/quill/quill-video-resize.css");
+require('./assets/quill/quill-video-resize.css')
 
 
 // register with Quill
-Quill.register({ 'formats/video': Video });
+Quill.register({ 'formats/video': Video })
 
-const ImageResize = require('quill-image-resize-module');
+const ImageResize = require('quill-image-resize-module')
 
-Quill.register('modules/imageResize', ImageResize);
-Quill.register('modules/imageDrop', ImageDrop);
+Quill.register('modules/imageResize', ImageResize)
+Quill.register('modules/imageDrop', ImageDrop)
 
 /// ///////////////////////////
-const toolbar = [ [ 'image' ] ];
+const toolbar = [ [ 'image' ] ]
 const modules = {
   toolbar,
   imageResize: true
-};
+}
 
-VueCookie.install(Vue);
-Vue.use(VueQuill1, { modules });
+VueCookie.install(Vue)
+Vue.use(VueQuill1, { modules })
 /// /////////////////////////////////
 
 Vue.use(VueQuillEditor /* { default global options } */)
 
-Vue.use(VueQuill);
+Vue.use(VueQuill)
 
-Vue.use(VModal);
+Vue.use(VModal)
 
-Vue.use(VueDisqus);
+Vue.use(VueDisqus)
 
-Vue.use( vueUpload );
+Vue.use(vueUpload)
 
-Vue.use( Notify, {
+Vue.use(Notify, {
   itemClass: 'notification',
   position: 'bottom-left'
-} );
+})
 
 
 const types = {
@@ -85,7 +85,7 @@ const types = {
     itemClass: 'is-success',
     iconClass: 'fa fa-lg fa-check-circle'
   }
-};
+}
 
 // Initialize Firebase
 
@@ -99,40 +99,40 @@ const types = {
 // };
 
 const config = {
-  apiKey: "AIzaSyB75SfBhAm6Kiy2EcHFZ0_PE7bGrRnw3D4",
-  authDomain: "lesspodorg.firebaseapp.com",
-  databaseURL: "https://lesspodorg.firebaseio.com",
-  projectId: "lesspodorg",
-  storageBucket: "",
-  messagingSenderId: "735546418007"
-};
-firebase.initializeApp( config );
+  apiKey: 'AIzaSyB75SfBhAm6Kiy2EcHFZ0_PE7bGrRnw3D4',
+  authDomain: 'lesspodorg.firebaseapp.com',
+  databaseURL: 'https://lesspodorg.firebaseio.com',
+  projectId: 'lesspodorg',
+  storageBucket: '',
+  messagingSenderId: '735546418007'
+}
+firebase.initializeApp(config)
 
 // db calls are made based on this deploymentTarget's value fbase deploy script
 // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'firebase',
+    deploymentTarget: 'localhost',
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }
 
-});
+})
 
 
 Vue.$notify.setTypes(types)
 
-Vue.component( 'input-tag', InputTag );
-Vue.http = axios;
-Vue.config.productionTip = false;
-axios.defaults.baseURL = 'http://localhost:1234/';
+Vue.component('input-tag', InputTag)
+Vue.http = axios
+Vue.config.productionTip = false
+axios.defaults.baseURL = 'http://localhost:1234/'
 
 /* eslint-disable no-new */
-new Vue({ 
+new Vue({
   el: '#app',
   store,
   router,
   components: {
     App
   },
-  template: '<App/>' });
+  template: '<App/>' })

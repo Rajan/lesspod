@@ -1,31 +1,31 @@
 // initial state
 
 const state = {
-	latestPosts: []
+  latestPosts: []
 }
 
 // getters
 const getters = {
-	getLatestPosts: (state, getters, rootState) => {
-		return state.latestPosts;
-	}
+  getLatestPosts: (state, getters, rootState) => {
+    return state.latestPosts
+  }
 }
 
 // mutations
 const mutations = {
 
-	setLatestPosts(state, {posts}){
-		state.latestPosts = posts;
-	}
+  setLatestPosts (state, {posts}) {
+    state.latestPosts = posts
+  }
 
 }
 
 // actions
 const actions = {
 
-	latestPostsFetched({state, commit}, posts){
-		commit('setLatestPosts', posts);
-	}
+  latestPostsFetched ({state, commit}, posts) {
+    commit('setLatestPosts', posts)
+  }
 
 }
 

@@ -133,11 +133,11 @@ import NewMenuModal from "@/components/NewMenuModal";
 import { loadImage } from "../utils";
 
 // Import component
-import Loading from 'vue-loading-overlay';
+import Loading from "vue-loading-overlay";
 // Import stylesheet
-import 'vue-loading-overlay/dist/vue-loading.min.css';
+import "vue-loading-overlay/dist/vue-loading.min.css";
 
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -171,13 +171,16 @@ export default {
     allMenus: this.menus
   },
   components: {
-    NewMenuModal, Loading
+    NewMenuModal,
+    Loading
   },
   beforeMount() {
     axios.defaults.headers.common["Authorization"] = this.$cookie.get("token");
   },
   mounted: function() {
     const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+    // this.$store.dispatch("FETCH_MENUS");
+    // this.$store.dispatch("FETCH_POSTS");
     switch (deploymentTarget) {
       case LOCALHOST:
         loadImage("/v1/settings/logo?name=squareLogo").then(image => {
@@ -218,7 +221,7 @@ export default {
   },
   methods: {
     whenCancelled() {
-          console.log("User cancelled the loader.");
+      console.log("User cancelled the loader.");
     },
     initNavbar: function() {
       // console.log('fetching menus...');
@@ -234,8 +237,7 @@ export default {
       console.log("deployment target is " + deploymentTarget);
 
       // let menus1 = vm.$cookie.getJSON("menus");
-      let menus1 = vm.$store.state.menus; // vm.storedMenus;
-      setTimeout(()=> console.log('storedMenus: ' + JSON.stringify(menus1)), 5000)
+      let menus1 = vm.$store.state; // vm.storedMenus;
       // console.log('storedMenus: ' + JSON.stringify(menus1));
       if (menus1 && menus1.length) {
         vm.menus = menus1;
@@ -255,7 +257,7 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
-                  this.$store.dispatch('menus/latestMenusFetched', vm.menus);
+                  this.$store.dispatch("menus/latestMenusFetched", vm.menus);
                   // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
@@ -296,7 +298,7 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
-                  vm.$store.dispatch('menus/latestMenusFetched', vm.menus);
+                  vm.$store.dispatch("menus/latestMenusFetched", vm.menus);
                   // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
@@ -547,7 +549,7 @@ export default {
                 // document.getElementById('menuId').value = response.data.menu.id.toString();
                 vm.menus.push(response.data.menu);
                 // vm.$cookie.set("menu", response.data.menu, 1);
-                vm.$store.dispatch('menus/setMenus', vm.menus);
+                vm.$store.dispatch("menus/setMenus", vm.menus);
                 // this.$router.go(this.$router.currentRoute);
                 // this.$router.go();
                 vm.$notify("Menu added successfully!", "success");
@@ -660,11 +662,9 @@ export default {
       this.$cookie.set("user", "");
       window.location.href = "../";
     },
-    ...mapActions('latestMenusFetched', [
-      'latestMenusFetched'
-     ])
+    ...mapActions("latestMenusFetched", ["latestMenusFetched"])
   },
-  created(){
+  created() {
     this.initNavbar();
   }
 };
