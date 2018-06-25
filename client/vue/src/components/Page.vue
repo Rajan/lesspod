@@ -47,16 +47,8 @@ import {
   globalVariables
 } from './../main';
 
-// window.onload = function() {
+import firebase from 'firebase';
 
-// }
-
-
-// var editor = new Quill('#editor', {
-//     // modules: { toolbar: '#toolbar' },
-//     theme: 'snow',
-//     toolbar: false
-// });
 export default {
   data() {
     return {
@@ -121,6 +113,12 @@ export default {
       if (this.$cookie.get('token') && this.$cookie.get('token').length) {
         this.saveTags();
       }
+    },
+    '$route': {
+        deep: true,
+        handler: function (refreshPage) {
+            this.initPage();
+        }
     }
   },
   beforeMount: function() {

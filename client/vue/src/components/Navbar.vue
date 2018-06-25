@@ -131,7 +131,7 @@
 import { globalVariables } from "./../main";
 import NewMenuModal from "@/components/NewMenuModal";
 import { loadImage } from "../utils";
-
+import firebase from 'firebase';
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
@@ -179,7 +179,7 @@ export default {
   },
   mounted: function() {
     const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
-    // this.$store.dispatch("FETCH_MENUS");
+    this.$store.dispatch("FETCH_MENUS");
     // this.$store.dispatch("FETCH_POSTS");
     switch (deploymentTarget) {
       case LOCALHOST:
@@ -237,10 +237,10 @@ export default {
       console.log("deployment target is " + deploymentTarget);
 
       // let menus1 = vm.$cookie.getJSON("menus");
-      let menus1 = vm.$store.state; // vm.storedMenus;
-      // console.log('storedMenus: ' + JSON.stringify(menus1));
+      let menus1 = this.$store.state.storedMenus;
+      console.log('storedMenus: ' + JSON.stringify(menus1));
       if (menus1 && menus1.length) {
-        vm.menus = menus1;
+        vm.menus = vm.menus.concat(menus1);
         console.log("menus already present: " + menus1.toString);
       } else {
         switch (deploymentTarget) {
@@ -257,7 +257,6 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
-                  this.$store.dispatch("menus/latestMenusFetched", vm.menus);
                   // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
@@ -298,7 +297,6 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
-                  vm.$store.dispatch("menus/latestMenusFetched", vm.menus);
                   // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
@@ -348,9 +346,11 @@ export default {
       var vm = this;
       console.log("token is " + vm.$cookie.get("token"));
       if (vm.$cookie.get("token") && vm.$cookie.get("token").length) {
-        window.location.href = "/home";
+        vm.$router.push('/home');
+        // window.location.href = "/home";
       } else {
-        window.location.href = "/";
+        // window.location.href = "/";
+        vm.$router.push('/');
       }
     },
     newMenu: function() {
@@ -597,12 +597,12 @@ export default {
       var vm = this;
       vm.isLoading = true;
       if (menu1.postId && menu1.postId.length) {
-        console.log("postId in visitMenu: " + JSON.stringify(menu1.postId));
+        // console.log("postId in visitMenu: " + JSON.stringify(menu1.postId));
         // this.$cookie.set('postId', menu1.postId);
 
         var postId = menu1.postId;
 
-        console.log("postId in Navbar: " + postId);
+        // console.log("postId in Navbar: " + postId);
 
         const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
         console.log("deployment target is " + deploymentTarget);
@@ -620,7 +620,8 @@ export default {
                 post.title = vm.cleanedSubmenu(post.title);
                 // console.log('post in Navbar: ' + post);
                 vm.$cookie.set("editpost", JSON.stringify(post));
-                location.href = menu1.linkedURL;
+                // location.href = menu1.linkedURL;
+                vm.$router.push({name: 'Page', params: { path: menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1) }});
               })
               .catch(function(error) {
                 console.log(error);
@@ -643,7 +644,10 @@ export default {
                   const post = doc.data();
                   post.title = vm.cleanedSubmenu(post.title);
                   vm.$cookie.set("editpost", JSON.stringify(post));
-                  location.href = menu1.linkedURL;
+                  // location.href = menu1.linkedURL;
+                  // console.log('MENU: ', menu1);
+                  let menuURL = menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1);
+                  vm.$router.push({name: 'Page', params: { page: menuURL }});
                 } else {
                   console.log("No such post!");
                 }

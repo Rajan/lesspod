@@ -72,7 +72,12 @@
 			<div class="container">
 				<div class="is-centered">
 					<div class="column has-text-centered" style="font-size:1.5rem;">
-						<a href="/login">Login</a> Or <a href="/register">Create Account</a>
+						<router-link to="/login">
+							<a href="/login">Login</a>
+						</router-link> Or 
+						<router-link to="/register">
+							<a href="/register">Create Account</a>
+						</router-link>
 					</div>
 				</div>
 			</div>
@@ -85,6 +90,7 @@ import {
 } from './../main';
 // Import component
 import Loading from 'vue-loading-overlay';
+import firebase from 'firebase';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 

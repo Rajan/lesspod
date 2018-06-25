@@ -132,7 +132,7 @@
 import {
   globalVariables
 } from './../main';
-
+import firebase from 'firebase';
 
 // Import component
 import Loading from 'vue-loading-overlay';

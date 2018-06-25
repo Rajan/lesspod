@@ -2,6 +2,12 @@
 // standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from 'vue';
+import firebase from 'firebase';
+import {FBASE_CONFIG, DEP_TARGET} from './config';
+// Initialize Firebase
+
+firebase.initializeApp(FBASE_CONFIG);
+
 import App from './App';
 import router from './router';
 import store from './store'
@@ -31,6 +37,7 @@ import VueCookie from 'vue-js-cookie';
 import { Video } from './assets/quill/quill-video-resize.js'
 
 // var VueCookie = require('vue-cookie');
+
 
 window.Quill = Quill;
 require('./assets/quill/quill-video-resize.css')
@@ -87,37 +94,17 @@ const types = {
   }
 }
 
-// Initialize Firebase
 
-// var config = {
-//   apiKey: "AIzaSyD_9U3AZqZ-cz1jr2ZK3TW4DCyyshoiXF4",
-//   authDomain: "lesspod-dev.firebaseapp.com",
-//   databaseURL: "https://lesspod-dev.firebaseio.com",
-//   projectId: "lesspod-dev",
-//   storageBucket: "lesspod-dev.appspot.com",
-//   messagingSenderId: "406114890288"
-// };
-
-const config = {
-  apiKey: 'AIzaSyB75SfBhAm6Kiy2EcHFZ0_PE7bGrRnw3D4',
-  authDomain: 'lesspodorg.firebaseapp.com',
-  databaseURL: 'https://lesspodorg.firebaseio.com',
-  projectId: 'lesspodorg',
-  storageBucket: '',
-  messagingSenderId: '735546418007'
-}
-firebase.initializeApp(config)
-
-// db calls are made based on this deploymentTarget's value fbase deploy script
-// will change it's value
+// // db calls are made based on this deploymentTarget's value fbase deploy script
+// // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'localhost',
+    deploymentTarget: DEP_TARGET,
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }
 
-})
+});
 
 
 Vue.$notify.setTypes(types)

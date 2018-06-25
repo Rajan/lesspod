@@ -44,10 +44,14 @@
               </div>
               <div class="field is-grouped" style="margin-top: 2rem;">
                 <div class="control">
-                  <a href="#" @click="login" class="button is-info">Login</a>
+                  <router-link to="/login">
+                    <a href="#" @click="login" class="button is-info">Login</a>
+                  </router-link>
                 </div>
                 <div class="control">
-                  <a class="button is-text" href="register" style="text-decoration: none;color:#0271D3;">Create Account</a>
+                  <router-link to="/register">
+                    <a class="button is-text" href="register" style="text-decoration: none;color:#0271D3;">Create Account</a>
+                  </router-link>
                 </div>
               </div>
             <!-- <div class="field">
@@ -62,35 +66,8 @@
       </div>
     </section>
   </template>
-  <script type="text/javascript">
-// function login(e) {
-// 	e.preventDefault();
-// 	let email = document.getElementById('email').value;
-// 	let password = document.getElementById('password').value;
-// 	if(email.length && password.length) {
-// 		axios.post('/v1/users/login', {
-// 			"email" : email,
-// 			"password" : password
-// 		}, {
-// 			headers: {
-// 				'Content-Type': 'application/json; charset=UTF-8',
-// 			}})
-// 		.then(function (response) {
-// 			console.log(response);
-// 			this.$cookie.set("token", response.data.token);
-// 			this.$cookie.set("user", JSON.stringify(response.data.user));
-//             // setting up Authorization Header that will be used for subsequent requests.
-//             axios.defaults.headers.common['Authorization'] = response.data.token;
-//             axios.defaults.headers.post['Content-Type'] = 'application/json';
-//         })
-// 		.then(function (response) {
-// 			window.location.href = '../home';
-// 		})
-// 		.catch(function (error) {
-// 			console.log(error);
-// 		});
-// 	}
-// }
+<script type="text/javascript">
+
 import {
   globalVariables
 } from './../main';
@@ -101,6 +78,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 
 import { mapState, mapActions } from 'vuex';
+
+import firebase from 'firebase';
 
 export default {
   data() {
@@ -152,6 +131,7 @@ export default {
               })
           .then(function(response) {
             window.location.href = '../home';
+            // vm.$router.push('/home');
           })
           .catch(function(error) {
             console.log(error);
@@ -163,7 +143,7 @@ export default {
           .auth()
           .signInWithEmailAndPassword(email.value, password.value)
           .then(function(user) {
-                console.log('user in login.vue: ' + JSON.stringify(user));
+            console.log('user in login.vue: ' + JSON.stringify(user));
                 // query for "users" collection based on email because fbase's user object won't have profile data
                 const settings = {
                   timestampsInSnapshots: true
@@ -181,18 +161,18 @@ export default {
                       'user',
                       JSON.stringify(querySnapshot.docs[0].data())
                       );
-                      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
                           // Send token to your backend via HTTPS
                           vm.$cookie.set(
                             'token',
                             idToken
                             );
-                            window.location.href = '../home';
+                          window.location.href = '../home';
                         }).catch(function(error) {
                           // Handle error
                         });
-                  }
-                })
+                      }
+                    })
                 .catch(function(error) {
                   console.log('Error getting documents: ', error);
                 })
@@ -200,11 +180,11 @@ export default {
           .catch(function(error) {
             console.error(error.message);
           });
-            break;
+          break;
 
-          }
         }
       }
     }
-  };
-  </script>
+  }
+};
+</script>

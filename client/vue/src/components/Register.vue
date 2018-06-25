@@ -49,12 +49,14 @@
             </div>
             <div class="field is-grouped" style="margin-top: 1.5rem;">
               <div class="control">
-
+                <router-link to="/register">
                 <a class="button is-info" @click="register">Create Account</a>
-
+                </router-link>
               </div>
               <div class="control">
-                <a class="button is-text" style="text-decoration: none;" href="login">Login</a>
+                <router-link to="/login">
+                  <a class="button is-text" style="text-decoration: none;" href="login">Login</a>
+                </router-link>  
               </div>
             </div>
             <!-- <div class="field">
@@ -72,7 +74,9 @@
 <script type="text/javascript">
 import {
   globalVariables
-} from './../main'
+} from './../main';
+
+import firebase from 'firebase';
 
 export default {
   data() {

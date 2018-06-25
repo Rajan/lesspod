@@ -1,11 +1,14 @@
-import ActionTypes from '../actionTypes'
-import MutationTypes from '../mutationTypes'
-import adaptor from './adaptor'
-const actions = adaptor('localhost')
-
+import ActionTypes from '../actionTypes';
+import MutationTypes from '../mutationTypes';
+// import config from '../'
+import {DEP_TARGET} from '../../config'
+import adapter from './adapter';
+console.log('DEP_TARGET: ' + DEP_TARGET);
+const actions = adapter(DEP_TARGET);
+// const actions = adapter('firebase');
 export default {
   [ActionTypes.FETCH_MENUS]: ({ commit }) => {
-    // adaptor.
+    // adapter.
     actions.fetchMenus()
       .then(menus => {
         commit(MutationTypes.SET_MENUS, { menus })

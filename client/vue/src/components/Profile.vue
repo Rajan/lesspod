@@ -85,6 +85,8 @@ import {
   loadImage
 } from "../utils";
 
+import firebase from 'firebase';
+
 export default {
   data() {
     return {
