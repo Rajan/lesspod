@@ -39,7 +39,9 @@
             </div>
 
             <p class="level-item">
-              <a class="button is-success" href="../newpost" @click="newPost">New Post</a>
+              <router-link to="/newpost">
+                <a class="button is-success" href="../newpost" @click="newPost">New Post</a>
+              </router-link>
             </p>
 
             <div class="level-item is-hidden-tablet-only">
@@ -310,8 +312,8 @@ export default {
 
       vm.$cookie.set("editpost", postString);
       console.log('Editing... ' + JSON.stringify(post));
-
-      window.location.href = '../editpost/' + post.id.toString();
+      vm.$router.push({name: 'Editpost', params: { post_id: post.id.toString() }});
+      // window.location.href = '../editpost/' + post.id.toString();
     },
     viewPost: function(index) {
       var vm = this;
@@ -319,8 +321,8 @@ export default {
       let postString = JSON.stringify(vm.filteredPosts[index]);
 
       console.log('viewing... ' + JSON.stringify(post));
-
-      window.location.href = '../post/' + post.id.toString();
+      vm.$router.push({name: 'Viewpost', params: { post_id: post.id.toString() }});
+      // window.location.href = '../post/' + post.id.toString();
     },
     deletePost: function(index) {
       var vm = this;

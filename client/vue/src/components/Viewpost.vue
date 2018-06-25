@@ -127,7 +127,7 @@ export default {
         axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
       }
       // fetch the post from server
-      let href = location.href;
+      let href = location.href.replace(/\#$/, '');
 
       let postId = href.substr(href.lastIndexOf('/') + 1);
 

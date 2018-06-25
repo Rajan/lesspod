@@ -32,22 +32,24 @@
    <div class="navbar-link">
     New
     <div class="navbar-dropdown is-right">
-     <a id="new-post" class="navbar-item" onclick="window.location.href = '../newpost';">
-      <div>
-       <span class="icon is-small">
-        <i class="fa fa-clipboard"></i>
-      </span>&nbsp;
-      Post
-    </div>
-  </a>
-  <a id="new-menu" class="navbar-item" @click="newMenu();">
-    <div>
-     <span class="icon is-small">
-      <i class="fa fa-bars"></i>
-    </span>&nbsp;
-    Menu
-  </div>
-</a>
+      <router-link to="/newpost">
+         <a id="new-post" class="navbar-item">
+            <div>
+             <span class="icon is-small">
+              <i class="fa fa-clipboard"></i>
+            </span>&nbsp;
+            Post
+          </div>
+        </a>
+      </router-link>
+      <a id="new-menu" class="navbar-item" @click="newMenu();">
+        <div>
+         <span class="icon is-small">
+          <i class="fa fa-bars"></i>
+         </span>&nbsp;
+         Menu
+        </div>
+      </a>
 
 							<!-- <a class="navbar-item">
 								<div>
@@ -87,22 +89,26 @@
 						{{ fullName }}
 					</div>
 					<div class="navbar-dropdown is-right">
-						<a href="/profile" class="navbar-item">
-							<div>
-								<span class="icon is-small">
-									<i class="fa fa-user-circle"></i>
-								</span>&nbsp;
-								Profile
-							</div>
-						</a>
-						<a href="/settings" class="navbar-item">
-							<div>
-								<span class="icon is-small">
-									<i class="fa fa-cog"></i>
-								</span>&nbsp;
-								Settings
-							</div>
-						</a>
+            <router-link to="/profile">
+  						<a href="/profile" class="navbar-item">
+  							<div>
+  								<span class="icon is-small">
+  									<i class="fa fa-user-circle"></i>
+  								</span>&nbsp;
+  								Profile
+  							</div>
+  						</a>
+            </router-link>
+            <router-link to="/settings">
+  						<a href="/settings" class="navbar-item">
+  							<div>
+  								<span class="icon is-small">
+  									<i class="fa fa-cog"></i>
+  								</span>&nbsp;
+  								Settings
+  							</div>
+  						</a>
+            </router-link>
 						<a class="navbar-item" href="https://github.com/Rajan/lesspod/issues" target="_blank">
 							<div>
 								<span class="icon is-small">
