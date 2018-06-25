@@ -4,6 +4,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import store from './store'
 import VueQuill from "vue-quill";
 import VModal from 'vue-js-modal';
 import InputTag from 'vue-input-tag';
@@ -127,7 +128,9 @@ Vue.config.productionTip = false;
 axios.defaults.baseURL = 'http://localhost:1234/';
 
 /* eslint-disable no-new */
-new Vue({ el: '#app',
+new Vue({ 
+  el: '#app',
+  store,
   router,
   components: {
     App

@@ -22,7 +22,7 @@
          <!-- <span style='font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;height: 5rem;font-size:1.8rem;font-weight: bold;padding-bottom:3rem;'>Rajan Chandi</span> -->
        </a>
        <br>
-       <small id="tagline">Serverless Blogging Engine</small>
+       <small id="tagline">Serverless CMS (Web + Blog Engine)</small>
      </div>
    </div>
  </div>
