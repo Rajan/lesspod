@@ -74,6 +74,7 @@
 </section>
 </template>
 <script type="text/javascript">
+import firebase from 'firebase';
 import {
   globalVariables
 } from './../main';
