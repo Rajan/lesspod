@@ -88,6 +88,8 @@ import Loading from 'vue-loading-overlay';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 
+import { mapState, mapActions } from 'vuex';
+
 export default {
 	data(){
 		return {

@@ -7,15 +7,17 @@ const state = {
 // getters
 const getters = {
 	getMenus: (state, getters, rootState) => {
-		return state.latestPosts;
+		// console.log('getting stored menus: ' + JSON.stringify(state.menus));
+		return state;
 	}
 }
 
 // mutations
 const mutations = {
 
-	setMenus(state, {menus}){
-		state.menus = menus;
+	setMenus(state, menus){
+		// console.log('setting menus ...' + JSON.stringify(menus));
+		state = menus;
 	}
 
 }
@@ -23,7 +25,8 @@ const mutations = {
 // actions
 const actions = {
 
-	latestPostsFetched({state, commit}, menus){
+	latestMenusFetched({state, commit}, menus){
+		// console.log('latestMenusFetched ...' + JSON.stringify(menus));
 		commit('setMenus', menus);
 	}
 

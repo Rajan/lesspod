@@ -137,6 +137,8 @@ import Loading from 'vue-loading-overlay';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 
+import { mapState, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -160,7 +162,10 @@ export default {
         }
         // return true;
       });
-    }
+    },
+    ...mapState({
+      storedMenus: state => state.menus
+    })
   },
   props: {
     allMenus: this.menus
@@ -170,7 +175,6 @@ export default {
   },
   beforeMount() {
     axios.defaults.headers.common["Authorization"] = this.$cookie.get("token");
-    this.initNavbar();
   },
   mounted: function() {
     const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
@@ -229,7 +233,10 @@ export default {
       const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
       console.log("deployment target is " + deploymentTarget);
 
-      let menus1 = vm.$cookie.getJSON("menus");
+      // let menus1 = vm.$cookie.getJSON("menus");
+      let menus1 = vm.$store.state.menus; // vm.storedMenus;
+      setTimeout(()=> console.log('storedMenus: ' + JSON.stringify(menus1)), 5000)
+      // console.log('storedMenus: ' + JSON.stringify(menus1));
       if (menus1 && menus1.length) {
         vm.menus = menus1;
         console.log("menus already present: " + menus1.toString);
@@ -248,6 +255,7 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
+                  this.$store.dispatch('menus/latestMenusFetched', vm.menus);
                   // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
@@ -288,6 +296,7 @@ export default {
                 }
                 if (menus1.length > 0) {
                   vm.menus = vm.menus.concat(menus1);
+                  vm.$store.dispatch('menus/latestMenusFetched', vm.menus);
                   // vm.$cookie.set("menus", JSON.stringify(vm.menus), 1);
                   // console.log(menus1);
                 } else {
@@ -299,28 +308,29 @@ export default {
               });
             break;
 
-            db
-              .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
-              .get()
-              .then(function(querySnapshot) {
-                let menus1 = [];
-                querySnapshot.forEach(function(doc) {
-                  menus1.push(doc.data());
-                });
-                for (var i in menus1) {
-                  console.log(menus1[i].name);
-                }
-                if (menus1.length > 0) {
-                  vm.menus = vm.menus.concat(menus1);
-                  vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
-                  // console.log(menus1);
-                } else {
-                  // console.log(menus1);
-                }
-              })
-              .catch(function(error) {
-                console.log("Error getting menus: ", error);
-              });
+            // db
+            //   .collection("menus") // we need to get menus by all users  .where("createdBy", "==", user.id)
+            //   .get()
+            //   .then(function(querySnapshot) {
+            //     let menus1 = [];
+            //     querySnapshot.forEach(function(doc) {
+            //       menus1.push(doc.data());
+            //     });
+            //     for (var i in menus1) {
+            //       console.log(menus1[i].name);
+            //     }
+            //     if (menus1.length > 0) {
+            //       vm.menus = vm.menus.concat(menus1);
+            //       vm.$cookie.set("menus", JSON.stringify(vm.menus), 0.3);
+            //       vm.$store.dispatch('menus/latestMenusFetched', vm.menus);
+            //       // console.log(menus1);
+            //     } else {
+            //       // console.log(menus1);
+            //     }
+            //   })
+            //   .catch(function(error) {
+            //     console.log("Error getting menus: ", error);
+            //   });
             break;
         }
       }
@@ -537,6 +547,7 @@ export default {
                 // document.getElementById('menuId').value = response.data.menu.id.toString();
                 vm.menus.push(response.data.menu);
                 // vm.$cookie.set("menu", response.data.menu, 1);
+                vm.$store.dispatch('menus/setMenus', vm.menus);
                 // this.$router.go(this.$router.currentRoute);
                 // this.$router.go();
                 vm.$notify("Menu added successfully!", "success");
@@ -648,7 +659,13 @@ export default {
       this.$cookie.set("token", "");
       this.$cookie.set("user", "");
       window.location.href = "../";
-    }
+    },
+    ...mapActions('latestMenusFetched', [
+      'latestMenusFetched'
+     ])
+  },
+  created(){
+    this.initNavbar();
   }
 };
 </script>
