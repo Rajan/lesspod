@@ -16,7 +16,7 @@
                   <div class="file has-name is-boxed">
                     <label class="file-label">
                       <input class="file-input" type="button" name="resume"
-                             @click.stop="updateProfilePic('squareLogo')">
+                             @click.stop="updateImage('squareLogo')">
                       <span class="file-cta">
 												<span class="file-icon">
 													<i class="fas fa-upload"></i>
@@ -39,7 +39,7 @@
                   <div class="file has-name is-boxed">
                     <label class="file-label">
                       <input class="file-input" type="button" name="resume"
-                             @click.stop="updateProfilePic('horizontalLogo')">
+                             @click.stop="updateImage('horizontalLogo')">
                       <span class="file-cta">
 												<span class="file-icon">
 													<i class="fas fa-upload"></i>
@@ -55,7 +55,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="field">
                 <label class="label">Tagline</label>
                 <div class="control has-icons-left">
@@ -139,7 +138,7 @@
           location.reload();
         },
         onError(error) {
-          alert("Unable to upload profile pic");
+          alert("Unable to upload squareLogo pic");
         }
       });
 
@@ -152,10 +151,9 @@
           location.reload();
         },
         onError(error) {
-          alert("Unable to upload profile pic");
+          alert("Unable to upload horizontalLogo pic");
         }
       });
-
 
       switch (deploymentTarget) {
         case LOCALHOST:
@@ -226,7 +224,7 @@
 
     },
     methods: {
-      updateProfilePic: function (logoType) {
+      updateImage: function (logoType) {
         this.$root.$upload.select(logoType);
       },
       saveSettings: function () {
