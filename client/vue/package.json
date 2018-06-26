@@ -30,6 +30,7 @@
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.2",
     "vue-disqus": "^3.0.3",
+    "vue-github-buttons": "^2.0.5",
     "vue-input-tag": "^1.0.3",
     "vue-js-cookie": "^2.1.0",
     "vue-loading-overlay": "^2.0.4",

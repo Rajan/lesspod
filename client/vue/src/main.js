@@ -19,6 +19,10 @@ import vueUpload from '@websanova/vue-upload';
 
 import VueQuillEditor, { Quill } from 'vue-quill-editor';
 import { ImageDrop } from 'quill-image-drop-module';
+import VueGitHubButtons from 'vue-github-buttons';
+
+// Stylesheet
+import 'vue-github-buttons/dist/vue-github-buttons.css';
 
 // import ImageResize from 'quill-image-resize-module';
 
@@ -71,6 +75,8 @@ Vue.use(VModal)
 Vue.use(VueDisqus)
 
 Vue.use(vueUpload)
+
+Vue.use(VueGitHubButtons, { useCache: false })
 
 Vue.use(Notify, {
   itemClass: 'notification',

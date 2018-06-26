@@ -186,7 +186,7 @@ export default {
   mounted: function() {
     const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
     this.$store.dispatch("FETCH_MENUS");
-    // this.$store.dispatch("FETCH_POSTS");
+    this.$store.dispatch("FETCH_POSTS");
     switch (deploymentTarget) {
       case LOCALHOST:
         loadImage("/v1/settings/logo?name=squareLogo").then(image => {
