@@ -145,7 +145,7 @@ export default {
         }
       });
     },
-    updateProfilePic: function() {
+    updateImage: function() {
       this.$root.$upload.select("avatar");
     },
 

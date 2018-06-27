@@ -4,12 +4,12 @@
 <head>
   <title>Lesspod: Serverless Websites</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+  <!--<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">-->
+  <!--<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">-->
+  <!--<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">-->
   <link rel="manifest" href="/static/favicons/site.webmanifest">
   <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="shortcut icon" href="/static/favicons/favicon.ico">
+  <link id="favicon" rel="icon" href="http://localhost:1234/v1/settings/logo?name=squareLogo">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-config" content="/static/favicons/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
@@ -55,68 +55,81 @@
   <!-- including firebase script manually to ease dev -->
 
   <!-- Place this tag in your head or just before your close body tag. -->
- 
+
+  <script type="text/javascript">
+    function subscribed() {
+      // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
+      window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
+      // alert('subscribed');
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // Get all "navbar-burger" elements
+      var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach(function ($el) {
+          $el.addEventListener('click', function () {
+
+            // Get the target from the "data-target" attribute
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
+
+            // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+            $el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+          });
+        });
+      }
+
+    });
+
+  //set favicon programmatically
+
+  /*(function() {
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    console.log('hereeeeee');
+    console.log(link);
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = 'http://localhost:1234/v1/settings/logo?name=squareLogo';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    // document.getElementById("favicon").href="http://localhost:1234/v1/settings/logo?name=squareLogo";
+  })();*/
+  </script>
+  <style type="text/css">
+    #stickyfooter {
+      width: 100%;
+      background-color: #fff;
+      position: fixed;
+      bottom: 0;
+      height: 3rem;
+      border-top: 1px solid grey;
+      visibility: hidden;
+    }
+
+    @media (min-width: 100px) and (max-width: 767px) {
+
+      #stickyfooter {
+        height: 5rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+
+      #stickyfooter {
+        height: 3rem;
+      }
+    }
+
+    .gh-button-container {
+      width: 10rem;
+    }
+  </style>
 </body>
 
 </html>
-<script type="text/javascript">
-  function subscribed() {
-    // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
-    window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
-    // alert('subscribed');
-  };
-  document.addEventListener('DOMContentLoaded', function () {
-
-    // Get all "navbar-burger" elements
-    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
-
-      // Add a click event on each of them
-      $navbarBurgers.forEach(function ($el) {
-        $el.addEventListener('click', function () {
-
-          // Get the target from the "data-target" attribute
-          var target = $el.dataset.target;
-          var $target = document.getElementById(target);
-
-          // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-          $el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-
-        });
-      });
-    }
-
-  });
-</script>
-<style type="text/css">
-  #stickyfooter {
-    width: 100%;
-    background-color: #fff;
-    position: fixed;
-    bottom: 0;
-    height: 3rem;
-    border-top: 1px solid grey;
-    visibility: hidden;
-  }
-
-  @media (min-width: 100px) and (max-width: 767px) {
-
-  #stickyfooter {
-    height: 5rem;
-  }
-}
-
-@media (min-width: 768px) {
-
-  #stickyfooter {
-    height: 3rem;
-  }
-}
-
-.gh-button-container {
-   width: 10rem;
-}
-</style>
