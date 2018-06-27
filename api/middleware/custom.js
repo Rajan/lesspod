@@ -97,7 +97,6 @@ module.exports.setting = setting;
 let settingByName = async function (req, res, next) {
     let setting_name, err;
     setting_name = req.params.setting_name;
-    console.log('finding setting_name...' + req.params.setting_name);
     [err, setting] = await to(Setting.findOne({where: {name: setting_name}}));
     if(err) return ReE(res,"err finding setting");
 

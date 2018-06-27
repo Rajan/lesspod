@@ -1,10 +1,19 @@
 const User = require('../models').User;
 const authService = require('./../services/AuthService');
 const fs = require('fs');
+const Models = require('./../models/index');
+const Setting = Models.Setting;
 
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
+
+    [err, setting] = await to(Setting.findOne({where: {name: "disableSignups"}}));
+    if (err)
+        return ReE(res, err, 500);
+    else if (setting.value === "1") {
+        return ReE(res, "User registrations are not allowed", 401);
+    }
 
     if (!body.unique_key && !body.email && !body.phone) {
         return ReE(res, 'Please enter an email or phone number to register.', 400);
