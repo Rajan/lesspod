@@ -76,6 +76,8 @@ import {
   globalVariables
 } from './../main';
 
+import moment from 'moment';
+
 import firebase from 'firebase';
 
 export default {
@@ -154,7 +156,6 @@ export default {
                 userData.id = uuidv4();
                 delete userData.password;
 
-                const moment = require('moment');
                 userData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
                 userData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 

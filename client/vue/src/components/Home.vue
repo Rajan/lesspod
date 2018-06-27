@@ -136,6 +136,8 @@ import {
 } from './../main';
 import firebase from 'firebase';
 
+// import moment from 'moment';
+
 // Import component
 import Loading from 'vue-loading-overlay';
 // Import stylesheet

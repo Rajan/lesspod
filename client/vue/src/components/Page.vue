@@ -49,6 +49,8 @@ import {
 
 import firebase from 'firebase';
 
+import moment from 'moment';
+
 export default {
   data() {
     return {
@@ -194,7 +196,6 @@ export default {
               postData.id = uuidv4();
               postData.createdBy = vm.$cookie.getJSON('user').id;
 
-              const moment = require('moment');
               postData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
               postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
@@ -257,7 +258,6 @@ export default {
               db.settings(settings);
 
               postData.id = vm.id;
-              const moment = require('moment');
               postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
 
@@ -319,7 +319,6 @@ export default {
               timestampsInSnapshots: true
             };
             db.settings(settings);
-            const moment = require('moment');
             postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
             db.collection("posts")
@@ -385,7 +384,6 @@ export default {
             tagData.id = uuidv4();
             tagData.createdBy = this.$cookie.getJSON('user').id;
 
-            const moment = require('moment');
             tagData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
             tagData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 

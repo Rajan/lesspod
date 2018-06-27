@@ -40,6 +40,8 @@ import firebase from 'firebase';
 
 import hljs from "highlight.js";
 
+import moment from 'moment';
+
 function imageHandler(img) {
   const input = document.createElement("input");
   input.setAttribute("type", "file");
@@ -58,7 +60,6 @@ function uploadImage(file) {
   // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor.
 
   const user = this.$cookie.getJSON("user");
-  const moment = require("moment");
   const now = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
   const storagePath = `${user.id}/images/${now}_${file.name}`;
   firebase
@@ -302,7 +303,6 @@ export default {
             };
             db.settings(settings);
 
-            const moment = require('moment');
             postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
             db.collection("posts")
@@ -366,7 +366,6 @@ export default {
             };
             db.settings(settings);
 
-            const moment = require('moment');
             postData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
             db.collection("posts")
@@ -433,7 +432,6 @@ export default {
             tagData.id = uuidv4();
             tagData.createdBy = this.$cookie.getJSON('user').id;
 
-            const moment = require('moment');
             tagData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
             tagData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 

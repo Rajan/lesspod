@@ -78,6 +78,7 @@ import firebase from 'firebase';
 import {
   globalVariables
 } from './../main';
+// import moment from 'moment';
 export default {
   // props: ["posts"],
   data() {

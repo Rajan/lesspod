@@ -95,6 +95,7 @@ import Loading from 'vue-loading-overlay';
 import firebase from 'firebase';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.min.css';
+// import moment from 'moment';
 
 import { mapState, mapActions } from 'vuex';
 

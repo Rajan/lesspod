@@ -14,7 +14,7 @@ import Profile from '@/components/Profile'
 import Settings from '@/components/Settings'
 
 Vue.use(Router)
-Vue.use(require('vue-moment'));
+// Vue.use(require('vue-moment'));
 export default new Router({
   mode: 'history',
   routes: [

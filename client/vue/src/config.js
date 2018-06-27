@@ -1,4 +1,4 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 
 export const FBASE_CONFIG = {
   apiKey: 'AIzaSyB75SfBhAm6Kiy2EcHFZ0_PE7bGrRnw3D4',
@@ -19,5 +19,3 @@ export const FBASE_CONFIG = {
 // };
 
 export const DEP_TARGET = 'localhost';
-
-

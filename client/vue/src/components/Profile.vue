@@ -86,6 +86,7 @@ import {
 } from "../utils";
 
 import firebase from 'firebase';
+import moment from 'moment';
 
 export default {
   data() {
@@ -228,7 +229,6 @@ export default {
             };
             db.settings(settings);
 
-            const moment = require("moment");
             userData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
             db

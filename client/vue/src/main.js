@@ -2,103 +2,42 @@
 // standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from 'vue';
-import firebase from 'firebase';
-import {FBASE_CONFIG, DEP_TARGET} from './config';
-// Initialize Firebase
-
-firebase.initializeApp(FBASE_CONFIG);
+import {DEP_TARGET} from './config';
 
 import App from './App';
 import router from './router';
-import store from './store'
-import VueQuill from "vue-quill";
-import VModal from 'vue-js-modal';
+import store from './store';
+
 import InputTag from 'vue-input-tag';
-import Notify from 'vue2-notify';
+
 import vueUpload from '@websanova/vue-upload';
 
-import VueQuillEditor, { Quill } from 'vue-quill-editor';
-import { ImageDrop } from 'quill-image-drop-module';
+
 import VueGitHubButtons from 'vue-github-buttons';
 
 // Stylesheet
 import 'vue-github-buttons/dist/vue-github-buttons.css';
 
-// import ImageResize from 'quill-image-resize-module';
 
-import VueQuill1 from 'vue-quill-editor';
-
-
-// require styles
-// import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css';
-// import 'quill/dist/quill.bubble.css'
 
 import VueDisqus from 'vue-disqus';
 import VueCookie from 'vue-js-cookie';
 
-// Import the format
-import { Video } from './assets/quill/quill-video-resize.js'
+import axios from 'axios';
 
 // var VueCookie = require('vue-cookie');
 
-
-window.Quill = Quill;
-require('./assets/quill/quill-video-resize.css')
-
-
-// register with Quill
-Quill.register({ 'formats/video': Video })
-
-const ImageResize = require('quill-image-resize-module')
-
-Quill.register('modules/imageResize', ImageResize)
-Quill.register('modules/imageDrop', ImageDrop)
-
-/// ///////////////////////////
-const toolbar = [ [ 'image' ] ]
-const modules = {
-  toolbar,
-  imageResize: true
-}
+Vue.use(require('vue-moment'));
 
 VueCookie.install(Vue)
-Vue.use(VueQuill1, { modules })
-/// /////////////////////////////////
 
-Vue.use(VueQuillEditor /* { default global options } */)
-
-Vue.use(VueQuill)
-
-Vue.use(VModal)
+// Vue.use(VueQuillEditor /* { default global options } */)
 
 Vue.use(VueDisqus)
 
 Vue.use(vueUpload)
 
 Vue.use(VueGitHubButtons, { useCache: false })
-
-Vue.use(Notify, {
-  itemClass: 'notification',
-  position: 'bottom-left'
-})
-
-
-const types = {
-  info: {
-    itemClass: 'is-info'
-  },
-  error: {
-    itemClass: 'is-danger'
-  },
-  warning: {
-    itemClass: 'is-warning'
-  },
-  success: {
-    itemClass: 'is-success',
-    iconClass: 'fa fa-lg fa-check-circle'
-  }
-}
 
 
 // // db calls are made based on this deploymentTarget's value fbase deploy script
@@ -113,8 +52,6 @@ export const globalVariables = new Vue({
 });
 
 
-Vue.$notify.setTypes(types)
-
 Vue.component('input-tag', InputTag)
 Vue.http = axios
 Vue.config.productionTip = false
@@ -128,4 +65,4 @@ new Vue({
   components: {
     App
   },
-  template: '<App/>' })
+  template: '<App/>' });

@@ -106,6 +106,7 @@
 </template>
 <script type="text/javascript">
 import { globalVariables } from "./../main";
+import moment from 'moment';
 export default {
   data() {
     return {
@@ -245,7 +246,7 @@ export default {
               const dbSettings = {
                 timestampsInSnapshots: true
               };
-              const moment = require("moment");
+
               settingData.updatedAt = moment().format(
                 "YYYY-MM-DD HH:mm:ss.ms Z"
               );
@@ -293,7 +294,7 @@ export default {
               const uuidv4 = require("uuid/v4");
               settingData.id = uuidv4();
               settingData.createdBy = vm.$cookie.getJSON("user").id;
-              const moment = require("moment");
+
               settingData.createdAt = moment().format(
                 "YYYY-MM-DD HH:mm:ss.ms Z"
               );

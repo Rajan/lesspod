@@ -141,6 +141,7 @@ import firebase from 'firebase';
 // Import component
 import Loading from "vue-loading-overlay";
 // Import stylesheet
+import moment from 'moment';
 import "vue-loading-overlay/dist/vue-loading.min.css";
 
 import { mapState, mapActions } from "vuex";
@@ -174,7 +175,7 @@ export default {
     })
   },
   props: {
-    allMenus: this.menus
+    // allMenus: this.menus
   },
   components: {
     NewMenuModal,
@@ -497,7 +498,6 @@ export default {
               postData.id = uuidv4();
               postData.createdBy = vm.$cookie.getJSON("user").id;
 
-              const moment = require("moment");
               postData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
               postData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
@@ -578,7 +578,6 @@ export default {
             menuData.id = uuidv4();
             menuData.createdBy = vm.$cookie.getJSON("user").id;
 
-            const moment = require("moment");
             menuData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
             menuData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
 
