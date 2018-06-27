@@ -41,6 +41,8 @@ import {
   globalVariables
 } from "./../main";
 
+import firebase from 'firebase';
+
 import hljs from "highlight.js";
 
 

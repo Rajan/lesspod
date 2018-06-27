@@ -36,6 +36,8 @@ import {
   globalVariables
 } from './../main';
 
+import firebase from 'firebase';
+
 import hljs from "highlight.js";
 
 function imageHandler(img) {
@@ -285,7 +287,6 @@ export default {
                 document.getElementById('postId').value = response.data.post.id.toString();
                 vm.$cookie.set("post", response.data.post);
                 vm.$notify('Post saved successfully!', 'success');
-                window.location.href = '../home'
               })
               .catch(function(error) {
                 console.log(error);

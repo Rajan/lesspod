@@ -44,8 +44,8 @@
   <link rel="stylesheet" type="text/css" href="/static/main.css">
   <link rel="stylesheet" type="text/css" href="/static/minireset.css">
   <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script> -->
+  <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
 
 <body class="Site">
@@ -55,41 +55,38 @@
   <!-- including firebase script manually to ease dev -->
 
   <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-</body>
 
-</html>
-<script type="text/javascript">
-  function subscribed() {
-    // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
-    window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
-    // alert('subscribed');
-  };
-  document.addEventListener('DOMContentLoaded', function () {
+  <script type="text/javascript">
+    function subscribed() {
+      // https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=chandi.rajan@gmail.com
+      window.open("https://cleanesto.us15.list-manage.com/subscribe?u=a6c47c05dbaff74cf6b56f226&id=51189912ca&MERGE0=" + escape(document.getElementById('emailSubscribe').value));
+      // alert('subscribed');
+    };
+    document.addEventListener('DOMContentLoaded', function () {
 
-    // Get all "navbar-burger" elements
-    var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      // Get all "navbar-burger" elements
+      var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
 
-      // Add a click event on each of them
-      $navbarBurgers.forEach(function ($el) {
-        $el.addEventListener('click', function () {
+        // Add a click event on each of them
+        $navbarBurgers.forEach(function ($el) {
+          $el.addEventListener('click', function () {
 
-          // Get the target from the "data-target" attribute
-          var target = $el.dataset.target;
-          var $target = document.getElementById(target);
+            // Get the target from the "data-target" attribute
+            var target = $el.dataset.target;
+            var $target = document.getElementById(target);
 
-          // Toggle the class on both the "navbar-burger" and the "navbar-menu"
-          $el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
+            // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+            $el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
 
+          });
         });
-      });
-    }
+      }
 
-  });
+    });
 
   //set favicon programmatically
 
@@ -103,29 +100,36 @@
     document.getElementsByTagName('head')[0].appendChild(link);
     // document.getElementById("favicon").href="http://localhost:1234/v1/settings/logo?name=squareLogo";
   })();*/
-</script>
-<style type="text/css">
-  #stickyfooter {
-    width: 100%;
-    background-color: #fff;
-    position: fixed;
-    bottom: 0;
-    height: 3rem;
-    border-top: 1px solid grey;
-    visibility: hidden;
-  }
+  </script>
+  <style type="text/css">
+    #stickyfooter {
+      width: 100%;
+      background-color: #fff;
+      position: fixed;
+      bottom: 0;
+      height: 3rem;
+      border-top: 1px solid grey;
+      visibility: hidden;
+    }
 
-  @media (min-width: 100px) and (max-width: 767px) {
+    @media (min-width: 100px) and (max-width: 767px) {
 
-  #stickyfooter {
-    height: 5rem;
-  }
-}
+      #stickyfooter {
+        height: 5rem;
+      }
+    }
 
-@media (min-width: 768px) {
+    @media (min-width: 768px) {
 
-  #stickyfooter {
-    height: 3rem;
-  }
-}
-</style>
+      #stickyfooter {
+        height: 3rem;
+      }
+    }
+
+    .gh-button-container {
+      width: 10rem;
+    }
+  </style>
+</body>
+
+</html>

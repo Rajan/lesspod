@@ -59,7 +59,7 @@
             </div>
             <div class="field is-grouped" style="margin-top: 1.5rem;">
               <div class="control">
-                <button class="button is-info" @click.stop="saveProfile.bind(this)">Save Profile</button>
+                <button class="button is-info" @click.stop="saveProfile">Save Profile</button>
               </div>
               <div class="control">
                 <a class="button is-text" style="text-decoration: none;" href="home">Cancel</a>
@@ -84,6 +84,8 @@ import {
 import {
   loadImage
 } from "../utils";
+
+import firebase from 'firebase';
 
 export default {
   data() {
@@ -118,7 +120,21 @@ export default {
     vm.fullName = vm.user.first + " " + vm.user.last;
     vm.email = vm.user.email;
     vm.profilePic = vm.user.profilePic;
-    this.loadProfilePic();
+    const {
+          deploymentTarget,
+          LOCALHOST,
+          FBASE
+        } = globalVariables;
+    // update user
+    switch (deploymentTarget) {
+      case LOCALHOST:
+        this.loadProfilePic();
+        break;
+      case FBASE:
+        // firebase code to load profile pic.
+
+    }    
+    
 
   },
   methods: {
@@ -135,6 +151,8 @@ export default {
 
     saveProfile: function() {
       const vm = this;
+      console.log('saving profile...');
+
       const firstName = vm.fullName
         .split(" ")
         .slice(0, -1)
@@ -164,7 +182,7 @@ export default {
             axios
               .put("/v1/users", userData)
               .then(function(response) {
-                console.log("saving user response: " + response);
+                // console.log("saving user response: " + response);
 
                 vm.user.first = firstName;
                 vm.user.last = lastName;
@@ -180,16 +198,28 @@ export default {
             break;
           case FBASE:
             // change password in firebase only if
+            const user = firebase.auth().currentUser;
             if (vm.password.length > 5) {
-              const user = firebase.auth().currentUser;
+              
               user
                 .updatePassword(vm.password)
                 .then(function() {
-                  console.log("password changed in firebase");
+                  // console.log("password changed in firebase");
                 })
                 .catch(function(error) {
-                  console.log("error in changing password: ", error);
+                  // console.log("error in changing password: ", error);
                 });
+            }
+            // console.log('vm.email=' + vm.email + ' vm.user.email=' + vm.user.email);
+            if(vm.email.toString() != vm.user.email.toString()){
+              // console.log('updating email...');
+              user.updateEmail(vm.email).then(function() {
+                // console.log('email updated');
+                // Update successful.
+              }).catch(function(error) {
+                // An error happened.
+                // console.log('email update failed.');
+              });
             }
 
             let db = firebase.firestore();

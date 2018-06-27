@@ -1,5 +1,6 @@
 <template>
 <section class="section">
+  <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
   <div class="container">
     <!-- <div class="columns is-centered is-multiline">
 				<div class="column is-two-thirds">
@@ -38,7 +39,9 @@
             </div>
 
             <p class="level-item">
-              <a class="button is-success" href="../newpost" @click="newPost">New Post</a>
+              <router-link to="/newpost">
+                <a class="button is-success" href="../newpost" @click="newPost">New Post</a>
+              </router-link>
             </p>
 
             <div class="level-item is-hidden-tablet-only">
@@ -131,6 +134,12 @@
 import {
   globalVariables
 } from './../main';
+import firebase from 'firebase';
+
+// Import component
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.min.css';
 
 export default {
   // props: ["posts"],
@@ -139,8 +148,12 @@ export default {
       query: '',
       fullName: '',
       posts: [],
-      menus: []
+      menus: [],
+      isLoading: false
     };
+  },
+  components: {
+    Loading
   },
   created: function() {
 
@@ -158,12 +171,16 @@ export default {
     }
   },
   methods: {
+    whenCancelled() {
+      console.log("User cancelled the loader.");
+    },
     newPost: function() {
       console.log('new post');
     },
     fetchData: function() {
       // console.log('fetching data...');
       var vm = this;
+      vm.isLoading = true;
       axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
       let user = vm.$cookie.getJSON('user');
@@ -176,9 +193,6 @@ export default {
         FBASE
       } = globalVariables;
       console.log('deployment target is ' + deploymentTarget);
-
-
-      var vm = this;
 
       switch (deploymentTarget) {
         case LOCALHOST:
@@ -213,7 +227,7 @@ export default {
 
           axios.get('/v1/posts', {})
             .then(function(response) {
-
+              vm.isLoading = false;
               // console.log(response);
 
               let posts1 = response.data.posts;
@@ -271,6 +285,7 @@ export default {
           db.collection("posts").where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
+              vm.isLoading = false;
               let posts1 = [];
               querySnapshot.forEach(function(doc) {
                 posts1.push(doc.data())
@@ -297,8 +312,8 @@ export default {
 
       vm.$cookie.set("editpost", postString);
       console.log('Editing... ' + JSON.stringify(post));
-
-      window.location.href = '../editpost/' + post.id.toString();
+      vm.$router.push({name: 'Editpost', params: { post_id: post.id.toString() }});
+      // window.location.href = '../editpost/' + post.id.toString();
     },
     viewPost: function(index) {
       var vm = this;
@@ -306,8 +321,8 @@ export default {
       let postString = JSON.stringify(vm.filteredPosts[index]);
 
       console.log('viewing... ' + JSON.stringify(post));
-
-      window.location.href = '../post/' + post.id.toString();
+      vm.$router.push({name: 'Viewpost', params: { post_id: post.id.toString() }});
+      // window.location.href = '../post/' + post.id.toString();
     },
     deletePost: function(index) {
       var vm = this;
@@ -390,6 +405,7 @@ export default {
               console.log("Menu successfully deleted!");
               // console.log('Deleted... ' + JSON.stringify(response));
               // vm.menus.splice(index, 1); // should never run
+              // vm.$cookie.set("menu", null, 1);
               location.reload();
             })
             .catch(function(error) {

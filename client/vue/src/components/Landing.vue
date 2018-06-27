@@ -1,6 +1,6 @@
 <template>
 	<section class="section">
-
+		<loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
 		<div class="hero-body">
 			<div class="container has-text-centered">
 				<div class="columns is-vcentered">
@@ -23,16 +23,20 @@
 								<li>Infinite scalability of the cloud.</li>
 								<li>Free hosting till you're very popular!</li>
 							</ul>
-							This is a <em>serverless website</em> hosted freely on Firebase.
+							<span style="color:green;">This is a <em>serverless website</em> hosted freely on Firebase.</span>
 						</div>
 						<p class="has-text-left">
-							<!-- <a href="https://github.com/Rajan/lesspod" target="_blank" class="button is-medium is-success">
-								<i class="fab fa-github"></i>&nbsp;Lesspod on Github
-							</a> -->
+							
 							<b style="font-size:1.3rem;padding-bottom: 1rem;">Star us on Github or Follow on Twitter:</b><br><br>
 							<!-- Place this tag where you want the button to render. -->
-							<a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name=false>Follow Lesspod</a>
+							<!-- <a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>  -->
+							<gh-btns-star slug="Rajan/lesspod" show-count></gh-btns-star>
+							
+							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" target="_blank" data-size="large" data-show-screen-name=false><b>Follow Lesspod</b></a>
+
+							<!-- <a href="https://www.reddit.com/user/lesspod" target="_blank" class="button is-primary is-small">
+								<i class="fab fa-reddit"></i>&nbsp;Reddit
+							</a> -->
 							<!-- <a class="twitter-follow-button"
 							  href="https://twitter.com/less_pod"
 							  data-size="large">
@@ -44,7 +48,7 @@
 					<div class="column has-text-centered"><br><br>
 						<h2 class="title" v-if="filteredPosts.length > 0">Latest Posts</h2>
 						<div class="columns is-multiline">
-							<div v-for="(post, index) in filteredPosts" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
+							<div v-for="(post, index) in filteredPosts.slice(0, 6)" :key="post.id" class="column is-12-tablet is-6-desktop is-4-widescreen">
 								<article class="box">
 									<div class="media">
 										<div class="media-content">
@@ -70,7 +74,12 @@
 			<div class="container">
 				<div class="is-centered">
 					<div class="column has-text-centered" style="font-size:1.5rem;">
-						<a href="/login">Login</a> Or <a href="/register">Create Account</a>
+						<router-link to="/login">
+							<a href="/login">Login</a>
+						</router-link> Or 
+						<router-link to="/register">
+							<a href="/register">Create Account</a>
+						</router-link>
 					</div>
 				</div>
 			</div>
@@ -81,11 +90,19 @@
 import {
   globalVariables
 } from './../main';
+// Import component
+import Loading from 'vue-loading-overlay';
+import firebase from 'firebase';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.min.css';
+
+import { mapState, mapActions } from 'vuex';
 
 export default {
 	data(){
 		return {
-			posts: []
+			posts: [],
+			isLoading: false
 		}
 	},
 	computed: {
@@ -95,6 +112,9 @@ export default {
 			});
 		}
 	},
+	components: {
+    	Loading
+  	},
 	beforeMount: function(){
 
 		// auto login if credentials are present
@@ -105,9 +125,12 @@ export default {
 		this.initLanding();
 	},
 	methods: {
+		whenCancelled() {
+      		console.log("User cancelled the loader.");
+    	},
 		initLanding: function(){
 			var vm = this;
-
+			vm.isLoading = true;
 			if (vm.$cookie.get('token') && vm.$cookie.get('token').length) {
 				vm.token = vm.$cookie.get('token');
 				axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
@@ -126,54 +149,56 @@ export default {
 
 	      switch (deploymentTarget) {
 	      	case LOCALHOST:
-	      	axios.get('/v1/posts/' + postId, {})
-	      	.then(function(response) {
-	      		console.log(response.data.post);
-	      		let post = response.data.post;
-	      		vm.id = post.id;
-	      		vm.title = post.title;
-	      		vm.editor = post.content;
-	      		vm.author = post.author;
-	      		vm.createdDate = post.createdAt;
-	      		vm.tagsArray = post.tags.toString().split(",");
-	      		vm.postURL = window.location.origin + '/post/' + post.id.toString();
-	      		console.log(vm.postURL);
-	      		document.title = post.title.toString() + ' by ' + post.author.toString();
-	      	})
-	      	.catch(function(error) {
-	      		console.log(error);
-	      	});
+		      	axios.get('/v1/posts/' + postId, {})
+		      	.then(function(response) {
+		      		console.log(response.data.post);
+		      		if(response.data.post){
+			      		let post = response.data.post;
+			      		vm.id = post.id;
+			      		vm.title = post.title;
+			      		vm.editor = post.content;
+			      		vm.author = post.author;
+			      		vm.createdDate = post.createdAt;
+			      		vm.tagsArray = post.tags.toString().split(",");
+			      		vm.postURL = window.location.origin + '/post/' + post.id.toString();
+			      		console.log(vm.postURL);
+			      		document.title = post.title.toString() + ' by ' + post.author.toString();
+		      		}
+		      	})
+		      	.catch(function(error) {
+		      		console.log(error);
+		      	});
 
 
-	          // Need to display latest posts under the post being viewed.
+		          // Need to display latest posts under the post being viewed.
 
-	          axios.get('/v1/posts', {})
-	          .then(function(response) {
+		          axios.get('/v1/posts', {})
+		          .then(function(response) {
 
-	              // console.log(response);
+		              // console.log(response);
+		              vm.isLoading = false;
+		              let posts1 = response.data.posts;
+		              posts1.reverse();
+		              for (var i in posts1) {
 
-	              let posts1 = response.data.posts;
-	              posts1.reverse();
-	              for (var i in posts1) {
+		              	console.log(posts1[i].title);
+		              	if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+		              		posts1.splice(i, 1);
+		              	}
+		              }
+		              vm.posts = posts1;
+		              // renderPosts();
+		          })
+		          .catch(function(error) {
+		          	console.log(error);
+		              // if error is 401 unauthorize, logout the user.
 
-	              	console.log(posts1[i].title);
-	              	if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
-	              		posts1.splice(i, 1);
-	              	}
-	              }
-	              vm.posts = posts1;
-	              // renderPosts();
-	          })
-	          .catch(function(error) {
-	          	console.log(error);
-	              // if error is 401 unauthorize, logout the user.
-
-	              if (error.toString().indexOf('401') !== -1) {
-	              	console.log('Logging you out...')
-	              	vm.logout();
-	              }
-	          });
-	          break;
+		              if (error.toString().indexOf('401') !== -1) {
+		              	console.log('Logging you out...')
+		              	vm.logout();
+		              }
+		          });
+		          break;
 	        
 	        case FBASE:
 	          let db = firebase.firestore();
@@ -186,6 +211,7 @@ export default {
 	          db.collection("posts")
 	          .get()
 	          .then(function(querySnapshot) {
+	          	vm.isLoading = false;
 	          	let posts1 = [];
 	          	querySnapshot.forEach(function(doc) {
 	          		posts1.push(doc.data())
@@ -220,7 +246,8 @@ export default {
 
       console.log('viewing... ' + JSON.stringify(post));
 
-      window.location.href = '../post/' + post.id.toString();
+      // window.location.href = '../post/' + post.id.toString();
+      vm.$router.push({name: 'Viewpost', params: { post_id: post.id.toString() }});
     }
 }
 };

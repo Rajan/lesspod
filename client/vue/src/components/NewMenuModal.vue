@@ -51,6 +51,7 @@
 	</modal>
 </template>
 <script type="text/javascript">
+// import firebase from 'firebase';
 module.exports = {
 	data(){
 		return {

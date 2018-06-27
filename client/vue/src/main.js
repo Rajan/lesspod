@@ -2,8 +2,15 @@
 // standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from 'vue';
+import firebase from 'firebase';
+import {FBASE_CONFIG, DEP_TARGET} from './config';
+// Initialize Firebase
+
+firebase.initializeApp(FBASE_CONFIG);
+
 import App from './App';
 import router from './router';
+import store from './store'
 import VueQuill from "vue-quill";
 import VModal from 'vue-js-modal';
 import InputTag from 'vue-input-tag';
@@ -12,6 +19,10 @@ import vueUpload from '@websanova/vue-upload';
 
 import VueQuillEditor, { Quill } from 'vue-quill-editor';
 import { ImageDrop } from 'quill-image-drop-module';
+import VueGitHubButtons from 'vue-github-buttons';
+
+// Stylesheet
+import 'vue-github-buttons/dist/vue-github-buttons.css';
 
 // import ImageResize from 'quill-image-resize-module';
 
@@ -26,48 +37,51 @@ import 'quill/dist/quill.snow.css';
 import VueDisqus from 'vue-disqus';
 import VueCookie from 'vue-js-cookie';
 
-// var VueCookie = require('vue-cookie');
-
-window.Quill = Quill;
-
 // Import the format
 import { Video } from './assets/quill/quill-video-resize.js'
-require("./assets/quill/quill-video-resize.css");
+
+// var VueCookie = require('vue-cookie');
+
+
+window.Quill = Quill;
+require('./assets/quill/quill-video-resize.css')
 
 
 // register with Quill
-Quill.register({ 'formats/video': Video });
+Quill.register({ 'formats/video': Video })
 
-const ImageResize = require('quill-image-resize-module');
+const ImageResize = require('quill-image-resize-module')
 
-Quill.register('modules/imageResize', ImageResize);
-Quill.register('modules/imageDrop', ImageDrop);
+Quill.register('modules/imageResize', ImageResize)
+Quill.register('modules/imageDrop', ImageDrop)
 
 /// ///////////////////////////
-const toolbar = [ [ 'image' ] ];
+const toolbar = [ [ 'image' ] ]
 const modules = {
   toolbar,
   imageResize: true
-};
+}
 
-VueCookie.install(Vue);
-Vue.use(VueQuill1, { modules });
+VueCookie.install(Vue)
+Vue.use(VueQuill1, { modules })
 /// /////////////////////////////////
 
 Vue.use(VueQuillEditor /* { default global options } */)
 
-Vue.use(VueQuill);
+Vue.use(VueQuill)
 
-Vue.use(VModal);
+Vue.use(VModal)
 
-Vue.use(VueDisqus);
+Vue.use(VueDisqus)
 
-Vue.use( vueUpload );
+Vue.use(vueUpload)
 
-Vue.use( Notify, {
+Vue.use(VueGitHubButtons, { useCache: false })
+
+Vue.use(Notify, {
   itemClass: 'notification',
   position: 'bottom-left'
-} );
+})
 
 
 const types = {
@@ -84,34 +98,14 @@ const types = {
     itemClass: 'is-success',
     iconClass: 'fa fa-lg fa-check-circle'
   }
-};
+}
 
-// Initialize Firebase
 
-// var config = {
-//   apiKey: "AIzaSyD_9U3AZqZ-cz1jr2ZK3TW4DCyyshoiXF4",
-//   authDomain: "lesspod-dev.firebaseapp.com",
-//   databaseURL: "https://lesspod-dev.firebaseio.com",
-//   projectId: "lesspod-dev",
-//   storageBucket: "lesspod-dev.appspot.com",
-//   messagingSenderId: "406114890288"
-// };
-
-const config = {
-  apiKey: "AIzaSyB75SfBhAm6Kiy2EcHFZ0_PE7bGrRnw3D4",
-  authDomain: "lesspodorg.firebaseapp.com",
-  databaseURL: "https://lesspodorg.firebaseio.com",
-  projectId: "lesspodorg",
-  storageBucket: "",
-  messagingSenderId: "735546418007"
-};
-firebase.initializeApp( config );
-
-// db calls are made based on this deploymentTarget's value fbase deploy script
-// will change it's value
+// // db calls are made based on this deploymentTarget's value fbase deploy script
+// // will change it's value
 export const globalVariables = new Vue({
   data: {
-    deploymentTarget: 'firebase',
+    deploymentTarget: DEP_TARGET,
     LOCALHOST: 'localhost',
     FBASE: 'firebase'
   }
@@ -121,15 +115,17 @@ export const globalVariables = new Vue({
 
 Vue.$notify.setTypes(types)
 
-Vue.component( 'input-tag', InputTag );
-Vue.http = axios;
-Vue.config.productionTip = false;
-axios.defaults.baseURL = 'http://localhost:1234/';
+Vue.component('input-tag', InputTag)
+Vue.http = axios
+Vue.config.productionTip = false
+axios.defaults.baseURL = 'http://localhost:1234/'
 
 /* eslint-disable no-new */
-new Vue({ el: '#app',
+new Vue({
+  el: '#app',
+  store,
   router,
   components: {
     App
   },
-  template: '<App/>' });
+  template: '<App/>' })

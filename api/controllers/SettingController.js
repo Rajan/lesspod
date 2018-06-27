@@ -99,7 +99,7 @@ module.exports.remove = remove;
  * @param res
  * @returns {Promise<*>}
  */
-const updateLogo = async function (req, res) {
+ const updateLogo = async function (req, res) {
     /* check if multer was able to upload the file or not*/
     if (req.file) {
         const [err, setting] = await to(Setting.findOne({where: {name: req.body.logoType}}));
@@ -140,19 +140,26 @@ module.exports.updateLogo = updateLogo;
  * @param res
  * @returns {Promise<*>}
  */
-const getLogo = async function (req, res) {
+ const getLogo = async function (req, res) {
 
     if (req.query.name !== null && req.query.name.trim().length !== 0) {
         const [err, setting] = await to(Setting.findOne({where: {name: req.query.name}}));
-        if (setting) {
-            return fs.createReadStream(setting.value).pipe(res);
-        }
-        else {
-            if(req.query.name === "squareLogo")
-                return fs.createReadStream('images/icon.png').pipe(res);
-            else{
-                return fs.createReadStream('images/type.png').pipe(res);
+        try{
+            console.log('trying to get logo...');
+            if (fs.existsSync(setting.value)) {
+
+                return fs.createReadStream(setting.value).pipe(res);
+                
             }
+            else {
+                if(req.query.name === "squareLogo")
+                    return fs.createReadStream('images/icon.png').pipe(res);
+                else{
+                    return fs.createReadStream('images/type.png').pipe(res);
+                }
+            }
+        }catch(err) {
+            console.log(err.toString());
         }
     }
 
