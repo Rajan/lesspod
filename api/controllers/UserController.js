@@ -11,7 +11,7 @@ const create = async function (req, res) {
     [err, setting] = await to(Setting.findOne({where: {name: "disableSignups"}}));
     if (err)
         return ReE(res, err, 500);
-    else if (setting.value === "1") {
+    else if (setting!=null && setting.value === "1") {
         return ReE(res, "User registrations are not allowed", 401);
     }
 
