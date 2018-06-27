@@ -19,20 +19,6 @@ module.exports = {
         content: 'Nuxt.js project'
       }
     ],
-    link: [{
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://cdn.muicss.com/mui-0.9.35/css/mui.min.css'
-      }
-    ]
   },
 
 // <script src="https://cdn.muicss.com/mui-0.9.35/js/mui.min.js"></script>
@@ -42,10 +28,11 @@ module.exports = {
   loading: {
     color: '#3B8070'
   },
-  css: [{
-    src: '@/assets/styles/main.css',
-    lang: 'css'
-  }],
+  css: [
+    '@/assets/styles/main.css',
+    'static/minireset.css',
+    'static/main.css'
+  ],
   /*
    ** Build configuration
    */

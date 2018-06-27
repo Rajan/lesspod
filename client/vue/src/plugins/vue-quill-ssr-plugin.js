@@ -12,8 +12,7 @@ import { ImageDrop } from 'quill-image-drop-module';
 import 'quill/dist/quill.snow.css';
 // import 'quill/dist/quill.bubble.css'
 
-// Import the format
-import { Video } from '../assets/quill/quill-video-resize.js'
+
 
 Vue.use(VueQuillEditor);
 window.Quill = Quill;
@@ -22,7 +21,9 @@ require('../assets/quill/quill-video-resize.css')
 
 
 // register with Quill
-Quill.register({ 'formats/video': Video })
+// Import the format
+// import { Video } from '../assets/quill/quill-video-resize.js'
+// Quill.register({ 'formats/video': Video })
 
 const ImageResize = require('quill-image-resize-module')
 

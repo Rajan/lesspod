@@ -42,6 +42,8 @@ import hljs from "highlight.js";
 
 import moment from 'moment';
 
+import axios from 'axios';
+
 function imageHandler(img) {
   const input = document.createElement("input");
   input.setAttribute("type", "file");

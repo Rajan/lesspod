@@ -6,7 +6,7 @@ import {DEP_TARGET} from './config';
 
 import App from './App';
 import router from './router';
-import store from './store';
+// import store from './store';
 
 import InputTag from 'vue-input-tag';
 
@@ -39,6 +39,12 @@ Vue.use(vueUpload)
 
 Vue.use(VueGitHubButtons, { useCache: false })
 
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.min.css';
+// Init plugin
+Vue.use(Loading);
+
 
 // // db calls are made based on this deploymentTarget's value fbase deploy script
 // // will change it's value
@@ -58,11 +64,11 @@ Vue.config.productionTip = false
 axios.defaults.baseURL = 'http://localhost:1234/'
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  store,
-  router,
-  components: {
-    App
-  },
-  template: '<App/>' });
+// new Vue({
+//   el: '#app',
+//   store,
+//   router,
+//   components: {
+//     App
+//   },
+//   template: '<App/>' });

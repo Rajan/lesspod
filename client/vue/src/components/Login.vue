@@ -1,6 +1,6 @@
 <template>
   <section class="hero is-info" style="min-height: calc(100vh - 6rem);">
-    <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
+    <!-- <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading> -->
     <div class="hero-body">
       <div class="container ">
         <div class="columns is-centered">
@@ -72,25 +72,21 @@ import {
   globalVariables
 } from './../main';
 
-// Import component
-import Loading from 'vue-loading-overlay';
-// Import stylesheet
-import 'vue-loading-overlay/dist/vue-loading.min.css';
 
 import { mapState, mapActions } from 'vuex';
 
 import firebase from 'firebase';
+import axios from 'axios';
 
 export default {
   data() {
     return {
       email: '',
-      password: '',
-      isLoading: false
+      password: ''
     }
   },
   components: {
-    Loading
+
   },
   methods: {
     whenCancelled() {
@@ -98,7 +94,7 @@ export default {
     },
     login: function() {
       var vm = this;
-      vm.isLoading = true;
+
       console.log('email: ' + email.value + '  password: ' + password.value)
 
       if (email.value.length && password.value.length) {
@@ -117,7 +113,7 @@ export default {
             password: password.value
           })
           .then(function(response) {
-            vm.isLoading = false;
+
             console.log(response);
             console.log('token in Login.vue: ' + response.data.token);
             vm.$cookie.set('token', response.data.token);

@@ -1,3 +1,5 @@
 <template>
-  <h1>Hello world from Nuxt!</h1>
+  <div id="app"></div>
 </template>
+<script>
+</script>

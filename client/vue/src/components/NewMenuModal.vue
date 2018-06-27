@@ -52,7 +52,7 @@
 </template>
 <script type="text/javascript">
 // import firebase from 'firebase';
-module.exports = {
+export default {
 	data(){
 		return {
 			showModal: false,

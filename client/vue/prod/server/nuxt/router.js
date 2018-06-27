@@ -3,6 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+const _107b76ec = () => import('../../../src/pages/Page3.vue' /* webpackChunkName: "pages/Page3" */).then(m => m.default || m)
+const _939841ee = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
+const _106d5f6b = () => import('../../../src/pages/Page2.vue' /* webpackChunkName: "pages/Page2" */).then(m => m.default || m)
 const _36b3395a = () => import('../../../src/pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -63,6 +66,21 @@ export function createRouter () {
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
     routes: [
+		{
+			path: "/Page3",
+			component: _107b76ec,
+			name: "Page3"
+		},
+		{
+			path: "/App",
+			component: _939841ee,
+			name: "App"
+		},
+		{
+			path: "/Page2",
+			component: _106d5f6b,
+			name: "Page2"
+		},
 		{
 			path: "/",
 			component: _36b3395a,

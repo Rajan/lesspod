@@ -75,6 +75,7 @@
 </template>
 <script type="text/javascript">
 import firebase from 'firebase';
+import axios from 'axios';
 import {
   globalVariables
 } from './../main';

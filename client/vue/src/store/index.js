@@ -26,7 +26,7 @@ let store = new Vuex.Store({
   strict: debug,
   plugins: debug ? [] : [] // some plugins are for dev and others prod.
 });
-
+// export default store;
 /* eslint-disable no-new */
 export default new Vue({
   el: '#app',

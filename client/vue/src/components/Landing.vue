@@ -1,6 +1,5 @@
 <template>
 	<section class="section">
-		<loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
 		<div class="hero-body">
 			<div class="container has-text-centered">
 				<div class="columns is-vcentered">
@@ -93,6 +92,7 @@ import {
 // Import component
 import Loading from 'vue-loading-overlay';
 import firebase from 'firebase';
+import axios from 'axios';
 // Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 // import moment from 'moment';
@@ -102,8 +102,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
 	data(){
 		return {
-			posts: [],
-			isLoading: false
+			posts: []
 		}
 	},
 	computed: {
@@ -131,7 +130,8 @@ export default {
     	},
 		initLanding: function(){
 			var vm = this;
-			vm.isLoading = true;
+			// vm.isLoading = true;
+			// let loader = vm.$loading.show();
 			if (vm.$cookie.get('token') && vm.$cookie.get('token').length) {
 				vm.token = vm.$cookie.get('token');
 				axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
@@ -177,7 +177,7 @@ export default {
 		          .then(function(response) {
 
 		              // console.log(response);
-		              vm.isLoading = false;
+		              // vm.isLoading = false;
 		              let posts1 = response.data.posts;
 		              posts1.reverse();
 		              for (var i in posts1) {
@@ -212,7 +212,7 @@ export default {
 	          db.collection("posts")
 	          .get()
 	          .then(function(querySnapshot) {
-	          	vm.isLoading = false;
+	          	// vm.isLoading = false;
 	          	let posts1 = [];
 	          	querySnapshot.forEach(function(doc) {
 	          		posts1.push(doc.data())

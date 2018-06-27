@@ -42,6 +42,7 @@ import {
 } from "./../main";
 
 import firebase from 'firebase';
+import axios from 'axios';
 
 import hljs from "highlight.js";
 

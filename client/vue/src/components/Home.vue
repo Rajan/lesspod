@@ -1,6 +1,6 @@
 <template>
 <section class="section">
-  <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading>
+  <!-- <loading :active.sync="isLoading" :can-cancel="true" :on-cancel="whenCancelled"></loading> -->
   <div class="container">
     <!-- <div class="columns is-centered is-multiline">
 				<div class="column is-two-thirds">
@@ -135,6 +135,7 @@ import {
   globalVariables
 } from './../main';
 import firebase from 'firebase';
+import axios from 'axios';
 
 // import moment from 'moment';
 
@@ -150,8 +151,7 @@ export default {
       query: '',
       fullName: '',
       posts: [],
-      menus: [],
-      isLoading: false
+      menus: []
     };
   },
   components: {
@@ -182,7 +182,7 @@ export default {
     fetchData: function() {
       // console.log('fetching data...');
       var vm = this;
-      vm.isLoading = true;
+      // vm.isLoading = true;
       axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 
       let user = vm.$cookie.getJSON('user');
@@ -229,7 +229,7 @@ export default {
 
           axios.get('/v1/posts', {})
             .then(function(response) {
-              vm.isLoading = false;
+              // vm.isLoading = false;
               // console.log(response);
 
               let posts1 = response.data.posts;
@@ -287,7 +287,7 @@ export default {
           db.collection("posts").where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
-              vm.isLoading = false;
+              // vm.isLoading = false;
               let posts1 = [];
               querySnapshot.forEach(function(doc) {
                 posts1.push(doc.data())
