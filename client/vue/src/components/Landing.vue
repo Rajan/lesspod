@@ -29,12 +29,14 @@
 							
 							<b style="font-size:1.3rem;padding-bottom: 1rem;">Star us on Github or Follow on Twitter:</b><br><br>
 							<!-- Place this tag where you want the button to render. -->
-							<a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name=false>Follow Lesspod</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<!-- <a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>  -->
+							<gh-btns-star slug="Rajan/lesspod" show-count></gh-btns-star>
+							
+							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" target="_blank" data-size="large" data-show-screen-name=false><b>Follow Lesspod</b></a>
 
-							<a href="https://www.reddit.com/user/lesspod" target="_blank" class="button is-primary is-small">
+							<!-- <a href="https://www.reddit.com/user/lesspod" target="_blank" class="button is-primary is-small">
 								<i class="fab fa-reddit"></i>&nbsp;Reddit
-							</a>
+							</a> -->
 							<!-- <a class="twitter-follow-button"
 							  href="https://twitter.com/less_pod"
 							  data-size="large">
