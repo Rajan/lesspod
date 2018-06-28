@@ -29,7 +29,7 @@
 							<b style="font-size:1.3rem;padding-bottom: 1rem;">Star us on Github or Follow on Twitter:</b><br><br>
 							<!-- Place this tag where you want the button to render. -->
 							<!-- <a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>  -->
-							<gh-btns-star slug="Rajan/lesspod" show-count></gh-btns-star>
+							<!-- <gh-btns-star slug="Rajan/lesspod" show-count></gh-btns-star> -->
 							
 							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" target="_blank" data-size="large" data-show-screen-name=false><b>Follow Lesspod</b></a>
 
@@ -93,6 +93,14 @@ import {
 // import Loading from 'vue-loading-overlay';
 import firebase from 'firebase';
 import axios from 'axios';
+
+// import Vue from 'vue';
+import VueGitHubButtons from 'vue-github-buttons';
+
+// Stylesheet
+import 'vue-github-buttons/dist/vue-github-buttons.css';
+
+// Vue.use(VueGitHubButtons, { useCache: false });
 // Import stylesheet
 // import 'vue-loading-overlay/dist/vue-loading.min.css';
 // import moment from 'moment';
@@ -113,7 +121,7 @@ export default {
 		}
 	},
 	components: {
-    	// Loading
+		VueGitHubButtons
   	},
 	beforeMount: function(){
 
