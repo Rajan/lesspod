@@ -129,14 +129,14 @@
         </div>
       </div>
     </div>
-    <NewMenuModal v-on:new-menu-added="newMenuAdded"></NewMenuModal>
+    <!-- <NewMenuModal v-on:new-menu-added="newMenuAdded"></NewMenuModal> -->
   </nav>
 
 </template>
 <script type="text/javascript">
 import axios from 'axios';
 import { globalVariables } from "./../main";
-import NewMenuModal from "@/components/NewMenuModal";
+// import NewMenuModal from "@/components/NewMenuModal";
 import { loadImage } from "../utils";
 import firebase from 'firebase';
 
@@ -177,7 +177,7 @@ export default {
     // allMenus: this.menus
   },
   components: {
-    NewMenuModal
+    // NewMenuModal
     
   },
   beforeMount() {
@@ -343,7 +343,7 @@ export default {
       }
     },
     isLoggedIn: function() {
-      if (this.$cookie.get("token") && this.$cookie.get("token").length) {
+      if (this.$cookie && this.$cookie.get("token") && this.$cookie.get("token").length) {
         return true;
       } else {
         return false;
@@ -351,8 +351,9 @@ export default {
     },
     logoClick: function() {
       var vm = this;
-      console.log("token is " + vm.$cookie.get("token"));
-      if (vm.$cookie.get("token") && vm.$cookie.get("token").length) {
+      
+      if (vm.$cookie && vm.$cookie.get("token") && vm.$cookie.get("token").length) {
+        console.log("token is " + vm.$cookie.get("token"));
         vm.$router.push('/home');
         // window.location.href = "/home";
       } else {
@@ -703,6 +704,10 @@ export default {
     padding-left: 24px;
     padding-bottom: 24px;
   }
+}
+nav {
+  width: 100%;
+  display: block;
 }
 </style>
 

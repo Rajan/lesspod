@@ -29,9 +29,9 @@ module.exports = {
     color: '#3B8070'
   },
   css: [
-    '@/assets/styles/main.css',
-    // 'static/minireset.css',
-    // 'static/main.css'
+    // '@/assets/styles/main.css',
+    'static/minireset.css',
+    'static/main.css'
   ],
   /*
    ** Build configuration

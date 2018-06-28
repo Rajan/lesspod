@@ -14,7 +14,7 @@ Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== 'production';
 
-let store = new Vuex.Store({
+export default () => new Vuex.Store({
   // modules: {
   //   user,
   //   posts,
@@ -28,11 +28,11 @@ let store = new Vuex.Store({
 });
 // export default store;
 /* eslint-disable no-new */
-export default new Vue({
-  el: '#app',
-  store,
-  router,
-  components: {
-    App
-  },
-  template: '<App/>' });
+// export default new Vue({
+//   el: '#app',
+//   store,
+//   router,
+//   components: {
+//     App
+//   },
+//   template: '<App/>' });

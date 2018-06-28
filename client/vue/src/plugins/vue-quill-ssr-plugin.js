@@ -71,10 +71,3 @@ const types = {
   }
 };
 Vue.$notify.setTypes(types);
-
-import VueGitHubButtons from 'vue-github-buttons';
-
-// Stylesheet
-import 'vue-github-buttons/dist/vue-github-buttons.css';
-
-Vue.use(VueGitHubButtons, { useCache: false });
