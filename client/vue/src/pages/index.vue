@@ -73,11 +73,13 @@
 			<div class="container">
 				<div class="is-centered">
 					<div class="column has-text-centered" style="font-size:1.5rem;">
-						<nuxt-link to="/login">
-							<a href="/login">Login</a>
-						</nuxt-link> Or 
+						<router-link to="/login">
+						<!-- 	<a href="/login">Login</a> -->
+						Login
+						</router-link> Or 
 						<router-link to="/register">
-							<a href="/register">Create Account</a>
+							Create Account
+							<!-- <a href="/register">Create Account</a> -->
 						</router-link>
 					</div>
 				</div>
