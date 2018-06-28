@@ -351,8 +351,9 @@ export default {
     },
     logoClick: function() {
       var vm = this;
-      console.log("token is " + vm.$cookie.get("token"));
-      if (vm.$cookie.get("token") && vm.$cookie.get("token").length) {
+      
+      if (vm.$cookie && vm.$cookie.get("token") && vm.$cookie.get("token").length) {
+        console.log("token is " + vm.$cookie.get("token"));
         vm.$router.push('/home');
         // window.location.href = "/home";
       } else {
