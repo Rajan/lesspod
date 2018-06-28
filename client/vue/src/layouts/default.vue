@@ -1,10 +1,11 @@
 
 <template>
-  <div id="app-wrapper">
+  <div>
     <app-header></app-header>
-    <div id="content-wrapper" class="mui--text-center">
+    <nuxt/>
+    <!-- <div id="content-wrapper" class="mui--text-center">
       <nuxt class="mui-container"/>
-    </div>
+    </div> -->
     <!-- <app-footer></app-footer> -->
   </div>
 </template>
