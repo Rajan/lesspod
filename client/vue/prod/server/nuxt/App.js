@@ -3,10 +3,6 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../../../src/assets/styles/main.css'
 
-import '../../../src/static/minireset.css'
-
-import '../../../src/static/main.css'
-
 
 let layouts = {
 
@@ -17,7 +13,7 @@ let layouts = {
 let resolvedLayouts = {}
 
 export default {
-  head: {"title":"Nuxtjs SSR Firebase Functions","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Nuxt.js project"}],"link":[],"style":[],"script":[]},
+  head: {"meta":[],"link":[],"style":[],"script":[]},
   render(h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')

@@ -13,13 +13,6 @@ import InputTag from 'vue-input-tag';
 import vueUpload from '@websanova/vue-upload';
 
 
-import VueGitHubButtons from 'vue-github-buttons';
-
-// Stylesheet
-import 'vue-github-buttons/dist/vue-github-buttons.css';
-
-
-
 import VueDisqus from 'vue-disqus';
 import VueCookie from 'vue-js-cookie';
 
@@ -37,7 +30,7 @@ Vue.use(VueDisqus)
 
 Vue.use(vueUpload)
 
-Vue.use(VueGitHubButtons, { useCache: false })
+
 
 import Loading from 'vue-loading-overlay';
 // Import stylesheet
@@ -56,7 +49,6 @@ export const globalVariables = new Vue({
   }
 
 });
-
 
 Vue.component('input-tag', InputTag)
 Vue.http = axios

@@ -3,9 +3,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _107b76ec = () => import('../../../src/pages/Page3.vue' /* webpackChunkName: "pages/Page3" */).then(m => m.default || m)
-const _939841ee = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
+const _15b76eeb = () => import('../../../src/pages/Register.vue' /* webpackChunkName: "pages/Register" */).then(m => m.default || m)
 const _106d5f6b = () => import('../../../src/pages/Page2.vue' /* webpackChunkName: "pages/Page2" */).then(m => m.default || m)
+const _77ccfc51 = () => import('../../../src/pages/Login.vue' /* webpackChunkName: "pages/Login" */).then(m => m.default || m)
+const _939841ee = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
+const _40082c50 = () => import('../../../src/pages/Navbar.vue' /* webpackChunkName: "pages/Navbar" */).then(m => m.default || m)
+const _107b76ec = () => import('../../../src/pages/Page3.vue' /* webpackChunkName: "pages/Page3" */).then(m => m.default || m)
 const _36b3395a = () => import('../../../src/pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -67,9 +70,19 @@ export function createRouter () {
     scrollBehavior,
     routes: [
 		{
-			path: "/Page3",
-			component: _107b76ec,
-			name: "Page3"
+			path: "/Register",
+			component: _15b76eeb,
+			name: "Register"
+		},
+		{
+			path: "/Page2",
+			component: _106d5f6b,
+			name: "Page2"
+		},
+		{
+			path: "/Login",
+			component: _77ccfc51,
+			name: "Login"
 		},
 		{
 			path: "/App",
@@ -77,9 +90,14 @@ export function createRouter () {
 			name: "App"
 		},
 		{
-			path: "/Page2",
-			component: _106d5f6b,
-			name: "Page2"
+			path: "/Navbar",
+			component: _40082c50,
+			name: "Navbar"
+		},
+		{
+			path: "/Page3",
+			component: _107b76ec,
+			name: "Page3"
 		},
 		{
 			path: "/",

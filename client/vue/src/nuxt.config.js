@@ -4,22 +4,22 @@ module.exports = {
   /*
    ** Headers of the page
    */
-  head: {
-    title: 'Nuxtjs SSR Firebase Functions',
-    meta: [{
-        charset: 'utf-8'
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Nuxt.js project'
-      }
-    ],
-  },
+  // head: {
+  //   title: 'Nuxtjs SSR Firebase Functions',
+  //   meta: [{
+  //       charset: 'utf-8'
+  //     },
+  //     {
+  //       name: 'viewport',
+  //       content: 'width=device-width, initial-scale=1'
+  //     },
+  //     {
+  //       hid: 'description',
+  //       name: 'description',
+  //       content: 'Nuxt.js project'
+  //     }
+  //   ],
+  // },
 
 // <script src="https://cdn.muicss.com/mui-0.9.35/js/mui.min.js"></script>
   /*
@@ -30,8 +30,8 @@ module.exports = {
   },
   css: [
     '@/assets/styles/main.css',
-    'static/minireset.css',
-    'static/main.css'
+    // 'static/minireset.css',
+    // 'static/main.css'
   ],
   /*
    ** Build configuration
