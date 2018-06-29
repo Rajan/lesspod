@@ -9,9 +9,9 @@ const actions = adapter(DEP_TARGET);
 export default {
   [ActionTypes.FETCH_MENUS]: ({ commit }) => {
     // adapter.
-    actions.fetchMenus()
+    return actions.fetchMenus()
       .then(menus => {
-        commit(MutationTypes.SET_MENUS, { menus })
+        return commit(MutationTypes.SET_MENUS, { menus })
       })
   },
   [ActionTypes.FETCH_POSTS]: ({commit}) => {

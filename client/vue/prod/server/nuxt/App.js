@@ -5,6 +5,8 @@ import '../../../src/static/minireset.css'
 
 import '../../../src/static/main.css'
 
+import '../../../src/node_modules/vue-github-buttons/dist/vue-github-buttons.css'
+
 
 let layouts = {
 

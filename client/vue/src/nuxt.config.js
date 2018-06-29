@@ -1,6 +1,12 @@
 module.exports = {
 
-  plugins: [{src: '~/plugins/vue-quill-ssr-plugin', ssr: false}],
+  modules: [
+      'cookie-universal-nuxt'
+      // '@nuxtjs/bulma'
+  ],
+
+  plugins: [{src: '~/plugins/vue-quill-ssr-plugin', ssr: false},
+            {src: '~/plugins/vue-ssr-true-plugins', ssr: true}],
   /*
    ** Headers of the page
    */
@@ -31,13 +37,21 @@ module.exports = {
   css: [
     // '@/assets/styles/main.css',
     'static/minireset.css',
-    'static/main.css'
+    'static/main.css',
+    'vue-github-buttons/dist/vue-github-buttons.css'
+    // 'vue-github-buttons/dist/vue-github-buttons.css.map'
   ],
   /*
    ** Build configuration
    */
   buildDir: '../prod/server/nuxt',
   build: {
+    cssSourceMap: false,
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
+    },
     publicPath: '/assets/',
     extractCSS: true,
     babel: {

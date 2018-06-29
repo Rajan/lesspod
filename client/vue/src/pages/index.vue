@@ -18,9 +18,9 @@
 						</h2>
 						<div class="content" style="font-size: 1.3rem;" >
 							<ul class="has-text-left block" style="margin-bottom: 0.5rem;">
-								<li>No fixed yearly/monthly hosting fees.</li>
+								<li>Blazing fast page load time.</li>
 								<li>Infinite scalability of the cloud.</li>
-								<li>Free hosting till you're very popular!</li>
+								<li>Free forever hosting! (almost)</li>
 							</ul>
 							<span style="color:green;">This is a <em>serverless website</em> hosted freely on Firebase.</span>
 						</div>
@@ -29,9 +29,23 @@
 							<b style="font-size:1.3rem;padding-bottom: 1rem;">Star us on Github or Follow on Twitter:</b><br><br>
 							<!-- Place this tag where you want the button to render. -->
 							<!-- <a class="github-button" href="https://github.com/Rajan/lesspod" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>  -->
-							<!-- <gh-btns-star slug="Rajan/lesspod" show-count></gh-btns-star> -->
+							<!-- <no-ssr>
+								<gh-btns-star slug="Rajan/lesspod" show-count></gh-btns-star>
+							</no-ssr> -->
+							<a href="https://github.com/Rajan/lesspod" class="button is-small is-outlined">
+								<span class="icon">
+  									<i class="fab fa-github is-small"></i>
+								</span>&nbsp;&nbsp;&nbsp;Star
+							</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+							<a href="https://twitter.com/less_pod" class="button is-info is-small">
+								<span class="icon">
+  									<i class="fab fa-twitter"></i>
+								</span>&nbsp;&nbsp;&nbsp;Follow
+							</a>
 							
-							<a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" target="_blank" data-size="large" data-show-screen-name=false><b>Follow Lesspod</b></a>
+							<!-- <a href="https://twitter.com/less_pod?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" target="_blank" data-size="large" data-show-screen-name=false><b>Follow Lesspod</b></a> -->
 
 							<!-- <a href="https://www.reddit.com/user/lesspod" target="_blank" class="button is-primary is-small">
 								<i class="fab fa-reddit"></i>&nbsp;Reddit
@@ -94,22 +108,33 @@ import {
 // Import component
 // import Loading from 'vue-loading-overlay';
 import firebase from 'firebase';
-import axios from 'axios';
+import NoSSR from 'vue-no-ssr';
 
-// import Vue from 'vue';
+import Vue from 'vue';
 import VueGitHubButtons from 'vue-github-buttons';
-
 // Stylesheet
 import 'vue-github-buttons/dist/vue-github-buttons.css';
-
-// Vue.use(VueGitHubButtons, { useCache: false });
-// Import stylesheet
-// import 'vue-loading-overlay/dist/vue-loading.min.css';
-// import moment from 'moment';
-
-import { mapState, mapActions } from 'vuex';
+Vue.use(VueGitHubButtons);
+// Vue.component('VueGitHubButtons', VueGitHubButtons);
 
 export default {
+	fetch ({ store, params }) {
+		console.log('fetching.....');
+		return store.dispatch('FETCH_MENUS');
+	},
+	async asyncData (context) {
+      console.log('fetching asyncData.....');
+     // this.$store.dispatch('FETCH_MENUS')
+     //  .then(resp => {
+     //    console.log('fetch success ',resp)
+     //    callback(resp);
+     //  })
+     //  .catch(err => {
+     //    console.log('Some err', err);
+     //    callback(err);
+     //  })
+     return {menus: [1,2,3]}
+    },
 	data(){
 		return {
 			posts: []
@@ -123,7 +148,10 @@ export default {
 		}
 	},
 	components: {
-		VueGitHubButtons
+		'no-ssr': NoSSR, VueGitHubButtons
+  	},
+  	async asyncData () {
+  		// this.initLanding();
   	},
 	beforeMount: function(){
 
@@ -142,7 +170,7 @@ export default {
 			var vm = this;
 			// vm.isLoading = true;
 			let loader = vm.$loading.show();
-			if (vm.$cookie.get('token') && vm.$cookie.get('token').length) {
+			if (vm.$cookie && vm.$cookie.get('token') && vm.$cookie.get('token').length) {
 				vm.token = vm.$cookie.get('token');
 				axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
 			}
@@ -156,6 +184,7 @@ export default {
 	      	LOCALHOST,
 	      	FBASE
 	      } = globalVariables;
+
 	      console.log('deployment target is ' + deploymentTarget);
 
 	      switch (deploymentTarget) {
