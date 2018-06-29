@@ -285,11 +285,6 @@ export default {
 };
 </script>
 <style>
-section,
-body,
-html {
-  background: white !important;
-}
 
 ;
 #dateAuthor {
