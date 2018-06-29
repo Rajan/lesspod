@@ -22,8 +22,6 @@ import VueCookie from 'vue-js-cookie';
 
 // var VueCookie = require('vue-cookie');
 
-Vue.use(require('vue-moment'));
-
 VueCookie.install(Vue);
 
 // Vue.use(VueQuillEditor /* { default global options } */)

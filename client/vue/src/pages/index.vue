@@ -120,7 +120,7 @@ import VueGitHubButtons from 'vue-github-buttons';
 import 'vue-github-buttons/dist/vue-github-buttons.css';
 
 import moment from 'moment';
-Vue.use(moment);
+// Vue.use(moment);
 
 Vue.use(VueGitHubButtons);
 // Vue.component('VueGitHubButtons', VueGitHubButtons);
@@ -142,7 +142,7 @@ export default {
      //    console.log('Some err', err);
      //    callback(err);
      //  })
-     return {menus: [1,2,3]}
+     // return {menus: [1,2,3]}
  },
  data(){
  	return {
@@ -177,7 +177,8 @@ export default {
 	filters : {
 	// {{ new Date(post.createdAt).toISOString() | moment('MMMM D, YYYY') }} . {{ post.author }}
 		moment: function(date) {
-			return moment(date).format('MMMM D, YYYY');
+			console.log('DATE', date);
+			return moment(new Date(date).toUTCString()).format('MMMM D, YYYY');
 		},
 	},
 	methods: {
