@@ -71,6 +71,7 @@ const types = {
 };
 Vue.$notify.setTypes(types);
 
+
 // export default () => new Vue({
 //   // el: '#app',
 //   store,

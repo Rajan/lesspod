@@ -284,7 +284,8 @@ export default {
   	console.log('viewing... ' + JSON.stringify(post));
 
       // window.location.href = '../post/' + post.id.toString();
-      vm.$router.push({name: 'Viewpost', params: { post_id: post.id.toString() }});
+      vm.$router.push({name: 'post-id', params: { id: post.id.toString() }});
+      // vm.$router.push('/post/' + post.id.toString());
   }
 }
 };

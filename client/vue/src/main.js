@@ -17,7 +17,7 @@ import InputTag from 'vue-input-tag';
 import vueUpload from '@websanova/vue-upload';
 
 
-import VueDisqus from 'vue-disqus';
+
 import VueCookie from 'vue-js-cookie';
 
 // var VueCookie = require('vue-cookie');
@@ -25,8 +25,6 @@ import VueCookie from 'vue-js-cookie';
 VueCookie.install(Vue);
 
 // Vue.use(VueQuillEditor /* { default global options } */)
-
-Vue.use(VueDisqus);
 
 Vue.use(vueUpload);
 

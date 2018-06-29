@@ -50,7 +50,7 @@ module.exports = {
     cssSourceMap: false,
     postcss: {
       plugins: {
-        'postcss-custom-properties': false
+        'postcss-custom-properties': false,
       }
     },
     publicPath: '/assets/',
@@ -61,6 +61,7 @@ module.exports = {
         'stage-0'
       ],
       plugins: [
+
         ["transform-runtime", {
           "polyfill": true,
           "regenerator": true
