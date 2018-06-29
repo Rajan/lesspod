@@ -12,6 +12,7 @@ import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
+import nuxt_plugin_moment_0f0d7f19 from 'nuxt_plugin_moment_0f0d7f19' // Source: ./moment.js
 import nuxt_plugin_cookieuniversalnuxt_3b60e007 from 'nuxt_plugin_cookieuniversalnuxt_3b60e007' // Source: ./cookie-universal-nuxt.js
 import nuxt_plugin_vuequillssrplugin_7523be1a from 'nuxt_plugin_vuequillssrplugin_7523be1a' // Source: ../../../src/plugins/vue-quill-ssr-plugin (ssr: false)
 import nuxt_plugin_vuessrtrueplugins_11a43419 from 'nuxt_plugin_vuessrtrueplugins_11a43419' // Source: ../../../src/plugins/vue-ssr-true-plugins
@@ -153,6 +154,7 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
+  if (typeof nuxt_plugin_moment_0f0d7f19 === 'function') await nuxt_plugin_moment_0f0d7f19(app.context, inject)
   if (typeof nuxt_plugin_cookieuniversalnuxt_3b60e007 === 'function') await nuxt_plugin_cookieuniversalnuxt_3b60e007(app.context, inject)
   if (typeof nuxt_plugin_vuessrtrueplugins_11a43419 === 'function') await nuxt_plugin_vuessrtrueplugins_11a43419(app.context, inject)
   

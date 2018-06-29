@@ -181,7 +181,8 @@ export default {
       });
     },
     ...mapState({
-      storedMenus: state => state.menus
+      storedMenus: state => state.menus,
+      latestPosts: state => state.latestPosts
     })
   },
   props: {
@@ -258,7 +259,7 @@ export default {
       console.log("deployment target is " + deploymentTarget);
 
       // let menus1 = vm.$cookie.getJSON("menus");
-      let menus1 = this.$store.state.storedMenus;
+      let menus1 = vm.storedMenus;
       console.log('storedMenus: ' + JSON.stringify(menus1));
       if (menus1 && menus1.length) {
         vm.menus = vm.menus.concat(menus1);

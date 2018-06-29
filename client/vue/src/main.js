@@ -51,6 +51,7 @@ export const globalVariables = new Vue({
 
 });
 
+
 Vue.component('input-tag', InputTag)
 // Vue.component('gh-btns-star', VueGitHubButtons);
 Vue.http = axios
@@ -61,9 +62,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee)
+library.add(faCoffee);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
 
 /* eslint-disable no-new */
 // export default () => new Vue({

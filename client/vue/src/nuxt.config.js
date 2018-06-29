@@ -1,7 +1,8 @@
 module.exports = {
 
   modules: [
-      'cookie-universal-nuxt'
+      'cookie-universal-nuxt',
+      '@nuxtjs/moment'
       // '@nuxtjs/bulma'
   ],
 
