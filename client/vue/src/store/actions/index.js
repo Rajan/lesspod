@@ -5,6 +5,7 @@ import {DEP_TARGET} from '../../config'
 import adapter from './adapter';
 console.log('DEP_TARGET: ' + DEP_TARGET);
 const actions = adapter(DEP_TARGET);
+// import {auth, GoogleProvider} from '../../services/fireinit.js';
 // const actions = adapter('firebase');
 export default {
   [ActionTypes.FETCH_MENUS]: ({ commit }) => {

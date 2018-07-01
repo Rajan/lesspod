@@ -9,5 +9,8 @@ export default {
   },
   [MutationTypes.SET_USER]: (state, {user}) => {
     state.user = user
+  },
+  [MutationTypes.GET_USER]: (state) => {
+    return state.user
   }
 }
