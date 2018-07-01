@@ -6,11 +6,11 @@ module.exports = {
       // '@nuxtjs/bulma'
   ],
   router: {
-    middleware: 'router-auth'
+    // middleware: 'router-auth'
   },
   plugins: [{src: '~/plugins/vue-quill-ssr-plugin', ssr: false},
             {src: '~/plugins/vue-ssr-true-plugins', ssr: true},
-            '~/plugins/fireauth.js'],
+            /*'~/plugins/fireauth.js'*/],
   vendor: ['firebase'],
   /*
    ** Headers of the page

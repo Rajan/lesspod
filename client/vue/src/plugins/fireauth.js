@@ -1,10 +1,10 @@
-import { auth } from '@/services/fireinit.js';
-
-export default (context) => {
-  const {store} = context;
+import firebase from 'firebase';
+import store from '../store';
+export default () => {
+  // const {store} = context;
 
   return new Promise((resolve, reject) => {
-  	auth.onAuthStateChanged(function(user) {
+  	firebase.auth().onAuthStateChanged(function(user) {
 	  if (user) {
 	    // User is signed in.
 	    store.commit('SET_USER', user);
