@@ -5,12 +5,11 @@ Serverless CMS (Website + Blog Engine) (In Active Development)
 
 ## Why Lesspod?
 
-In 2015, carbon emissions from data centers exceeded the carbon emissions from air travel. There are 16 million websites being added to the Internet every month. Most websites require servers to host and most of the servers are underutilized. There are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless. 
+In 2015, carbon emissions from data centres exceeded the carbon emissions from air travel. There are 16 million websites being added to the Internet every month. Most websites require servers to host and most of the servers are under-utilised. There are a lot of unused server resources costing us carbon emissions and money. We can reverse this damage by going serverless.
 
-Lesspod's mission is to transition the Internet from server architecture to serverless architecture as soon as possible. To that end, we're building it as an open source project that anyone can utilize.
+Lesspod's mission is to transition the Internet from server architecture to serverless architecture as soon as possible. To that end, we're building it as an open source project that anyone can utilise.
 
 Our goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
-
 Demo serverless website: https://lesspod.org
 
 ## Free Forever Web Hosting (Cloud Limits Apply)

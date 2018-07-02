@@ -538,11 +538,6 @@ async function mountApp(__app) {
   const _app = new Vue(app)
 
   
-    // Load layout
-  const layout = NUXT.layout || 'default'
-  await _app.loadLayout(layout)
-  _app.setLayout(layout)
-  
 
   // Mounts Vue app to DOM element
   const mount = () => {

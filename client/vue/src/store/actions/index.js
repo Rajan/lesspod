@@ -5,13 +5,14 @@ import {DEP_TARGET} from '../../config'
 import adapter from './adapter';
 console.log('DEP_TARGET: ' + DEP_TARGET);
 const actions = adapter(DEP_TARGET);
+// import {auth, GoogleProvider} from '../../services/fireinit.js';
 // const actions = adapter('firebase');
 export default {
   [ActionTypes.FETCH_MENUS]: ({ commit }) => {
     // adapter.
-    actions.fetchMenus()
+    return actions.fetchMenus()
       .then(menus => {
-        commit(MutationTypes.SET_MENUS, { menus })
+        return commit(MutationTypes.SET_MENUS, { menus })
       })
   },
   [ActionTypes.FETCH_POSTS]: ({commit}) => {

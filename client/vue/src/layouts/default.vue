@@ -1,21 +1,16 @@
 
 <template>
-  <div>
+  <div id="app">
     <app-header></app-header>
     <nuxt/>
-    <!-- <div id="content-wrapper" class="mui--text-center">
-      <nuxt class="mui-container"/>
-    </div> -->
-    </div>
-    <!-- <app-footer></app-footer> -->
-  </section>
+  </div>
 </template>
 
 <script>
-  // import AppFooter from '@/components/Footer'
-  import AppHeader from '@/components/Header'
+  import AppHeader from '@/components/Header';
+
   export default {
-    components: { AppHeader },
+    components: { AppHeader},
     methods: {
       reloadPage () {
         window.location.reload()

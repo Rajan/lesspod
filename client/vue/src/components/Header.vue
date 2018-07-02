@@ -147,6 +147,17 @@ import firebase from 'firebase';
 import { mapState, mapActions } from "vuex";
 
 export default {
+  // async asyncData (context) {
+  //   return this.$store.dispatch('FETCH_MENUS')
+  //   .then(resp => {
+  //     console.log('fetch success ',resp)
+  //     return resp;
+  //   })
+  //   .catch(err => {
+  //     console.log('Some err', err);
+  //   })
+  //   // return {menus: [1,2,3]}
+  // },
   data() {
     return {
       menus: [
@@ -170,7 +181,8 @@ export default {
       });
     },
     ...mapState({
-      storedMenus: state => state.menus
+      storedMenus: state => state.menus,
+      latestPosts: state => state.latestPosts
     })
   },
   props: {
@@ -186,9 +198,10 @@ export default {
     }
   },
   mounted: function() {
+    this.initNavbar();
     const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
-    this.$store.dispatch("FETCH_MENUS");
-    this.$store.dispatch("FETCH_POSTS");
+    // this.$store.dispatch("FETCH_MENUS");
+    // this.$store.dispatch("FETCH_POSTS");
     switch (deploymentTarget) {
       case LOCALHOST:
         // loadImage("/v1/settings/logo?name=squareLogo").then(image => {
@@ -234,18 +247,19 @@ export default {
     initNavbar: function() {
       // console.log('fetching menus...');
       var vm = this;
-
-      let user = vm.$cookie.getJSON("user");
-      if (user) {
-        vm.fullName = user.first + " " + user.last;
-        console.log(user.first + " " + user.last);
+      if(vm.$cookie){
+        let user = vm.$cookie.getJSON("user");
+        if (user) {
+          vm.fullName = user.first + " " + user.last;
+          console.log(user.first + " " + user.last);
+        }
       }
 
       const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
       console.log("deployment target is " + deploymentTarget);
 
       // let menus1 = vm.$cookie.getJSON("menus");
-      let menus1 = this.$store.state.storedMenus;
+      let menus1 = vm.storedMenus;
       console.log('storedMenus: ' + JSON.stringify(menus1));
       if (menus1 && menus1.length) {
         vm.menus = vm.menus.concat(menus1);
@@ -675,7 +689,8 @@ export default {
     ...mapActions("latestMenusFetched", ["latestMenusFetched"])
   },
   created() {
-    // this.initNavbar();
+    
+    console.log('storedMenus in Created: ' + JSON.stringify(this.storedMenus))
   }
 };
 </script>

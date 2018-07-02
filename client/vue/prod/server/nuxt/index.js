@@ -12,7 +12,9 @@ import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
+import nuxt_plugin_cookieuniversalnuxt_3b60e007 from 'nuxt_plugin_cookieuniversalnuxt_3b60e007' // Source: ./cookie-universal-nuxt.js
 import nuxt_plugin_vuequillssrplugin_7523be1a from 'nuxt_plugin_vuequillssrplugin_7523be1a' // Source: ../../../src/plugins/vue-quill-ssr-plugin (ssr: false)
+import nuxt_plugin_vuessrtrueplugins_11a43419 from 'nuxt_plugin_vuessrtrueplugins_11a43419' // Source: ../../../src/plugins/vue-ssr-true-plugins
 
 
 // Component: <no-ssr>
@@ -35,7 +37,7 @@ Vue.use(Meta, {
   tagIDKeyName: 'hid' // the property name that vue-meta uses to determine whether to overwrite or append a tag
 })
 
-const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
+const defaultTransition = {"name":"page","mode":"out-in","appear":true,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
 
 async function createApp (ssrContext) {
   const router = createRouter(ssrContext)
@@ -151,6 +153,8 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
+  if (typeof nuxt_plugin_cookieuniversalnuxt_3b60e007 === 'function') await nuxt_plugin_cookieuniversalnuxt_3b60e007(app.context, inject)
+  if (typeof nuxt_plugin_vuessrtrueplugins_11a43419 === 'function') await nuxt_plugin_vuessrtrueplugins_11a43419(app.context, inject)
   
   if (process.browser) { 
     if (typeof nuxt_plugin_vuequillssrplugin_7523be1a === 'function') await nuxt_plugin_vuequillssrplugin_7523be1a(app.context, inject)
