@@ -5,8 +5,9 @@ Vue.use(Router)
 
 const _d9cd4fe6 = () => import('../../../src/pages/Viewpost.vue' /* webpackChunkName: "pages/Viewpost" */).then(m => m.default || m)
 const _106d5f6b = () => import('../../../src/pages/Page2.vue' /* webpackChunkName: "pages/Page2" */).then(m => m.default || m)
-const _939841ee = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
 const _77ccfc51 = () => import('../../../src/pages/Login.vue' /* webpackChunkName: "pages/Login" */).then(m => m.default || m)
+const _939841ee = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
+const _0086e4d7 = () => import('../../../src/pages/Page.vue' /* webpackChunkName: "pages/Page" */).then(m => m.default || m)
 const _107b76ec = () => import('../../../src/pages/Page3.vue' /* webpackChunkName: "pages/Page3" */).then(m => m.default || m)
 const _15b76eeb = () => import('../../../src/pages/Register.vue' /* webpackChunkName: "pages/Register" */).then(m => m.default || m)
 const _9195a01a = () => import('../../../src/pages/post/_id.vue' /* webpackChunkName: "pages/post/_id" */).then(m => m.default || m)
@@ -81,14 +82,19 @@ export function createRouter () {
 			name: "Page2"
 		},
 		{
+			path: "/Login",
+			component: _77ccfc51,
+			name: "Login"
+		},
+		{
 			path: "/App",
 			component: _939841ee,
 			name: "App"
 		},
 		{
-			path: "/Login",
-			component: _77ccfc51,
-			name: "Login"
+			path: "/Page",
+			component: _0086e4d7,
+			name: "Page"
 		},
 		{
 			path: "/Page3",

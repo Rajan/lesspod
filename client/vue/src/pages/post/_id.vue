@@ -236,8 +236,9 @@ export default {
             .catch(function(error) {
               console.log("Error getting post: ", error);
             });
-
-          const user = this.$cookie.getJSON('user');
+          if(this.$cookie){  
+            const user = this.$cookie.getJSON('user');
+          }
           db.collection("posts") // .where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
