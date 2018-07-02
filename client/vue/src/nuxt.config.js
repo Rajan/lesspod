@@ -1,7 +1,8 @@
 module.exports = {
   mode: 'spa',
   modules: [
-      'cookie-universal-nuxt'
+      'cookie-universal-nuxt',
+      '@nuxtjs/pwa'
       // '@nuxtjs/moment'
       // '@nuxtjs/bulma'
   ],
@@ -10,7 +11,7 @@ module.exports = {
   },
   plugins: [{src: '~/plugins/vue-quill-ssr-plugin', ssr: false},
             {src: '~/plugins/vue-ssr-true-plugins', ssr: true},
-            /*'~/plugins/fireauth.js'*/],
+            /*{src: '~/plugins/fireauth.js', ssr: true}*/],
   vendor: ['firebase'],
   /*
    ** Headers of the page

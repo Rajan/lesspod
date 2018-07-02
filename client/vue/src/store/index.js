@@ -4,10 +4,14 @@ import Vuex from 'vuex';
 import App from '../App';
 import router from '../router';
 
+// import firebase, {auth, GoogleProvider} from '@/services/fireinit.js';
+
 import initialState from './initialState';
 import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
+
+
 
 Vue.use(Vuex);
 

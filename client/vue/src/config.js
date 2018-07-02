@@ -18,4 +18,4 @@ export const FBASE_CONFIG = {
 //   messagingSenderId: "406114890288"
 // };
 
-export const DEP_TARGET = 'localhost';
+export const DEP_TARGET = 'firebase';

@@ -17,7 +17,7 @@ let layouts = {
 let resolvedLayouts = {}
 
 export default {
-  head: {"meta":[],"link":[],"style":[],"script":[]},
+  head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, minimal-ui"},{"name":"mobile-web-app-capable","content":"yes"},{"name":"apple-mobile-web-app-title","content":"nuxt-ssr-firebase-source"},{"name":"theme-color","content":"#3B8070"},{"name":"og:type","content":"website"},{"name":"og:title","content":"nuxt-ssr-firebase-source"}],"link":[{"rel":"manifest","href":"\u002Fassets\u002Fmanifest.14a00a02.json"}],"style":[],"script":[],"title":"nuxt-ssr-firebase-source","htmlAttrs":{"lang":"en"}},
   render(h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')

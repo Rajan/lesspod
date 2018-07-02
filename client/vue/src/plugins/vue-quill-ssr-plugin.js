@@ -38,12 +38,6 @@ const modules = {
 }
 
 
-import firebase from 'firebase';
-import {FBASE_CONFIG, DEP_TARGET} from '../config';
-// Initialize Firebase
-
-firebase.initializeApp(FBASE_CONFIG);
-
 import VModal from 'vue-js-modal';
 Vue.use(VModal);
 

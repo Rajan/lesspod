@@ -511,7 +511,9 @@ export default {
 
               const uuidv4 = require("uuid/v4");
               postData.id = uuidv4();
-              postData.createdBy = vm.$cookie.getJSON("user").id;
+              if(vm.$cookie) {
+                postData.createdBy = vm.$cookie.getJSON("user").id;
+              }
 
               postData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
               postData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
@@ -591,7 +593,10 @@ export default {
 
             const uuidv4 = require("uuid/v4");
             menuData.id = uuidv4();
-            menuData.createdBy = vm.$cookie.getJSON("user").id;
+            
+            if(vm.$cookie) {
+              menuData.createdBy = vm.$cookie.getJSON("user").id;
+            }
 
             menuData.createdAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
             menuData.updatedAt = moment().format("YYYY-MM-DD HH:mm:ss.ms Z");
@@ -639,7 +644,9 @@ export default {
                 var post = response.data.post;
                 post.title = vm.cleanedSubmenu(post.title);
                 // console.log('post in Navbar: ' + post);
-                vm.$cookie.set("editpost", JSON.stringify(post));
+                if(vm.$cookie) {
+                  vm.$cookie.set("editpost", JSON.stringify(post));
+                }
                 // location.href = menu1.linkedURL;
                 vm.$router.push({name: 'Page', params: { path: menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1) }});
               })
@@ -663,7 +670,9 @@ export default {
                 if (doc.exists) {
                   const post = doc.data();
                   post.title = vm.cleanedSubmenu(post.title);
-                  vm.$cookie.set("editpost", JSON.stringify(post));
+                  if(vm.$cookie) {
+                    vm.$cookie.set("editpost", JSON.stringify(post));
+                  }
                   // location.href = menu1.linkedURL;
                   // console.log('MENU: ', menu1);
                   let menuURL = menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1);
@@ -682,8 +691,10 @@ export default {
       }
     },
     logout: function() {
-      this.$cookie.set("token", "");
-      this.$cookie.set("user", "");
+      if(this.$cookie) {
+        this.$cookie.set("token", "");
+        this.$cookie.set("user", "");
+      }
       window.location.href = "../";
     },
     ...mapActions("latestMenusFetched", ["latestMenusFetched"])

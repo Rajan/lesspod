@@ -70,7 +70,7 @@
 											</p>
 											<div class="content ">
 												<no-ssr>
-												<span class="content is-small">{{ post.createdAt | moment }} . {{ post.author }}</span>
+													<span class="content is-small">{{ post.createdAt | moment }} . {{ post.author }}</span>
 												</no-ssr>
 												<br>
 												<p v-html="postSummary(post.content)"></p>
@@ -176,17 +176,17 @@ export default {
 	},
 	filters : {
 	// {{ new Date(post.createdAt).toISOString() | moment('MMMM D, YYYY') }} . {{ post.author }}
-		moment: function(date) {
-			console.log('DATE', date);
-			return moment(new Date(date).toUTCString()).format('MMMM D, YYYY');
-		},
+	moment: function(date) {
+		console.log('DATE', date);
+		return moment(new Date(date).toUTCString()).format('MMMM D, YYYY');
 	},
-	methods: {
-		whenCancelled() {
-			console.log("User cancelled the loader.");
-		},
-		initLanding: function(){
-			var vm = this;
+},
+methods: {
+	whenCancelled() {
+		console.log("User cancelled the loader.");
+	},
+	initLanding: function(){
+		var vm = this;
 			// vm.isLoading = true;
 			// let loader = vm.$loading.show();
 			if (vm.$cookie && vm.$cookie.get('token') && vm.$cookie.get('token').length) {
@@ -242,8 +242,9 @@ export default {
 		          	timestampsInSnapshots: true
 		          };
 		          db.settings(settings);
-
-		          const user = this.$cookie.getJSON('user');
+		          if(this.$cookie){
+		          	const user = this.$cookie.getJSON('user');
+		          }
 		          db.collection("posts")
 		          .get()
 		          .then(function(querySnapshot) {
@@ -259,10 +260,10 @@ export default {
 	          	}
 	          	vm.posts = posts1;
 	          })
-		          .catch(function(error) {
-		          	console.log("Error getting posts: ", error);
-		          });
-		          break;
+	          .catch(function(error) {
+	          	console.log("Error getting posts: ", error);
+	          });
+	          break;
 		      }
 		  }
 		},
