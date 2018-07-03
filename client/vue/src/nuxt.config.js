@@ -1,17 +1,17 @@
 module.exports = {
   mode: 'spa',
   modules: [
-      'cookie-universal-nuxt',
-      '@nuxtjs/pwa'
-      // '@nuxtjs/moment'
-      // '@nuxtjs/bulma'
+    'cookie-universal-nuxt',
+    '@nuxtjs/pwa'
+    // '@nuxtjs/moment'
+    // '@nuxtjs/bulma'
   ],
   router: {
     // middleware: 'router-auth'
   },
   plugins: [{src: '~/plugins/vue-quill-ssr-plugin', ssr: false},
-            {src: '~/plugins/vue-ssr-true-plugins', ssr: true},
-            /*{src: '~/plugins/fireauth.js', ssr: true}*/],
+    {src: '~/plugins/vue-ssr-true-plugins', ssr: true},
+    {src: '~/plugins/fireauth.js', ssr: true}],
   vendor: ['firebase'],
   /*
    ** Headers of the page
@@ -33,7 +33,7 @@ module.exports = {
   //   ],
   // },
 
-// <script src="https://cdn.muicss.com/mui-0.9.35/js/mui.min.js"></script>
+  // <script src="https://cdn.muicss.com/mui-0.9.35/js/mui.min.js"></script>
   /*
    ** Customize the progress bar color
    */
@@ -55,7 +55,7 @@ module.exports = {
     cssSourceMap: false,
     postcss: {
       plugins: {
-        'postcss-custom-properties': false,
+        'postcss-custom-properties': false
       }
     },
     publicPath: '/assets/',
@@ -67,16 +67,16 @@ module.exports = {
       ],
       plugins: [
 
-        ["transform-runtime", {
-          "polyfill": true,
-          "regenerator": true
+        ['transform-runtime', {
+          'polyfill': true,
+          'regenerator': true
         }]
       ]
     },
     /*
      ** Run ESLint on save
      */
-    extend(config, ctx) {
+    extend (config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         // config.module.rules.push({
         //   enforce: 'pre',

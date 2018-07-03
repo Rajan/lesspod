@@ -12,9 +12,10 @@ import { setContext, getLocation, getRouteData } from './utils'
 import { createStore } from './store.js'
 
 /* Plugins */
-import nuxt_plugin_cookieuniversalnuxt_3b60e007 from 'nuxt_plugin_cookieuniversalnuxt_3b60e007' // Source: ./cookie-universal-nuxt.js
+import nuxt_plugin_cookieuniversalnuxt_6fde9730 from 'nuxt_plugin_cookieuniversalnuxt_6fde9730' // Source: ./cookie-universal-nuxt.js
 import nuxt_plugin_vuequillssrplugin_7523be1a from 'nuxt_plugin_vuequillssrplugin_7523be1a' // Source: ../../../src/plugins/vue-quill-ssr-plugin (ssr: false)
 import nuxt_plugin_vuessrtrueplugins_11a43419 from 'nuxt_plugin_vuessrtrueplugins_11a43419' // Source: ../../../src/plugins/vue-ssr-true-plugins
+import nuxt_plugin_fireauth_22211b23 from 'nuxt_plugin_fireauth_22211b23' // Source: ../../../src/plugins/fireauth.js
 
 
 // Component: <no-ssr>
@@ -153,8 +154,9 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
-  if (typeof nuxt_plugin_cookieuniversalnuxt_3b60e007 === 'function') await nuxt_plugin_cookieuniversalnuxt_3b60e007(app.context, inject)
+  if (typeof nuxt_plugin_cookieuniversalnuxt_6fde9730 === 'function') await nuxt_plugin_cookieuniversalnuxt_6fde9730(app.context, inject)
   if (typeof nuxt_plugin_vuessrtrueplugins_11a43419 === 'function') await nuxt_plugin_vuessrtrueplugins_11a43419(app.context, inject)
+  if (typeof nuxt_plugin_fireauth_22211b23 === 'function') await nuxt_plugin_fireauth_22211b23(app.context, inject)
   
   if (process.browser) { 
     if (typeof nuxt_plugin_vuequillssrplugin_7523be1a === 'function') await nuxt_plugin_vuequillssrplugin_7523be1a(app.context, inject)

@@ -32,6 +32,7 @@
     "vue-github-buttons": "^2.0.5",
     "vue-input-tag": "^1.0.3",
     "vue-js-cookie": "^2.1.0",
+    "vue-loading-overlay": "^2.1.0",
     "vue-moment": "^3.2.0",
     "vue-no-ssr": "^0.2.2",
     "vue-quill": "^1.5.0-0",
