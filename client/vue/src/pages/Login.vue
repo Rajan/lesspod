@@ -67,27 +67,21 @@
     </section>
   </template>
 <script type="text/javascript">
+import { globalVariables } from "./../main";
 
-import {
-  globalVariables
-} from './../main';
+import { mapState, mapActions } from "vuex";
 
-
-import { mapState, mapActions } from 'vuex';
-
-import firebase from 'firebase';
-import axios from 'axios';
+import firebase from "firebase";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: ""
+    };
   },
-  components: {
-
-  },
+  components: {},
   methods: {
     whenCancelled() {
       console.log("User cancelled the loader.");
@@ -95,51 +89,47 @@ export default {
     login: function() {
       var vm = this;
 
-      console.log('email: ' + email.value + '  password: ' + password.value)
+      console.log("email: " + email.value + "  password: " + password.value);
 
       if (email.value.length && password.value.length) {
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables
-        console.log('deployment target is ' + deploymentTarget)
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        console.log("deployment target is " + deploymentTarget);
 
         switch (deploymentTarget) {
           case LOCALHOST:
-          axios
-          .post('/v1/users/login', {
-            email: email.value,
-            password: password.value
-          })
-          .then(function(response) {
-
-            console.log(response);
-            console.log('token in Login.vue: ' + response.data.token);
-            vm.$cookie.set('token', response.data.token);
-            vm.$cookie.set('user', JSON.stringify(response.data.user));
+            axios
+              .post("/v1/users/login", {
+                email: email.value,
+                password: password.value
+              })
+              .then(function(response) {
+                console.log(response);
+                console.log("token in Login.vue: " + response.data.token);
+                vm.$cookies.set("token", response.data.token);
+                vm.$cookies.set("user", JSON.stringify(response.data.user));
                 // setting up Authorization Header that will be used for subsequent requests.
-                axios.defaults.headers.common['Authorization'] =
-                response.data.token;
-                axios.defaults.headers.post['Content-Type'] = 'application/json'
-                vm.$notify('Logged in successfully!', 'success');
+                axios.defaults.headers.common["Authorization"] =
+                  response.data.token;
+                axios.defaults.headers.post["Content-Type"] =
+                  "application/json";
+                vm.$notify("Logged in successfully!", "success");
                 // console.log(response.headers);
               })
-          .then(function(response) {
-            window.location.href = '../home';
-            // vm.$router.push('/home');
-          })
-          .catch(function(error) {
-            console.log(error);
-          })
-          break
+              .then(function(response) {
+                window.location.href = "../home";
+                // vm.$router.push('/home');
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+            break;
 
           case FBASE:
-          firebase
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value)
-          .then(function(user) {
-            console.log('user in login.vue: ' + JSON.stringify(user));
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(email.value, password.value)
+              .then(function(user) {
+                console.log("user in login.vue: " + JSON.stringify(user));
                 // query for "users" collection based on email because fbase's user object won't have profile data
                 const settings = {
                   timestampsInSnapshots: true
@@ -148,36 +138,36 @@ export default {
                 db.settings(settings);
 
                 db
-                .collection('users')
-                .where('email', '==', email.value)
-                .get()
-                .then(function(querySnapshot) {
-                  if(querySnapshot.docs[0]){
-                    vm.$cookie.set(
-                      'user',
-                      JSON.stringify(querySnapshot.docs[0].data())
+                  .collection("users")
+                  .where("email", "==", email.value)
+                  .get()
+                  .then(function(querySnapshot) {
+                    if (querySnapshot.docs[0]) {
+                      vm.$cookies.set(
+                        "user",
+                        JSON.stringify(querySnapshot.docs[0].data())
                       );
-                    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                      firebase
+                        .auth()
+                        .currentUser.getIdToken(/* forceRefresh */ true)
+                        .then(function(idToken) {
                           // Send token to your backend via HTTPS
-                          vm.$cookie.set(
-                            'token',
-                            idToken
-                            );
-                          window.location.href = '../home';
-                        }).catch(function(error) {
+                          vm.$cookies.set("token", idToken);
+                          window.location.href = "../home";
+                        })
+                        .catch(function(error) {
                           // Handle error
                         });
-                      }
-                    })
-                .catch(function(error) {
-                  console.log('Error getting documents: ', error);
-                })
+                    }
+                  })
+                  .catch(function(error) {
+                    console.log("Error getting documents: ", error);
+                  });
               })
-          .catch(function(error) {
-            console.error(error.message);
-          });
-          break;
-
+              .catch(function(error) {
+                console.error(error.message);
+              });
+            break;
         }
       }
     }

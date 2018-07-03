@@ -72,75 +72,70 @@
 </section>
 </template>
 <script type="text/javascript">
-import {
-  globalVariables
-} from './../main';
+import { globalVariables } from "./../main";
 
-import moment from 'moment';
-import axios from 'axios';
+import moment from "moment";
+import axios from "axios";
 
-import firebase from 'firebase';
+import firebase from "firebase";
 
 export default {
   data() {
     return {
-      fullName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    };
   },
   methods: {
     register: function() {
-      let vm = this
+      let vm = this;
       let firstName = fullName.value
-        .split(' ')
+        .split(" ")
         .slice(0, -1)
-        .join(' ')
+        .join(" ");
       let lastName = fullName.value
-        .split(' ')
+        .split(" ")
         .slice(-1)
-        .join(' ')
+        .join(" ");
       if (
         passwordConfirm.value.length > 5 &&
         password.value === passwordConfirm.value
       ) {
-        console.log('registering user...')
+        console.log("registering user...");
 
-        const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables
-        console.log('deployment target is ' + deploymentTarget)
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+        console.log("deployment target is " + deploymentTarget);
 
         let userData = {
           first: firstName,
           last: lastName,
-          email: document.getElementById('email').value,
-          password: document.getElementById('password').value
-        }
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value
+        };
 
         switch (deploymentTarget) {
           case LOCALHOST:
             axios
-              .post('/v1/users/', userData)
+              .post("/v1/users/", userData)
               .then(function(response) {
-                console.log(response)
-                vm.$cookie.set('token', response.data.token)
-                vm.$cookie.set('user', JSON.stringify(response.data.user))
+                console.log(response);
+                vm.$cookies.set("token", response.data.token);
+                vm.$cookies.set("user", JSON.stringify(response.data.user));
 
                 // setting up Authorization Header that will be used for subsequent requests.
-                axios.defaults.headers.common['Authorization'] =
-                  response.data.token
-                axios.defaults.headers.post['Content-Type'] = 'application/json'
+                axios.defaults.headers.common["Authorization"] =
+                  response.data.token;
+                axios.defaults.headers.post["Content-Type"] =
+                  "application/json";
 
-                window.location.href = '../home'
+                window.location.href = "../home";
               })
               .catch(function(error) {
-                console.log(error)
-              })
-            break
+                console.log(error);
+              });
+            break;
 
           case FBASE:
             firebase
@@ -149,47 +144,52 @@ export default {
               .then(function(authData) {
                 const settings = {
                   timestampsInSnapshots: true
-                }
+                };
                 let db = firebase.firestore();
                 db.settings(settings);
 
-                const uuidv4 = require('uuid/v4');
+                const uuidv4 = require("uuid/v4");
                 userData.id = uuidv4();
                 delete userData.password;
 
-                userData.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
-                userData.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
+                userData.createdAt = moment().format(
+                  "YYYY-MM-DD HH:mm:ss.ms Z"
+                );
+                userData.updatedAt = moment().format(
+                  "YYYY-MM-DD HH:mm:ss.ms Z"
+                );
 
                 db
-                  .collection('users')
+                  .collection("users")
                   .doc(userData.id) // documentId is same as userId; easier for future referencing of document
                   .set(userData)
                   .then(function(docRef) {
-                    vm.$cookie.set('user', JSON.stringify(userData));
-                    firebase.auth().currentUser.getIdToken( /* forceRefresh */ true).then(function(idToken) {
-                      // Send token to your backend via HTTPS
-                      vm.$cookie.set(
-                        'token',
-                        idToken
-                      );
-                      window.location.href = '../home';
-                    }).catch(function(error) {
-                      // Handle error
-                    });
+                    vm.$cookies.set("user", JSON.stringify(userData));
+                    firebase
+                      .auth()
+                      .currentUser.getIdToken(/* forceRefresh */ true)
+                      .then(function(idToken) {
+                        // Send token to your backend via HTTPS
+                        vm.$cookies.set("token", idToken);
+                        window.location.href = "../home";
+                      })
+                      .catch(function(error) {
+                        // Handle error
+                      });
                   })
                   .catch(function(error) {
-                    console.error('Error adding document: ', error)
-                  })
+                    console.error("Error adding document: ", error);
+                  });
               })
               .catch(function(error) {
-                console.error('error registering account: ' + error.message)
-              })
-            break
+                console.error("error registering account: " + error.message);
+              });
+            break;
         }
       } else {
-        console.log('passwords do not match')
+        console.log("passwords do not match");
       }
     }
   }
-}
+};
 </script>

@@ -104,197 +104,202 @@
 	</section>
 </template>
 <script type="text/javascript">
-import {
-	globalVariables
-} from './../main';
+import { globalVariables } from "./../main";
 // Import component
 // import Loading from 'vue-loading-overlay';
-import axios from 'axios';
-import firebase from 'firebase';
-import NoSSR from 'vue-no-ssr';
+import axios from "axios";
+import firebase from "firebase";
+import NoSSR from "vue-no-ssr";
 
-import Vue from 'vue';
+import Vue from "vue";
 
-import VueGitHubButtons from 'vue-github-buttons';
+import VueGitHubButtons from "vue-github-buttons";
 // Stylesheet
-import 'vue-github-buttons/dist/vue-github-buttons.css';
+import "vue-github-buttons/dist/vue-github-buttons.css";
 
-import moment from 'moment';
+import moment from "moment";
 // Vue.use(moment);
 
 Vue.use(VueGitHubButtons);
 // Vue.component('VueGitHubButtons', VueGitHubButtons);
 
 export default {
-	fetch ({ store, params }) {
-		console.log('fetching.....');
-		return store.dispatch('FETCH_MENUS');
-		return store.dispatch('FETCH_POSTS');
-	},
-	async asyncData (context) {
-		console.log('fetching asyncData.....');
-     // this.$store.dispatch('FETCH_MENUS')
-     //  .then(resp => {
-     //    console.log('fetch success ',resp)
-     //    callback(resp);
-     //  })
-     //  .catch(err => {
-     //    console.log('Some err', err);
-     //    callback(err);
-     //  })
-     // return {menus: [1,2,3]}
- },
- data(){
- 	return {
- 		posts: []
- 	}
- },
- computed: {
- 	filteredPosts: function() {
- 		return this.posts.filter(function(post) {
- 			return !(post.pageURL && post.pageURL.length)
- 		});
- 	}
- },
- components: {
- 	'no-ssr': NoSSR, VueGitHubButtons
- },
- async asyncData () {
+  fetch({ store, params }) {
+    console.log("fetching.....");
+    return store.dispatch("FETCH_MENUS");
+    return store.dispatch("FETCH_POSTS");
+  },
+  async asyncData(context) {
+    console.log("fetching asyncData.....");
+    // this.$store.dispatch('FETCH_MENUS')
+    //  .then(resp => {
+    //    console.log('fetch success ',resp)
+    //    callback(resp);
+    //  })
+    //  .catch(err => {
+    //    console.log('Some err', err);
+    //    callback(err);
+    //  })
+    // return {menus: [1,2,3]}
+  },
+  data() {
+    return {
+      posts: []
+    };
+  },
+  computed: {
+    filteredPosts: function() {
+      return this.posts.filter(function(post) {
+        return !(post.pageURL && post.pageURL.length);
+      });
+    }
+  },
+  components: {
+    "no-ssr": NoSSR,
+    VueGitHubButtons
+  },
+  async asyncData() {},
+  beforeMount: function() {
+    // auto login if credentials are present
 
- },
- beforeMount: function(){
+    if (
+      this.$cookie &&
+      this.$cookies.get("token") &&
+      this.$cookies.get("token").length > 0
+    ) {
+      this.$router.push("/home");
+    }
+    // this.initLanding();
+  },
+  mounted() {
+    this.initLanding();
+  },
+  filters: {
+    // {{ new Date(post.createdAt).toISOString() | moment('MMMM D, YYYY') }} . {{ post.author }}
+    moment: function(date) {
+      console.log("DATE", date);
+      return moment(new Date(date).toUTCString()).format("MMMM D, YYYY");
+    }
+  },
+  methods: {
+    whenCancelled() {
+      console.log("User cancelled the loader.");
+    },
+    initLanding: function() {
+      var vm = this;
+      // vm.isLoading = true;
+      // let loader = vm.$loading.show();
+      if (
+        vm.$cookie &&
+        vm.$cookies.get("token") &&
+        vm.$cookies.get("token").length
+      ) {
+        vm.token = vm.$cookies.get("token");
+        axios.defaults.headers.common["Authorization"] = vm.$cookies.get(
+          "token"
+        );
+      }
+      vm.posts = vm.$store.state.posts;
 
-		// auto login if credentials are present
+      if (vm.posts.length == 0) {
+        const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
 
-		if(this.$cookie && this.$cookie.get('token') && this.$cookie.get('token').length > 0){
-			this.$router.push('/home');
-		}
-		// this.initLanding();
-	},
-	mounted(){
-		this.initLanding();
-	},
-	filters : {
-	// {{ new Date(post.createdAt).toISOString() | moment('MMMM D, YYYY') }} . {{ post.author }}
-	moment: function(date) {
-		console.log('DATE', date);
-		return moment(new Date(date).toUTCString()).format('MMMM D, YYYY');
-	},
-},
-methods: {
-	whenCancelled() {
-		console.log("User cancelled the loader.");
-	},
-	initLanding: function(){
-		var vm = this;
-			// vm.isLoading = true;
-			// let loader = vm.$loading.show();
-			if (vm.$cookie && vm.$cookie.get('token') && vm.$cookie.get('token').length) {
-				vm.token = vm.$cookie.get('token');
-				axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
-			}
-			vm.posts = vm.$store.state.posts;
+        console.log("deployment target is " + deploymentTarget);
 
-			if(vm.posts.length == 0){
-				const {
-					deploymentTarget,
-					LOCALHOST,
-					FBASE
-				} = globalVariables;
+        switch (deploymentTarget) {
+          case LOCALHOST:
+            // Need to display latest posts under the post being viewed.
+            axios
+              .get("/v1/posts", {})
+              .then(function(response) {
+                // console.log(response);
+                // vm.isLoading = false;
+                let posts1 = response.data.posts;
+                posts1.reverse();
+                for (var i in posts1) {
+                  console.log(posts1[i].title);
+                  if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+                    posts1.splice(i, 1);
+                  }
+                }
+                vm.posts = posts1;
+                // renderPosts();
+              })
+              .catch(function(error) {
+                console.log(error);
+                // if error is 401 unauthorize, logout the user.
 
-				console.log('deployment target is ' + deploymentTarget);
+                if (error.toString().indexOf("401") !== -1) {
+                  console.log("Logging you out...");
+                  vm.logout();
+                }
+              });
+            break;
 
-				switch (deploymentTarget) {
-					case LOCALHOST:
-
-		          // Need to display latest posts under the post being viewed.
-		          axios.get('/v1/posts', {})
-		          .then(function(response) {
-
-		              // console.log(response);
-		              // vm.isLoading = false;
-		              let posts1 = response.data.posts;
-		              posts1.reverse();
-		              for (var i in posts1) {
-
-		              	console.log(posts1[i].title);
-		              	if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
-		              		posts1.splice(i, 1);
-		              	}
-		              }
-		              vm.posts = posts1;
-		              // renderPosts();
-		          })
-		          .catch(function(error) {
-		          	console.log(error);
-		              // if error is 401 unauthorize, logout the user.
-
-		              if (error.toString().indexOf('401') !== -1) {
-		              	console.log('Logging you out...')
-		              	vm.logout();
-		              }
-		          });
-		          break;
-
-		          case FBASE:
-		          let db = firebase.firestore();
-		          const settings = {
-		          	timestampsInSnapshots: true
-		          };
-		          db.settings(settings);
-		          if(this.$cookie){
-		          	const user = this.$cookie.getJSON('user');
-		          }
-		          db.collection("posts")
-		          .get()
-		          .then(function(querySnapshot) {
-	          	// vm.isLoading = false;
-	          	let posts1 = [];
-	          	querySnapshot.forEach(function(doc) {
-	          		posts1.push(doc.data())
-	          	});
-	          	for (var i in posts1) {
-	          		if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
-	          			posts1.splice(i, 1);
-	          		}
-	          	}
-	          	vm.posts = posts1;
-	          })
-	          .catch(function(error) {
-	          	console.log("Error getting posts: ", error);
-	          });
-	          break;
-		      }
-		  }
-		},
-		postSummary: function(content) {
-			let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g, ', ').substring(0, 140);
+          case FBASE:
+            let db = firebase.firestore();
+            const settings = {
+              timestampsInSnapshots: true
+            };
+            db.settings(settings);
+            if (this.$cookie) {
+              const user = this.$cookies.getJSON("user");
+            }
+            db
+              .collection("posts")
+              .get()
+              .then(function(querySnapshot) {
+                // vm.isLoading = false;
+                let posts1 = [];
+                querySnapshot.forEach(function(doc) {
+                  posts1.push(doc.data());
+                });
+                for (var i in posts1) {
+                  if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
+                    posts1.splice(i, 1);
+                  }
+                }
+                vm.posts = posts1;
+              })
+              .catch(function(error) {
+                console.log("Error getting posts: ", error);
+              });
+            break;
+        }
+      }
+    },
+    postSummary: function(content) {
+      let postSummary = content
+        .replace(/<(?:.|\n)*?>/gm, "")
+        .replace(/\./g, ". ")
+        .replace(/\,/g, ", ")
+        .substring(0, 140);
       // console.log('postSummary.length' + postSummary.length);
       if (postSummary.length == 140) {
-      	postSummary = postSummary + '...';
-      	return postSummary;
+        postSummary = postSummary + "...";
+        return postSummary;
       } else {
-      	return postSummary;
+        return postSummary;
       }
-  },
-  viewPost: function(index) {
-  	var vm = this;
-  	let post = vm.filteredPosts[index];
-  	let postString = JSON.stringify(vm.filteredPosts[index]);
+    },
+    viewPost: function(index) {
+      var vm = this;
+      let post = vm.filteredPosts[index];
+      let postString = JSON.stringify(vm.filteredPosts[index]);
 
-  	console.log('viewing... ' + JSON.stringify(post));
+      console.log("viewing... " + JSON.stringify(post));
 
       // window.location.href = '../post/' + post.id.toString();
-      vm.$router.push({name: 'post-id', params: { id: post.id.toString() }});
+      vm.$router.push({ name: "post-id", params: { id: post.id.toString() } });
       // vm.$router.push('/post/' + post.id.toString());
+    }
   }
-}
 };
 </script>
 <style>
 section,
 body,
 html {
-	background: white;
+  background: white;
 }
 </style>

@@ -71,96 +71,108 @@
 </template>
 
 <script type="text/javascript">
-import {
-  globalVariables
-} from './../../main';
-import Vue from 'vue';
-import moment from 'moment';
-import firebase from 'firebase';
-import axios from 'axios';
-import NoSSR from 'vue-no-ssr';
-import VueDisqus from 'vue-disqus/dist/vue-disqus.vue';
+import { globalVariables } from "./../../main";
+import Vue from "vue";
+import moment from "moment";
+import firebase from "firebase";
+import axios from "axios";
+import NoSSR from "vue-no-ssr";
+import VueDisqus from "vue-disqus/dist/vue-disqus.vue";
 
 // import moment from 'moment';
 
 export default {
   data() {
     return {
-
       // content: '',
-      editor: '',
+      editor: "",
       tagsArray: [],
-      postURL: '',
-      postId: '',
-      id: '',
-      title: '',
-      author: '',
+      postURL: "",
+      postId: "",
+      id: "",
+      title: "",
+      author: "",
       posts: [],
-      createdDate: '',
+      createdDate: "",
       token: null,
-      dateAuthor: '',
-    }
+      dateAuthor: ""
+    };
   },
   beforeMount: function() {
     this.initPost();
   },
   components: {
-    'no-ssr': NoSSR,
+    "no-ssr": NoSSR,
     VueDisqus
   },
   computed: {
     fbUrl() {
-      let fburl = encodeURI('https://www.facebook.com/sharer/sharer.php?u=') + encodeURI(this.postURL) + '&t=' + escape(this.title);
+      let fburl =
+        encodeURI("https://www.facebook.com/sharer/sharer.php?u=") +
+        encodeURI(this.postURL) +
+        "&t=" +
+        escape(this.title);
       console.log(fburl);
       return fburl;
     },
     twitterUrl() {
       // https://twitter.com/share?url=URLENCODED_URL&via=TWITTER_HANDLE&text=TEXT
-      let twitterurl = 'https://twitter.com/share?url=' + encodeURI(this.postURL) + '&text=' + escape(this.title);
+      let twitterurl =
+        "https://twitter.com/share?url=" +
+        encodeURI(this.postURL) +
+        "&text=" +
+        escape(this.title);
       return twitterurl;
     },
     linkedinUrl() {
       // https://www.linkedin.com/shareArticle?mini=true&url=http://developer.linkedin.com&title=LinkedIn%20Developer%20Network&summary=My%20favorite%20developer%20program&source=LinkedIn
-      let linkedinurl = encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') + encodeURI(this.postURL) + '&title=' + escape(this.title) + '&source=Lesspod';
+      let linkedinurl =
+        encodeURI("https://www.linkedin.com/shareArticle?mini=true&url=") +
+        encodeURI(this.postURL) +
+        "&title=" +
+        escape(this.title) +
+        "&source=Lesspod";
       return linkedinurl;
     },
     filteredPosts: function() {
       return this.posts.filter(function(post) {
-        return !(post.pageURL && post.pageURL.length)
+        return !(post.pageURL && post.pageURL.length);
       });
     }
   },
-  filters : {
-  // {{ new Date(post.createdAt).toISOString() | moment('MMMM D, YYYY') }} . {{ post.author }}
+  filters: {
+    // {{ new Date(post.createdAt).toISOString() | moment('MMMM D, YYYY') }} . {{ post.author }}
     moment: function(date) {
-      console.log('DATE', date);
-      return moment(new Date(date).toUTCString()).format('MMMM D, YYYY');
-    },
+      console.log("DATE", date);
+      return moment(new Date(date).toUTCString()).format("MMMM D, YYYY");
+    }
   },
   methods: {
     initPost: function() {
-
       var vm = this;
 
-      if (vm.$cookie && vm.$cookie.get('token') && vm.$cookie.get('token').length) {
-        vm.token = vm.$cookie.get('token');
-        axios.defaults.headers.common['Authorization'] = vm.$cookie.get("token");
+      if (
+        vm.$cookie &&
+        vm.$cookies.get("token") &&
+        vm.$cookies.get("token").length
+      ) {
+        vm.token = vm.$cookies.get("token");
+        axios.defaults.headers.common["Authorization"] = vm.$cookies.get(
+          "token"
+        );
       }
       // fetch the post from server
-      let href = location.href.replace(/\#$/, '');
+      let href = location.href.replace(/\#$/, "");
 
-      let postId = href.substr(href.lastIndexOf('/') + 1);
+      let postId = href.substr(href.lastIndexOf("/") + 1);
 
-      const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
-      console.log('deployment target is ' + deploymentTarget);
+      const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+      console.log("deployment target is " + deploymentTarget);
 
       switch (deploymentTarget) {
         case LOCALHOST:
-          axios.get('/v1/posts/' + postId, {})
+          axios
+            .get("/v1/posts/" + postId, {})
             .then(function(response) {
               console.log(response.data.post);
               let post = response.data.post;
@@ -170,26 +182,26 @@ export default {
               vm.author = post.author;
               vm.createdDate = post.createdAt;
               vm.tagsArray = post.tags.toString().split(",");
-              vm.postURL = window.location.origin + '/post/' + post.id.toString();
+              vm.postURL =
+                window.location.origin + "/post/" + post.id.toString();
               console.log(vm.postURL);
-              document.title = post.title.toString() + ' by ' + post.author.toString();
+              document.title =
+                post.title.toString() + " by " + post.author.toString();
             })
             .catch(function(error) {
               console.log(error);
             });
 
-
           // Need to display latest posts under the post being viewed.
 
-          axios.get('/v1/posts', {})
+          axios
+            .get("/v1/posts", {})
             .then(function(response) {
-
               // console.log(response);
 
               let posts1 = response.data.posts;
               posts1.reverse();
               for (var i in posts1) {
-
                 console.log(posts1[i].title);
                 if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
                   posts1.splice(i, 1);
@@ -202,8 +214,8 @@ export default {
               console.log(error);
               // if error is 401 unauthorize, logout the user.
 
-              if (error.toString().indexOf('401') !== -1) {
-                console.log('Logging you out...')
+              if (error.toString().indexOf("401") !== -1) {
+                console.log("Logging you out...");
                 vm.logout();
               }
             });
@@ -215,7 +227,9 @@ export default {
           };
           db.settings(settings);
 
-          db.collection("posts").doc(postId)
+          db
+            .collection("posts")
+            .doc(postId)
             .get()
             .then(function(doc) {
               if (doc.exists) {
@@ -226,9 +240,11 @@ export default {
                 vm.author = post.author;
                 vm.createdDate = post.createdAt;
                 vm.tagsArray = post.tags.toString().split(",");
-                vm.postURL = window.location.origin + '/post/' + post.id.toString();
+                vm.postURL =
+                  window.location.origin + "/post/" + post.id.toString();
                 console.log(vm.postURL);
-                document.title = post.title.toString() + ' by ' + post.author.toString();
+                document.title =
+                  post.title.toString() + " by " + post.author.toString();
               } else {
                 console.log("No such post!");
               }
@@ -236,15 +252,16 @@ export default {
             .catch(function(error) {
               console.log("Error getting post: ", error);
             });
-          if(this.$cookie){  
-            const user = this.$cookie.getJSON('user');
+          if (this.$cookie) {
+            const user = this.$cookies.getJSON("user");
           }
-          db.collection("posts") // .where("createdBy", "==", user.id)
+          db
+            .collection("posts") // .where("createdBy", "==", user.id)
             .get()
             .then(function(querySnapshot) {
               let posts1 = [];
               querySnapshot.forEach(function(doc) {
-                posts1.push(doc.data())
+                posts1.push(doc.data());
               });
               for (var i in posts1) {
                 if (posts1[i].pageURL && posts1[i].pageURL.length !== 0) {
@@ -260,10 +277,14 @@ export default {
       }
     },
     postSummary: function(content) {
-      let postSummary = content.replace(/<(?:.|\n)*?>/gm, '').replace(/\./g, '. ').replace(/\,/g, ', ').substring(0, 140);
+      let postSummary = content
+        .replace(/<(?:.|\n)*?>/gm, "")
+        .replace(/\./g, ". ")
+        .replace(/\,/g, ", ")
+        .substring(0, 140);
       // console.log('postSummary.length' + postSummary.length);
       if (postSummary.length == 140) {
-        postSummary = postSummary + '...';
+        postSummary = postSummary + "...";
         return postSummary;
       } else {
         return postSummary;
@@ -274,27 +295,21 @@ export default {
       let post = vm.filteredPosts[index];
       let postString = JSON.stringify(vm.filteredPosts[index]);
 
-      console.log('viewing... ' + JSON.stringify(post));
+      console.log("viewing... " + JSON.stringify(post));
 
-      window.location.href = '../post/' + post.id.toString();
+      window.location.href = "../post/" + post.id.toString();
     },
     tagClicked: function(tag) {
       console.log(tag);
     }
   }
-
 };
 </script>
 <style>
-
-;
 #dateAuthor {
   padding-top: 0;
   margin-top: 0;
 }
-
-;
-
 
 body {
   margin: 0;
@@ -318,7 +333,6 @@ body {
     left: auto;
     top: 78%;
   }
-
 }
 
 @media (min-width: 768px) {
@@ -328,11 +342,10 @@ body {
     right: auto;
     top: 50%;
   }
-
 }
 
 .circle:before {
-  content: ' \25CF';
+  content: " \25CF";
   font-size: 200px;
 }
 
@@ -350,7 +363,7 @@ body {
 }
 
 .facebook {
-  background: #3B5998;
+  background: #3b5998;
   color: white;
 }
 
@@ -361,12 +374,12 @@ body {
 
 .fbcalm {
   background: white;
-  color: #3B5998;
+  color: #3b5998;
 }
 
 .twcalm {
   background: white;
-  color: #55ACEE;
+  color: #55acee;
 }
 
 .licalm {
@@ -374,9 +387,8 @@ body {
   color: #007bb5;
 }
 
-
 .twitter {
-  background: #55ACEE;
+  background: #55acee;
   color: white;
 }
 
