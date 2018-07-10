@@ -3,15 +3,15 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _0fd430f8 = () => import('../../../src/pages/Viewpost.vue' /* webpackChunkName: "pages/Viewpost" */).then(m => m.default || m)
-const _4c64db54 = () => import('../../../src/pages/Page2.vue' /* webpackChunkName: "pages/Page2" */).then(m => m.default || m)
-const _98770f8c = () => import('../../../src/pages/Login.vue' /* webpackChunkName: "pages/Login" */).then(m => m.default || m)
-const _33097d9c = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
-const _4da87064 = () => import('../../../src/pages/Page.vue' /* webpackChunkName: "pages/Page" */).then(m => m.default || m)
-const _4c72f2d5 = () => import('../../../src/pages/Page3.vue' /* webpackChunkName: "pages/Page3" */).then(m => m.default || m)
-const _7ab3fe62 = () => import('../../../src/pages/Register.vue' /* webpackChunkName: "pages/Register" */).then(m => m.default || m)
-const _1c31bf6a = () => import('../../../src/pages/post/_id.vue' /* webpackChunkName: "pages/post/_id" */).then(m => m.default || m)
-const _72aab543 = () => import('../../../src/pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _d9cd4fe6 = () => import('../../../src/pages/Viewpost.vue' /* webpackChunkName: "pages/Viewpost" */).then(m => m.default || m)
+const _106d5f6b = () => import('../../../src/pages/Page2.vue' /* webpackChunkName: "pages/Page2" */).then(m => m.default || m)
+const _77ccfc51 = () => import('../../../src/pages/Login.vue' /* webpackChunkName: "pages/Login" */).then(m => m.default || m)
+const _939841ee = () => import('../../../src/pages/App.vue' /* webpackChunkName: "pages/App" */).then(m => m.default || m)
+const _0086e4d7 = () => import('../../../src/pages/Page.vue' /* webpackChunkName: "pages/Page" */).then(m => m.default || m)
+const _107b76ec = () => import('../../../src/pages/Page3.vue' /* webpackChunkName: "pages/Page3" */).then(m => m.default || m)
+const _15b76eeb = () => import('../../../src/pages/Register.vue' /* webpackChunkName: "pages/Register" */).then(m => m.default || m)
+const _9195a01a = () => import('../../../src/pages/post/_id.vue' /* webpackChunkName: "pages/post/_id" */).then(m => m.default || m)
+const _36b3395a = () => import('../../../src/pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
 
@@ -73,47 +73,47 @@ export function createRouter () {
     routes: [
 		{
 			path: "/Viewpost",
-			component: _0fd430f8,
+			component: _d9cd4fe6,
 			name: "Viewpost"
 		},
 		{
 			path: "/Page2",
-			component: _4c64db54,
+			component: _106d5f6b,
 			name: "Page2"
 		},
 		{
 			path: "/Login",
-			component: _98770f8c,
+			component: _77ccfc51,
 			name: "Login"
 		},
 		{
 			path: "/App",
-			component: _33097d9c,
+			component: _939841ee,
 			name: "App"
 		},
 		{
 			path: "/Page",
-			component: _4da87064,
+			component: _0086e4d7,
 			name: "Page"
 		},
 		{
 			path: "/Page3",
-			component: _4c72f2d5,
+			component: _107b76ec,
 			name: "Page3"
 		},
 		{
 			path: "/Register",
-			component: _7ab3fe62,
+			component: _15b76eeb,
 			name: "Register"
 		},
 		{
 			path: "/post/:id?",
-			component: _1c31bf6a,
+			component: _9195a01a,
 			name: "post-id"
 		},
 		{
 			path: "/",
-			component: _72aab543,
+			component: _36b3395a,
 			name: "index"
 		}
     ],
