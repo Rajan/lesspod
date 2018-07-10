@@ -89,13 +89,9 @@
 import {
   globalVariables
 } from './../main';
-// Import component
-import Loading from 'vue-loading-overlay';
+
 import firebase from 'firebase';
 import axios from 'axios';
-// Import stylesheet
-import 'vue-loading-overlay/dist/vue-loading.min.css';
-// import moment from 'moment';
 
 import { mapState, mapActions } from 'vuex';
 
@@ -113,7 +109,7 @@ export default {
 		}
 	},
 	components: {
-    	Loading
+
   	},
 	beforeMount: function(){
 

@@ -137,13 +137,6 @@ import {
 import firebase from 'firebase';
 import axios from 'axios';
 
-// import moment from 'moment';
-
-// Import component
-import Loading from 'vue-loading-overlay';
-// Import stylesheet
-import 'vue-loading-overlay/dist/vue-loading.min.css';
-
 export default {
   // props: ["posts"],
   data() {
@@ -155,7 +148,7 @@ export default {
     };
   },
   components: {
-    Loading
+
   },
   created: function() {
 
