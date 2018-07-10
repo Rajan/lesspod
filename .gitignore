@@ -76,3 +76,4 @@ package-lock.json
 firebase_init.txt
 /.idea
 /uploads
+node_modules_nuxt/
