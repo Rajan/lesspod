@@ -54,10 +54,12 @@ class NavBar extends React.Component {
               <Link to="/services">Services</Link>
             </div>
             <div className="navbar-item">
-              <Link to="/services">WhatsApp</Link>
+              <a href="https://chat.whatsapp.com/invite/Hxse6mGibMk3Y5V9mNUjEb" target="_blank">
+                WhatsApp
+              </a>
             </div>
             <div className="navbar-item">
-              <Link to="/services">Why Lesspod</Link>
+              <Link to="/why-lesspod">Why Lesspod</Link>
             </div>
           </div>
         </div>

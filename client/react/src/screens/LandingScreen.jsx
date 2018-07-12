@@ -103,8 +103,7 @@ class LandingScreen extends React.Component {
             <div className="container">
               <div className="is-centered">
                 <div className="column has-text-centered" style={{ fontSize: '1.5rem' }}>
-                  <Link to="/login">Login</Link>
-                  Or
+                  <Link to="/login">Login</Link>&nbsp;Or&nbsp;
                   <Link to="/register">Create Account</Link>
                 </div>
               </div>
