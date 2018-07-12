@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+
     <slug></slug>
-  </v-container>
+
 </template>
 
 <script>

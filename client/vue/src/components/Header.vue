@@ -441,8 +441,16 @@ export default {
       }
     },
     properURL: function(url) {
+      console.log('url in properURL: ' + url)
       if (url && url.indexOf("http") === -1) {
-        return "http://" + url;
+        if(url.toString() == '/blog'){
+          var loc = window.location;
+          var baseUrl = loc.protocol + "//" + loc.hostname + (loc.port? ":"+loc.port : "") + url;
+          // let propURL = window.location.origin + '/blog';
+          console.log('properURL: ' + baseUrl);
+          return baseUrl;
+
+        }else return "http://" + url;
       } else return url;
     },
     newMenuAdded: function(newMenu) {
@@ -622,7 +630,7 @@ export default {
       var vm = this;
 
       if (menu1.postId && menu1.postId.length) {
-        // console.log("postId in visitMenu: " + JSON.stringify(menu1.postId));
+        console.log("postId in visitMenu: " + JSON.stringify(menu1.postId));
         // this.$cookie.set('postId', menu1.postId);
 
         var postId = menu1.postId;
@@ -688,7 +696,9 @@ export default {
             break;
         }
       } else {
-        window.open(vm.properURL(menu1.linkedURL), "_blank");
+        let url = vm.properURL(menu1.linkedURL);
+        console.log(url);
+        window.open(url, "_blank");
       }
     },
     logout: function() {
