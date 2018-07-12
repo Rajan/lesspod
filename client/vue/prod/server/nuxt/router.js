@@ -12,6 +12,7 @@ const _107b76ec = () => import('../../../src/pages/Page3.vue' /* webpackChunkNam
 const _15b76eeb = () => import('../../../src/pages/Register.vue' /* webpackChunkName: "pages/Register" */).then(m => m.default || m)
 const _9195a01a = () => import('../../../src/pages/post/_id.vue' /* webpackChunkName: "pages/post/_id" */).then(m => m.default || m)
 const _36b3395a = () => import('../../../src/pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _07274915 = () => import('../../../src/pages/_slug/index.vue' /* webpackChunkName: "pages/_slug/index" */).then(m => m.default || m)
 
 
 
@@ -115,6 +116,11 @@ export function createRouter () {
 			path: "/",
 			component: _36b3395a,
 			name: "index"
+		},
+		{
+			path: "/:slug",
+			component: _07274915,
+			name: "slug"
 		}
     ],
     

@@ -648,7 +648,7 @@ export default {
                   vm.$cookie.set("editpost", JSON.stringify(post));
                 }
                 // location.href = menu1.linkedURL;
-                vm.$router.push({name: 'Page', params: { path: menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1) }});
+                vm.$router.push({name: 'slug', params: { slug: menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1) }});
               })
               .catch(function(error) {
                 console.log(error);
@@ -676,7 +676,8 @@ export default {
                   // location.href = menu1.linkedURL;
                   // console.log('MENU: ', menu1);
                   let menuURL = menu1.linkedURL.substr(menu1.linkedURL.lastIndexOf('/')+1);
-                  vm.$router.push({name: 'Page', params: { page: menuURL }});
+                  vm.$router.push({name: 'slug', params: { slug: menuURL }});
+
                 } else {
                   console.log("No such post!");
                 }
