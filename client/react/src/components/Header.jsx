@@ -1,5 +1,4 @@
 import React from 'react';
-import { Navbar, NavbarMenu, NavbarBrand, NavbarItem, NavbarStart, NavbarEnd } from 'bloomer';
 import { Link } from 'react-router-dom';
 
 import icon from './../assets/images/icon.png';
@@ -26,27 +25,7 @@ const styles = {
 
 class Header extends React.Component {
   render() {
-    return (
-      <Navbar style={styles.container}>
-        <NavbarBrand style={styles.iconContainer}>
-          <img height="160" width="50" src={icon} alt="lesspod-logo-icon" />
-        </NavbarBrand>
-        <NavbarMenu onClick={this.onClickNav}>
-          <NavbarStart isUnselectable>
-            <div style={styles.captionContainer}>
-              <img src={textIcon} width="auto" height="21" alt="lesspod-logo-text" />
-              <p>Serverless Blogging Engine</p>
-            </div>
-          </NavbarStart>
-          <NavbarEnd>
-            <NavbarItem>
-              <Link to="/">Home</Link>
-            </NavbarItem>
-            <LoginNavItem />
-          </NavbarEnd>
-        </NavbarMenu>
-      </Navbar>
-    );
+    return <div> Header </div>;
   }
 }
 

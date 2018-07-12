@@ -20,8 +20,7 @@ export const addDataToFbase = (collection, data, successCallback, errorCallback)
   data.createdAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
   data.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
-  db
-    .collection(collection)
+  db.collection(collection)
     .doc(generatedId) // documentId is same as id; easier for future referencing of document
     .set(data)
     .then(() => {
@@ -39,8 +38,7 @@ export const updateDataInFbase = (collection, documentId, data, successCallback,
   db.settings({
     timestampsInSnapshots: true,
   });
-  db
-    .collection(collection)
+  db.collection(collection)
     .doc(documentId)
     .update(data)
     .then(docRef => {
@@ -57,8 +55,7 @@ export const getUserDataFromFbase = (email, successCallback, errorCallback) => {
   db.settings({
     timestampsInSnapshots: true,
   });
-  db
-    .collection(USERS_COLLECTION)
+  db.collection(USERS_COLLECTION)
     .where('email', '==', email)
     .get()
     .then(querySnapshot => {
@@ -76,8 +73,7 @@ export const getAllPostsByUser = (userId, successCallback, errorCallback) => {
   db.settings({
     timestampsInSnapshots: true,
   });
-  db
-    .collection(POSTS_COLLECTION)
+  db.collection(POSTS_COLLECTION)
     .where('createdBy', '==', userId)
     .get()
     .then(querySnapshot => {
