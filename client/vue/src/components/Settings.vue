@@ -15,8 +15,8 @@
               <div class="control has-icons-left">
                 <div class="file has-name is-boxed">
                   <label class="file-label">
-                      <input class="file-input" type="button" name="resume"
-                            @click.stop="updateImage('squareLogo')">
+                      <input class="file-input" type="file" name="logo"
+                            v-on:change="uploadImage('squareLogo', $event)">
                       <span class="file-cta">
 												<span class="file-icon">
 													<i class="fas fa-upload"></i>
@@ -38,8 +38,8 @@
               <div class="control has-icons-left">
                 <div class="file has-name is-boxed">
                   <label class="file-label">
-                      <input class="file-input" type="button" name="resume"
-                             @click.stop="updateImage('horizontalLogo')">
+                      <input class="file-input" type="file" name="logo"
+                            v-on:change="uploadImage('horizontalLogo', $event)">
                       <span class="file-cta">
 												<span class="file-icon">
 													<i class="fas fa-upload"></i>
@@ -96,12 +96,12 @@
                       Login
                     </button>
                 </div> -->
-            function uploadImage(file) { // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor. const user = this.$cookie.getJSON("user"); const moment = require("moment"); const now
+            <!-- function uploadImage(file) { // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor. const user = this.$cookie.getJSON("user"); const moment = require("moment"); const now
             = moment().format("YYYY-MM-DD HH:mm:ss.ms Z"); const storagePath = `${user.id}/images/${now}_${file.name}`; firebase .storage() .ref(storagePath) .put(file) .then(snapshot => { console.log('image upload success'); return snapshot.ref.getDownloadURL();
             }) .then(downloadURL => { console.log('writing download url to db'); //const url = "https://avatars2.githubusercontent.com/u/16257851?s=88&v=4"; const url = downloadURL; const range = this.$refs.editor.quill.getSelection(); this.$refs.editor.quill.insertEmbed(range.index,
             "image", url); let db = firebase.firestore(); const settings = { timestampsInSnapshots: true }; db.settings(settings); db.collection('images').add({ name: file.name, path: storagePath, publicUrl: url, createdBy: user.id, createdAt: now, })
             .then(function(docRef) { console.log("Document written with ID: ", docRef.id); }) .catch(function(error) { console.error("Error adding document: ", error); }); }) .catch(error => { console.error(error); this._alert(true, 'error', error.message);
-            }); }
+            }); } -->
           </form>
         </div>
       </div>
@@ -110,21 +110,17 @@
 </section>
 </template>
 <script type="text/javascript">
-import {
-  globalVariables
-} from "./../main";
+import firebase from "firebase";
+import { globalVariables } from "./../main";
 
-function uploadImage(file, logoType, onSuccessCallback) {
-  // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor.
-
-  const user = this.$cookie.getJSON("user");
+function firebaseUpload(file, logoType, user, onSuccessCallback) {
   const storagePath = `${user.id}/images/${logoType}.jpg`;
   firebase
     .storage()
     .ref(storagePath)
     .put(file)
     .then(snapshot => {
-      console.log('image upload success');
+      console.log("image upload success");
       return snapshot.ref.getDownloadURL();
     })
     .then(downloadURL => {
@@ -132,15 +128,12 @@ function uploadImage(file, logoType, onSuccessCallback) {
       // or just provide a callback
       onSuccessCallback(downloadURL);
       // when 'save settings'  is pressed line 314 uploads the key and value (imageurl)
-
     })
     .catch(error => {
       console.error(error);
-      this._alert(true, 'error', error.message);
+      alert(error.message);
     });
 }
-
-
 export default {
   data() {
     return {
@@ -151,14 +144,16 @@ export default {
       settings: []
     };
   },
+  computed: {
+    inputType: function() {
+      const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+      return deploymentTarget === FBASE ? "file" : "file";
+    }
+  },
   created: function() {
     // fetch settings and set values
     const vm = this;
-    const {
-      deploymentTarget,
-      LOCALHOST,
-      FBASE
-    } = globalVariables;
+    const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
     console.log("deployment target is " + deploymentTarget);
     this.$root.$upload.new("squareLogo", {
       url: "v1/settings/logo",
@@ -252,17 +247,34 @@ export default {
     }
   },
   methods: {
-    updateImage: function(logoType) {
-      this.$root.$upload.select(logoType);
+    uploadImage: function(logoType, event) {
+      const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
+      const file = event.target.files[0];
+      if (deploymentTarget === FBASE) {
+        const user = this.$cookie.getJSON("user");
+        firebaseUpload(file, logoType, user, resp => {
+          console.log("image uploaded with url", resp);
+        });
+      } else {
+        const formData = new FormData();
+        formData.append("logo", file);
+        formData.append("logoType", logoType);
+        axios
+          .post("v1/settings/logo", formData)
+          .then(resp => {
+            console.log("Logo uploaded Successfully");
+            location.reload();
+          })
+          .catch(err => console.log("Logo uploading error", err));
+      }
     },
+    // updateImage: function(logoType) {
+    //   this.$root.$upload.select(logoType);
+    // },
     saveSettings: function() {
       const vm = this;
       let settings = vm.settings;
-      const {
-        deploymentTarget,
-        LOCALHOST,
-        FBASE
-      } = globalVariables;
+      const { deploymentTarget, LOCALHOST, FBASE } = globalVariables;
       console.log("deployment target is " + deploymentTarget);
       // updating existing settings
       for (let i in settings) {
@@ -349,7 +361,7 @@ export default {
               );
               db
                 .collection("settings")
-                .doc(setting.id)
+                .doc(settingData.id)
                 .set(settingData)
                 .then(function(docRef) {
                   console.log("settings added!");
