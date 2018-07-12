@@ -702,7 +702,7 @@ export default {
   },
   created() {
     
-    console.log('storedMenus in Created: ' + JSON.stringify(this.storedMenus))
+    // console.log('storedMenus in Created: ' + JSON.stringify(this.storedMenus));
   }
 };
 </script>

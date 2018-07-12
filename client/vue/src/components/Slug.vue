@@ -51,6 +51,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 
 import moment from 'moment';
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -107,7 +108,11 @@ export default {
   computed: {
     quill() {
       return this.$refs.myQuillEditor.quill
-    }
+    },
+    ...mapState({
+      storedMenus: state => state.menus,
+      latestPosts: state => state.latestPosts
+    })
   },
   watch: {
     tagsArray: function() {
@@ -125,6 +130,10 @@ export default {
     }
   },
   beforeMount: function() {
+    
+  },
+  created() {
+    console.log('storedMenus in Created: ' + JSON.stringify(this.storedMenus));
     this.initPage();
   },
   methods: {
@@ -138,7 +147,19 @@ export default {
 
       let pageTitle = href.substr(href.lastIndexOf('/') + 1);
 
+      var postId = null;
+
       console.log('title is ', pageTitle);
+
+      let menus1 = vm.storedMenus;
+      console.log('menus length: ' + menus1.length);
+      for(var i in menus1){
+        console.log('menu name: ' + menus1[i].name + ' postId: ' + menus1[i].postId);
+        if(menus1[i].name.toString().localeCompare(pageTitle.toString())){
+          postId = menus1[i].postId;
+        }
+      }
+      console.log('postId: ' + postId);
 
       const {
         deploymentTarget,
@@ -155,7 +176,7 @@ export default {
               let post = response.data.post;
               vm.id = post.id;
               vm.title = post.title;
-              vm.editor = post.content;
+              vm.content = post.content;
               vm.author = post.author;
               vm.createdDate = post.createdAt;
               vm.tagsArray = post.tags.toString().split(",");
@@ -182,7 +203,7 @@ export default {
                 const post = doc.data();
                 vm.id = post.id;
                 vm.title = post.title;
-                vm.editor = post.content;
+                vm.content = post.content;
                 vm.author = post.author;
                 vm.createdDate = post.createdAt;
                 vm.tagsArray = post.tags.toString().split(",");
