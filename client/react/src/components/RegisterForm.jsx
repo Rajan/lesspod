@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
 import { registerWithFirebase, addUserProfileToFbase } from '../api/firebase';
+import userStore from '../stores/userStore';
 
 const styles = {
   container: {
@@ -77,6 +78,7 @@ class RegisterForm extends React.Component {
             if (res.error) {
               console.log(res.error.message);
             } else {
+              userStore.profileData = res.data;
               this.props.history.push('/home');
             }
           });

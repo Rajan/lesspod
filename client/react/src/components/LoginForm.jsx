@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
 import { getUserProfileFromFbase, loginWithFirebase } from '../api/firebase';
+import userStore from './../stores/userStore';
 
 const styles = {
   container: {
@@ -61,7 +62,12 @@ class LoginForm extends React.Component {
         console.log(error.message);
       } else {
         getUserProfileFromFbase(data.user.uid).then(res => {
-          this.props.history.push('/home');
+          if (res.error) {
+            console.log(res.error.message);
+          } else {
+            userStore.profileData = res.data;
+            this.props.history.push('/home');
+          }
         });
       }
     });

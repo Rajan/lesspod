@@ -63,7 +63,7 @@ export const addUserProfileToFbase = data => {
     .then(() => {
       const response = {
         error: null,
-        data: 'success',
+        data,
       };
       return response;
     })
