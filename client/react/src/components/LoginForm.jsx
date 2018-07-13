@@ -8,7 +8,6 @@ import userStore from './../stores/userStore';
 
 const styles = {
   container: {
-    width: '30%',
     minWidth: 350,
     flexDirection: 'column',
   },
@@ -22,8 +21,8 @@ const styles = {
     textAlign: 'center',
     marginBottom: 15,
     backgroundImage: `url(${LogoMin})`,
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
   },

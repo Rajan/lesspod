@@ -8,7 +8,6 @@ import userStore from '../stores/userStore';
 
 const styles = {
   container: {
-    width: '30%',
     minWidth: 350,
     flexDirection: 'column',
   },
