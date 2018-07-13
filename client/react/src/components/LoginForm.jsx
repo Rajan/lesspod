@@ -1,25 +1,39 @@
 import React from 'react';
-import { Field, Label, Control, Icon, Input, Checkbox, Button } from 'bloomer';
-import MailIcon from 'react-icons/lib/fa/envelope';
-import LockIcon from 'react-icons/lib/fa/lock';
-import { Link, withRouter } from 'react-router-dom';
-import firebase from 'firebase';
+import { Link } from 'react-router-dom';
 
-import FormLogo from './../assets/images/logo-bis.png';
-import { blueBg } from './../config/Colors';
-import { getUserDataFromFbase } from '../api/firebase';
+import LogoMin from './../assets/images/icon.png';
+import LogoText from './../assets/images/type.png';
+import { getUserDataFromFbase, loginWithFirebase } from '../api/firebase';
 
 const styles = {
   container: {
-    backgroundColor: '#FFFFFF',
-    padding: 30,
-    borderRadius: 5,
     width: '30%',
     minWidth: 350,
+    flexDirection: 'column',
   },
   logoContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  logo: {
     textAlign: 'center',
     marginBottom: 15,
+    backgroundImage: `url(${LogoMin})`,
+    width: 60,
+    height: 60,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  },
+  logoText: {
+    textAlign: 'center',
+    marginBottom: 15,
+    backgroundImage: `url(${LogoText})`,
+    width: 159,
+    height: 47,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
   },
   row: {
     display: 'flex',
@@ -29,6 +43,10 @@ const styles = {
     marginTop: 25,
     marginBottom: 25,
   },
+  borderless: {
+    border: 'none',
+    // boxShadow: 'inset 0px 0px 0px 0px red',
+  },
 };
 class LoginForm extends React.Component {
   state = {
@@ -36,24 +54,17 @@ class LoginForm extends React.Component {
     password: '',
   };
 
-  onSuccess = data => {
-    this.props.history.push('/home', { user: data });
-  };
-
-  onFailure = error => {
-    console.log(error);
-  };
-
-  onloginClick = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(user => {
-        getUserDataFromFbase(this.state.email, this.onSuccess, this.onFailure);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  onLoginClick = () => {
+    loginWithFirebase(this.state.email, this.state.password).then(response => {
+      if (response.error) {
+        console.log(response.error.message);
+      } else {
+        console.log(response.data);
+        getUserDataFromFbase(this.state.email).then(response => {
+          console.log(response);
+        });
+      }
+    });
   };
 
   handleInputChange = event => {
@@ -68,66 +79,85 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
+      <div className="box" style={styles.container}>
         <div style={styles.logoContainer}>
-          <img src={FormLogo} alt="lesspod-logo-form" width="50%" />
+          <div style={styles.logo} />
+          <div style={styles.logoText} />
         </div>
-        <Field>
-          <Label>Email</Label>
-          <Control hasIcons>
-            <Input
+
+        <div className="field">
+          <label className="label">Email</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              style={styles.borderless}
+              type="email"
+              id="email"
               name="email"
-              placeholder="user@example.com"
-              isColor="white"
-              isFocused
+              placeholder="e.g. alexjohnson@gmail.com"
+              autoComplete="username"
               onChange={this.handleInputChange}
+              required
             />
-            <Icon isSize="small" isAlign="left">
-              <MailIcon />
-            </Icon>
-          </Control>
-        </Field>
-        <Field>
-          <Label>Password</Label>
-          <Control hasIcons>
-            <Input
+            <span className="icon is-small is-left">
+              <i className="fa fa-envelope" />
+            </span>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Password</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              style={styles.borderless}
+              type="password"
+              id="password"
               name="password"
               placeholder="********"
-              type="password"
-              isColor="white"
-              isFocused
               onChange={this.handleInputChange}
+              required
             />
-            <Icon isSize="small" isAlign="left">
-              <LockIcon />
-            </Icon>
-          </Control>
-        </Field>
-        <Field>
-          <div style={styles.row}>
-            <Checkbox> Remember Me</Checkbox> &nbsp;&nbsp;
-            <Link to="/forgot">Forgot Password?</Link>
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock" />
+            </span>
           </div>
-        </Field>
-        <Field isHorizontal>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Button isColor="info" onClick={this.onloginClick}>
+        </div>
+        <div className="field is-grouped">
+          <div className="control">
+            <label className="checkbox">
+              <input type="checkbox" required />
+              &nbsp; Remember me
+            </label>
+          </div>
+          <div className="control">
+            <a className="is-link is-small" style={{ textDecoration: 'none', color: '#0271D3' }}>
+              Forgot Password?
+            </a>
+          </div>
+        </div>
+        <div className="field is-grouped" style={{ marginTop: '2rem' }}>
+          <div className="control">
+            <div
+              href="#"
+              className="button is-info"
+              onClick={() => {
+                this.onLoginClick();
+              }}
+            >
               <b>LOGIN</b>
-            </Button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+          </div>
+          <div className="control">
             <Link to="/register">
-              <b style={{ color: blueBg }}>CREATE ACCOUNT</b>
+              <div className="button is-text" style={{ textDecoration: 'none', color: '#0271D3' }}>
+                <b>CREATE ACCOUNT</b>
+              </div>
             </Link>
           </div>
-        </Field>
+        </div>
       </div>
     );
   }
 }
 
-export default withRouter(LoginForm);
+export default LoginForm;

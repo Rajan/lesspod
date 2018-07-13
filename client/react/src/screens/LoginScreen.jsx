@@ -1,16 +1,13 @@
 import React from 'react';
 
-import Header from './../components/Header';
-import { blueBg } from './../config/Colors';
 import LoginForm from './../components/LoginForm';
+import NavBar from '../components/Navbar';
 
 const styles = {
   formContainer: {
-    backgroundColor: blueBg,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 50,
   },
 };
@@ -19,7 +16,7 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <NavBar />
         <div style={styles.formContainer}>
           <LoginForm />
         </div>

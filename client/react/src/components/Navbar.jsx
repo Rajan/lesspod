@@ -54,7 +54,11 @@ class NavBar extends React.Component {
               <Link to="/services">Services</Link>
             </div>
             <div className="navbar-item">
-              <a href="https://chat.whatsapp.com/invite/Hxse6mGibMk3Y5V9mNUjEb" target="_blank">
+              <a
+                href="https://chat.whatsapp.com/invite/Hxse6mGibMk3Y5V9mNUjEb"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WhatsApp
               </a>
             </div>

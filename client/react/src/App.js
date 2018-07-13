@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import 'sanitize.css';
 import 'bulma/css/bulma.css';
+import 'font-awesome/css/font-awesome.css';
 import './styles/common.css';
 
 import './startup/init';
