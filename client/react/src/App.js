@@ -5,6 +5,7 @@ import 'sanitize.css';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.css';
 
+import './styles/minireset.css';
 import './styles/common.css';
 import './startup/init';
 import Routes from './config/Routes';

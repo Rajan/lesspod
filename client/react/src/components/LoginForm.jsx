@@ -44,10 +44,6 @@ const styles = {
     marginTop: 25,
     marginBottom: 25,
   },
-  borderless: {
-    border: 'none',
-    // boxShadow: 'inset 0px 0px 0px 0px red',
-  },
 };
 class LoginForm extends React.Component {
   state = {
@@ -96,7 +92,6 @@ class LoginForm extends React.Component {
           <div className="control has-icons-left">
             <input
               className="input"
-              style={styles.borderless}
               type="email"
               id="email"
               name="email"
@@ -115,7 +110,6 @@ class LoginForm extends React.Component {
           <div className="control has-icons-left">
             <input
               className="input"
-              style={styles.borderless}
               type="password"
               id="password"
               name="password"
@@ -150,13 +144,13 @@ class LoginForm extends React.Component {
                 this.onLoginClick();
               }}
             >
-              <b>LOGIN</b>
+              LOGIN
             </div>
           </div>
           <div className="control">
             <Link to="/register">
               <div className="button is-text" style={{ textDecoration: 'none', color: '#0271D3' }}>
-                <b>CREATE ACCOUNT</b>
+                CREATE ACCOUNT
               </div>
             </Link>
           </div>

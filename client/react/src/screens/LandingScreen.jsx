@@ -18,7 +18,7 @@ class LandingScreen extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ backgroundColor: '#FFF' }}>
         <Navbar />
         <section className="section">
           <div className="hero-body">
