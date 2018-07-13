@@ -36,7 +36,10 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    const fullName = `${userStore.profileData.first} ${userStore.profileData.last}`.toUpperCase();
+    let fullName;
+    if (userStore.profileData) {
+      fullName = `${userStore.profileData.first} ${userStore.profileData.last}`.toUpperCase();
+    }
     return (
       <div>
         <Navbar />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { view } from 'react-easy-state';
 
 import userStore from '../stores/userStore';
@@ -7,16 +7,13 @@ import LandingScreen from './../screens/LandingScreen';
 import LoginScreen from './../screens/LoginScreen';
 import RegisterScreen from './../screens/RegisterScreen';
 import HomeScreen from './../screens/HomeScreen';
-import ServicesScreen from './../screens/ServicesScreen';
-import WhyLesspodScreen from '../screens/WhyLesspodScreen';
 // import ProfileScreen from './../screens/ProfileScreen';
 
-const PrivateRoute = params => {
-  if (params.auth) {
-    return <Route {...params} />;
-  }
-  return <Redirect to={{ pathname: '/login' }} />;
-};
+const PrivateRoute = params => <Route {...params} />;
+// if (params.auth) {
+//   return <Route {...params} />;
+// }
+// return <Redirect to={{ pathname: '/login' }} />;
 
 class Routes extends React.Component {
   render() {
@@ -27,8 +24,6 @@ class Routes extends React.Component {
           <Route path="/" exact component={LandingScreen} />
           <Route path="/login" exact component={LoginScreen} />
           <Route path="/register" exact component={RegisterScreen} />
-          <Route path="/services" exact component={ServicesScreen} />
-          <Route path="/why-lesspod" exact component={WhyLesspodScreen} />
           <PrivateRoute auth={auth} path="/home" exact component={HomeScreen} />
           {/* <Route path="/profile" exact component={ProfileScreen} />  */}
         </Switch>

@@ -50,21 +50,6 @@ class NavBar extends React.Component {
             <div className="navbar-item">
               <Link to="/">Blog</Link>
             </div>
-            <div className="navbar-item">
-              <Link to="/services">Services</Link>
-            </div>
-            <div className="navbar-item">
-              <a
-                href="https://chat.whatsapp.com/invite/Hxse6mGibMk3Y5V9mNUjEb"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
-            </div>
-            <div className="navbar-item">
-              <Link to="/why-lesspod">Why Lesspod</Link>
-            </div>
           </div>
         </div>
       </nav>
