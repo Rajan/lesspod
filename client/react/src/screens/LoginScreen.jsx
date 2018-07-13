@@ -18,7 +18,7 @@ class LoginScreen extends React.Component {
       <div>
         <NavBar />
         <div style={styles.formContainer}>
-          <LoginForm />
+          <LoginForm history={this.props.history} />
         </div>
       </div>
     );

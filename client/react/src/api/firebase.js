@@ -11,10 +11,10 @@ export const loginWithFirebase = (email, password) =>
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => {
+    .then(data => {
       const response = {
         error: null,
-        data: 'success',
+        data,
       };
       return response;
     })
@@ -31,10 +31,10 @@ export const registerWithFirebase = (email, password) =>
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(
-      () => {
+      user => {
         const response = {
           error: null,
-          data: 'success',
+          data: user,
         };
         return response;
       },
@@ -46,6 +46,60 @@ export const registerWithFirebase = (email, password) =>
         return response;
       }
     );
+
+export const addUserProfileToFbase = data => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+
+  return db
+    .collection(USERS_COLLECTION)
+    .doc(data.id) // documentId is same as userId; firebase security rules
+    .set(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data: 'success',
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getUserProfileFromFbase = id => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+  return db
+    .collection(USERS_COLLECTION)
+    .doc(id)
+    .get()
+    .then(doc => {
+      const response = {
+        error: null,
+        data: doc.data(),
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
 
 export const addDataToFbase = (collection, data) => {
   const db = firebase.firestore();
@@ -61,7 +115,7 @@ export const addDataToFbase = (collection, data) => {
 
   return db
     .collection(collection)
-    .doc(generatedId) // documentId is same as id; easier for future referencing of document
+    .doc(generatedId)
     .set(data)
     .then(() => {
       const response = {
@@ -94,21 +148,6 @@ export const updateDataInFbase = (collection, documentId, data, successCallback,
     .catch(error => {
       errorCallback(error);
       console.error('Error updating Profile: ', error);
-    });
-};
-
-export const getUserDataFromFbase = email => {
-  const db = firebase.firestore();
-  db.settings({
-    timestampsInSnapshots: true,
-  });
-  return db
-    .collection(USERS_COLLECTION)
-    .where('email', '==', email)
-    .get()
-    .then(querySnapshot => querySnapshot.docs[0].data())
-    .catch(error => {
-      console.log('Error getting user details: ', error);
     });
 };
 

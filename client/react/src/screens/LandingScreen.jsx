@@ -56,9 +56,7 @@ class LandingScreen extends React.Component {
                     <b style={{ fontSize: '1.3rem', paddingBottom: '1rem' }}>Star us on Github or Follow on Twitter:</b>
                     <br />
                     <br />
-                    <a href="https://github.com/Rajan/lesspod" target="_blank" rel="noopener noreferrer">
-                      <GitHubButton type="stargazers" size="large" namespace="rajan" repo="lesspod" />
-                    </a>
+                    <GitHubButton type="stargazers" size="large" namespace="rajan" repo="lesspod" />
                     &nbsp; &nbsp; &nbsp; &nbsp;
                     <a className="twitter-follow-button" href="https://twitter.com/less_pod" data-size="large">
                       Follow

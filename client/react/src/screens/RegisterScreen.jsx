@@ -18,7 +18,7 @@ class RegisterScreen extends React.Component {
       <div>
         <NavBar />
         <div style={styles.formContainer}>
-          <RegisterForm />
+          <RegisterForm history={this.props.history} />
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
-import { getUserDataFromFbase, loginWithFirebase } from '../api/firebase';
+import { getUserProfileFromFbase, loginWithFirebase } from '../api/firebase';
 
 const styles = {
   container: {
@@ -56,12 +56,12 @@ class LoginForm extends React.Component {
 
   onLoginClick = () => {
     loginWithFirebase(this.state.email, this.state.password).then(response => {
-      if (response.error) {
-        console.log(response.error.message);
+      const { error, data } = response;
+      if (error) {
+        console.log(error.message);
       } else {
-        console.log(response.data);
-        getUserDataFromFbase(this.state.email).then(response => {
-          console.log(response);
+        getUserProfileFromFbase(data.user.uid).then(res => {
+          this.props.history.push('/home');
         });
       }
     });

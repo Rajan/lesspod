@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
-import { addDataToFbase, registerWithFirebase } from '../api/firebase';
-import { USERS_COLLECTION } from '../config/Constants';
+import { registerWithFirebase, addUserProfileToFbase } from '../api/firebase';
 
 const styles = {
   container: {
@@ -57,21 +56,29 @@ class RegisterForm extends React.Component {
 
   onRegisterClick = () => {
     if (
-      this.state.name.length > 2 &&
+      this.state.name &&
+      this.state.password &&
+      this.state.name.length > 4 &&
       this.state.password.length > 5 &&
       this.state.password === this.state.confirmPassword
     ) {
       registerWithFirebase(this.state.email, this.state.password).then(response => {
-        if (response.error) {
-          console.log(response.error.message);
+        const { error, data } = response;
+        if (error) {
+          console.log(error.message);
         } else {
-          const data = {
+          const profileData = {
+            id: data.user.uid,
             email: this.state.email,
             first: this.state.name.split(' ')[0],
             last: this.state.name.split(' ')[1] ? this.state.name.split(' ')[1] : '',
           };
-          addDataToFbase(USERS_COLLECTION, data).then(res => {
-            console.log(response);
+          addUserProfileToFbase(profileData).then(res => {
+            if (res.error) {
+              console.log(res.error.message);
+            } else {
+              this.props.history.push('/home');
+            }
           });
         }
       });
