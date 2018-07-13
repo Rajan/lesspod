@@ -21,7 +21,7 @@ class ProfileScreen extends React.Component {
       <div>
         <Header />
         <div style={styles.formContainer}>
-          <ProfileForm />
+          <ProfileForm history={this.props.history} />
         </div>
       </div>
     );

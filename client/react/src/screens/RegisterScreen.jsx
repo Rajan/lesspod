@@ -1,28 +1,24 @@
 import React from 'react';
 
-import Header from './../components/Header';
-import { blueBg } from './../config/Colors';
-import RegisterForm from './../components/RegisterForm';
-
-const styles = {
-  formContainer: {
-    backgroundColor: blueBg,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 50,
-  },
-};
+import NavBar from '../components/Navbar';
+import RegisterForm from '../components/RegisterForm';
 
 class RegisterScreen extends React.Component {
   render() {
     return (
       <div>
-        <Header />
-        <div style={styles.formContainer}>
-          <RegisterForm />
-        </div>
+        <NavBar />
+        <section className="hero is-info" style={{ minHeight: 'calc(100vh - 6rem)' }}>
+          <div className="hero-body">
+            <div className="container ">
+              <div className="columns is-centered">
+                <div className="column is-5-tablet is-4-desktop is-4-widescreen">
+                  <RegisterForm history={this.props.history} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
