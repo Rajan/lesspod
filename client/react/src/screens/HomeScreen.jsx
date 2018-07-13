@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 import userStore from './../stores/userStore';
 import Navbar from './../components/Navbar';
+import Posts from '../components/Posts';
+import Menus from '../components/Menus';
 
 const styles = {
   container: {
@@ -47,19 +50,7 @@ class HomeScreen extends React.Component {
           <section className="section">
             <div className="container">
               <div className="columns is-centered is-multiline">
-                <div className="column is-two-thirds">
-                  <h1 className="title">All Menus</h1>
-                  {/* <div className="tags has-addons">
-                    <button className="button" style={{ margin: '1rem' }}>
-                      {'menu name'} &nbsp;
-                      <a className="tag is-danger is-delete" />
-                    </button>
-                  </div> */}
-                  <div className="subtitle">
-                    Note: Clicking on the <div className="tag is-danger is-delete" /> will delete the menu/page
-                    permanently.
-                  </div>
-                </div>
+                <Menus data={[{ name: 'menu1' }, { name: 'menu2' }]} />
                 <div className="column is-two-thirds">
                   <h1 className="title">All Posts by {fullName}</h1>
                 </div>
@@ -101,6 +92,16 @@ class HomeScreen extends React.Component {
                       </div>
                     </div>
                   </nav>
+                  <Posts
+                    data={[
+                      {
+                        title: 'post title',
+                        content: 'hellooo contnt post',
+                        createdAt: dayjs(),
+                        author: 'Sai Krishna',
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </div>

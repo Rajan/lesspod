@@ -1,31 +1,46 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { Title } from 'bloomer';
-
-const styles = {
-  container: {
-    backgroundColor: '#FFFFFF',
-    width: 300,
-    height: 200,
-    padding: 25,
-    marginRight: 50,
-    borderRadius: 5,
-    boxShadow: '0 0px 0px 0 rgba(0, 0, 0, 0.2), 3px 3px 3px 0px rgba(0, 0, 0, 0.05)',
-  },
-};
+import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
 
 class PostCard extends React.Component {
+  getPostSummary = content => {
+    let postSummary = content
+      .replace(/<(?:.|\n)*?>/gm, '')
+      .replace(/\./g, '. ')
+      .replace(/,/g, ', ')
+      .substring(0, 140);
+    if (postSummary.length === 140) {
+      postSummary += '...';
+      return postSummary;
+    }
+    return postSummary;
+  };
+
   render() {
     const { post } = this.props;
     return (
-      <div style={styles.container}>
-        <Title isSize={4}>
-          <Link to={post.title}>{post.title}</Link>
-        </Title>
-        <span>{this.props.post.content}</span>
-      </div>
+      <article className="box">
+        <div className="media">
+          <div className="media-content">
+            <p className="title is-5 is-spaced is-marginless">{post.title}</p>
+            <div className="content">
+              <span className="content is-small">
+                {dayjs(post.createdAt).format('MMMM D, YYYY')} . {post.author}
+              </span>
+              <br />
+              <p>{this.getPostSummary(post.content)}</p>
+              <Link to={`/edit:${post.id}`}>Edit</Link>
+              <span> · </span>
+              <Link to={`/edit:${post.id}`}>View</Link>
+              <span> · </span>
+              <Link to={`/delete:${post.id}`}>Delete</Link>
+              <p />
+            </div>
+          </div>
+        </div>
+      </article>
     );
   }
 }
 
-export default withRouter(PostCard);
+export default PostCard;
