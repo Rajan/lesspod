@@ -7,6 +7,7 @@ import LandingScreen from './../screens/LandingScreen';
 import LoginScreen from './../screens/LoginScreen';
 import RegisterScreen from './../screens/RegisterScreen';
 import HomeScreen from './../screens/HomeScreen';
+import NewPostScreen from './../screens/NewPostScreen';
 // import ProfileScreen from './../screens/ProfileScreen';
 
 const PrivateRoute = params => <Route {...params} />;
@@ -25,6 +26,7 @@ class Routes extends React.Component {
           <Route path="/login" exact component={LoginScreen} />
           <Route path="/register" exact component={RegisterScreen} />
           <PrivateRoute auth={auth} path="/home" exact component={HomeScreen} />
+          <PrivateRoute auth={auth} path="/newpost" exact component={NewPostScreen} />
           {/* <Route path="/profile" exact component={ProfileScreen} />  */}
         </Switch>
       </BrowserRouter>
