@@ -6,7 +6,7 @@ import userStore from './../stores/userStore';
 import Navbar from './../components/Navbar';
 import Posts from '../components/Posts';
 import Menus from '../components/Menus';
-import { getAllPostsByUser } from '../api/firebase';
+import { getAllPostsFromFbaseByUser } from '../api/firebase';
 
 const styles = {
   bodyContainer: {
@@ -23,7 +23,7 @@ class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    getAllPostsByUser(userStore.profileData.id).then(response => {
+    getAllPostsFromFbaseByUser(userStore.profileData.id).then(response => {
       this.setState({ posts: response.data, isLoading: false });
     });
   }

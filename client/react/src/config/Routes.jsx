@@ -9,6 +9,7 @@ import RegisterScreen from './../screens/RegisterScreen';
 import HomeScreen from './../screens/HomeScreen';
 import NewPostScreen from './../screens/NewPostScreen';
 import AllPostsScreen from './../screens/AllPostsScreen';
+import ViewPostScreen from './../screens/ViewPostScreen';
 // import ProfileScreen from './../screens/ProfileScreen';
 
 const PrivateRoute = params => {
@@ -29,17 +30,19 @@ class Routes extends React.Component {
   render() {
     const auth = !!userStore.profileData;
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={LandingScreen} />
-          <Route path="/blog" exact component={AllPostsScreen} />
-          <VerifyAuthRoute auth={auth} path="/login" exact component={LoginScreen} />
-          <VerifyAuthRoute auth={auth} path="/register" exact component={RegisterScreen} />
-          <PrivateRoute auth={auth} path="/home" exact component={HomeScreen} />
-          <PrivateRoute auth={auth} path="/newpost" exact component={NewPostScreen} />
-          {/* <Route path="/profile" exact component={ProfileScreen} />  */}
-        </Switch>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact render={props => <LandingScreen {...props} />} />
+            <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
+            <Route path="/post/:postId" exact render={props => <ViewPostScreen {...props} />} />
+            <VerifyAuthRoute auth={auth} path="/login" exact render={props => <LoginScreen {...props} />} />
+            <VerifyAuthRoute auth={auth} path="/register" exact render={props => <RegisterScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
+          </Switch>
+        </BrowserRouter>
+      </div>
     );
   }
 }

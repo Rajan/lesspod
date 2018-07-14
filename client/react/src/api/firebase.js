@@ -184,7 +184,7 @@ export const addPostToFirebase = data => {
     });
 };
 
-export const getAllPostsByUser = userId => {
+export const getAllPostsFromFbaseByUser = userId => {
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,
@@ -220,12 +220,67 @@ export const getAllPostsFromFbase = () => {
     timestampsInSnapshots: true,
   });
 
-  const posts = [];
-
   return db
     .collection(POSTS_COLLECTION)
     .get()
     .then(querySnapshot => {
+      const posts = [];
+      querySnapshot.forEach(doc => {
+        posts.push(doc.data());
+      });
+      const response = {
+        error: null,
+        data: posts,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getPostFromFBase = postId => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(POSTS_COLLECTION)
+    .where('id', '==', postId)
+    .get()
+    .then(querySnapshot => {
+      const response = {
+        error: null,
+        data: querySnapshot.docs[0].data(),
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getLatestPostsFromFbase = () => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(POSTS_COLLECTION)
+    .limit(6)
+    .get()
+    .then(querySnapshot => {
+      const posts = [];
       querySnapshot.forEach(doc => {
         posts.push(doc.data());
       });

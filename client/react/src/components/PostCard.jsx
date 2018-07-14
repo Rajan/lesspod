@@ -30,11 +30,20 @@ class PostCard extends React.Component {
                 </span>
                 <br />
                 <p>{this.getPostSummary(post.content)}</p>
-                <Link to={`/edit:${post.id}`}>Edit</Link>
+                <Link to={`/edit${post.id}`}>Edit</Link>
                 <span> · </span>
-                <Link to={`/edit:${post.id}`}>View</Link>
+                <Link
+                  to={{
+                    pathname: `/post/${post.id}`,
+                    state: {
+                      post,
+                    },
+                  }}
+                >
+                  View
+                </Link>
                 <span> · </span>
-                <Link to={`/delete:${post.id}`}>Delete</Link>
+                <Link to={`/delete${post.id}`}>Delete</Link>
                 <p />
               </div>
             </div>
