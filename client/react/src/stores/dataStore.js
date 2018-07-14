@@ -25,6 +25,10 @@ const dataStore = store({
           post.tags
             .toString()
             .toLowerCase()
+            .indexOf(query.toLowerCase()) !== -1 ||
+          post.author
+            .toString()
+            .toLowerCase()
             .indexOf(query.toLowerCase()) !== -1) &&
           !(post.pageURL && post.pageURL.length))
     );
