@@ -8,9 +8,17 @@ import Posts from './../components/Posts';
 import Shimmer from './../components/Shimmer';
 import { getLatestPostsFromFbase } from '../api/firebase';
 import userStore from '../stores/userStore';
+import dataStore from '../stores/dataStore';
 
 class LandingScreen extends React.Component {
-  state = { posts: [], isLoading: true };
+  constructor(props) {
+    super(props);
+
+    dataStore.posts = [];
+    this.state = {
+      isLoading: true,
+    };
+  }
 
   componentDidMount() {
     if (window.location.pathname !== '/standaloneapp') {
@@ -24,12 +32,14 @@ class LandingScreen extends React.Component {
       if (response.error) {
         console.log(response.error.message);
       } else {
-        this.setState({ posts: response.data, isLoading: false });
+        dataStore.posts = response.data;
+        this.setState({ isLoading: false });
       }
     });
   }
 
   render() {
+    const { posts } = dataStore;
     return (
       <div style={{ backgroundColor: '#FFF' }}>
         <section className="section">
@@ -83,7 +93,7 @@ class LandingScreen extends React.Component {
                   <h2 className="title" v-if="filteredPosts.length > 0">
                     Latest Posts
                   </h2>
-                  {this.state.isLoading ? <Shimmer /> : <Posts data={this.state.posts} />}
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}
                 </div>
               </div>
             </div>

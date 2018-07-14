@@ -6,6 +6,7 @@ import { getPostFromFBase, getLatestPostsFromFbase } from '../api/firebase';
 import Posts from '../components/Posts';
 import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
+import dataStore from '../stores/dataStore';
 
 const styles = {
   loaderContainer: {
@@ -29,8 +30,8 @@ class ViewPostScreen extends Component {
       tags: '',
       author: '',
       isLoading: true,
-      latestPosts: [],
     };
+    dataStore.posts = [];
   }
 
   componentDidMount() {
@@ -54,7 +55,8 @@ class ViewPostScreen extends Component {
       if (response.error) {
         console.log(response.error.message);
       } else {
-        this.setState({ latestPosts: response.data, shimmer: false });
+        dataStore.posts = response.data;
+        this.setState({ shimmer: false });
       }
     });
   }
@@ -85,8 +87,8 @@ class ViewPostScreen extends Component {
   };
 
   render() {
-    const { id, title, content, tags, author, createdAt, isLoading, latestPosts, shimmer } = this.state;
-
+    const { id, title, content, tags, author, createdAt, isLoading, shimmer } = this.state;
+    const { posts } = dataStore;
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
         {isLoading ? (
@@ -124,6 +126,7 @@ class ViewPostScreen extends Component {
                     {ReactHtmlParser(content)}
                   </span>
                   <br />
+                  <br />
 
                   {tags.length > 0 && (
                     <div className="tags">
@@ -140,7 +143,7 @@ class ViewPostScreen extends Component {
                 <div className="column is-two-thirds has-text-centered">
                   <h2 className="title">Latest Posts</h2>
                   <br />
-                  {shimmer ? <Shimmer /> : <Posts data={latestPosts} />}
+                  {shimmer ? <Shimmer /> : <Posts data={posts} />}
                   <br />
                   <h2 className="title">Comments</h2>
                   <div className="comments">

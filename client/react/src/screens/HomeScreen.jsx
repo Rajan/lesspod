@@ -18,9 +18,14 @@ const styles = {
 };
 
 class HomeScreen extends React.Component {
-  state = {
-    isLoading: true,
-  };
+  constructor(props) {
+    super(props);
+
+    dataStore.posts = [];
+    this.state = {
+      isLoading: true,
+    };
+  }
 
   componentDidMount() {
     // generateFakePosts(20);

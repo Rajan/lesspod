@@ -5,6 +5,8 @@ import Posts from '../components/Posts';
 import { getAllPostsFromFbase } from '../api/firebase';
 import userStore from '../stores/userStore';
 import Shimmer from '../components/Shimmer';
+import dataStore from '../stores/dataStore';
+import { view } from 'react-easy-state';
 
 const styles = {
   bodyContainer: {
@@ -14,18 +16,24 @@ const styles = {
 };
 
 class AllPostsScreen extends Component {
-  state = {
-    isLoading: true,
-    posts: [],
-  };
+  constructor(props) {
+    super(props);
+
+    dataStore.posts = [];
+    this.state = {
+      isLoading: true,
+    };
+  }
 
   componentDidMount() {
     getAllPostsFromFbase().then(response => {
-      this.setState({ posts: response.data, isLoading: false });
+      dataStore.posts = response.data;
+      this.setState({ isLoading: false });
     });
   }
 
   render() {
+    const { posts } = dataStore;
     return (
       <div>
         <div style={styles.bodyContainer}>
@@ -40,7 +48,7 @@ class AllPostsScreen extends Component {
                     <div className="level-left">
                       <div className="level-item">
                         <p className="subtitle is-5">
-                          <strong>{this.state.posts.length}</strong> Posts
+                          <strong>{posts.length}</strong> Posts
                         </p>
                       </div>
 
@@ -75,7 +83,7 @@ class AllPostsScreen extends Component {
                       </div>
                     </div>
                   </nav>
-                  {this.state.isLoading ? <Shimmer /> : <Posts data={this.state.posts} />}
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}
                 </div>
               </div>
             </div>
@@ -86,4 +94,4 @@ class AllPostsScreen extends Component {
   }
 }
 
-export default AllPostsScreen;
+export default view(AllPostsScreen);
