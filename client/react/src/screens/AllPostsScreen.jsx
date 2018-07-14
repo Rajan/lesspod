@@ -8,8 +8,8 @@ import Shimmer from '../components/Shimmer';
 
 const styles = {
   bodyContainer: {
-    height: '100vh',
-    backgroundColor: '#F5F5F5',
+    // height: '100vh',
+    // backgroundColor: '#F5F5F5',
   },
 };
 
@@ -28,7 +28,6 @@ class AllPostsScreen extends Component {
   render() {
     return (
       <div>
-       
         <div style={styles.bodyContainer}>
           <section className="section">
             <div className="container">

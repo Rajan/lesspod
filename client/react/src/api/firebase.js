@@ -2,8 +2,7 @@ import firebase from 'firebase';
 import uuidv4 from 'uuid/v4';
 import dayjs from 'dayjs';
 
-import { USERS_COLLECTION, POSTS_COLLECTION } from '../config/Constants';
-import userStore from '../stores/userStore';
+import { USERS_COLLECTION, POSTS_COLLECTION, LATEST_POSTS_LIMIT } from '../config/Constants';
 
 export const logoutFirebase = () => {
   firebase.auth().signOut();
@@ -157,7 +156,7 @@ export const addPostToFirebase = data => {
   data.id = generatedId;
   data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
   data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
-  data.createdBy = userStore.profileData.id;
+  data.createdBy = firebase.auth().currentUser.uid;
 
   const db = firebase.firestore();
   db.settings({
@@ -191,7 +190,6 @@ export const updatePostOnFbase = data => {
   });
 
   data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
-
   return db
     .collection(POSTS_COLLECTION)
     .doc(data.id)
@@ -212,24 +210,24 @@ export const updatePostOnFbase = data => {
     });
 };
 
-export const getAllPostsFromFbaseByUser = userId => {
+export const deletePostFromFbase = postId => {
   const db = firebase.firestore();
-  db.settings({
+  const settings = {
     timestampsInSnapshots: true,
-  });
+  };
+  db.settings(settings);
 
   return db
-    .collection(POSTS_COLLECTION)
-    .where('createdBy', '==', userId)
-    .get()
-    .then(querySnapshot => {
-      const posts = [];
-      querySnapshot.forEach(doc => {
-        posts.push(doc.data());
-      });
+    .collection('posts')
+    .doc(postId)
+    .delete()
+    .then(() => {
       const response = {
         error: null,
-        data: posts,
+        data: {
+          message: 'Post deleted',
+          postId,
+        },
       };
       return response;
     })
@@ -242,6 +240,39 @@ export const getAllPostsFromFbaseByUser = userId => {
     });
 };
 
+export const getAllPostsFromFbaseByUser = userId => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return (
+    db
+      .collection(POSTS_COLLECTION)
+      .where('createdBy', '==', userId)
+      // .orderBy('createdAt', 'desc')
+      .get()
+      .then(querySnapshot => {
+        const posts = [];
+        querySnapshot.forEach(doc => {
+          posts.push(doc.data());
+        });
+        const response = {
+          error: null,
+          data: posts,
+        };
+        return response;
+      })
+      .catch(error => {
+        const response = {
+          error,
+          data: null,
+        };
+        return response;
+      })
+  );
+};
+
 export const getAllPostsFromFbase = () => {
   const db = firebase.firestore();
   db.settings({
@@ -250,6 +281,7 @@ export const getAllPostsFromFbase = () => {
 
   return db
     .collection(POSTS_COLLECTION)
+    .orderBy('createdAt', 'desc')
     .get()
     .then(querySnapshot => {
       const posts = [];
@@ -306,7 +338,7 @@ export const getLatestPostsFromFbase = () => {
   return db
     .collection(POSTS_COLLECTION)
     .orderBy('createdAt', 'desc')
-    .limit(6)
+    .limit(LATEST_POSTS_LIMIT)
     .get()
     .then(querySnapshot => {
       const posts = [];

@@ -1,33 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { view } from 'react-easy-state';
 
 import userStore from './../stores/userStore';
 import Posts from '../components/Posts';
 import Menus from '../components/Menus';
 import { getAllPostsFromFbaseByUser } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
+import { showAlert, generateFakePosts } from '../utils/utils';
+import dataStore from '../stores/dataStore';
 
 const styles = {
   bodyContainer: {
-    height: '100vh',
-    backgroundColor: '#F5F5F5',
+    // height: '100vh',
+    // backgroundColor: '#F5F5F5',
   },
 };
 
 class HomeScreen extends React.Component {
   state = {
     isLoading: true,
-    posts: [],
-    menus: [],
   };
 
   componentDidMount() {
+    // generateFakePosts(20);
+
     getAllPostsFromFbaseByUser(userStore.profileData.id).then(response => {
-      this.setState({ posts: response.data, isLoading: false });
+      if (response.error) {
+        showAlert(response.error.message);
+      } else {
+        dataStore.posts = response.data;
+        this.setState({ isLoading: false });
+      }
     });
   }
 
   render() {
+    const { posts, menus } = dataStore;
     let fullName;
     if (userStore.profileData) {
       fullName = `${userStore.profileData.first} ${userStore.profileData.last}`.toUpperCase();
@@ -38,7 +47,7 @@ class HomeScreen extends React.Component {
           <section className="section">
             <div className="container">
               <div className="columns is-centered is-multiline">
-                <Menus data={this.state.menus} />
+                <Menus data={menus} />
                 <div className="column is-two-thirds">
                   <h1 className="title">All Posts by {fullName}</h1>
                 </div>
@@ -47,7 +56,7 @@ class HomeScreen extends React.Component {
                     <div className="level-left">
                       <div className="level-item">
                         <p className="subtitle is-5">
-                          <strong>{this.state.posts.length}</strong> Posts
+                          <strong>{posts.length}</strong> Posts
                         </p>
                       </div>
 
@@ -80,7 +89,7 @@ class HomeScreen extends React.Component {
                       </div>
                     </div>
                   </nav>
-                  {this.state.isLoading ? <Shimmer /> : <Posts data={this.state.posts} />}
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}
                 </div>
               </div>
             </div>
@@ -91,4 +100,4 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default HomeScreen;
+export default view(HomeScreen);

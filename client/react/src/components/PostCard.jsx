@@ -1,7 +1,12 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+
 import userStore from '../stores/userStore';
+import { deletePostFromFbase } from '../api/firebase';
+import { showAlert } from './../utils/utils';
+import dataStore from '../stores/dataStore';
+import { view } from 'react-easy-state';
 
 class PostCard extends React.Component {
   getPath = params => {
@@ -22,6 +27,17 @@ class PostCard extends React.Component {
       return postSummary;
     }
     return postSummary;
+  };
+
+  deletePost = post => {
+    deletePostFromFbase(post.id).then(response => {
+      if (response.error) {
+        showAlert(response.error.message, 'error');
+      } else {
+        dataStore.deletePost(post);
+        showAlert('Post deleted!', 'success');
+      }
+    });
   };
 
   render() {
@@ -75,8 +91,16 @@ class PostCard extends React.Component {
                     >
                       View
                     </Link>
-                    <span> · </span>
-                    <Link to={`/delete/${post.id}`}>Delete</Link>
+                    {post.createdBy === userStore.profileData.id && <span> · </span>}
+                    {post.createdBy === userStore.profileData.id && (
+                      <a
+                        onClick={() => {
+                          this.deletePost(post);
+                        }}
+                      >
+                        Delete
+                      </a>
+                    )}
                   </div>
                 )}
                 <p />
@@ -89,4 +113,4 @@ class PostCard extends React.Component {
   }
 }
 
-export default PostCard;
+export default view(PostCard);

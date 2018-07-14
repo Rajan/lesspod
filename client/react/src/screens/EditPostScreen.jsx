@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import alertify from 'alertify.js';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
