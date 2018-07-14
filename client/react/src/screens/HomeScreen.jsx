@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
 
 import userStore from './../stores/userStore';
 import Navbar from './../components/Navbar';
 import Posts from '../components/Posts';
 import Menus from '../components/Menus';
+import { getAllPostsByUser } from '../api/firebase';
 
 const styles = {
   container: {
@@ -32,10 +32,15 @@ const styles = {
 };
 
 class HomeScreen extends React.Component {
-  state = {};
+  state = {
+    posts: [],
+    menus: [],
+  };
 
   componentDidMount() {
-    // getAllPostsByUser(this.state.user.id, this.onSuccess, this.onFailure);
+    // getAllPostsByUser(userStore.profileData.id).then(response => {
+    //   this.setState({ posts: response.data });
+    // });
   }
 
   render() {
@@ -50,7 +55,7 @@ class HomeScreen extends React.Component {
           <section className="section">
             <div className="container">
               <div className="columns is-centered is-multiline">
-                <Menus data={[{ name: 'menu1' }, { name: 'menu2' }]} />
+                <Menus data={this.state.menus} />
                 <div className="column is-two-thirds">
                   <h1 className="title">All Posts by {fullName}</h1>
                 </div>
@@ -63,11 +68,11 @@ class HomeScreen extends React.Component {
                         </p>
                       </div>
 
-                      <p className="level-item">
+                      <div className="level-item">
                         <Link to="/newpost">
                           <div className="button is-success">New Post</div>
                         </Link>
-                      </p>
+                      </div>
 
                       <div className="level-item is-hidden-tablet-only">
                         <div className="field has-addons">
@@ -92,16 +97,7 @@ class HomeScreen extends React.Component {
                       </div>
                     </div>
                   </nav>
-                  <Posts
-                    data={[
-                      {
-                        title: 'post title',
-                        content: 'hellooo contnt post',
-                        createdAt: dayjs(),
-                        author: 'Sai Krishna',
-                      },
-                    ]}
-                  />
+                  <Posts data={this.state.posts} />
                 </div>
               </div>
             </div>
