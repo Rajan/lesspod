@@ -17,6 +17,7 @@ const styles = {
     backgroundColor: '#FFFFFF',
   },
 };
+
 class ViewPostScreen extends Component {
   constructor(props) {
     super(props);

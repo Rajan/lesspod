@@ -148,7 +148,7 @@ export const updateDataInFbase = (collection, documentId, data, successCallback,
     })
     .catch(error => {
       errorCallback(error);
-      console.error('Error updating Profile: ', error);
+      console.error('Error updating: ', error);
     });
 };
 
@@ -168,6 +168,34 @@ export const addPostToFirebase = data => {
     .collection(POSTS_COLLECTION)
     .doc(generatedId)
     .set(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const updatePostOnFbase = data => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+
+  return db
+    .collection(POSTS_COLLECTION)
+    .doc(data.id)
+    .update(data)
     .then(() => {
       const response = {
         error: null,

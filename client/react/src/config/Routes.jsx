@@ -11,6 +11,7 @@ import HomeScreen from './../screens/HomeScreen';
 import NewPostScreen from './../screens/NewPostScreen';
 import AllPostsScreen from './../screens/AllPostsScreen';
 import ViewPostScreen from './../screens/ViewPostScreen';
+import EditPostScreen from './../screens/EditPostScreen';
 import Navbar from './../components/Navbar';
 import Footer from '../components/Footer';
 // import ProfileScreen from './../screens/ProfileScreen';
@@ -44,6 +45,7 @@ class Routes extends React.Component {
             <VerifyAuthRoute auth={auth} path="/register" exact render={props => <RegisterScreen {...props} />} />
             <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
           </Switch>
           <Footer />
         </ScrollToTop>

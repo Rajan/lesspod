@@ -34,12 +34,12 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         getUserProfileFromFbase(user.uid).then(res => {
-          this.setState({ isLoading: false });
           if (res.error) {
             console.log(res.error.message);
           } else {
             userStore.profileData = res.data;
           }
+          this.setState({ isLoading: false });
         });
       } else {
         this.setState({ isLoading: false });
