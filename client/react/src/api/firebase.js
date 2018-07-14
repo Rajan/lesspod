@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { USERS_COLLECTION, POSTS_COLLECTION, POSTS_COLLECTION_SUB_COL } from '../config/Constants';
 import userStore from '../stores/userStore';
 
-export const logout = () => {
+export const logoutFirebase = () => {
   firebase.auth().signOut();
 };
 
@@ -215,4 +215,51 @@ export const getAllPostsByUser = userId => {
       };
       return response;
     });
+};
+
+export const getAllPostsFromFbase = () => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  const posts = [];
+
+  db.collection(POSTS_COLLECTION)
+    .get()
+    .then(querySnapshot => {
+      console.log(querySnapshot);
+      querySnapshot.forEach(doc => console.log(doc.data()));
+    });
+
+  // return db
+  //   .collection(POSTS_COLLECTION)
+  //   .get()
+  //   .then(querySnapshot => {
+  //     console.log(querySnapshot);
+  //     querySnapshot.forEach(doc => {
+  //       console.log(doc.id, ' => ', doc.data());
+  //       // return doc
+  //       //   .collection(POSTS_COLLECTION_SUB_COL)
+  //       //   .get()
+  //       //   .then(querySnapshot => {
+  //       //     querySnapshot.forEach(doc => {
+  //       //       posts.push(doc.data());
+  //       //       const response = {
+  //       //         error: null,
+  //       //         data: posts,
+  //       //       };
+  //       //       console.log(response);
+  //       //       return response;
+  //       //     });
+  //       //   });
+  //     });
+  //   })
+  //   .error(error => {
+  //     const response = {
+  //       error,
+  //       data: null,
+  //     };
+  //     return response;
+  //   });
 };

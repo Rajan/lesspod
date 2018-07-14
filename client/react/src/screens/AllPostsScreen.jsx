@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { List } from 'react-content-loader';
-
-import userStore from './../stores/userStore';
-import Navbar from './../components/Navbar';
 import Posts from '../components/Posts';
-import Menus from '../components/Menus';
-import { getAllPostsByUser } from '../api/firebase';
+
+import Navbar from '../components/Navbar';
+import { getAllPostsFromFbase } from '../api/firebase';
 
 const styles = {
   bodyContainer: {
@@ -15,24 +13,20 @@ const styles = {
   },
 };
 
-class HomeScreen extends React.Component {
+class AllPostsScreen extends Component {
   state = {
     isLoading: true,
     posts: [],
-    menus: [],
   };
 
   componentDidMount() {
-    getAllPostsByUser(userStore.profileData.id).then(response => {
-      this.setState({ posts: response.data, isLoading: false });
-    });
+    getAllPostsFromFbase();
+    // .then(response => {
+    //   this.setState({ posts: response.data, isLoading: false });
+    // });
   }
 
   render() {
-    let fullName;
-    if (userStore.profileData) {
-      fullName = `${userStore.profileData.first} ${userStore.profileData.last}`.toUpperCase();
-    }
     return (
       <div>
         <Navbar />
@@ -40,9 +34,8 @@ class HomeScreen extends React.Component {
           <section className="section">
             <div className="container">
               <div className="columns is-centered is-multiline">
-                <Menus data={this.state.menus} />
                 <div className="column is-two-thirds">
-                  <h1 className="title">All Posts by {fullName}</h1>
+                  <h1 className="title">All Blog Posts by </h1>
                 </div>
                 <div className="column is-two-thirds">
                   <nav className="level">
@@ -93,4 +86,4 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default HomeScreen;
+export default AllPostsScreen;
