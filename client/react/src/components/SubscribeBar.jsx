@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import userStore from '../stores/userStore';
 
 const styles = {
   container: {
@@ -22,37 +23,43 @@ class SubscribeBar extends Component {
     );
   };
 
+  renderBar = () => (
+    <div style={styles.container}>
+      <span style={{ fontSize: '1.25rem' }}>Stay updated on the latest posts from us.</span>&nbsp;&nbsp;
+      <input
+        type="text"
+        id="emailSubscribe"
+        style={{
+          minWidth: '10rem',
+          height: '1.7rem',
+          fontSize: '1rem',
+          marginTop: '0.3rem',
+          backgroundColor: 'transparent',
+          paddingLeft: '0.3rem',
+          border: '1px solid #24D17D',
+          outline: 'none',
+          marginRight: '-0.3rem',
+        }}
+        placeholder="email address"
+      />
+      <button
+        className="button is-success is-small"
+        style={{ height: '1.7rem', marginTop: '0.3rem' }}
+        onClick={() => {
+          this.onClickSubscribe();
+        }}
+      >
+        Subscribe
+      </button>
+    </div>
+  );
+
   render() {
-    return (
-      <div style={styles.container}>
-        <span style={{ fontSize: '1.25rem' }}>Stay updated on the latest posts from us.</span>&nbsp;&nbsp;
-        <input
-          type="text"
-          id="emailSubscribe"
-          style={{
-            minWidth: '10rem',
-            height: '1.7rem',
-            fontSize: '1rem',
-            marginTop: '0.3rem',
-            backgroundColor: 'transparent',
-            paddingLeft: '0.3rem',
-            border: '1px solid #24D17D',
-            outline: 'none',
-            marginRight: '-0.3rem',
-          }}
-          placeholder="email address"
-        />
-        <button
-          className="button is-success is-small"
-          style={{ height: '1.7rem', marginTop: '0.3rem' }}
-          onClick={() => {
-            this.onClickSubscribe();
-          }}
-        >
-          Subscribe
-        </button>
-      </div>
-    );
+    const page = window.location.pathname.split('/')[1];
+    if (!userStore.profileData && page === 'post') {
+      return this.renderBar();
+    }
+    return <div />;
   }
 }
 
