@@ -22,7 +22,7 @@ class NewPostScreen extends Component {
         title: this.state.title,
         content: editorStore.content,
         tags: this.state.tags.toString(),
-        author: userStore.profileData.first + userStore.profileData.last,
+        author: `${userStore.profileData.first} ${userStore.profileData.last}`,
       };
 
       addPostToFirebase(postData).then(res => {

@@ -150,7 +150,7 @@ class ViewPostScreen extends Component {
                 </div>
               </div>
             </div>
-            {/* <div className="icon-bar">
+            <div className="icon-bar">
               <a className="calm">
                 <i className="fab fa-facebook-f" />
               </a>
@@ -160,7 +160,7 @@ class ViewPostScreen extends Component {
               <a className="calm">
                 <i className="fab fa-linkedin" />
               </a>
-            </div> */}
+            </div>
           </section>
         )}
       </div>

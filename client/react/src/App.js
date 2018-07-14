@@ -8,6 +8,7 @@ import { BounceLoader } from 'react-spinners';
 
 import './styles/minireset.css';
 import './styles/common.css';
+import './styles/misc.css';
 import './startup/init';
 import Routes from './config/Routes';
 import userStore from './stores/userStore';

@@ -10,7 +10,7 @@ import Shimmer from '../components/Shimmer';
 
 const styles = {
   bodyContainer: {
-    height: '100vh',
+    height: '1000%',
     backgroundColor: '#F5F5F5',
   },
 };
