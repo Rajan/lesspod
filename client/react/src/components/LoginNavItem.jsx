@@ -26,7 +26,12 @@ class LoginNavItem extends React.Component {
                 </span>&nbsp; Settings
               </a>
             </Link>
-            <a className="navbar-item" href="https://github.com/Rajan/lesspod/issues" target="_blank">
+            <a
+              className="navbar-item"
+              href="https://github.com/Rajan/lesspod/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div>
                 <span className="icon is-small">
                   <i className="fa fa-bug" />

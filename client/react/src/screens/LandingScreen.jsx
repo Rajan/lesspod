@@ -5,8 +5,13 @@ import 'react-github-button/assets/style.css';
 
 import Navbar from './../components/Navbar';
 import ServerlessImage from './../assets/images/serverless.png';
+import Posts from './../components/Posts';
+import Shimmer from './../components/Shimmer';
+import { getLatestPostsFromFbase } from '../api/firebase';
 
 class LandingScreen extends React.Component {
+  state = { posts: [], isLoading: true };
+
   componentDidMount() {
     if (window.location.pathname !== '/standaloneapp') {
       const script = document.createElement('script');
@@ -14,6 +19,14 @@ class LandingScreen extends React.Component {
       script.async = true;
       document.body.appendChild(script);
     }
+
+    getLatestPostsFromFbase().then(response => {
+      if (response.error) {
+        console.log(response.error.message);
+      } else {
+        this.setState({ posts: response.data, isLoading: false });
+      }
+    });
   }
 
   render() {
@@ -71,27 +84,7 @@ class LandingScreen extends React.Component {
                   <h2 className="title" v-if="filteredPosts.length > 0">
                     Latest Posts
                   </h2>
-                  <div className="columns is-multiline">
-                    <div
-                      v-for="(post, index) in filteredPosts.slice(0, 6)"
-                      className="column is-12-tablet is-6-desktop is-4-widescreen"
-                    >
-                      <article className="box">
-                        <div className="media">
-                          <div className="media-content">
-                            <p className="title is-5 is-spaced is-marginless">
-                              <Link to="#">sss</Link>
-                            </p>
-                            <div className="content ">
-                              <span className="content is-small">sss</span>
-                              <br />
-                              <p v-html="postSummary(post.content)" />
-                            </div>
-                          </div>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={this.state.posts} />}
                 </div>
               </div>
             </div>

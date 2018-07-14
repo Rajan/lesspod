@@ -52,6 +52,11 @@ class NavBar extends React.Component {
             <div className="navbar-item">
               <Link to="/blog">Blog</Link>
             </div>
+            {!userStore.profileData && (
+              <div className="navbar-item">
+                <Link to="/register">Register</Link>
+              </div>
+            )}
             <LoginNavItem />
           </div>
         </div>
