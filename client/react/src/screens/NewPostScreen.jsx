@@ -3,8 +3,41 @@ import React, { Component } from 'react';
 import NavBar from '../components/Navbar';
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
+import { addDataToFbase, addPostToFirebase } from '../api/firebase';
+import userStore from '../stores/userStore';
+import { POSTS_COLLECTION } from '../config/Constants';
 
 class NewPostScreen extends Component {
+  state = {
+    title: '',
+    tags: [],
+  };
+
+  handleChange = event => {
+    this.setState({ title: event.target.value });
+  };
+
+  savePost = () => {
+    if (this.state.title && this.state.title.length > 1) {
+      const postData = {
+        title: this.state.title,
+        content: editorStore.content,
+        tags: this.state.tags.toString(),
+        author: userStore.profileData.first + userStore.profileData.last,
+      };
+
+      addPostToFirebase(postData).then(res => {
+        if (res.error) {
+          console.log(res.error.message);
+        } else {
+          this.props.history.push('/home');
+        }
+      });
+    } else {
+      console.log('enter a title');
+    }
+  };
+
   render() {
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
@@ -23,6 +56,9 @@ class NewPostScreen extends Component {
                           type="text"
                           placeholder="Post Title"
                           style={{ fontWeight: 'bold', fontSize: '2rem' }}
+                          onChange={event => {
+                            this.handleChange(event);
+                          }}
                         />
                       </p>
                     </div>
@@ -35,7 +71,13 @@ class NewPostScreen extends Component {
                 <br />
                 <br />
 
-                <button href="#" className="button is-primary" onClick={() => console.log(editorStore.content)}>
+                <button
+                  href="#"
+                  className="button is-primary"
+                  onClick={() => {
+                    this.savePost();
+                  }}
+                >
                   Save Post
                 </button>
                 <br />

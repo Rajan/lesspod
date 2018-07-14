@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import uuidv4 from 'uuid/v4';
 import dayjs from 'dayjs';
-import { USERS_COLLECTION, POSTS_COLLECTION } from '../config/Constants';
+
+import { USERS_COLLECTION, POSTS_COLLECTION, POSTS_COLLECTION_SUB_COL } from '../config/Constants';
+import userStore from '../stores/userStore';
 
 export const logout = () => {
   firebase.auth().signOut();
@@ -76,14 +78,14 @@ export const addUserProfileToFbase = data => {
     });
 };
 
-export const getUserProfileFromFbase = id => {
+export const getUserProfileFromFbase = userId => {
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,
   });
   return db
     .collection(USERS_COLLECTION)
-    .doc(id)
+    .doc(userId)
     .get()
     .then(doc => {
       const response = {
@@ -109,7 +111,7 @@ export const addDataToFbase = (collection, data) => {
 
   const generatedId = uuidv4();
 
-  data.id = generatedId;
+  if (!data.id) data.id = generatedId;
   data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
   data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
 
@@ -120,7 +122,7 @@ export const addDataToFbase = (collection, data) => {
     .then(() => {
       const response = {
         error: null,
-        data: 'success',
+        data,
       };
       return response;
     })
@@ -138,8 +140,7 @@ export const updateDataInFbase = (collection, documentId, data, successCallback,
   db.settings({
     timestampsInSnapshots: true,
   });
-  db
-    .collection(collection)
+  db.collection(collection)
     .doc(documentId)
     .update(data)
     .then(docRef => {
@@ -151,24 +152,67 @@ export const updateDataInFbase = (collection, documentId, data, successCallback,
     });
 };
 
-export const getAllPostsByUser = (userId, successCallback, errorCallback) => {
+export const addPostToFirebase = data => {
+  const userId = userStore.profileData.id;
+  const generatedId = uuidv4();
+  data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,
   });
-  db
+
+  return db
     .collection(POSTS_COLLECTION)
-    .where('createdBy', '==', userId)
+    .doc(userId)
+    .collection(POSTS_COLLECTION_SUB_COL)
+    .doc(generatedId)
+    .set(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getAllPostsByUser = userId => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(POSTS_COLLECTION)
+    .doc(userId)
+    .collection(POSTS_COLLECTION_SUB_COL)
     .get()
     .then(querySnapshot => {
       const posts = [];
       querySnapshot.forEach(doc => {
         posts.push(doc.data());
       });
-      successCallback(posts);
+
+      const response = {
+        error: null,
+        data: posts,
+      };
+      return response;
     })
     .catch(error => {
-      console.log('Error getting user details: ', error);
-      errorCallback(error);
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
     });
 };
