@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { view } from 'react-easy-state';
 
 import userStore from './../stores/userStore';
@@ -9,6 +8,7 @@ import { getAllPostsFromFbaseByUser } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert, generateFakePosts } from '../utils/utils';
 import dataStore from '../stores/dataStore';
+import PostsToolbar from '../components/PostsToolbar';
 
 const styles = {
   bodyContainer: {
@@ -41,7 +41,9 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    const { posts, menus } = dataStore;
+    const { menus } = dataStore;
+    const posts = dataStore.getFilteredPosts();
+
     let fullName;
     if (userStore.profileData) {
       fullName = `${userStore.profileData.first} ${userStore.profileData.last}`.toUpperCase();
@@ -57,43 +59,7 @@ class HomeScreen extends React.Component {
                   <h1 className="title">All Posts by {fullName}</h1>
                 </div>
                 <div className="column is-two-thirds">
-                  <nav className="level">
-                    <div className="level-left">
-                      <div className="level-item">
-                        <p className="subtitle is-5">
-                          <strong>{posts.length}</strong> Posts
-                        </p>
-                      </div>
-
-                      <div className="level-item">
-                        <Link to="/newpost">
-                          <div className="button is-success">New Post</div>
-                        </Link>
-                      </div>
-
-                      <div className="level-item is-hidden-tablet-only">
-                        <div className="field has-addons">
-                          <p className="control">
-                            <input className="input" type="text" placeholder="Search posts..." />
-                          </p>
-                          <p className="control">
-                            <button className="button">Search</button>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="level-right">
-                      <div className="level-item">Order by</div>
-                      <div className="level-item">
-                        <div className="select">
-                          <select>
-                            <option>Publish date</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </nav>
+                  <PostsToolbar />
                   {this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}
                 </div>
               </div>
