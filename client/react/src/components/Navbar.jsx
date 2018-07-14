@@ -49,6 +49,11 @@ class NavBar extends React.Component {
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
+            {userStore.profileData && (
+              <div className="navbar-item">
+                <Link to="/home">Home</Link>
+              </div>
+            )}
             <div className="navbar-item">
               <Link to="/blog">Blog</Link>
             </div>

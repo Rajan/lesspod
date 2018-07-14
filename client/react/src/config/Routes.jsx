@@ -11,7 +11,7 @@ import HomeScreen from './../screens/HomeScreen';
 import NewPostScreen from './../screens/NewPostScreen';
 import AllPostsScreen from './../screens/AllPostsScreen';
 import ViewPostScreen from './../screens/ViewPostScreen';
-import Navbar from '../components/Navbar';
+import Navbar from './../components/Navbar';
 // import ProfileScreen from './../screens/ProfileScreen';
 
 const PrivateRoute = params => {

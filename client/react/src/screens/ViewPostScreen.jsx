@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { BounceLoader } from 'react-spinners';
 import ReactHtmlParser from 'react-html-parser';
 
-import Navbar from './../components/Navbar';
 import { getPostFromFBase, getLatestPostsFromFbase } from '../api/firebase';
 import { logoColor } from './../config/Colors';
 import Posts from '../components/Posts';
@@ -88,7 +87,7 @@ class ViewPostScreen extends Component {
 
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
-        {/* <Navbar /> */}
+       
 
         {isLoading ? (
           <div style={styles.loaderContainer}>

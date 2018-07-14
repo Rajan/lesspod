@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import userStore from './../stores/userStore';
-import Navbar from './../components/Navbar';
 import Posts from '../components/Posts';
 import Menus from '../components/Menus';
 import { getAllPostsFromFbaseByUser } from '../api/firebase';
@@ -35,7 +34,7 @@ class HomeScreen extends React.Component {
     }
     return (
       <div>
-        {/* <Navbar /> */}
+       
         <div style={styles.bodyContainer}>
           <section className="section">
             <div className="container">

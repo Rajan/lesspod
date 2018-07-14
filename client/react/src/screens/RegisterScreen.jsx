@@ -1,13 +1,12 @@
 import React from 'react';
 
-import Navbar from '../components/Navbar';
 import RegisterForm from '../components/RegisterForm';
 
 class RegisterScreen extends React.Component {
   render() {
     return (
       <div>
-        {/* <Navbar /> */}
+       
         <section className="hero is-info" style={{ minHeight: 'calc(100vh - 6rem)' }}>
           <div className="hero-body">
             <div className="container ">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Navbar from '../components/Navbar';
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
 import { addPostToFirebase } from '../api/firebase';
@@ -40,7 +39,7 @@ class NewPostScreen extends Component {
   render() {
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
-        {/* <Navbar /> */}
+       
         <section className="section">
           <div className="container">
             <div className="columns is-centered is-multiline has-text-centered">

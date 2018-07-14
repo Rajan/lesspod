@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Posts from '../components/Posts';
 
-import Navbar from '../components/Navbar';
 import { getAllPostsFromFbase } from '../api/firebase';
 import userStore from '../stores/userStore';
 import Shimmer from '../components/Shimmer';
@@ -29,7 +28,7 @@ class AllPostsScreen extends Component {
   render() {
     return (
       <div>
-        {/* <Navbar /> */}
+       
         <div style={styles.bodyContainer}>
           <section className="section">
             <div className="container">

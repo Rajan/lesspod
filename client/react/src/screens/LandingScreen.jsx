@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
 
-import Navbar from './../components/Navbar';
 import ServerlessImage from './../assets/images/serverless.png';
 import Posts from './../components/Posts';
 import Shimmer from './../components/Shimmer';
@@ -32,7 +31,7 @@ class LandingScreen extends React.Component {
   render() {
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-        {/* <Navbar /> */}
+       
         <section className="section">
           <div className="hero-body">
             <div className="container has-text-centered">
