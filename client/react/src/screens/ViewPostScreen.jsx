@@ -8,6 +8,7 @@ import { getPostFromFBase, getLatestPostsFromFbase } from '../api/firebase';
 import { logoColor } from './../config/Colors';
 import Posts from '../components/Posts';
 import Shimmer from './../components/Shimmer';
+import DisqusEmbed from '../components/DisqusEmbed';
 
 const styles = {
   loaderContainer: {
@@ -24,6 +25,7 @@ class ViewPostScreen extends Component {
     super(props);
 
     this.state = {
+      id: '',
       title: '',
       content: '',
       tags: '',
@@ -38,6 +40,7 @@ class ViewPostScreen extends Component {
     if (state) {
       const { post } = state;
       this.setState({
+        id: post.id,
         title: post.title,
         content: post.content,
         tags: post.tags,
@@ -52,6 +55,7 @@ class ViewPostScreen extends Component {
         } else {
           const post = response.data;
           this.setState({
+            id: post.id,
             title: post.title,
             content: post.content,
             tags: post.tags,
@@ -72,7 +76,7 @@ class ViewPostScreen extends Component {
   }
 
   render() {
-    const { title, content, tags, author, createdAt, isLoading, latestPosts, shimmer } = this.state;
+    const { id, title, content, tags, author, createdAt, isLoading, latestPosts, shimmer } = this.state;
 
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
@@ -132,7 +136,9 @@ class ViewPostScreen extends Component {
                   {shimmer ? <Shimmer /> : <Posts data={latestPosts} />}
                   <br />
                   <h2 className="title">Comments</h2>
-                  <div className="comments">disqus</div>
+                  <div className="comments">
+                    <DisqusEmbed id={id} title={title} />
+                  </div>
                 </div>
               </div>
             </div>

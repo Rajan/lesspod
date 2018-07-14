@@ -5,6 +5,7 @@
   "dependencies": {
     "bulma": "^0.7.1",
     "dayjs": "^1.7.4",
+    "disqus-react": "^1.0.5",
     "firebase": "^5.0.4",
     "font-awesome": "^4.7.0",
     "react": "^16.3.2",
