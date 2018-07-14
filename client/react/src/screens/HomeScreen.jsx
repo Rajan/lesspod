@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import firebase from 'firebase';
+import { List } from 'react-content-loader';
 
 import userStore from './../stores/userStore';
 import Navbar from './../components/Navbar';
@@ -34,13 +34,14 @@ const styles = {
 
 class HomeScreen extends React.Component {
   state = {
+    isLoading: true,
     posts: [],
     menus: [],
   };
 
   componentDidMount() {
-    getAllPostsByUser(firebase.auth().currentUser.uid).then(response => {
-      this.setState({ posts: response.data });
+    getAllPostsByUser(userStore.profileData.id).then(response => {
+      this.setState({ posts: response.data, isLoading: false });
     });
   }
 
@@ -98,7 +99,7 @@ class HomeScreen extends React.Component {
                       </div>
                     </div>
                   </nav>
-                  <Posts data={this.state.posts} />
+                  {this.state.isLoading ? <List /> : <Posts data={this.state.posts} />}
                 </div>
               </div>
             </div>
