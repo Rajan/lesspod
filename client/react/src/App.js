@@ -4,7 +4,6 @@ import * as firebase from 'firebase/app';
 import 'sanitize.css';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.css';
-import { BounceLoader } from 'react-spinners';
 
 import './styles/minireset.css';
 import './styles/common.css';
@@ -13,7 +12,7 @@ import './startup/init';
 import Routes from './config/Routes';
 import userStore from './stores/userStore';
 import { getUserProfileFromFbase } from './api/firebase';
-import { logoColor } from './config/Colors';
+import CustomLoader from './components/CustomLoader';
 
 const styles = {
   loaderContainer: {
@@ -54,7 +53,7 @@ class App extends Component {
       <div>
         {this.state.isLoading ? (
           <div style={styles.loaderContainer}>
-            <BounceLoader size={60} color={logoColor} loading={this.state.isLoading} />
+            <CustomLoader />
           </div>
         ) : (
           <Routes />

@@ -1,0 +1,51 @@
+.beacon{
+  position:absolute;
+  top:50%;
+  left:50%;
+  /* background-color:#2c3e50; */
+  height:60px;
+  width:60px;
+  border-radius:50%;
+  -webkit-transform:translateX(-50%) translateY(-50%);
+}
+.beacon:before{
+  position:absolute;
+  content:"";
+  height:60px;
+  width:60px;
+  left:0;
+  top:0;
+  background-color:transparent;
+  border-radius:50%;
+  box-shadow:0px 0px 2px 2px #1373d0;
+  -webkit-animation:active 2s infinite linear;
+  animation:active 2s infinite linear;
+}
+
+@-webkit-keyframes active{
+  0%{
+    -webkit-transform:scale(1);
+    opacity:1;
+  }
+  70%{
+    -webkit-transform:scale(2);
+    opacity:0;
+  }
+  100%{
+    opacity:0;
+  }
+}
+
+@keyframes active{
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+  70%{
+    transform:scale(2);
+    opacity:0;
+  }
+  100%{
+    opacity:0;
+  }
+}

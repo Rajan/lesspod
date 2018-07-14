@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
-import { BounceLoader } from 'react-spinners';
 import ReactHtmlParser from 'react-html-parser';
 
 import { getPostFromFBase, getLatestPostsFromFbase } from '../api/firebase';
-import { logoColor } from './../config/Colors';
 import Posts from '../components/Posts';
 import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
@@ -61,7 +59,10 @@ class ViewPostScreen extends Component {
   }
 
   static getDerivedStateFromProps(newProps, prevState) {
-    return newProps.location.state.post;
+    if (newProps.location.state) {
+      return newProps.location.state.post;
+    }
+    return null;
   }
 
   renderPostFromFbase = postId => {
@@ -87,11 +88,9 @@ class ViewPostScreen extends Component {
 
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
-       
-
         {isLoading ? (
           <div style={styles.loaderContainer}>
-            <BounceLoader size={60} color={logoColor} loading={this.state.isLoading} />
+            <Shimmer style={{ width: 600, height: 400 }} />
           </div>
         ) : (
           <section className="section">
