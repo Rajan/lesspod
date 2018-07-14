@@ -13,6 +13,7 @@ import Routes from './config/Routes';
 import userStore from './stores/userStore';
 import { getUserProfileFromFbase } from './api/firebase';
 import CustomLoader from './components/CustomLoader';
+import { showAlert } from './utils/utils';
 
 const styles = {
   loaderContainer: {
@@ -35,7 +36,7 @@ class App extends Component {
       if (user) {
         getUserProfileFromFbase(user.uid).then(res => {
           if (res.error) {
-            console.log(res.error.message);
+            showAlert(res.error.message);
           } else {
             userStore.profileData = res.data;
           }

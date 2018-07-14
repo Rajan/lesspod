@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import alertify from 'alertify.js';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
 import { getPostFromFBase, updatePostOnFbase } from '../api/firebase';
-import userStore from '../stores/userStore';
 import Shimmer from '../components/Shimmer';
+import { showAlert } from '../utils/utils';
 
 const styles = {
   loaderContainer: {
@@ -23,9 +24,7 @@ class EditPostScreen extends Component {
     title: '',
     content: '',
     tags: '',
-    author: '',
     isLoading: true,
-    latestPosts: [],
   };
 
   componentDidMount() {
@@ -37,9 +36,8 @@ class EditPostScreen extends Component {
         title: post.title,
         content: post.content,
         tags: post.tags,
-        author: post.author,
         isLoading: false,
-        shimmer: true,
+        isSaving: false,
       });
     } else {
       this.renderPostFromFbase(this.props.match.params.postId);
@@ -57,14 +55,14 @@ class EditPostScreen extends Component {
         title: this.state.title,
         content: editorStore.content,
         tags: this.state.tags.toString(),
-        author: `${userStore.profileData.first} ${userStore.profileData.last}`,
       };
 
       updatePostOnFbase(postData).then(res => {
+        this.setState({ isSaving: false });
         if (res.error) {
-          console.log(res.error.message);
+          showAlert(res.error.message, 'error');
         } else {
-          console.log('post saved');
+          showAlert('Post saved successfully!', 'success');
         }
       });
     } else {
@@ -83,7 +81,6 @@ class EditPostScreen extends Component {
           title: post.title,
           content: post.content,
           tags: post.tags,
-          author: post.author,
           isLoading: false,
         });
       }
@@ -91,7 +88,7 @@ class EditPostScreen extends Component {
   };
 
   render() {
-    const { id, title, content, tags, author, createdAt, isLoading, latestPosts, shimmer } = this.state;
+    const { title, content, isLoading, isSaving } = this.state;
 
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
@@ -132,8 +129,9 @@ class EditPostScreen extends Component {
 
                   <button
                     href="#"
-                    className="button is-primary"
+                    className={`button is-primary ${isSaving ? 'is-loading' : ''}`}
                     onClick={() => {
+                      this.setState({ isSaving: true });
                       this.savePost();
                     }}
                   >

@@ -4,11 +4,13 @@ import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
 import { addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
+import { showAlert } from '../utils/utils';
 
 class NewPostScreen extends Component {
   state = {
     title: '',
     tags: [],
+    isSaving: false,
   };
 
   handleChange = event => {
@@ -25,8 +27,9 @@ class NewPostScreen extends Component {
       };
 
       addPostToFirebase(postData).then(res => {
+        this.setState({ isSaving: false });
         if (res.error) {
-          console.log(res.error.message);
+          showAlert(res.error.message, 'error');
         } else {
           this.props.history.push('/home');
         }
@@ -39,7 +42,6 @@ class NewPostScreen extends Component {
   render() {
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
-       
         <section className="section">
           <div className="container">
             <div className="columns is-centered is-multiline has-text-centered">
@@ -71,8 +73,9 @@ class NewPostScreen extends Component {
 
                 <button
                   href="#"
-                  className="button is-primary"
+                  className={`button is-primary ${this.state.isSaving ? 'is-loading' : ''}`}
                   onClick={() => {
+                    this.setState({ isSaving: true });
                     this.savePost();
                   }}
                 >

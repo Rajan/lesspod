@@ -5,6 +5,7 @@ import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
 import { getUserProfileFromFbase, loginWithFirebase } from '../api/firebase';
 import userStore from './../stores/userStore';
+import { showAlert } from '../utils/utils';
 
 const styles = {
   container: {
@@ -48,21 +49,24 @@ class LoginForm extends React.Component {
   state = {
     email: '',
     password: '',
+    isLoading: false,
   };
 
   onLoginClick = () => {
     loginWithFirebase(this.state.email, this.state.password).then(response => {
       const { error, data } = response;
       if (error) {
-        console.log(error.message);
+        showAlert(error.message, 'error');
+        this.setState({ isLoading: false });
       } else {
         getUserProfileFromFbase(data.user.uid).then(res => {
           if (res.error) {
-            console.log(res.error.message);
+            showAlert(res.error.message, 'error');
           } else {
             userStore.profileData = res.data;
             this.props.history.push('/home');
           }
+          this.setState({ isLoading: false });
         });
       }
     });
@@ -138,8 +142,9 @@ class LoginForm extends React.Component {
           <div className="control">
             <div
               href="#"
-              className="button is-info"
+              className={`button is-info ${this.state.isLoading ? 'is-loading' : ''}`}
               onClick={() => {
+                this.setState({ isLoading: true });
                 this.onLoginClick();
               }}
             >

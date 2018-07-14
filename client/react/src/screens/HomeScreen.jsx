@@ -9,7 +9,7 @@ import Shimmer from '../components/Shimmer';
 
 const styles = {
   bodyContainer: {
-    height: '1000%',
+    height: '100vh',
     backgroundColor: '#F5F5F5',
   },
 };
@@ -34,7 +34,6 @@ class HomeScreen extends React.Component {
     }
     return (
       <div>
-       
         <div style={styles.bodyContainer}>
           <section className="section">
             <div className="container">

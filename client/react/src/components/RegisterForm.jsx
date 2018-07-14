@@ -5,6 +5,7 @@ import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
 import { registerWithFirebase, addUserProfileToFbase } from '../api/firebase';
 import userStore from '../stores/userStore';
+import { showAlert } from '../utils/utils';
 
 const styles = {
   container: {
@@ -48,6 +49,7 @@ class RegisterForm extends React.Component {
   state = {
     email: '',
     password: '',
+    isLoading: false,
   };
 
   onRegisterClick = () => {
@@ -61,7 +63,8 @@ class RegisterForm extends React.Component {
       registerWithFirebase(this.state.email, this.state.password).then(response => {
         const { error, data } = response;
         if (error) {
-          console.log(error.message);
+          showAlert(error.message, 'error');
+          this.setState({ isLoading: false });
         } else {
           const profileData = {
             id: data.user.uid,
@@ -71,14 +74,18 @@ class RegisterForm extends React.Component {
           };
           addUserProfileToFbase(profileData).then(res => {
             if (res.error) {
-              console.log(res.error.message);
+              showAlert(res.error.message);
             } else {
               userStore.profileData = res.data;
               this.props.history.push('/home');
             }
+            this.setState({ isLoading: false });
           });
         }
       });
+    } else if (this.state.password !== this.state.confirmPassword) {
+      showAlert('Passwords do not match!');
+      this.setState({ isLoading: false });
     }
   };
 
@@ -177,8 +184,9 @@ class RegisterForm extends React.Component {
           <div className="control">
             <div
               href="#"
-              className="button is-info"
+              className={`button is-info ${this.state.isLoading ? 'is-loading' : ''}`}
               onClick={() => {
+                this.setState({ isLoading: true });
                 this.onRegisterClick();
               }}
             >
