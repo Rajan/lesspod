@@ -49,21 +49,7 @@ class ViewPostScreen extends Component {
         shimmer: true,
       });
     } else {
-      getPostFromFBase(this.props.match.params.postId).then(response => {
-        if (response.error) {
-          console.log(response.error.message);
-        } else {
-          const post = response.data;
-          this.setState({
-            id: post.id,
-            title: post.title,
-            content: post.content,
-            tags: post.tags,
-            author: post.author,
-            isLoading: false,
-          });
-        }
-      });
+      this.renderPostFromFbase(this.props.match.params.postId);
     }
 
     getLatestPostsFromFbase().then(response => {
@@ -74,6 +60,28 @@ class ViewPostScreen extends Component {
       }
     });
   }
+
+  static getDerivedStateFromProps(newProps, prevState) {
+    return newProps.location.state.post;
+  }
+
+  renderPostFromFbase = postId => {
+    getPostFromFBase(postId).then(response => {
+      if (response.error) {
+        console.log(response.error.message);
+      } else {
+        const post = response.data;
+        this.setState({
+          id: post.id,
+          title: post.title,
+          content: post.content,
+          tags: post.tags,
+          author: post.author,
+          isLoading: false,
+        });
+      }
+    });
+  };
 
   render() {
     const { id, title, content, tags, author, createdAt, isLoading, latestPosts, shimmer } = this.state;
@@ -142,7 +150,7 @@ class ViewPostScreen extends Component {
                 </div>
               </div>
             </div>
-            <div className="icon-bar">
+            {/* <div className="icon-bar">
               <a className="calm">
                 <i className="fab fa-facebook-f" />
               </a>
@@ -152,7 +160,7 @@ class ViewPostScreen extends Component {
               <a className="calm">
                 <i className="fab fa-linkedin" />
               </a>
-            </div>
+            </div> */}
           </section>
         )}
       </div>
