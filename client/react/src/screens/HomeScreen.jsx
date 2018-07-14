@@ -66,7 +66,7 @@ class HomeScreen extends React.Component {
                     <div className="level-left">
                       <div className="level-item">
                         <p className="subtitle is-5">
-                          <strong>Dynamic Count</strong> Posts
+                          <strong>{this.state.posts.length}</strong> Posts
                         </p>
                       </div>
 

@@ -19,26 +19,28 @@ class PostCard extends React.Component {
   render() {
     const { post } = this.props;
     return (
-      <article className="box">
-        <div className="media">
-          <div className="media-content">
-            <p className="title is-5 is-spaced is-marginless">{post.title}</p>
-            <div className="content">
-              <span className="content is-small">
-                {dayjs(post.createdAt).format('MMMM D, YYYY')} . {post.author}
-              </span>
-              <br />
-              <p>{this.getPostSummary(post.content)}</p>
-              <Link to={`/edit:${post.id}`}>Edit</Link>
-              <span> · </span>
-              <Link to={`/edit:${post.id}`}>View</Link>
-              <span> · </span>
-              <Link to={`/delete:${post.id}`}>Delete</Link>
-              <p />
+      <div className="column is-12-tablet is-6-desktop is-4-widescreen">
+        <article className="box">
+          <div className="media">
+            <div className="media-content">
+              <p className="title is-5 is-spaced is-marginless">{post.title}</p>
+              <div className="content">
+                <span className="content is-small">
+                  {dayjs(post.createdAt).format('MMMM D, YYYY')} . {post.author}
+                </span>
+                <br />
+                <p>{this.getPostSummary(post.content)}</p>
+                <Link to={`/edit:${post.id}`}>Edit</Link>
+                <span> · </span>
+                <Link to={`/edit:${post.id}`}>View</Link>
+                <span> · </span>
+                <Link to={`/delete:${post.id}`}>Delete</Link>
+                <p />
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     );
   }
 }
