@@ -5,6 +5,7 @@ import Posts from '../components/Posts';
 
 import Navbar from '../components/Navbar';
 import { getAllPostsFromFbase } from '../api/firebase';
+import userStore from '../stores/userStore';
 
 const styles = {
   bodyContainer: {
@@ -20,10 +21,9 @@ class AllPostsScreen extends Component {
   };
 
   componentDidMount() {
-    getAllPostsFromFbase();
-    // .then(response => {
-    //   this.setState({ posts: response.data, isLoading: false });
-    // });
+    getAllPostsFromFbase().then(response => {
+      this.setState({ posts: response.data, isLoading: false });
+    });
   }
 
   render() {
@@ -35,7 +35,7 @@ class AllPostsScreen extends Component {
             <div className="container">
               <div className="columns is-centered is-multiline">
                 <div className="column is-two-thirds">
-                  <h1 className="title">All Blog Posts by </h1>
+                  <h1 className="title">All Blog Posts </h1>
                 </div>
                 <div className="column is-two-thirds">
                   <nav className="level">
@@ -46,11 +46,13 @@ class AllPostsScreen extends Component {
                         </p>
                       </div>
 
-                      <div className="level-item">
-                        <Link to="/newpost">
-                          <div className="button is-success">New Post</div>
-                        </Link>
-                      </div>
+                      {!!userStore.profileData && (
+                        <div className="level-item">
+                          <Link to="/newpost">
+                            <div className="button is-success">New Post</div>
+                          </Link>
+                        </div>
+                      )}
 
                       <div className="level-item is-hidden-tablet-only">
                         <div className="field has-addons">

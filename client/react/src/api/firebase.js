@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import uuidv4 from 'uuid/v4';
 import dayjs from 'dayjs';
 
-import { USERS_COLLECTION, POSTS_COLLECTION, POSTS_COLLECTION_SUB_COL } from '../config/Constants';
+import { USERS_COLLECTION, POSTS_COLLECTION } from '../config/Constants';
 import userStore from '../stores/userStore';
 
 export const logoutFirebase = () => {
@@ -153,10 +153,11 @@ export const updateDataInFbase = (collection, documentId, data, successCallback,
 };
 
 export const addPostToFirebase = data => {
-  const userId = userStore.profileData.id;
   const generatedId = uuidv4();
+  data.id = generatedId;
   data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
   data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.createdBy = userStore.profileData.id;
 
   const db = firebase.firestore();
   db.settings({
@@ -165,8 +166,6 @@ export const addPostToFirebase = data => {
 
   return db
     .collection(POSTS_COLLECTION)
-    .doc(userId)
-    .collection(POSTS_COLLECTION_SUB_COL)
     .doc(generatedId)
     .set(data)
     .then(() => {
@@ -193,15 +192,13 @@ export const getAllPostsByUser = userId => {
 
   return db
     .collection(POSTS_COLLECTION)
-    .doc(userId)
-    .collection(POSTS_COLLECTION_SUB_COL)
+    .where('createdBy', '==', userId)
     .get()
     .then(querySnapshot => {
       const posts = [];
       querySnapshot.forEach(doc => {
         posts.push(doc.data());
       });
-
       const response = {
         error: null,
         data: posts,
@@ -225,41 +222,24 @@ export const getAllPostsFromFbase = () => {
 
   const posts = [];
 
-  db.collection(POSTS_COLLECTION)
+  return db
+    .collection(POSTS_COLLECTION)
     .get()
     .then(querySnapshot => {
-      console.log(querySnapshot);
-      querySnapshot.forEach(doc => console.log(doc.data()));
+      querySnapshot.forEach(doc => {
+        posts.push(doc.data());
+      });
+      const response = {
+        error: null,
+        data: posts,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
     });
-
-  // return db
-  //   .collection(POSTS_COLLECTION)
-  //   .get()
-  //   .then(querySnapshot => {
-  //     console.log(querySnapshot);
-  //     querySnapshot.forEach(doc => {
-  //       console.log(doc.id, ' => ', doc.data());
-  //       // return doc
-  //       //   .collection(POSTS_COLLECTION_SUB_COL)
-  //       //   .get()
-  //       //   .then(querySnapshot => {
-  //       //     querySnapshot.forEach(doc => {
-  //       //       posts.push(doc.data());
-  //       //       const response = {
-  //       //         error: null,
-  //       //         data: posts,
-  //       //       };
-  //       //       console.log(response);
-  //       //       return response;
-  //       //     });
-  //       //   });
-  //     });
-  //   })
-  //   .error(error => {
-  //     const response = {
-  //       error,
-  //       data: null,
-  //     };
-  //     return response;
-  //   });
 };
