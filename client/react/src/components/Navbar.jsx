@@ -35,7 +35,8 @@ class NavBar extends React.Component {
     return (
       <nav className="navbar has-shadow" aria-label="main navigation">
         <div className="navbar-brand">
-          <Link to={userStore.profileData ? '/home' : '/'}>
+          <Link to={userStore.profileData ? '/' : '/'}>
+            {/* added 'dashboard menu item so clicking no logo will take to / always. Should we change? */}
             <div className="navbar-item">
               <div style={styles.logoContainer}>
                 <div style={styles.logoMin} />
@@ -51,11 +52,13 @@ class NavBar extends React.Component {
           <div className="navbar-end">
             {userStore.profileData && (
               <div className="navbar-item">
-                <Link to="/home">Home</Link>
+                <Link to="/home">Dashboard</Link>
               </div>
             )}
             <div className="navbar-item">
-              <Link to="/blog">Blog</Link>
+              <Link to="/blog" target="_blank">
+                Blog
+              </Link>
             </div>
             {!userStore.profileData && (
               <div className="navbar-item">

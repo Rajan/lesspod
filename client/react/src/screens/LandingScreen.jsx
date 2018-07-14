@@ -7,6 +7,7 @@ import ServerlessImage from './../assets/images/serverless.png';
 import Posts from './../components/Posts';
 import Shimmer from './../components/Shimmer';
 import { getLatestPostsFromFbase } from '../api/firebase';
+import userStore from '../stores/userStore';
 
 class LandingScreen extends React.Component {
   state = { posts: [], isLoading: true };
@@ -31,7 +32,6 @@ class LandingScreen extends React.Component {
   render() {
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-       
         <section className="section">
           <div className="hero-body">
             <div className="container has-text-centered">
@@ -89,16 +89,18 @@ class LandingScreen extends React.Component {
             </div>
           </div>
 
-          <div className="hero-foot">
-            <div className="container">
-              <div className="is-centered">
-                <div className="column has-text-centered" style={{ fontSize: '1.5rem' }}>
-                  <Link to="/login">Login</Link>&nbsp;Or&nbsp;
-                  <Link to="/register">Create Account</Link>
+          {!userStore.profileData && (
+            <div className="hero-foot">
+              <div className="container">
+                <div className="is-centered">
+                  <div className="column has-text-centered" style={{ fontSize: '1.5rem' }}>
+                    <Link to="/login">Login</Link>&nbsp;Or&nbsp;
+                    <Link to="/register">Create Account</Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </section>
       </div>
     );
