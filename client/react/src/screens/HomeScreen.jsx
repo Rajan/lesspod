@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase';
 
 import userStore from './../stores/userStore';
 import Navbar from './../components/Navbar';
@@ -38,9 +39,9 @@ class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    // getAllPostsByUser(userStore.profileData.id).then(response => {
-    //   this.setState({ posts: response.data });
-    // });
+    getAllPostsByUser(firebase.auth().currentUser.uid).then(response => {
+      this.setState({ posts: response.data });
+    });
   }
 
   render() {

@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import NavBar from '../components/Navbar';
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
-import { addDataToFbase, addPostToFirebase } from '../api/firebase';
+import { addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
-import { POSTS_COLLECTION } from '../config/Constants';
 
 class NewPostScreen extends Component {
   state = {
