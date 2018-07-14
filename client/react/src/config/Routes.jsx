@@ -12,6 +12,7 @@ import NewPostScreen from './../screens/NewPostScreen';
 import AllPostsScreen from './../screens/AllPostsScreen';
 import ViewPostScreen from './../screens/ViewPostScreen';
 import Navbar from './../components/Navbar';
+import Footer from '../components/Footer';
 // import ProfileScreen from './../screens/ProfileScreen';
 
 const PrivateRoute = params => {
@@ -44,6 +45,7 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
           </Switch>
+          <Footer />
         </ScrollToTop>
       </BrowserRouter>
     );
