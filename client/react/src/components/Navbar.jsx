@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoType from './../assets/images/type.png';
+import userStore from '../stores/userStore';
+import LoginNavItem from './LoginNavItem';
 
 const styles = {
   logoContainer: {
@@ -33,7 +35,7 @@ class NavBar extends React.Component {
     return (
       <nav className="navbar has-shadow" aria-label="main navigation">
         <div className="navbar-brand">
-          <Link to="/">
+          <Link to={userStore.profileData ? '/home' : '/'}>
             <div className="navbar-item">
               <div style={styles.logoContainer}>
                 <div style={styles.logoMin} />
@@ -50,6 +52,7 @@ class NavBar extends React.Component {
             <div className="navbar-item">
               <Link to="/blog">Blog</Link>
             </div>
+            <LoginNavItem />
           </div>
         </div>
       </nav>
