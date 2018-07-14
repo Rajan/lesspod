@@ -277,6 +277,7 @@ export const getLatestPostsFromFbase = () => {
 
   return db
     .collection(POSTS_COLLECTION)
+    .orderBy('createdAt', 'desc')
     .limit(6)
     .get()
     .then(querySnapshot => {
