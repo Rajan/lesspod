@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List } from 'react-content-loader';
 
 import userStore from './../stores/userStore';
 import Navbar from './../components/Navbar';
 import Posts from '../components/Posts';
 import Menus from '../components/Menus';
 import { getAllPostsFromFbaseByUser } from '../api/firebase';
+import Shimmer from '../components/Shimmer';
 
 const styles = {
   bodyContainer: {
@@ -82,7 +82,7 @@ class HomeScreen extends React.Component {
                       </div>
                     </div>
                   </nav>
-                  {this.state.isLoading ? <List /> : <Posts data={this.state.posts} />}
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={this.state.posts} />}
                 </div>
               </div>
             </div>

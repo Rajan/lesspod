@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { List } from 'react-content-loader';
 import Posts from '../components/Posts';
 
 import Navbar from '../components/Navbar';
 import { getAllPostsFromFbase } from '../api/firebase';
 import userStore from '../stores/userStore';
+import Shimmer from '../components/Shimmer';
 
 const styles = {
   bodyContainer: {
@@ -77,7 +77,7 @@ class AllPostsScreen extends Component {
                       </div>
                     </div>
                   </nav>
-                  {this.state.isLoading ? <List /> : <Posts data={this.state.posts} />}
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={this.state.posts} />}
                 </div>
               </div>
             </div>

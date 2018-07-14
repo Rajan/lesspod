@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import { BounceLoader } from 'react-spinners';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-import { List } from 'react-content-loader';
+import ReactHtmlParser from 'react-html-parser';
 
 import Navbar from './../components/Navbar';
 import { getPostFromFBase, getLatestPostsFromFbase } from '../api/firebase';
 import { logoColor } from './../config/Colors';
 import Posts from '../components/Posts';
+import Shimmer from './../components/Shimmer';
 
 const styles = {
   loaderContainer: {
@@ -17,13 +17,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
-  },
-  shimmerContainer: {
-    width: '100vw',
-    height: 300,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 };
 class ViewPostScreen extends Component {
@@ -136,13 +129,7 @@ class ViewPostScreen extends Component {
                 <div className="column is-two-thirds has-text-centered">
                   <h2 className="title">Latest Posts</h2>
                   <br />
-                  {shimmer ? (
-                    <div style={styles.shimmerContainer}>
-                      <List />
-                    </div>
-                  ) : (
-                    <Posts data={latestPosts} />
-                  )}
+                  {shimmer ? <Shimmer /> : <Posts data={latestPosts} />}
                   <br />
                   <h2 className="title">Comments</h2>
                   <div className="comments">disqus</div>
