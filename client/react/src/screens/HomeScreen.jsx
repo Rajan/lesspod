@@ -35,7 +35,7 @@ class HomeScreen extends React.Component {
     }
     return (
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <div style={styles.bodyContainer}>
           <section className="section">
             <div className="container">

@@ -29,7 +29,7 @@ class AllPostsScreen extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <div style={styles.bodyContainer}>
           <section className="section">
             <div className="container">

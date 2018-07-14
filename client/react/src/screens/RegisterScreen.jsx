@@ -7,7 +7,7 @@ class RegisterScreen extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <section className="hero is-info" style={{ minHeight: 'calc(100vh - 6rem)' }}>
           <div className="hero-body">
             <div className="container ">

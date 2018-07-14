@@ -32,7 +32,7 @@ class LandingScreen extends React.Component {
   render() {
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-        <Navbar />
+        {/* <Navbar /> */}
         <section className="section">
           <div className="hero-body">
             <div className="container has-text-centered">

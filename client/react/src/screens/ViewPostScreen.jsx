@@ -88,7 +88,7 @@ class ViewPostScreen extends Component {
 
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
-        <Navbar />
+        {/* <Navbar /> */}
 
         {isLoading ? (
           <div style={styles.loaderContainer}>

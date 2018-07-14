@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { view } from 'react-easy-state';
 
+import ScrollToTop from './../components/ScrollToTop';
 import userStore from '../stores/userStore';
 import LandingScreen from './../screens/LandingScreen';
 import LoginScreen from './../screens/LoginScreen';
@@ -10,6 +11,7 @@ import HomeScreen from './../screens/HomeScreen';
 import NewPostScreen from './../screens/NewPostScreen';
 import AllPostsScreen from './../screens/AllPostsScreen';
 import ViewPostScreen from './../screens/ViewPostScreen';
+import Navbar from '../components/Navbar';
 // import ProfileScreen from './../screens/ProfileScreen';
 
 const PrivateRoute = params => {
@@ -30,8 +32,9 @@ class Routes extends React.Component {
   render() {
     const auth = !!userStore.profileData;
     return (
-      <div>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ScrollToTop>
+          <Navbar />
           <Switch>
             <Route path="/" exact render={props => <LandingScreen {...props} />} />
             <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
@@ -41,8 +44,8 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
           </Switch>
-        </BrowserRouter>
-      </div>
+        </ScrollToTop>
+      </BrowserRouter>
     );
   }
 }
