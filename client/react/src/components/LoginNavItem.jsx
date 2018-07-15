@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import userStore from '../stores/userStore';
 import { logoutFirebase } from '../api/firebase';
+import { view } from 'react-easy-state';
 
 class LoginNavItem extends React.Component {
   render() {
@@ -60,4 +61,4 @@ class LoginNavItem extends React.Component {
   }
 }
 
-export default LoginNavItem;
+export default view(LoginNavItem);

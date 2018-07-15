@@ -48,6 +48,46 @@ export const registerWithFirebase = (email, password) =>
       }
     );
 
+export const updatePasswordinFbase = password => {
+  const user = firebase.auth().currentUser;
+  return user
+    .updatePassword(password)
+    .then(() => {
+      const response = {
+        error: null,
+        data: 'Password updated',
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const updateEmailinFbase = email => {
+  const user = firebase.auth().currentUser;
+  return user
+    .updateEmail(email)
+    .then(() => {
+      const response = {
+        error: null,
+        data: 'Email updated',
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
 export const addUserProfileToFbase = data => {
   const db = firebase.firestore();
   db.settings({
@@ -134,20 +174,28 @@ export const addDataToFbase = (collection, data) => {
     });
 };
 
-export const updateDataInFbase = (collection, documentId, data, successCallback, errorCallback) => {
+export const updateDataInFbase = (collection, documentId, data) => {
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,
   });
-  db.collection(collection)
+  return db
+    .collection(collection)
     .doc(documentId)
     .update(data)
-    .then(docRef => {
-      successCallback(data);
+    .then(() => {
+      const response = {
+        error: null,
+        data,
+      };
+      return response;
     })
     .catch(error => {
-      errorCallback(error);
-      console.error('Error updating: ', error);
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
     });
 };
 

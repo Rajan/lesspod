@@ -5,6 +5,7 @@ import LogoMin from './../assets/images/icon.png';
 import LogoType from './../assets/images/type.png';
 import userStore from '../stores/userStore';
 import LoginNavItem from './LoginNavItem';
+import { view } from 'react-easy-state';
 
 const styles = {
   logoContainer: {
@@ -73,4 +74,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+export default view(NavBar);

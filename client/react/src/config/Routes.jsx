@@ -14,7 +14,7 @@ import ViewPostScreen from './../screens/ViewPostScreen';
 import EditPostScreen from './../screens/EditPostScreen';
 import Navbar from './../components/Navbar';
 import Footer from '../components/Footer';
-// import ProfileScreen from './../screens/ProfileScreen';
+import ProfileScreen from './../screens/ProfileScreen';
 
 const PrivateRoute = params => {
   if (params.auth) {
@@ -46,6 +46,7 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
           </Switch>
           <Footer />
         </ScrollToTop>
