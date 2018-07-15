@@ -27,15 +27,15 @@ class EditPageScreen extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    if (state.post) {
+    if (state && state.post) {
       const { post } = state;
       this.renderPostFromFbase(post.id);
     } else {
-      const slug = this.props.match.params.pageId;
+      const slug = this.props.history.location.pathname.replace('/', '');
       getPostWithoutIdFromFbase(slug).then(res => {
         if (res.error) {
           showAlert(res.error.message);
-        } else {
+        } else if (res.data) {
           const post = res.data;
           this.setState({
             id: post.id,
@@ -44,6 +44,8 @@ class EditPageScreen extends Component {
             tags: post.tags,
             isLoading: false,
           });
+        } else {
+          this.setState({ isLoading: false, title: '404 Page Not Found' });
         }
       });
     }

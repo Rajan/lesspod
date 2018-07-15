@@ -390,8 +390,10 @@ export const getPostWithoutIdFromFbase = slug => {
     .then(querySnapshot => {
       const response = {
         error: null,
-        data: querySnapshot.docs[0].data(), // assuming title is unique because to match with vue's implementation
       };
+      if (querySnapshot.docs.length > 0) {
+        response.data = querySnapshot.docs[0].data();
+      }
       return response;
     })
     .catch(error => {

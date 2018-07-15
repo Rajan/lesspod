@@ -28,7 +28,7 @@ class EditPageScreen extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    if (state.post) {
+    if (state && state.post) {
       const { post } = state;
       this.renderPostFromFbase(post.id);
     } else {

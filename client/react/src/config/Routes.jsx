@@ -41,7 +41,7 @@ class Routes extends React.Component {
           <Navbar />
           <Switch>
             <Route path="/" exact render={props => <LandingScreen {...props} />} />
-            <Route path="/:pageId" exact render={props => <ViewPageScreen {...props} />} />
+            {/* <Route path="/:pageId" exact render={props => <ViewPageScreen {...props} />} /> */}
             <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
             <Route path="/post/:postId" exact render={props => <ViewPostScreen {...props} />} />
             <VerifyAuthRoute auth={auth} path="/login" exact render={props => <LoginScreen {...props} />} />
@@ -51,6 +51,7 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
             <PrivateRoute auth={auth} path="/editpage/:pageId" exact render={props => <EditPageScreen {...props} />} />
+            <Route component={ViewPageScreen} />
           </Switch>
           <Footer />
         </ScrollToTop>
