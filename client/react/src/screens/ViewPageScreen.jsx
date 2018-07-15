@@ -92,13 +92,13 @@ class ViewPageScreen extends Component {
     const { title, content, isLoading } = this.state;
 
     return (
-      <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
+      <div style={{ backgroundColor: '#ffffff', height: '100vh' }}>
         {isLoading ? (
           <div style={styles.loaderContainer}>
             <Shimmer style={{ width: 600, height: 400 }} />
           </div>
         ) : (
-          <section className="section">
+          <section className="section" style={{ backgroundColor: '#ffffff' }}>
             <div className="container">
               <div className="columns is-centered is-multiline has-text-centered">
                 <div className="column is-two-thirds">

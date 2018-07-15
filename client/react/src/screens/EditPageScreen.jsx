@@ -120,7 +120,7 @@ class EditPageScreen extends Component {
             <Shimmer style={{ width: 600, height: 400 }} />
           </div>
         ) : (
-          <section className="section">
+          <section className="section" style={{ backgroundColor: '#ffffff' }}>
             <div className="container">
               <div className="columns is-centered is-multiline has-text-centered">
                 <div className="column is-two-thirds">

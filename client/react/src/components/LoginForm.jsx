@@ -60,13 +60,13 @@ class LoginForm extends React.Component {
         this.setState({ isLoading: false });
       } else {
         getUserProfileFromFbase(data.user.uid).then(res => {
+          this.setState({ isLoading: false });
           if (res.error) {
             showAlert(res.error.message, 'error');
           } else {
             userStore.profileData = res.data;
             this.props.history.push('/home');
           }
-          this.setState({ isLoading: false });
         });
       }
     });

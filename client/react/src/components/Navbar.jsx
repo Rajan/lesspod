@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import { view } from 'react-easy-state';
 
@@ -90,13 +90,16 @@ class NavBar extends React.Component {
               <div className="navbar-item has-dropdown is-hoverable">
                 <div className="navbar-link">New</div>
                 <div className="navbar-dropdown is-right">
-                  <Link to="/newpost">
-                    <a className="navbar-item">
-                      <span className="icon is-small">
-                        <i className="fa fa-clipboard" />
-                      </span>&nbsp; Post
-                    </a>
-                  </Link>
+                  <a
+                    className="navbar-item"
+                    onClick={() => {
+                      this.props.history.push('/newpost');
+                    }}
+                  >
+                    <span className="icon is-small">
+                      <i className="fa fa-clipboard" />
+                    </span>&nbsp; Post
+                  </a>
                   <a
                     className="navbar-item"
                     onClick={() => {
@@ -145,4 +148,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default view(NavBar);
+export default withRouter(view(NavBar));

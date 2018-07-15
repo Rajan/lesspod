@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import userStore from '../stores/userStore';
 import { isExternalLink, dashedString } from '../utils/utils';
 
-const getPath = name => {
-  if (userStore.profileData) {
-    return `/editpage/${dashedString(name)}`;
+const getPath = menu => {
+  if (userStore.profileData && userStore.profileData === menu.createdBy) {
+    return `/editpage/${dashedString(menu.name)}`;
   }
-  return `/${dashedString(name)}`;
+  return `/${dashedString(menu.name)}`;
 };
 
 const NavbarUserMenus = data =>
@@ -27,7 +27,7 @@ const NavbarUserMenus = data =>
       <div className="navbar-item" key={d.id}>
         <Link
           to={{
-            pathname: `${getPath(d.name)}`,
+            pathname: `${getPath(d)}`,
             state: {
               post: {
                 title: d.name,

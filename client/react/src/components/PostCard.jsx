@@ -1,12 +1,12 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { view } from 'react-easy-state';
 
 import userStore from '../stores/userStore';
 import { deletePostFromFbase } from '../api/firebase';
 import { showAlert } from './../utils/utils';
 import dataStore from '../stores/dataStore';
-import { view } from 'react-easy-state';
 
 class PostCard extends React.Component {
   getPath = params => {
@@ -68,31 +68,31 @@ class PostCard extends React.Component {
                 <br />
                 <p>{this.getPostSummary(post.content)}</p>
 
-                {userStore.profileData && (
-                  <div id="post-actions">
-                    <Link
-                      to={{
-                        pathname: `/editpost/${post.id}`,
-                        state: {
-                          // post,
-                        },
-                      }}
-                    >
-                      Edit
-                    </Link>
-                    <span> · </span>
-                    <Link
-                      to={{
-                        pathname: `/post/${post.id}`,
-                        state: {
-                          // post,
-                        },
-                      }}
-                    >
-                      View
-                    </Link>
-                    {post.createdBy === userStore.profileData.id && <span> · </span>}
-                    {post.createdBy === userStore.profileData.id && (
+                {userStore.profileData &&
+                  post.createdBy === userStore.profileData.id && (
+                    <div id="post-actions">
+                      <Link
+                        to={{
+                          pathname: `/editpost/${post.id}`,
+                          state: {
+                            // post,
+                          },
+                        }}
+                      >
+                        Edit
+                      </Link>
+                      <span> · </span>
+                      <Link
+                        to={{
+                          pathname: `/post/${post.id}`,
+                          state: {
+                            // post,
+                          },
+                        }}
+                      >
+                        View
+                      </Link>
+                      <span> · </span>
                       <a
                         onClick={() => {
                           this.deletePost(post);
@@ -100,9 +100,8 @@ class PostCard extends React.Component {
                       >
                         Delete
                       </a>
-                    )}
-                  </div>
-                )}
+                    </div>
+                  )}
                 <p />
               </div>
             </div>

@@ -1,10 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import userStore from '../stores/userStore';
 import { logoutFirebase } from '../api/firebase';
 import { view } from 'react-easy-state';
 
 class LoginNavItem extends React.Component {
+  navigate = path => {
+    this.props.history.push(path);
+  };
+
   render() {
     if (userStore.profileData) {
       return (
@@ -13,20 +17,26 @@ class LoginNavItem extends React.Component {
             {userStore.profileData.first} {userStore.profileData.last}
           </div>
           <div className="navbar-dropdown is-right">
-            <Link to="/profile">
-              <a className="navbar-item">
-                <span className="icon is-small">
-                  <i className="fa fa-user-circle" />
-                </span>&nbsp; Profile
-              </a>
-            </Link>
-            <Link to="/settings">
-              <a className="navbar-item">
-                <span className="icon is-small">
-                  <i className="fa fa-cog" />
-                </span>&nbsp; Settings
-              </a>
-            </Link>
+            <a
+              className="navbar-item"
+              onClick={() => {
+                this.navigate('/profile');
+              }}
+            >
+              <span className="icon is-small">
+                <i className="fa fa-user-circle" />
+              </span>&nbsp; Profile
+            </a>
+            <a
+              className="navbar-item"
+              onClick={() => {
+                this.navigate('/settings');
+              }}
+            >
+              <span className="icon is-small">
+                <i className="fa fa-cog" />
+              </span>&nbsp; Settings
+            </a>
             <a
               className="navbar-item"
               href="https://github.com/Rajan/lesspod/issues"
@@ -61,4 +71,4 @@ class LoginNavItem extends React.Component {
   }
 }
 
-export default view(LoginNavItem);
+export default withRouter(view(LoginNavItem));

@@ -53,13 +53,7 @@ class RegisterForm extends React.Component {
   };
 
   onRegisterClick = () => {
-    if (
-      this.state.name &&
-      this.state.password &&
-      this.state.name.length > 4 &&
-      this.state.password.length > 5 &&
-      this.state.password === this.state.confirmPassword
-    ) {
+    if (this.state.name && this.state.password && this.state.password === this.state.confirmPassword) {
       registerWithFirebase(this.state.email, this.state.password).then(response => {
         const { error, data } = response;
         if (error) {
@@ -73,13 +67,13 @@ class RegisterForm extends React.Component {
             last: this.state.name.split(' ')[1] ? this.state.name.split(' ')[1] : '',
           };
           addUserProfileToFbase(profileData).then(res => {
+            this.setState({ isLoading: false });
             if (res.error) {
               showAlert(res.error.message);
             } else {
               userStore.profileData = res.data;
               this.props.history.push('/home');
             }
-            this.setState({ isLoading: false });
           });
         }
       });
