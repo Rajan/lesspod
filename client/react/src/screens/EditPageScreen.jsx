@@ -50,6 +50,23 @@ class EditPageScreen extends Component {
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const nextState = nextProps.location.state;
+    if (nextState && nextState.post) {
+      if (nextState.post.id !== prevState.id) {
+        return nextState.post;
+      }
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.id !== this.state.id) {
+      this.setState({ isLoading: true });
+      this.renderPostFromFbase(this.state.id);
+    }
+  }
+
   handleChange = event => {
     this.setState({ title: event.target.value });
   };

@@ -5,6 +5,7 @@ import dataStore from '../stores/dataStore';
 import { showAlert } from '../utils/utils';
 import Shimmer from './Shimmer';
 import Posts from './Posts';
+import { LATEST_POSTS_LIMIT } from '../config/Constants';
 
 class LatestPosts extends Component {
   constructor(props) {
@@ -28,7 +29,9 @@ class LatestPosts extends Component {
   }
 
   render() {
-    return <div>{this.state.isLoading ? <Shimmer /> : <Posts data={dataStore.getFilteredPosts()} />}</div>;
+    const posts = dataStore.getFilteredPosts().slice(0, LATEST_POSTS_LIMIT);
+
+    return <div>{this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}</div>;
   }
 }
 

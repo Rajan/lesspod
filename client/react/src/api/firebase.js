@@ -503,27 +503,30 @@ export const getLatestPostsFromFbase = () => {
     timestampsInSnapshots: true,
   });
 
-  return db
-    .collection(POSTS_COLLECTION)
-    .orderBy('createdAt', 'desc')
-    .limit(LATEST_POSTS_LIMIT)
-    .get()
-    .then(querySnapshot => {
-      const posts = [];
-      querySnapshot.forEach(doc => {
-        posts.push(doc.data());
-      });
-      const response = {
-        error: null,
-        data: posts,
-      };
-      return response;
-    })
-    .catch(error => {
-      const response = {
-        error,
-        data: null,
-      };
-      return response;
-    });
+  return (
+    db
+      .collection(POSTS_COLLECTION)
+      // .where('pageURL', '==', null)
+      .orderBy('createdAt', 'desc')
+      .limit(LATEST_POSTS_LIMIT * 3)
+      .get()
+      .then(querySnapshot => {
+        const posts = [];
+        querySnapshot.forEach(doc => {
+          posts.push(doc.data());
+        });
+        const response = {
+          error: null,
+          data: posts,
+        };
+        return response;
+      })
+      .catch(error => {
+        const response = {
+          error,
+          data: null,
+        };
+        return response;
+      })
+  );
 };

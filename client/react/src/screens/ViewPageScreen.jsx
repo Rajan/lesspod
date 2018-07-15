@@ -65,7 +65,8 @@ class ViewPageScreen extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState !== this.state) {
+    if (prevState.id !== this.state.id) {
+      this.setState({ isLoading: true });
       this.renderPostFromFbase(this.state.id);
     }
   }
