@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import { withRouter } from 'react-router-dom';
 
 import { getPostFromFBase, getPostWithoutIdFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
-import { showAlert } from '../utils/utils';
+import { showAlert, dashedString } from '../utils/utils';
 
 const styles = {
   loaderContainer: {
@@ -16,7 +17,7 @@ const styles = {
   },
 };
 
-class EditPageScreen extends Component {
+class ViewPageScreen extends Component {
   state = {
     id: '',
     title: '',
@@ -51,9 +52,23 @@ class EditPageScreen extends Component {
     }
   }
 
-  handleChange = event => {
-    this.setState({ title: event.target.value });
-  };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const nextState = nextProps.location.state;
+
+    if (nextState && nextState.post) {
+      if (nextState.post.id !== prevState.id) {
+        return nextState.post;
+      }
+    }
+
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      this.renderPostFromFbase(this.state.id);
+    }
+  }
 
   renderPostFromFbase = postId => {
     getPostFromFBase(postId).then(response => {
@@ -97,9 +112,6 @@ class EditPageScreen extends Component {
                             value={title}
                             placeholder="Post Title"
                             style={{ fontWeight: 'bold', fontSize: '2rem' }}
-                            onChange={event => {
-                              this.handleChange(event);
-                            }}
                             readOnly
                           />
                         </p>
@@ -121,4 +133,4 @@ class EditPageScreen extends Component {
   }
 }
 
-export default EditPageScreen;
+export default withRouter(ViewPageScreen);

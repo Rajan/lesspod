@@ -10,6 +10,7 @@ class NewMenuModal extends Component {
     menuName: '',
     linkedURL: '',
     // menuSelect: 'none',
+    isLoading: false,
   };
 
   onClickSave = () => {
@@ -25,7 +26,9 @@ class NewMenuModal extends Component {
     };
 
     if (menuName.length > 0) {
+      this.setState({ isLoading: true });
       addPostToFirebase(postData).then(res => {
+        this.setState({ isLoading: false });
         if (res.error) {
           showAlert(res.error.message, 'error');
         } else {
@@ -35,7 +38,9 @@ class NewMenuModal extends Component {
             linkedURL: linkedURL.length > 0 ? linkedURL : data.pageURL,
             postId: data.id,
           };
+          this.setState({ isLoading: true });
           addMenuToFbase(menuData).then(res => {
+            this.setState({ isLoading: false });
             if (res.error) {
               showAlert(res.error.message, 'error');
             } else {
@@ -116,7 +121,7 @@ class NewMenuModal extends Component {
         <footer className="modal-card-foot" style={{ paddingBottom: '2rem', paddingTop: '2rem' }}>
           <br />
           <button
-            className="button is-success is-small"
+            className={`button is-success is-small ${this.state.isLoading ? 'is-loading' : ''}`}
             onClick={() => {
               this.onClickSave();
             }}
