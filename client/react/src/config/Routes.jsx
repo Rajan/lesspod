@@ -15,6 +15,7 @@ import EditPostScreen from './../screens/EditPostScreen';
 import Navbar from './../components/Navbar';
 import Footer from '../components/Footer';
 import ProfileScreen from './../screens/ProfileScreen';
+import EditPageScreen from './../screens/EditPageScreen';
 
 const PrivateRoute = params => {
   if (params.auth) {
@@ -38,7 +39,7 @@ class Routes extends React.Component {
         <ScrollToTop>
           <Navbar />
           <Switch>
-            <Route path="/" exact render={props => <LandingScreen {...props} />} />
+            <Route path="/:pageId" exact render={props => <LandingScreen {...props} />} />
             <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
             <Route path="/post/:postId" exact render={props => <ViewPostScreen {...props} />} />
             <VerifyAuthRoute auth={auth} path="/login" exact render={props => <LoginScreen {...props} />} />
@@ -47,6 +48,7 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/editpage/:pageId" exact render={props => <EditPageScreen {...props} />} />
           </Switch>
           <Footer />
         </ScrollToTop>

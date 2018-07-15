@@ -351,6 +351,57 @@ export const getAllPostsFromFbase = () => {
     });
 };
 
+export const getPostFromFBase = postId => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(POSTS_COLLECTION)
+    .where('id', '==', postId)
+    .get()
+    .then(querySnapshot => {
+      const response = {
+        error: null,
+        data: querySnapshot.docs[0].data(),
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getPostWithoutIdFromFbase = slug => {
+  const pageURL = `${window.location.origin}/${slug}`;
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+  return db
+    .collection(POSTS_COLLECTION)
+    .where('pageURL', '==', pageURL)
+    .get()
+    .then(querySnapshot => {
+      const response = {
+        error: null,
+        data: querySnapshot.docs[0].data(), // assuming title is unique because to match with vue's implementation
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+    });
+};
+
 export const addMenuToFbase = data => {
   const generatedId = uuidv4();
   data.id = generatedId;
@@ -431,32 +482,6 @@ export const getAllMenusFromFbase = () => {
       const response = {
         error: null,
         data: posts,
-      };
-      return response;
-    })
-    .catch(error => {
-      const response = {
-        error,
-        data: null,
-      };
-      return response;
-    });
-};
-
-export const getPostFromFBase = postId => {
-  const db = firebase.firestore();
-  db.settings({
-    timestampsInSnapshots: true,
-  });
-
-  return db
-    .collection(POSTS_COLLECTION)
-    .where('id', '==', postId)
-    .get()
-    .then(querySnapshot => {
-      const response = {
-        error: null,
-        data: querySnapshot.docs[0].data(),
       };
       return response;
     })

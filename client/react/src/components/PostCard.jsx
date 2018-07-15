@@ -53,7 +53,7 @@ class PostCard extends React.Component {
                   to={{
                     pathname: this.getPath(post),
                     state: {
-                      // post,
+                      // post, //693adba6e4bf11cd1eb63340e6eb27da59ac6fd5 issue explained in this commit => TLDR; routing issue of heavy state
                     },
                   }}
                 >
@@ -74,7 +74,7 @@ class PostCard extends React.Component {
                       to={{
                         pathname: `/editpost/${post.id}`,
                         state: {
-                          post,
+                          // post,
                         },
                       }}
                     >
@@ -85,7 +85,7 @@ class PostCard extends React.Component {
                       to={{
                         pathname: `/post/${post.id}`,
                         state: {
-                          post,
+                          // post,
                         },
                       }}
                     >
