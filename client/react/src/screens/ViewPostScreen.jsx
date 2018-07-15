@@ -7,6 +7,8 @@ import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
 import dataStore from '../stores/dataStore';
 import LatestPosts from '../components/LatestPosts';
+import Tags from '../components/Tags';
+import { view } from 'react-easy-state';
 
 const styles = {
   loaderContainer: {
@@ -52,10 +54,17 @@ class ViewPostScreen extends Component {
   }
 
   static getDerivedStateFromProps(newProps, prevState) {
-    if (newProps.location.state && newProps.location.state.post) {
-      return newProps.location.state.post;
+    if (newProps.match.params.postId !== prevState.postId) {
+      return { id: newProps.match.params.postId };
     }
     return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.id !== this.state.id) {
+      this.setState({ isLoading: true });
+      this.renderPostFromFbase(this.state.id);
+    }
   }
 
   renderPostFromFbase = postId => {
@@ -119,12 +128,7 @@ class ViewPostScreen extends Component {
 
                   {tags.length > 0 && (
                     <div className="tags">
-                      <span
-                        className="button is-link is-outlined is-small is-rounded"
-                        style={{ marginRight: '0.6rem' }}
-                      >
-                        {tags}
-                      </span>
+                      <Tags data={tags.split(' ')} />
                     </div>
                   )}
                   <input type="hidden" name="postId" id="postId" value="" />
@@ -159,4 +163,4 @@ class ViewPostScreen extends Component {
   }
 }
 
-export default ViewPostScreen;
+export default view(ViewPostScreen);
