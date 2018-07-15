@@ -3,6 +3,6 @@ export const config = {
   authDomain: 'lesspod-dev.firebaseapp.com',
   databaseURL: 'https://lesspod-dev.firebaseio.com',
   projectId: 'lesspod-dev',
-  storageBucket: '',
+  storageBucket: 'lesspod-dev.appspot.com',
   messagingSenderId: '406114890288',
 };
