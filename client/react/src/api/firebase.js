@@ -399,6 +399,7 @@ export const getPostWithoutIdFromFbase = slug => {
         error,
         data: null,
       };
+      return response;
     });
 };
 
