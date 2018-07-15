@@ -28,8 +28,6 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    // generateFakePosts(20);
-
     getAllPostsFromFbaseByUser(userStore.profileData.id).then(response => {
       if (response.error) {
         showAlert(response.error.message);

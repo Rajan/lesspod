@@ -53,7 +53,13 @@ class RegisterForm extends React.Component {
   };
 
   onRegisterClick = () => {
-    if (this.state.name && this.state.password && this.state.password === this.state.confirmPassword) {
+    if (
+      this.state.name &&
+      this.state.password &&
+      this.state.name.length > 0 &&
+      this.state.password === this.state.confirmPassword
+    ) {
+      this.setState({ isLoading: true });
       registerWithFirebase(this.state.email, this.state.password).then(response => {
         const { error, data } = response;
         if (error) {
@@ -66,6 +72,7 @@ class RegisterForm extends React.Component {
             first: this.state.name.split(' ')[0],
             last: this.state.name.split(' ')[1] ? this.state.name.split(' ')[1] : '',
           };
+          this.setState({ isLoading: true });
           addUserProfileToFbase(profileData).then(res => {
             this.setState({ isLoading: false });
             if (res.error) {
@@ -77,10 +84,12 @@ class RegisterForm extends React.Component {
           });
         }
       });
-    } else if (this.state.password !== this.state.confirmPassword) {
+    } else if (this.state.password.length > 0 && this.state.password !== this.state.confirmPassword) {
       showAlert('Passwords do not match!');
-      this.setState({ isLoading: false });
+    } else {
+      showAlert('Enter all details');
     }
+    this.setState({ isLoading: false });
   };
 
   handleInputChange = event => {
@@ -180,7 +189,6 @@ class RegisterForm extends React.Component {
               href="#"
               className={`button is-info ${this.state.isLoading ? 'is-loading' : ''}`}
               onClick={() => {
-                this.setState({ isLoading: true });
                 this.onRegisterClick();
               }}
             >

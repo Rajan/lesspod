@@ -5,7 +5,7 @@ import userStore from '../stores/userStore';
 import { isExternalLink, dashedString } from '../utils/utils';
 
 const getPath = menu => {
-  if (userStore.profileData && userStore.profileData === menu.createdBy) {
+  if (userStore.profileData && userStore.profileData.id === menu.createdBy) {
     return `/editpage/${dashedString(menu.name)}`;
   }
   return `/${dashedString(menu.name)}`;

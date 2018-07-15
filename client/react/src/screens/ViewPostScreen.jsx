@@ -147,13 +147,13 @@ class ViewPostScreen extends Component {
             </div>
             <div className="icon-bar">
               <a className="calm">
-                <i className="fab fa-facebook-f" />
+                <i className="fa fa-facebook-f" />
               </a>
               <a target="_blank" title="Share on Twitter" className="calm">
-                <i className="fab fa-twitter" />
+                <i className="fa fa-twitter" />
               </a>
               <a className="calm">
-                <i className="fab fa-linkedin" />
+                <i className="fa fa-linkedin" />
               </a>
             </div>
           </section>
