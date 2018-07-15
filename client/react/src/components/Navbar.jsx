@@ -128,9 +128,7 @@ class NavBar extends React.Component {
             </Modal>
 
             <div className="navbar-item">
-              <Link to="/blog" target="_blank">
-                Blog
-              </Link>
+              <Link to="/blog">Blog</Link>
             </div>
 
             {NavbarUserMenus(dataStore.menus)}

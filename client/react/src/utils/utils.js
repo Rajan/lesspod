@@ -34,8 +34,15 @@ export const dashedString = str =>
     .toLowerCase();
 
 export const isExternalLink = url => {
-  if (url.indexOf(window.location.origin) !== -1) {
-    return false;
+  if (url.startsWith('http') || url.startsWith('www')) {
+    return true;
   }
-  return true;
+  return false;
+};
+
+export const formatURL = url => {
+  if (!url.startsWith('www') || !url.startsWith('http')) {
+    return `http://${url}`;
+  }
+  return url;
 };

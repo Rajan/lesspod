@@ -378,7 +378,7 @@ export const getPostFromFBase = postId => {
 };
 
 export const getPostWithoutIdFromFbase = slug => {
-  const pageURL = `${window.location.origin}/${slug}`;
+  const pageURL = `/${slug}`;
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,

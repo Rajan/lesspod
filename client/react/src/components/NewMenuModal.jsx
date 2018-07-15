@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { addMenuToFbase, addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
-import { showAlert, dashedString } from './../utils/utils';
+import { showAlert, dashedString, formatURL } from './../utils/utils';
 import dataStore from '../stores/dataStore';
 
 class NewMenuModal extends Component {
@@ -20,7 +20,7 @@ class NewMenuModal extends Component {
     const postData = {
       title: menuName,
       content: '',
-      pageURL: `${window.location.origin}/${dashedString(menuName)}`,
+      pageURL: linkedURL.length > 0 ? formatURL(linkedURL) : `/${dashedString(menuName)}`,
       tags: '',
       author: `${userStore.profileData.first} ${userStore.profileData.last}`,
     };
@@ -35,7 +35,7 @@ class NewMenuModal extends Component {
           const { data } = res;
           const menuData = {
             name: menuName,
-            linkedURL: linkedURL.length > 0 ? linkedURL : data.pageURL,
+            linkedURL: linkedURL.length > 0 ? formatURL(linkedURL) : data.pageURL,
             postId: data.id,
           };
           this.setState({ isLoading: true });
@@ -100,7 +100,7 @@ class NewMenuModal extends Component {
                     name="linkedURL"
                     onChange={this.handleInputChange}
                     type="text"
-                    placeholder="http://www.example.com"
+                    placeholder="http(s)://www.example.com"
                   />
                 </div>
               </div>

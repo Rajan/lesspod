@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import userStore from './../stores/userStore';
 import { showAlert } from './../utils/utils';
@@ -191,9 +192,11 @@ class ProfileScreen extends React.Component {
                       </button>
                     </div>
                     <div className="control">
-                      <a className="button is-text" style={{ textDecoration: 'none' }} href="home">
-                        Cancel
-                      </a>
+                      <Link to="/home">
+                        <div className="button is-text" style={{ textDecoration: 'none' }} href="home">
+                          Cancel
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
