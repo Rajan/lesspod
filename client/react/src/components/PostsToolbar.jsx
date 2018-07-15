@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import dataStore from '../stores/dataStore';
 import userStore from '../stores/userStore';
+import { view } from 'react-easy-state';
 
 class PostsToolbar extends Component {
   componentDidMount() {
@@ -62,4 +63,4 @@ class PostsToolbar extends Component {
   }
 }
 
-export default PostsToolbar;
+export default view(PostsToolbar);

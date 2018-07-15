@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import uuidv4 from 'uuid/v4';
 import dayjs from 'dayjs';
 
-import { USERS_COLLECTION, POSTS_COLLECTION, LATEST_POSTS_LIMIT } from '../config/Constants';
+import { USERS_COLLECTION, POSTS_COLLECTION, LATEST_POSTS_LIMIT, MENUS_COLLECTION } from '../config/Constants';
 
 export const logoutFirebase = () => {
   firebase.auth().signOut();
@@ -150,9 +150,9 @@ export const addDataToFbase = (collection, data) => {
 
   const generatedId = uuidv4();
 
-  if (!data.id) data.id = generatedId;
   data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
   data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.createdBy = firebase.auth().currentUser.uid;
 
   return db
     .collection(collection)
@@ -266,7 +266,7 @@ export const deletePostFromFbase = postId => {
   db.settings(settings);
 
   return db
-    .collection('posts')
+    .collection(POSTS_COLLECTION)
     .doc(postId)
     .delete()
     .then(() => {
@@ -330,6 +330,98 @@ export const getAllPostsFromFbase = () => {
   return db
     .collection(POSTS_COLLECTION)
     .orderBy('createdAt', 'desc')
+    .get()
+    .then(querySnapshot => {
+      const posts = [];
+      querySnapshot.forEach(doc => {
+        posts.push(doc.data());
+      });
+      const response = {
+        error: null,
+        data: posts,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const addMenuToFbase = data => {
+  const generatedId = uuidv4();
+  data.id = generatedId;
+  data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.createdBy = firebase.auth().currentUser.uid;
+
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(MENUS_COLLECTION)
+    .doc(generatedId)
+    .set(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const deleteMenuFromFbase = menuId => {
+  const db = firebase.firestore();
+  const settings = {
+    timestampsInSnapshots: true,
+  };
+  db.settings(settings);
+
+  return db
+    .collection(MENUS_COLLECTION)
+    .doc(menuId)
+    .delete()
+    .then(() => {
+      const response = {
+        error: null,
+        data: {
+          message: 'Menu deleted',
+          menuId,
+        },
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getAllMenusFromFbase = () => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(MENUS_COLLECTION)
+    .orderBy('createdAt')
     .get()
     .then(querySnapshot => {
       const posts = [];

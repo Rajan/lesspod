@@ -25,3 +25,17 @@ export const generateFakePosts = count => {
     addPostToFirebase(postData);
   }
 };
+
+export const dashedString = str =>
+  str
+    .trim()
+    .split(' ')
+    .join('-')
+    .toLowerCase();
+
+export const isExternalLink = url => {
+  if (url.indexOf(window.location.origin) !== -1) {
+    return false;
+  }
+  return true;
+};

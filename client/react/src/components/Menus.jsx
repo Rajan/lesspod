@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 import MenuTag from './MenuTag';
+import { view } from 'react-easy-state';
 
 class Menus extends Component {
   state = {};
 
-  renderMenus = data => data.map(d => <MenuTag menu={d} />);
+  renderMenus = data => data.map(d => <MenuTag menu={d} key={d.id} />);
   render() {
     const menuData = this.props.data;
     return (
@@ -20,4 +21,4 @@ class Menus extends Component {
   }
 }
 
-export default Menus;
+export default view(Menus);

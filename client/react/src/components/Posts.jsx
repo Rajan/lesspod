@@ -1,4 +1,5 @@
 import React from 'react';
+import { view } from 'react-easy-state';
 
 import PostCard from './PostCard';
 
@@ -11,4 +12,4 @@ class Posts extends React.Component {
   }
 }
 
-export default Posts;
+export default view(Posts);

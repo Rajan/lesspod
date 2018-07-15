@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Modal from 'react-responsive-modal';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoType from './../assets/images/type.png';
 import userStore from '../stores/userStore';
 import LoginNavItem from './LoginNavItem';
 import { view } from 'react-easy-state';
+import NewMenuModal from './NewMenuModal';
+import dataStore from '../stores/dataStore';
+import { getAllMenusFromFbase } from '../api/firebase';
+import { showAlert, dashedString, isExternalLink } from '../utils/utils';
+import NavbarUserMenus from './NavbarUserMenus';
 
 const styles = {
   logoContainer: {
@@ -32,6 +38,29 @@ const styles = {
 };
 
 class NavBar extends React.Component {
+  state = {
+    open: false,
+  };
+
+  componentDidMount() {
+    dataStore.menus = [];
+    getAllMenusFromFbase().then(res => {
+      if (res.error) {
+        showAlert(res.error.message);
+      } else {
+        dataStore.menus = res.data;
+      }
+    });
+  }
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     return (
       <nav className="navbar has-shadow" aria-label="main navigation">
@@ -56,16 +85,58 @@ class NavBar extends React.Component {
                 <Link to="/home">Dashboard</Link>
               </div>
             )}
+
+            {userStore.profileData && (
+              <div className="navbar-item has-dropdown is-hoverable">
+                <div className="navbar-link">New</div>
+                <div className="navbar-dropdown is-right">
+                  <Link to="/newpost">
+                    <a className="navbar-item">
+                      <span className="icon is-small">
+                        <i className="fa fa-clipboard" />
+                      </span>&nbsp; Post
+                    </a>
+                  </Link>
+                  <a
+                    className="navbar-item"
+                    onClick={() => {
+                      this.onOpenModal();
+                    }}
+                  >
+                    <span className="icon is-small">
+                      <i className="fa fa-bars" />
+                    </span>&nbsp; Menu
+                  </a>
+                </div>
+              </div>
+            )}
+            <Modal
+              open={this.state.open}
+              onClose={this.onCloseModal}
+              styles={{
+                modal: {
+                  padding: 0,
+                },
+              }}
+              showCloseIcon={false}
+              center
+            >
+              <NewMenuModal onClose={this.onCloseModal} />
+            </Modal>
+
             <div className="navbar-item">
               <Link to="/blog" target="_blank">
                 Blog
               </Link>
             </div>
-            {!userStore.profileData && (
+
+            {NavbarUserMenus(dataStore.menus)}
+
+            {/* {!userStore.profileData && (
               <div className="navbar-item">
                 <Link to="/register">Register</Link>
               </div>
-            )}
+            )} */}
             <LoginNavItem />
           </div>
         </div>

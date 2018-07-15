@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
+import { view } from 'react-easy-state';
 
 import ServerlessImage from './../assets/images/serverless.png';
 import Posts from './../components/Posts';
@@ -39,7 +40,7 @@ class LandingScreen extends React.Component {
   }
 
   render() {
-    const { posts } = dataStore;
+    const posts = dataStore.getFilteredPosts();
     return (
       <div style={{ backgroundColor: '#FFF' }}>
         <section className="section">
@@ -117,4 +118,4 @@ class LandingScreen extends React.Component {
   }
 }
 
-export default LandingScreen;
+export default view(LandingScreen);
