@@ -9,11 +9,11 @@ class NewMenuModal extends Component {
   state = {
     menuName: '',
     linkedURL: '',
-    menuSelect: 'none',
+    // menuSelect: 'none',
   };
 
   onClickSave = () => {
-    const { menuName, linkedURL, menuSelect } = this.state;
+    const { menuName, linkedURL } = this.state;
 
     // matching vue => creating a post for each menu
     const postData = {

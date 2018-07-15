@@ -53,7 +53,7 @@ class PostCard extends React.Component {
                   to={{
                     pathname: this.getPath(post),
                     state: {
-                      post,
+                      // post,
                     },
                   }}
                 >

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
+import { view } from 'react-easy-state';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoType from './../assets/images/type.png';
 import userStore from '../stores/userStore';
 import LoginNavItem from './LoginNavItem';
-import { view } from 'react-easy-state';
 import NewMenuModal from './NewMenuModal';
 import dataStore from '../stores/dataStore';
 import { getAllMenusFromFbase } from '../api/firebase';
-import { showAlert, dashedString, isExternalLink } from '../utils/utils';
+import { showAlert } from '../utils/utils';
 import NavbarUserMenus from './NavbarUserMenus';
 
 const styles = {

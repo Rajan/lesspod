@@ -28,7 +28,7 @@ class EditPostScreen extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    if (state) {
+    if (state.post) {
       const { post } = state;
       this.setState({
         id: post.id,

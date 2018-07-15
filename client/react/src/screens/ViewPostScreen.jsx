@@ -36,7 +36,7 @@ class ViewPostScreen extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    if (state) {
+    if (state.post) {
       const { post } = state;
       this.setState({
         id: post.id,
@@ -62,7 +62,7 @@ class ViewPostScreen extends Component {
   }
 
   static getDerivedStateFromProps(newProps, prevState) {
-    if (newProps.location.state) {
+    if (newProps.location.state.post) {
       return newProps.location.state.post;
     }
     return null;

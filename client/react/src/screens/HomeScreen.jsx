@@ -6,7 +6,7 @@ import Posts from '../components/Posts';
 import Menus from '../components/Menus';
 import { getAllPostsFromFbaseByUser } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
-import { showAlert, generateFakePosts } from '../utils/utils';
+import { showAlert } from '../utils/utils';
 import dataStore from '../stores/dataStore';
 import PostsToolbar from '../components/PostsToolbar';
 
