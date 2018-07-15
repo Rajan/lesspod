@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { getPostFromFBase, getPostWithoutIdFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
-import { showAlert, dashedString } from '../utils/utils';
+import { showAlert } from '../utils/utils';
 
 const styles = {
   loaderContainer: {

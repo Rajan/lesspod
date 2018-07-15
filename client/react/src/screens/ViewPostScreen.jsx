@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import ReactHtmlParser from 'react-html-parser';
 
-import { getPostFromFBase, getLatestPostsFromFbase } from '../api/firebase';
-import Posts from '../components/Posts';
+import { getPostFromFBase } from '../api/firebase';
 import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
 import dataStore from '../stores/dataStore';
+import LatestPosts from '../components/LatestPosts';
 
 const styles = {
   loaderContainer: {
@@ -45,20 +45,10 @@ class ViewPostScreen extends Component {
         tags: post.tags,
         author: post.author,
         isLoading: false,
-        shimmer: true,
       });
     } else {
       this.renderPostFromFbase(this.props.match.params.postId);
     }
-
-    getLatestPostsFromFbase().then(response => {
-      if (response.error) {
-        console.log(response.error.message);
-      } else {
-        dataStore.posts = response.data;
-        this.setState({ shimmer: false });
-      }
-    });
   }
 
   static getDerivedStateFromProps(newProps, prevState) {
@@ -87,8 +77,7 @@ class ViewPostScreen extends Component {
   };
 
   render() {
-    const { id, title, content, tags, author, createdAt, isLoading, shimmer } = this.state;
-    const { posts } = dataStore;
+    const { id, title, content, tags, author, createdAt, isLoading } = this.state;
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
         {isLoading ? (
@@ -143,7 +132,7 @@ class ViewPostScreen extends Component {
                 <div className="column is-two-thirds has-text-centered">
                   <h2 className="title">Latest Posts</h2>
                   <br />
-                  {shimmer ? <Shimmer /> : <Posts data={posts} />}
+                  <LatestPosts />
                   <br />
                   <h2 className="title">Comments</h2>
                   <div className="comments">

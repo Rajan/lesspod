@@ -5,22 +5,10 @@ import 'react-github-button/assets/style.css';
 import { view } from 'react-easy-state';
 
 import ServerlessImage from './../assets/images/serverless.png';
-import Posts from './../components/Posts';
-import Shimmer from './../components/Shimmer';
-import { getLatestPostsFromFbase } from '../api/firebase';
 import userStore from '../stores/userStore';
-import dataStore from '../stores/dataStore';
+import LatestPosts from '../components/LatestPosts';
 
 class LandingScreen extends React.Component {
-  constructor(props) {
-    super(props);
-
-    dataStore.posts = [];
-    this.state = {
-      isLoading: true,
-    };
-  }
-
   componentDidMount() {
     if (window.location.pathname !== '/standaloneapp') {
       const script = document.createElement('script');
@@ -28,19 +16,9 @@ class LandingScreen extends React.Component {
       script.async = true;
       document.body.appendChild(script);
     }
-
-    getLatestPostsFromFbase().then(response => {
-      if (response.error) {
-        console.log(response.error.message);
-      } else {
-        dataStore.posts = response.data;
-        this.setState({ isLoading: false });
-      }
-    });
   }
 
   render() {
-    const posts = dataStore.getFilteredPosts();
     return (
       <div style={{ backgroundColor: '#FFF' }}>
         <section className="section">
@@ -91,10 +69,8 @@ class LandingScreen extends React.Component {
                 <div className="column has-text-centered">
                   <br />
                   <br />
-                  <h2 className="title" v-if="filteredPosts.length > 0">
-                    Latest Posts
-                  </h2>
-                  {this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}
+                  <h2 className="title">Latest Posts</h2>
+                  <LatestPosts />
                 </div>
               </div>
             </div>
