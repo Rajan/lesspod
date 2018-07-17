@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, View, StatusBar, SafeAreaView } from 'react-native';
 import * as firebase from 'firebase/app';
 
 import userStore from './src/stores/userStore';
@@ -27,6 +27,7 @@ class App extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user);
       if (user) {
         getUserProfileFromFbase(user.uid).then(res => {
           this.setState({ isLoading: false });

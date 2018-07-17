@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+import { blueBg } from './../config/Colors';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'green',
+    width: '100%',
+    height: '100%',
+    backgroundColor: blueBg,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10,
+  },
+  form: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    padding: 10,
+    borderRadius: 5,
   },
 });
 
 class LoginScreen extends Component {
-  static navigationOptions = {
-    header: null,
-  };
-
   render() {
     return (
-      <View style={styles.containesr}>
-        <Text>login dafaf af</Text>
-        <Text>login dafaf af</Text>
-        <Text>login dafaf af</Text>
-        <Text>login dafaf af</Text>
-        <Text>login dafaf af</Text>
-        <Text>login dafaf af</Text>
+      <View style={styles.container}>
+        <View style={styles.form}>
+          <Text>Login form</Text>
+        </View>
       </View>
     );
   }
