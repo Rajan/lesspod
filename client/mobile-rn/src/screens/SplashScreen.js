@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Image, SafeAreaView, StatusBar } from 'react-native';
 
+import CustomLoader from './../components/CustomLoader';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,7 +20,7 @@ export default class App extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-        <Image source={require('./../assets/images/icon.png')} style={{ width: 60, height: 60 }} />
+        <CustomLoader />
       </SafeAreaView>
     );
   }
