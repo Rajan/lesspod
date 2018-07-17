@@ -1,27 +1,27 @@
 import React from 'react';
-import { StyleSheet, Image, SafeAreaView, StatusBar } from 'react-native';
-
-import CustomLoader from './../components/CustomLoader';
+import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
 
-export default class App extends React.Component {
+class SplashScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-        <CustomLoader />
-      </SafeAreaView>
+      <View style={styles.container}>
+        <Text>SplashScreen</Text>
+      </View>
     );
   }
 }
+
+export default SplashScreen;

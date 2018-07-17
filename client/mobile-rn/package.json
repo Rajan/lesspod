@@ -14,10 +14,14 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "dayjs": "^1.7.4",
     "expo": "^27.0.1",
+    "firebase": "^5.2.0",
     "react": "16.3.1",
+    "react-easy-state": "^5.1.0",
     "react-native": "~0.55.2",
-    "react-navigation": "^2.6.2"
+    "react-navigation": "^2.6.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
