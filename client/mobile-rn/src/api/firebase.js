@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 
 import { USERS_COLLECTION, POSTS_COLLECTION, LATEST_POSTS_LIMIT, MENUS_COLLECTION } from '../config/Constants';
 
+require('firebase/firestore');
+
 export const logoutFirebase = () => {
   firebase.auth().signOut();
 };

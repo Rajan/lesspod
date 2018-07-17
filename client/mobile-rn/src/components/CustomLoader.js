@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
 import { logoColor } from './../config/Colors';
+import LogoIcon from './../assets/images/icon.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 const defaultValues = {
-  image: { source: require('./../assets/images/icon.png'), style: { width: 90, height: 90 } },
+  image: { source: LogoIcon, style: { width: 90, height: 90 } },
   color: logoColor,
   numPulses: 1,
   speed: 20,

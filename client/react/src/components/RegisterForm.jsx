@@ -47,8 +47,10 @@ const styles = {
 };
 class RegisterForm extends React.Component {
   state = {
+    name: '',
     email: '',
     password: '',
+    confirmPassword: '',
     isLoading: false,
   };
 
@@ -85,11 +87,12 @@ class RegisterForm extends React.Component {
         }
       });
     } else if (this.state.password.length > 0 && this.state.password !== this.state.confirmPassword) {
+      this.setState({ isLoading: false });
       showAlert('Passwords do not match!');
     } else {
+      this.setState({ isLoading: false });
       showAlert('Enter all details');
     }
-    this.setState({ isLoading: false });
   };
 
   handleInputChange = event => {
@@ -125,7 +128,7 @@ class RegisterForm extends React.Component {
               required
             />
             <span className="icon is-small is-left">
-              <i className="fa fa-envelope" />
+              <i className="fa fa-user-circle" />
             </span>
           </div>
         </div>

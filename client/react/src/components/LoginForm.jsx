@@ -53,6 +53,7 @@ class LoginForm extends React.Component {
   };
 
   onLoginClick = () => {
+    this.setState({ isLoading: true });
     loginWithFirebase(this.state.email, this.state.password).then(response => {
       const { error, data } = response;
       if (error) {
@@ -144,7 +145,6 @@ class LoginForm extends React.Component {
               href="#"
               className={`button is-info ${this.state.isLoading ? 'is-loading' : ''}`}
               onClick={() => {
-                this.setState({ isLoading: true });
                 this.onLoginClick();
               }}
             >
