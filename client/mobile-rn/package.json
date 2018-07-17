@@ -20,7 +20,10 @@
     "react": "16.3.1",
     "react-easy-state": "^5.1.0",
     "react-native": "~0.55.2",
+    "react-native-drawer": "^2.5.0",
     "react-native-elements": "^1.0.0-beta5",
+    "react-native-render-html": "^3.10.0",
+    "react-native-shimmer": "^0.3.2",
     "react-router-native": "^4.3.0",
     "uuid": "^3.3.2"
   },

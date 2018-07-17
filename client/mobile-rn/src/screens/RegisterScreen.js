@@ -141,17 +141,11 @@ class RegisterScreen extends Component {
             />
             <Button
               title="LOGIN"
+              clear
               titleStyle={{ fontWeight: '600', color: blueBg }}
-              buttonStyle={{
-                backgroundColor: '#FFF',
-                borderWidth: 0,
-                borderRadius: 5,
-              }}
-              borderRadius={5}
               onPress={() => {
                 this.props.history.push('/');
               }}
-              fontWeight="bold"
             />
           </View>
         </View>

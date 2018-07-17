@@ -9,7 +9,7 @@ import RegisterScreen from './../screens/RegisterScreen';
 import HomeScreen from './../screens/HomeScreen';
 // import NewPostScreen from './../screens/NewPostScreen';
 // import AllPostsScreen from './../screens/AllPostsScreen';
-// import ViewPostScreen from './../screens/ViewPostScreen';
+import ViewPostScreen from './../screens/ViewPostScreen';
 // import EditPostScreen from './../screens/EditPostScreen';
 // import ProfileScreen from './../screens/ProfileScreen';
 // import EditPageScreen from './../screens/EditPageScreen';
@@ -30,14 +30,21 @@ const VerifyAuthRoute = params => {
 };
 
 class Routes extends React.Component {
+  closeControlPanel = () => {
+    this._drawer.close();
+  };
+  openControlPanel = () => {
+    this._drawer.open();
+  };
+
   render() {
     const auth = !!userStore.profileData;
     return (
       <NativeRouter>
         <Switch>
           {/* <Route path="/" exact render={props => <LandingScreen {...props} />} />
-          <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
-          <Route path="/post/:postId" exact render={props => <ViewPostScreen {...props} />} /> */}
+          <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} /> */}
+          <Route path="/post/:postId" exact render={props => <ViewPostScreen {...props} />} />
           <VerifyAuthRoute auth={auth} path="/" exact render={props => <LoginScreen {...props} />} />
           <VerifyAuthRoute auth={auth} path="/register" exact render={props => <RegisterScreen {...props} />} />
           <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />

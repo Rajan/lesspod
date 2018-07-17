@@ -105,17 +105,11 @@ class LoginScreen extends Component {
             />
             <Button
               title="CREATE ACCOUNT"
+              clear
               titleStyle={{ fontWeight: '600', color: blueBg }}
-              buttonStyle={{
-                backgroundColor: '#FFF',
-                borderWidth: 0,
-                borderRadius: 5,
-              }}
-              borderRadius={5}
               onPress={() => {
                 this.props.history.push('/register');
               }}
-              fontWeight="bold"
             />
           </View>
         </View>
