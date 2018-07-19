@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CustomLoader from './../components/CustomLoader';
-import LogoMin from './../assets/images/icon.png';
-import LogoText from './../assets/images/type.png';
 import { showAlert } from '../utils/utils';
 import { saveSettingsToFbase, uploadLogoToFbase } from '../api/firebase';
 import settingsStore from '../stores/settingsStore';
+import { LOGO_SQUARE_SIDE, LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT } from '../config/Constants';
 
 const styles = {
   container: {
@@ -19,23 +18,15 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
   },
-  logo: {
-    textAlign: 'center',
-    marginBottom: 15,
-    backgroundImage: `url(${LogoMin})`,
-    width: 60,
-    height: 60,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
+  squareLogo: {
+    width: LOGO_SQUARE_SIDE * 2,
+    height: LOGO_SQUARE_SIDE * 2,
+    backgroundColor: '#f5f5f5',
   },
-  logoText: {
-    textAlign: 'center',
-    marginBottom: 15,
-    backgroundImage: `url(${LogoText})`,
-    width: 159,
-    height: 47,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
+  horizontalLogo: {
+    width: LOGO_HORIZONTAL_WIDTH * 2,
+    height: LOGO_HORIZONTAL_HEIGHT * 2,
+    backgroundColor: '#f5f5f5',
   },
   row: {
     display: 'flex',
@@ -48,6 +39,10 @@ const styles = {
   loaderContainer: {
     height: 500,
     width: 300,
+  },
+  dimensionsText: {
+    fontSize: 12,
+    color: 'grey',
   },
 };
 class SettingsForm extends React.Component {
@@ -142,7 +137,12 @@ class SettingsForm extends React.Component {
               <br /> Site Settings
             </div>
             <div className="field">
-              <label className="label">Square Logo</label>
+              <label className="label">
+                Square Logo
+                <span style={styles.dimensionsText}>
+                  &nbsp;({LOGO_SQUARE_SIDE * 2}px * {LOGO_SQUARE_SIDE * 2}px)
+                </span>
+              </label>
               <div className="control has-icons-left">
                 <div className="file has-name is-boxed">
                   <label className="file-label">
@@ -154,9 +154,20 @@ class SettingsForm extends React.Component {
                       onChange={e => {
                         this.handleFileUpload(e, 'squareLogoURL');
                       }}
+                      style={{ opacity: 0 }}
                     />
                     {squareLogoURL.length > 1 ? (
-                      <img src={squareLogoURL} alt="logo" />
+                      <div style={styles.squareLogo}>
+                        <div
+                          style={{
+                            width: LOGO_SQUARE_SIDE * 2,
+                            height: LOGO_SQUARE_SIDE * 2,
+                            backgroundImage: `url(${squareLogoURL})`,
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                          }}
+                        />
+                      </div>
                     ) : (
                       <span className="file-cta">
                         <span className="file-icon">
@@ -171,7 +182,12 @@ class SettingsForm extends React.Component {
             </div>
             <br />
             <div className="field">
-              <label className="label">Horizontal Logo</label>
+              <label className="label">
+                Horizontal Logo
+                <span style={styles.dimensionsText}>
+                  &nbsp;({LOGO_HORIZONTAL_WIDTH * 2}px * {LOGO_HORIZONTAL_HEIGHT * 2}px)
+                </span>
+              </label>
               <div className="control has-icons-left">
                 <div className="file has-name is-boxed">
                   <label className="file-label">
@@ -183,9 +199,20 @@ class SettingsForm extends React.Component {
                       onChange={e => {
                         this.handleFileUpload(e, 'horizontalLogoURL');
                       }}
+                      style={{ opacity: 0 }}
                     />
                     {horizontalLogoURL.length > 1 ? (
-                      <img src={horizontalLogoURL} alt="logo" />
+                      <div style={styles.horizontalLogo}>
+                        <div
+                          style={{
+                            width: LOGO_HORIZONTAL_WIDTH * 2,
+                            height: LOGO_HORIZONTAL_HEIGHT * 2,
+                            backgroundImage: `url(${horizontalLogoURL})`,
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                          }}
+                        />
+                      </div>
                     ) : (
                       <span className="file-cta">
                         <span className="file-icon">

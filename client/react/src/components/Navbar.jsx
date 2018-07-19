@@ -11,6 +11,7 @@ import NewMenuModal from './NewMenuModal';
 import dataStore from '../stores/dataStore';
 import NavbarUserMenus from './NavbarUserMenus';
 import settingsStore from './../stores/settingsStore';
+import { LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT, LOGO_SQUARE_SIDE } from '../config/Constants';
 
 const styles = {
   logoContainer: {
@@ -19,20 +20,20 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  logoMin: {
-    width: 50,
-    height: 50,
+  squareLogo: {
+    width: LOGO_SQUARE_SIDE,
+    height: LOGO_SQUARE_SIDE,
     backgroundImage: `url(${LogoMin})`,
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     margin: 20,
   },
-  logoType: {
-    width: 159,
-    height: 47,
+  horizontalLogo: {
+    width: LOGO_HORIZONTAL_WIDTH,
+    height: LOGO_HORIZONTAL_HEIGHT,
     backgroundImage: `url(${LogoType})`,
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
   },
 };
 
@@ -68,9 +69,9 @@ class NavBar extends React.Component {
             {/* added 'dashboard menu item so clicking no logo will take to / always. Should we change? */}
             <div className="navbar-item">
               <div style={styles.logoContainer}>
-                <div style={styles.logoMin} />
+                <div style={styles.squareLogo} />
                 <div>
-                  <div style={styles.logoType} />
+                  <div style={styles.horizontalLogo} />
                   <div>Serverless CMS (Web + Blog Engine)</div>
                 </div>
               </div>
