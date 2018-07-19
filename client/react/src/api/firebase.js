@@ -9,7 +9,9 @@ import {
   MENUS_COLLECTION,
   SETTINGS_COLLECTION,
   SETTINGS_DOCUMENT,
+  IMAGES_COLLECTION,
 } from '../config/Constants';
+import { getFileExtension } from '../utils/utils';
 
 export const logoutFirebase = () => {
   firebase.auth().signOut();
@@ -54,6 +56,62 @@ export const registerWithFirebase = (email, password) =>
         return response;
       }
     );
+
+export const uploadFileToFbase = file => {
+  const userId = firebase.auth().currentUser.uid;
+  const now = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  const storagePath = `${userId}/images/${now}_${file.name}`;
+  return firebase
+    .storage()
+    .ref(storagePath)
+    .put(file)
+    .then(snapshot => {
+      console.log('image upload success');
+      return snapshot.ref.getDownloadURL();
+    })
+    .then(downloadURL => {
+      console.log('writing download url to db');
+      const imageData = {
+        name: file.name,
+        path: storagePath,
+        publicURL: downloadURL,
+        createdBy: userId,
+        createdAt: now,
+      };
+      return this.addDataToFbase(IMAGES_COLLECTION, imageData);
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const uploadLogoToFbase = (file, logoType) => {
+  const userId = firebase.auth().currentUser.uid;
+  const storagePath = `${userId}/logos/${logoType}.${getFileExtension(file.name)}`;
+  return firebase
+    .storage()
+    .ref(storagePath)
+    .put(file)
+    .then(snapshot => snapshot.ref.getDownloadURL())
+    .then(downloadURL => {
+      const response = {
+        error: null,
+        data: downloadURL,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
 
 export const updatePasswordinFbase = password => {
   const user = firebase.auth().currentUser;

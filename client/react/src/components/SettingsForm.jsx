@@ -5,7 +5,7 @@ import CustomLoader from './../components/CustomLoader';
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
 import { showAlert } from '../utils/utils';
-import { getSettingsFromFbase, saveSettingsToFbase } from '../api/firebase';
+import { getSettingsFromFbase, saveSettingsToFbase, uploadLogoToFbase } from '../api/firebase';
 
 const styles = {
   container: {
@@ -92,6 +92,29 @@ class SettingsForm extends React.Component {
     });
   };
 
+  handleFileUpload = (event, logoType) => {
+    const imageFile = event.target.files[0];
+    if (imageFile) {
+      showAlert('Uploading image...');
+      uploadLogoToFbase(imageFile, logoType).then(response => {
+        const { error, data } = response;
+        if (error) {
+          showAlert(error.message, 'error');
+        } else if (logoType === 'squareLogoURL') {
+          showAlert('Square logo updated successfully', 'success');
+          this.setState({
+            squareLogoURL: data,
+          });
+        } else if (logoType === 'horizontalLogoURL') {
+          showAlert('Horizontal logo updated successfully', 'success');
+          this.setState({
+            horizontalLogoURL: data,
+          });
+        }
+      });
+    }
+  };
+
   render() {
     const {
       isLoading,
@@ -127,13 +150,25 @@ class SettingsForm extends React.Component {
               <div className="control has-icons-left">
                 <div className="file has-name is-boxed">
                   <label className="file-label">
-                    <input className="file-input" type="file" name="logo" />
-                    <span className="file-cta">
-                      <span className="file-icon">
-                        <i className="fa fa-upload" />
+                    <input
+                      className="file-input"
+                      type="file"
+                      name="logo"
+                      accept="image/*"
+                      onChange={e => {
+                        this.handleFileUpload(e, 'squareLogoURL');
+                      }}
+                    />
+                    {squareLogoURL.length > 1 ? (
+                      <img src={squareLogoURL} alt="logo" />
+                    ) : (
+                      <span className="file-cta">
+                        <span className="file-icon">
+                          <i className="fa fa-upload" />
+                        </span>
+                        <span className="file-label">Choose a file…</span>
                       </span>
-                      <span className="file-label">Choose a file…</span>
-                    </span>
+                    )}
                   </label>
                 </div>
               </div>
@@ -144,13 +179,25 @@ class SettingsForm extends React.Component {
               <div className="control has-icons-left">
                 <div className="file has-name is-boxed">
                   <label className="file-label">
-                    <input className="file-input" type="file" name="logo" />
-                    <span className="file-cta">
-                      <span className="file-icon">
-                        <i className="fa fa-upload" />
+                    <input
+                      className="file-input"
+                      type="file"
+                      name="logo"
+                      accept="image/*"
+                      onChange={e => {
+                        this.handleFileUpload(e, 'horizontalLogoURL');
+                      }}
+                    />
+                    {horizontalLogoURL.length > 1 ? (
+                      <img src={horizontalLogoURL} alt="logo" />
+                    ) : (
+                      <span className="file-cta">
+                        <span className="file-icon">
+                          <i className="fa fa-upload" />
+                        </span>
+                        <span className="file-label">Choose a file…</span>
                       </span>
-                      <span className="file-label">Choose a file…</span>
-                    </span>
+                    )}
                   </label>
                 </div>
               </div>

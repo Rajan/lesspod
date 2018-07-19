@@ -46,3 +46,8 @@ export const formatURL = url => {
   }
   return url;
 };
+
+export const getFileExtension = fileName => {
+  const split = fileName.split('.');
+  return split[split.length - 1];
+};

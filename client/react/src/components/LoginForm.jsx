@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
