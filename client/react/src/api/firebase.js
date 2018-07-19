@@ -57,7 +57,7 @@ export const registerWithFirebase = (email, password) =>
       }
     );
 
-export const uploadFileToFbase = file => {
+export const uploadImageToFbase = file => {
   const userId = firebase.auth().currentUser.uid;
   const now = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
   const storagePath = `${userId}/images/${now}_${file.name}`;
@@ -65,20 +65,14 @@ export const uploadFileToFbase = file => {
     .storage()
     .ref(storagePath)
     .put(file)
-    .then(snapshot => {
-      console.log('image upload success');
-      return snapshot.ref.getDownloadURL();
-    })
+    .then(snapshot => snapshot.ref.getDownloadURL())
     .then(downloadURL => {
-      console.log('writing download url to db');
       const imageData = {
         name: file.name,
         path: storagePath,
         publicURL: downloadURL,
-        createdBy: userId,
-        createdAt: now,
       };
-      return this.addDataToFbase(IMAGES_COLLECTION, imageData);
+      return addDataToFbase(IMAGES_COLLECTION, imageData);
     })
     .catch(error => {
       const response = {
