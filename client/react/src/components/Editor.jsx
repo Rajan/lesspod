@@ -3,20 +3,22 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { view } from 'react-easy-state';
 import alertify from 'alertify.js';
+import ImageResize from 'quill-image-resize-module-react';
 
 import editorStore from './../stores/editorStore';
 import { showAlert } from './../utils/utils';
 import { uploadImageToFbase } from '../api/firebase';
 
-import { Video } from './../libs/quill-video-resize/main';
-import './../libs/quill-video-resize/main.css';
+// import { Video } from './../libs/quill-video-resize/main';
+// import './../libs/quill-video-resize/main.css';
 
 class Editor extends Component {
   constructor(props) {
     super(props);
 
     this.editorRef = React.createRef();
-    Quill.register({ 'formats/video': Video });
+    // Quill.register({ 'formats/video': Video });
+    Quill.register('modules/imageResize', ImageResize);
   }
 
   modules = {
@@ -31,6 +33,9 @@ class Editor extends Component {
         image: () => this.imageHandler(),
         video: () => this.videoHandler(),
       },
+    },
+    imageResize: {
+      parchment: Quill.import('parchment'),
     },
   };
 
