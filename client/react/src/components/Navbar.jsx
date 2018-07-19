@@ -23,17 +23,15 @@ const styles = {
   squareLogo: {
     width: LOGO_SQUARE_SIDE,
     height: LOGO_SQUARE_SIDE,
-    backgroundImage: `url(${LogoMin})`,
     backgroundPosition: 'center',
-    backgroundSize: 'contain',
+    backgroundSize: '100%',
     margin: 20,
   },
   horizontalLogo: {
     width: LOGO_HORIZONTAL_WIDTH,
     height: LOGO_HORIZONTAL_HEIGHT,
-    backgroundImage: `url(${LogoType})`,
     backgroundPosition: 'center',
-    backgroundSize: 'contain',
+    backgroundSize: '100%',
   },
 };
 
@@ -62,6 +60,9 @@ class NavBar extends React.Component {
   };
 
   render() {
+    const { horizontalLogoURL } = settingsStore.global;
+    const { squareLogoURL } = settingsStore.global;
+
     return (
       <nav className="navbar has-shadow" aria-label="main navigation">
         <div className="navbar-brand">
@@ -69,9 +70,24 @@ class NavBar extends React.Component {
             {/* added 'dashboard menu item so clicking no logo will take to / always. Should we change? */}
             <div className="navbar-item">
               <div style={styles.logoContainer}>
-                <div style={styles.squareLogo} />
+                <div
+                  style={{
+                    ...styles.squareLogo,
+                    ...{
+                      backgroundImage: squareLogoURL.length > 1 ? `url(${squareLogoURL})` : `url(${LogoMin})`,
+                    },
+                  }}
+                />
                 <div>
-                  <div style={styles.horizontalLogo} />
+                  <div
+                    style={{
+                      ...styles.horizontalLogo,
+                      ...{
+                        backgroundImage:
+                          horizontalLogoURL.length > 1 ? `url(${horizontalLogoURL})` : `url(${LogoType})`,
+                      },
+                    }}
+                  />
                   <div>Serverless CMS (Web + Blog Engine)</div>
                 </div>
               </div>

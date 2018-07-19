@@ -21,12 +21,16 @@ const styles = {
   squareLogo: {
     width: LOGO_SQUARE_SIDE * 2,
     height: LOGO_SQUARE_SIDE * 2,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
     backgroundColor: '#f5f5f5',
   },
   horizontalLogo: {
     width: LOGO_HORIZONTAL_WIDTH * 2,
     height: LOGO_HORIZONTAL_HEIGHT * 2,
     backgroundColor: '#f5f5f5',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
   },
   row: {
     display: 'flex',
@@ -93,11 +97,13 @@ class SettingsForm extends React.Component {
           showAlert(error.message, 'error');
         } else if (logoType === 'squareLogoURL') {
           showAlert('Square logo updated successfully', 'success');
+          settingsStore.global.squareLogoURL = data;
           this.setState({
             squareLogoURL: data,
           });
         } else if (logoType === 'horizontalLogoURL') {
           showAlert('Horizontal logo updated successfully', 'success');
+          settingsStore.global.horizontalLogoURL = data;
           this.setState({
             horizontalLogoURL: data,
           });
@@ -147,6 +153,7 @@ class SettingsForm extends React.Component {
                   className="fa fa-trash"
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
+                    settingsStore.global.squareLogoURL = '';
                     this.setState({ squareLogoURL: '' });
                   }}
                 />
@@ -165,17 +172,14 @@ class SettingsForm extends React.Component {
                       style={{ opacity: 0 }}
                     />
                     {squareLogoURL.length > 1 ? (
-                      <div style={styles.squareLogo}>
-                        <div
-                          style={{
-                            width: LOGO_SQUARE_SIDE * 2,
-                            height: LOGO_SQUARE_SIDE * 2,
+                      <div
+                        style={{
+                          ...styles.squareLogo,
+                          ...{
                             backgroundImage: `url(${squareLogoURL})`,
-                            backgroundPosition: 'center',
-                            backgroundSize: 'cover',
-                          }}
-                        />
-                      </div>
+                          },
+                        }}
+                      />
                     ) : (
                       <span className="file-cta">
                         <span className="file-icon">
@@ -200,6 +204,7 @@ class SettingsForm extends React.Component {
                   className="fa fa-trash"
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
+                    settingsStore.global.horizontalLogoURL = '';
                     this.setState({ horizontalLogoURL: '' });
                   }}
                 />
@@ -218,17 +223,14 @@ class SettingsForm extends React.Component {
                       style={{ opacity: 0 }}
                     />
                     {horizontalLogoURL.length > 1 ? (
-                      <div style={styles.horizontalLogo}>
-                        <div
-                          style={{
-                            width: LOGO_HORIZONTAL_WIDTH * 2,
-                            height: LOGO_HORIZONTAL_HEIGHT * 2,
+                      <div
+                        style={{
+                          ...styles.horizontalLogo,
+                          ...{
                             backgroundImage: `url(${horizontalLogoURL})`,
-                            backgroundPosition: 'center',
-                            backgroundSize: 'cover',
-                          }}
-                        />
-                      </div>
+                          },
+                        }}
+                      />
                     ) : (
                       <span className="file-cta">
                         <span className="file-icon">
