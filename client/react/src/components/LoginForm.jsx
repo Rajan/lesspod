@@ -2,9 +2,11 @@ import React from 'react';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
-import { getUserProfileFromFbase, loginWithFirebase, getSettingsFromFbase } from '../api/firebase';
+import { getUserProfileFromFbase, loginWithFirebase } from '../api/firebase';
 import userStore from './../stores/userStore';
 import { showAlert } from '../utils/utils';
+import settingsStore from '../stores/settingsStore';
+import { view } from 'react-easy-state';
 
 const styles = {
   container: {
@@ -49,19 +51,7 @@ class LoginForm extends React.Component {
     email: '',
     password: '',
     isLoading: false,
-    disableNewRegistrations: false,
   };
-
-  componentDidMount() {
-    getSettingsFromFbase().then(response => {
-      const { error, data } = response;
-      if (error) {
-        showAlert(error.message, 'error');
-      } else {
-        this.setState({ disableNewRegistrations: data.disableNewRegistrations });
-      }
-    });
-  }
 
   onLoginClick = () => {
     this.setState({ isLoading: true });
@@ -85,7 +75,7 @@ class LoginForm extends React.Component {
   };
 
   onClickRegister = () => {
-    if (this.state.disableNewRegistrations) {
+    if (settingsStore.global.disableNewRegistrations) {
       showAlert('New user registrations are disabled');
     } else {
       this.props.history.push('/register');
@@ -187,4 +177,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default view(LoginForm);

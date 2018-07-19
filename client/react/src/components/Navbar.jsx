@@ -9,9 +9,8 @@ import userStore from '../stores/userStore';
 import LoginNavItem from './LoginNavItem';
 import NewMenuModal from './NewMenuModal';
 import dataStore from '../stores/dataStore';
-import { getAllMenusFromFbase, getSettingsFromFbase } from '../api/firebase';
-import { showAlert } from '../utils/utils';
 import NavbarUserMenus from './NavbarUserMenus';
+import settingsStore from './../stores/settingsStore';
 
 const styles = {
   logoContainer: {
@@ -40,27 +39,18 @@ const styles = {
 class NavBar extends React.Component {
   state = {
     open: false,
-    disableBlogMenu: false,
   };
 
-  componentDidMount() {
-    dataStore.menus = [];
-    getAllMenusFromFbase().then(res => {
-      if (res.error) {
-        showAlert(res.error.message);
-      } else {
-        dataStore.menus = res.data;
-      }
-    });
-    getSettingsFromFbase().then(response => {
-      const { error, data } = response;
-      if (error) {
-        showAlert(error.message, 'error');
-      } else {
-        this.setState({ disableBlogMenu: data.disableBlogMenu });
-      }
-    });
-  }
+  // componentDidMount() {
+  //   dataStore.menus = [];
+  //   getAllMenusFromFbase().then(res => {
+  //     if (res.error) {
+  //       showAlert(res.error.message);
+  //     } else {
+  //       dataStore.menus = res.data;
+  //     }
+  //   });
+  // }
 
   onOpenModal = () => {
     this.setState({ open: true });
@@ -136,7 +126,7 @@ class NavBar extends React.Component {
               <NewMenuModal onClose={this.onCloseModal} />
             </Modal>
 
-            {!this.state.disableBlogMenu && (
+            {!settingsStore.global.disableBlogMenu && (
               <div className="navbar-item">
                 <Link to="/blog">Blog</Link>
               </div>

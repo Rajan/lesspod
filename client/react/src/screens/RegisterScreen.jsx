@@ -1,15 +1,14 @@
 import React from 'react';
+import { view } from 'react-easy-state';
 
 import RegisterForm from '../components/RegisterForm';
-import { getSettingsFromFbase } from '../api/firebase';
-import { showAlert } from '../utils/utils';
+import settingsStore from '../stores/settingsStore';
 
 const styles = {
   container: {
     backgroundColor: 'white',
     color: 'black',
     height: 500,
-    width: 300,
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'row',
@@ -20,24 +19,8 @@ const styles = {
 };
 
 class RegisterScreen extends React.Component {
-  state = {
-    isLoading: true,
-    disableNewRegistrations: false,
-  };
-
-  componentDidMount() {
-    getSettingsFromFbase().then(response => {
-      this.setState({ isLoading: false });
-      const { error, data } = response;
-      if (error) {
-        showAlert(error.message, 'error');
-      } else {
-        this.setState({ disableNewRegistrations: data.disableNewRegistrations });
-      }
-    });
-  }
-
   render() {
+    const { disableNewRegistrations } = settingsStore.global;
     return (
       <div>
         <section className="hero is-info" style={{ minHeight: 'calc(100vh - 6rem)' }}>
@@ -45,9 +28,7 @@ class RegisterScreen extends React.Component {
             <div className="container ">
               <div className="columns is-centered">
                 <div className="column is-5-tablet is-4-desktop is-4-widescreen">
-                  {this.state.isLoading ? (
-                    <div style={styles.container}>Please wait...</div>
-                  ) : this.state.disableNewRegistrations ? (
+                  {disableNewRegistrations ? (
                     <div style={styles.container}>
                       Registrations are disabled <br /> Contact site owner
                     </div>
@@ -64,4 +45,4 @@ class RegisterScreen extends React.Component {
   }
 }
 
-export default RegisterScreen;
+export default view(RegisterScreen);

@@ -5,7 +5,8 @@ import CustomLoader from './../components/CustomLoader';
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
 import { showAlert } from '../utils/utils';
-import { getSettingsFromFbase, saveSettingsToFbase, uploadLogoToFbase } from '../api/firebase';
+import { saveSettingsToFbase, uploadLogoToFbase } from '../api/firebase';
+import settingsStore from '../stores/settingsStore';
 
 const styles = {
   container: {
@@ -61,13 +62,7 @@ class SettingsForm extends React.Component {
   };
 
   componentDidMount() {
-    getSettingsFromFbase().then(response => {
-      this.setState({ isLoading: false });
-      const { error, data } = response;
-      if (error) {
-        showAlert(error.message);
-      } else if (data) this.setState(data);
-    });
+    this.setState(settingsStore.global);
   }
 
   onClickSave = () => {
@@ -77,6 +72,7 @@ class SettingsForm extends React.Component {
       if (response.error) {
         showAlert(response.error.message, 'error');
       } else {
+        settingsStore.global = this.state;
         showAlert('Settings saved successfully', 'success');
       }
     });
