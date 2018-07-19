@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { view } from 'react-easy-state';
+import alertify from 'alertify.js';
 
 import editorStore from './../stores/editorStore';
 import { showAlert } from './../utils/utils';
@@ -18,7 +19,7 @@ class Editor extends Component {
     toolbar: {
       container: [
         [{ header: [1, 2, false] }],
-        ['bold', 'italic'], // 'underline', 'strike', 'blockquote'],
+        ['bold', 'italic'], // 'underline', { align: [] }, 'strike', 'blockquote'],
         [{ list: 'ordered' }, { list: 'bullet' }],
         ['link', 'image', 'video'],
       ],
@@ -52,7 +53,14 @@ class Editor extends Component {
     };
   };
 
-  videoHandler = () => {};
+  videoHandler = () => {
+    const editor = this.editorRef.current.getEditor();
+    const range = editor.getSelection();
+    alertify.prompt('Enter video url', (value, event) => {
+      const videoURL = value.replace('watch?v=', 'embed/');
+      editor.insertEmbed(range.index, 'video', videoURL, 'user');
+    });
+  };
 
   render() {
     return (

@@ -25,6 +25,7 @@ class NewPostScreen extends Component {
         tags: this.state.tags.toString(),
         author: `${userStore.profileData.first} ${userStore.profileData.last}`,
       };
+      this.setState({ isSaving: true });
 
       addPostToFirebase(postData).then(res => {
         this.setState({ isSaving: false });
@@ -35,7 +36,7 @@ class NewPostScreen extends Component {
         }
       });
     } else {
-      console.log('enter a title');
+      showAlert('enter a title');
     }
   };
 
@@ -75,7 +76,6 @@ class NewPostScreen extends Component {
                   href="#"
                   className={`button is-primary ${this.state.isSaving ? 'is-loading' : ''}`}
                   onClick={() => {
-                    this.setState({ isSaving: true });
                     this.savePost();
                   }}
                 >
