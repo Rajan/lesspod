@@ -25,7 +25,7 @@ class Editor extends Component {
     toolbar: {
       container: [
         [{ header: [1, 2, false] }],
-        ['bold', 'italic'], // 'underline', { align: [] }, 'strike', 'blockquote'],
+        ['bold', 'italic', { align: [] }], // 'underline', { align: [] }, 'strike', 'blockquote'],
         [{ list: 'ordered' }, { list: 'bullet' }],
         ['link', 'image', 'video'],
       ],
