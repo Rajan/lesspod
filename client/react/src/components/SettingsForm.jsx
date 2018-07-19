@@ -142,6 +142,14 @@ class SettingsForm extends React.Component {
                 <span style={styles.dimensionsText}>
                   &nbsp;({LOGO_SQUARE_SIDE * 2}px * {LOGO_SQUARE_SIDE * 2}px)
                 </span>
+                &nbsp; &nbsp; &nbsp;
+                <i
+                  className="fa fa-trash"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    this.setState({ squareLogoURL: '' });
+                  }}
+                />
               </label>
               <div className="control has-icons-left">
                 <div className="file has-name is-boxed">
@@ -187,6 +195,14 @@ class SettingsForm extends React.Component {
                 <span style={styles.dimensionsText}>
                   &nbsp;({LOGO_HORIZONTAL_WIDTH * 2}px * {LOGO_HORIZONTAL_HEIGHT * 2}px)
                 </span>
+                &nbsp; &nbsp; &nbsp;
+                <i
+                  className="fa fa-trash"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    this.setState({ horizontalLogoURL: '' });
+                  }}
+                />
               </label>
               <div className="control has-icons-left">
                 <div className="file has-name is-boxed">
