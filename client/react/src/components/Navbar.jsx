@@ -9,7 +9,7 @@ import userStore from '../stores/userStore';
 import LoginNavItem from './LoginNavItem';
 import NewMenuModal from './NewMenuModal';
 import dataStore from '../stores/dataStore';
-import { getAllMenusFromFbase } from '../api/firebase';
+import { getAllMenusFromFbase, getSettingsFromFbase } from '../api/firebase';
 import { showAlert } from '../utils/utils';
 import NavbarUserMenus from './NavbarUserMenus';
 
@@ -40,6 +40,7 @@ const styles = {
 class NavBar extends React.Component {
   state = {
     open: false,
+    disableBlogMenu: false,
   };
 
   componentDidMount() {
@@ -49,6 +50,14 @@ class NavBar extends React.Component {
         showAlert(res.error.message);
       } else {
         dataStore.menus = res.data;
+      }
+    });
+    getSettingsFromFbase().then(response => {
+      const { error, data } = response;
+      if (error) {
+        showAlert(error.message, 'error');
+      } else {
+        this.setState({ disableBlogMenu: data.disableBlogMenu });
       }
     });
   }
@@ -127,9 +136,11 @@ class NavBar extends React.Component {
               <NewMenuModal onClose={this.onCloseModal} />
             </Modal>
 
-            <div className="navbar-item">
-              <Link to="/blog">Blog</Link>
-            </div>
+            {!this.state.disableBlogMenu && (
+              <div className="navbar-item">
+                <Link to="/blog">Blog</Link>
+              </div>
+            )}
 
             {NavbarUserMenus(dataStore.menus)}
 

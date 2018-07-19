@@ -2,7 +2,14 @@ import firebase from 'firebase';
 import uuidv4 from 'uuid/v4';
 import dayjs from 'dayjs';
 
-import { USERS_COLLECTION, POSTS_COLLECTION, LATEST_POSTS_LIMIT, MENUS_COLLECTION } from '../config/Constants';
+import {
+  USERS_COLLECTION,
+  POSTS_COLLECTION,
+  LATEST_POSTS_LIMIT,
+  MENUS_COLLECTION,
+  SETTINGS_COLLECTION,
+  SETTINGS_DOCUMENT,
+} from '../config/Constants';
 
 export const logoutFirebase = () => {
   firebase.auth().signOut();
@@ -529,4 +536,59 @@ export const getLatestPostsFromFbase = () => {
         return response;
       })
   );
+};
+
+export const getSettingsFromFbase = () => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(SETTINGS_COLLECTION)
+    .doc(SETTINGS_DOCUMENT)
+    .get()
+    .then(querySnapshot => {
+      const response = {
+        error: null,
+        data: querySnapshot.data(),
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const saveSettingsToFbase = data => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  data.updatedBy = firebase.auth().currentUser.uid;
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+
+  return db
+    .collection(SETTINGS_COLLECTION)
+    .doc(SETTINGS_DOCUMENT)
+    .set(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data: 'success',
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
 };

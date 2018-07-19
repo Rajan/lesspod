@@ -118,7 +118,6 @@ class RegisterForm extends React.Component {
           <div className="control has-icons-left">
             <input
               className="input"
-              style={styles.borderless}
               type="name"
               id="name"
               name="name"
@@ -138,7 +137,6 @@ class RegisterForm extends React.Component {
           <div className="control has-icons-left">
             <input
               className="input"
-              style={styles.borderless}
               type="email"
               id="email"
               name="email"

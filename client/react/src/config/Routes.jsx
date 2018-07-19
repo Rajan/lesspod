@@ -17,6 +17,7 @@ import Footer from '../components/Footer';
 import ProfileScreen from './../screens/ProfileScreen';
 import EditPageScreen from './../screens/EditPageScreen';
 import ViewPageScreen from './../screens/ViewPageScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const PrivateRoute = params => {
   if (params.auth) {
@@ -51,6 +52,7 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
             <PrivateRoute auth={auth} path="/editpage/:pageId" exact render={props => <EditPageScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/settings" exact render={props => <SettingsScreen {...props} />} />
             <Route component={ViewPageScreen} />
           </Switch>
           <Footer />

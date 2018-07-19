@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LogoMin from './../assets/images/icon.png';
 import LogoText from './../assets/images/type.png';
-import { getUserProfileFromFbase, loginWithFirebase } from '../api/firebase';
+import { getUserProfileFromFbase, loginWithFirebase, getSettingsFromFbase } from '../api/firebase';
 import userStore from './../stores/userStore';
 import { showAlert } from '../utils/utils';
 
@@ -50,7 +50,19 @@ class LoginForm extends React.Component {
     email: '',
     password: '',
     isLoading: false,
+    disableNewRegistrations: false,
   };
+
+  componentDidMount() {
+    getSettingsFromFbase().then(response => {
+      const { error, data } = response;
+      if (error) {
+        showAlert(error.message, 'error');
+      } else {
+        this.setState({ disableNewRegistrations: data.disableNewRegistrations });
+      }
+    });
+  }
 
   onLoginClick = () => {
     this.setState({ isLoading: true });
@@ -71,6 +83,14 @@ class LoginForm extends React.Component {
         });
       }
     });
+  };
+
+  onClickRegister = () => {
+    if (this.state.disableNewRegistrations) {
+      showAlert('New user registrations are disabled');
+    } else {
+      this.props.history.push('/register');
+    }
   };
 
   handleInputChange = event => {
@@ -152,11 +172,15 @@ class LoginForm extends React.Component {
             </div>
           </div>
           <div className="control">
-            <Link to="/register">
-              <div className="button is-text" style={{ textDecoration: 'none', color: '#0271D3' }}>
-                CREATE ACCOUNT
-              </div>
-            </Link>
+            <div
+              className="button is-text"
+              style={{ textDecoration: 'none', color: '#0271D3' }}
+              onClick={() => {
+                this.onClickRegister();
+              }}
+            >
+              CREATE ACCOUNT
+            </div>
           </div>
         </div>
       </div>
