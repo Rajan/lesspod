@@ -7,15 +7,15 @@ export class SocialActions extends Component {
     window.open(fbURL);
   }
   shareOnTwitter() {
-    const twitterurl = `https://twitter.com/share?url=${encodeURI(window.location.href)}&text=${escape(
+    const twitterURL = `https://twitter.com/share?url=${encodeURI(window.location.href)}&text=${escape(
       this.props.title
     )}`;
-    window.open(twitterurl);
+    window.open(twitterURL);
   }
   shareOnLinkedin() {
-    const linkedinurl = `${encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') +
+    const linkedinURL = `${encodeURI('https://www.linkedin.com/shareArticle?mini=true&url=') +
       encodeURI(window.location.href)}&title=${escape(this.props.title)}&source=Lesspod`;
-    window.open(linkedinurl);
+    window.open(linkedinURL);
   }
 
   render() {
