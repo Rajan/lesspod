@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
 import { addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
-import { showAlert } from '../utils/utils';
+import { showAlert, dashedString } from '../utils/utils';
 
 class NewPostScreen extends Component {
   state = {
@@ -21,6 +22,7 @@ class NewPostScreen extends Component {
     if (this.state.title && this.state.title.length > 1) {
       const postData = {
         title: this.state.title,
+        slug: `${dashedString(this.state.title)}-${shortid.generate()}`,
         content: editorStore.content,
         tags: this.state.tags.toString(),
         author: `${userStore.profileData.first} ${userStore.profileData.last}`,
@@ -62,6 +64,10 @@ class NewPostScreen extends Component {
                           }}
                         />
                       </p>
+                      <br />
+                      {/* {this.state.title.length > 1 && (
+                        <span>{`${window.location.origin}/post/${dashedString(this.state.title)}`}</span>
+                      )} */}
                     </div>
                   </div>
                 </div>

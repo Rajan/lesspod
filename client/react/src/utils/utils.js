@@ -16,8 +16,10 @@ export const showAlert = (message, type) => {
 
 export const generateFakePosts = count => {
   for (let i = 0; i < count; i++) {
+    const fakerTitle = faker.lorem.sentence();
     const postData = {
-      title: faker.lorem.sentence(),
+      title: fakerTitle,
+      slug: dashedString(fakerTitle),
       content: faker.lorem.paragraphs(),
       tags: faker.lorem.words(),
       author: `${userStore.profileData.first} ${userStore.profileData.last}`,
