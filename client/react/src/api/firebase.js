@@ -436,7 +436,7 @@ export const getPostFromFBase = postId => {
     });
 };
 
-export const getPostWithoutIdFromFbase = slug => {
+export const getPageWithSlugFromFbase = slug => {
   const pageURL = `/${slug}`;
   const db = firebase.firestore();
   db.settings({

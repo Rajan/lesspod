@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
-import { getPostFromFBase, updatePostOnFbase, getPostWithoutIdFromFbase } from '../api/firebase';
+import { getPostFromFBase, updatePostOnFbase, getPageWithSlugFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 
@@ -33,7 +33,7 @@ class EditPageScreen extends Component {
       this.renderPostFromFbase(post.id);
     } else {
       const slug = this.props.match.params.pageId;
-      getPostWithoutIdFromFbase(slug).then(res => {
+      getPageWithSlugFromFbase(slug).then(res => {
         if (res.error) {
           showAlert(res.error.message);
         } else {

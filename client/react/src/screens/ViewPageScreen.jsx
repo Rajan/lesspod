@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { withRouter } from 'react-router-dom';
 
-import { getPostFromFBase, getPostWithoutIdFromFbase } from '../api/firebase';
+import { getPostFromFBase, getPageWithSlugFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 
@@ -33,7 +33,7 @@ class ViewPageScreen extends Component {
       this.renderPostFromFbase(post.id);
     } else {
       const slug = this.props.history.location.pathname.replace('/', '');
-      getPostWithoutIdFromFbase(slug).then(res => {
+      getPageWithSlugFromFbase(slug).then(res => {
         if (res.error) {
           showAlert(res.error.message);
         } else if (res.data) {
