@@ -9,6 +9,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     borderTop: '1px solid grey',
+    zIndex: 9999,
   },
 };
 
@@ -24,7 +25,7 @@ class SubscribeBar extends Component {
   };
 
   renderBar = () => (
-    <div style={styles.container}>
+    <div style={styles.container} className="bottom-footer">
       <span style={{ fontSize: '1.25rem' }}>Stay updated on the latest posts from us.</span>&nbsp;&nbsp;
       <input
         type="text"

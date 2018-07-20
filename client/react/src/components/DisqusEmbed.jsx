@@ -12,9 +12,9 @@ class DisqusEmbed extends Component {
     };
     return (
       <div>
-        <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>
+        {/* <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>
           Comments
-        </Disqus.CommentCount>
+        </Disqus.CommentCount> */}
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </div>
     );
