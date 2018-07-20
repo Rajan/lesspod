@@ -353,7 +353,7 @@ export const getAllPostsFromFbase = () => {
     });
 };
 
-export const getPostFromFBase = postId => {
+export const getPostFromFbase = postId => {
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,

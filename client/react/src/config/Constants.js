@@ -3,6 +3,7 @@ export const POSTS_COLLECTION = 'posts';
 export const MENUS_COLLECTION = 'menus';
 export const SETTINGS_COLLECTION = 'settings';
 export const IMAGES_COLLECTION = 'images';
+export const PAGES_COLLECTION = 'pages';
 
 export const SETTINGS_DOCUMENT = 'global';
 

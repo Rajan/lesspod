@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import ReactHtmlParser from 'react-html-parser';
 
-import { getPostFromFBase } from '../api/firebase';
+import { getPostFromFbase } from '../api/firebase';
 import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
 import dataStore from '../stores/dataStore';
@@ -68,7 +68,7 @@ class ViewPostScreen extends Component {
   }
 
   renderPostFromFbase = postId => {
-    getPostFromFBase(postId).then(response => {
+    getPostFromFbase(postId).then(response => {
       if (response.error) {
         console.log(response.error.message);
       } else {

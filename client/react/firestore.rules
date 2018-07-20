@@ -17,6 +17,18 @@ service cloud.firestore {
     	allow create : if request.auth != null && request.auth.uid == request.resource.data.createdBy
     }
     
+    match /pages/{document} {
+    	allow read : if true
+    }
+    
+    match /pages/{document} {
+    	allow update, delete : if request.auth != null && request.auth.uid == resource.data.createdBy
+    }
+    
+    match /pages/{document} {
+    	allow create : if request.auth != null && request.auth.uid == request.resource.data.createdBy
+    }
+    
     match /menus/{document} {
     	allow read : if true
     }

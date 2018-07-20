@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { withRouter } from 'react-router-dom';
 
-import { getPostFromFBase, getPageWithSlugFromFbase } from '../api/firebase';
+import { getPageFromFbase, getPageWithSlugFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 
@@ -28,21 +28,21 @@ class ViewPageScreen extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    if (state && state.post) {
-      const { post } = state;
-      this.renderPostFromFbase(post.id);
+    if (state && state.page) {
+      const { page } = state;
+      this.renderPostFromFbase(page.id);
     } else {
       const slug = this.props.history.location.pathname.replace('/', '');
       getPageWithSlugFromFbase(slug).then(res => {
         if (res.error) {
           showAlert(res.error.message);
         } else if (res.data) {
-          const post = res.data;
+          const page = res.data;
           this.setState({
-            id: post.id,
-            title: post.title,
-            content: post.content,
-            tags: post.tags,
+            id: page.id,
+            title: page.title,
+            content: page.content,
+            tags: page.tags,
             isLoading: false,
           });
         } else {
@@ -55,9 +55,9 @@ class ViewPageScreen extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const nextState = nextProps.location.state;
 
-    if (nextState && nextState.post) {
-      if (nextState.post.id !== prevState.id) {
-        return nextState.post;
+    if (nextState && nextState.page) {
+      if (nextState.page.id !== prevState.id) {
+        return nextState.page;
       }
     }
 
@@ -71,17 +71,17 @@ class ViewPageScreen extends Component {
     }
   }
 
-  renderPostFromFbase = postId => {
-    getPostFromFBase(postId).then(response => {
+  renderPostFromFbase = pageId => {
+    getPageFromFbase(pageId).then(response => {
       if (response.error) {
         console.log(response.error.message);
       } else {
-        const post = response.data;
+        const page = response.data;
         this.setState({
-          id: post.id,
-          title: post.title,
-          content: post.content,
-          tags: post.tags,
+          id: page.id,
+          title: page.title,
+          content: page.content,
+          tags: page.tags,
           isLoading: false,
         });
       }

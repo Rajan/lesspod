@@ -10,6 +10,7 @@ import {
   SETTINGS_COLLECTION,
   SETTINGS_DOCUMENT,
   IMAGES_COLLECTION,
+  PAGES_COLLECTION,
 } from '../config/Constants';
 import { getFileExtension } from '../utils/utils';
 
@@ -410,7 +411,7 @@ export const getAllPostsFromFbase = () => {
     });
 };
 
-export const getPostFromFBase = postId => {
+export const getPostFromFbase = postId => {
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,
@@ -419,6 +420,121 @@ export const getPostFromFBase = postId => {
   return db
     .collection(POSTS_COLLECTION)
     .where('id', '==', postId)
+    .get()
+    .then(querySnapshot => {
+      const response = {
+        error: null,
+        data: querySnapshot.docs[0].data(),
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const addPageToFirebase = data => {
+  const generatedId = uuidv4();
+  data.id = generatedId;
+  data.createdAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  data.createdBy = firebase.auth().currentUser.uid;
+
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(PAGES_COLLECTION)
+    .doc(generatedId)
+    .set(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const updatePageOnFbase = data => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  data.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss.ms Z');
+  return db
+    .collection(PAGES_COLLECTION)
+    .doc(data.id)
+    .update(data)
+    .then(() => {
+      const response = {
+        error: null,
+        data,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const deletePageFromFbase = postId => {
+  const db = firebase.firestore();
+  const settings = {
+    timestampsInSnapshots: true,
+  };
+  db.settings(settings);
+
+  return db
+    .collection(PAGES_COLLECTION)
+    .doc(postId)
+    .delete()
+    .then(() => {
+      const response = {
+        error: null,
+        data: {
+          message: 'Post deleted',
+          postId,
+        },
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
+export const getPageFromFbase = pageId => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(PAGES_COLLECTION)
+    .where('id', '==', pageId)
     .get()
     .then(querySnapshot => {
       const response = {

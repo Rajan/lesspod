@@ -10,12 +10,10 @@ import LatestPosts from '../components/LatestPosts';
 
 class LandingScreen extends React.Component {
   componentDidMount() {
-    if (window.location.pathname !== '/standaloneapp') {
       const script = document.createElement('script');
       script.src = 'https://platform.twitter.com/widgets.js';
       script.async = true;
       document.body.appendChild(script);
-    }
   }
 
   render() {

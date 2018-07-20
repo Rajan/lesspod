@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
-import { getPostFromFBase, updatePostOnFbase } from '../api/firebase';
+import { getPostFromFbase, updatePostOnFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 
@@ -70,7 +70,7 @@ class EditPostScreen extends Component {
   };
 
   renderPostFromFbase = postId => {
-    getPostFromFBase(postId).then(response => {
+    getPostFromFbase(postId).then(response => {
       if (response.error) {
         console.log(response.error.message);
       } else {

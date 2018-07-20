@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
-import { getPostFromFBase, updatePostOnFbase, getPageWithSlugFromFbase } from '../api/firebase';
+import { getPageFromFbase, updatePageOnFbase, getPageWithSlugFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 
@@ -28,21 +28,21 @@ class EditPageScreen extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    if (state && state.post) {
-      const { post } = state;
-      this.renderPostFromFbase(post.id);
+    if (state && state.page) {
+      const { page } = state;
+      this.renderPageFromFbase(page.id);
     } else {
-      const slug = this.props.match.params.pageId;
+      const {slug} = this.props.match.params;
       getPageWithSlugFromFbase(slug).then(res => {
         if (res.error) {
           showAlert(res.error.message);
         } else {
-          const post = res.data;
+          const page = res.data;
           this.setState({
-            id: post.id,
-            title: post.title,
-            content: post.content,
-            tags: post.tags,
+            id: page.id,
+            title: page.title,
+            content: page.content,
+            tags: page.tags,
             isLoading: false,
           });
         }
@@ -52,9 +52,9 @@ class EditPageScreen extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const nextState = nextProps.location.state;
-    if (nextState && nextState.post) {
-      if (nextState.post.id !== prevState.id) {
-        return nextState.post;
+    if (nextState && nextState.page) {
+      if (nextState.page.id !== prevState.id) {
+        return nextState.page;
       }
     }
     return null;
@@ -63,7 +63,7 @@ class EditPageScreen extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.id !== this.state.id) {
       this.setState({ isLoading: true });
-      this.renderPostFromFbase(this.state.id);
+      this.renderPageFromFbase(this.state.id);
     }
   }
 
@@ -71,21 +71,21 @@ class EditPageScreen extends Component {
     this.setState({ title: event.target.value });
   };
 
-  savePost = () => {
+  savePage = () => {
     if (this.state.title && this.state.title.length > 1) {
-      const postData = {
+      const pageData = {
         id: this.state.id,
         title: this.state.title,
         content: editorStore.content,
         tags: this.state.tags.toString(),
       };
 
-      updatePostOnFbase(postData).then(res => {
+      updatePageOnFbase(pageData).then(res => {
         this.setState({ isSaving: false });
         if (res.error) {
           showAlert(res.error.message, 'error');
         } else {
-          showAlert('Post saved successfully!', 'success');
+          showAlert('Page saved successfully!', 'success');
         }
       });
     } else {
@@ -93,17 +93,17 @@ class EditPageScreen extends Component {
     }
   };
 
-  renderPostFromFbase = postId => {
-    getPostFromFBase(postId).then(response => {
+  renderPageFromFbase = pageId => {
+    getPageFromFbase(pageId).then(response => {
       if (response.error) {
         console.log(response.error.message);
       } else {
-        const post = response.data;
+        const page = response.data;
         this.setState({
-          id: post.id,
-          title: post.title,
-          content: post.content,
-          tags: post.tags,
+          id: page.id,
+          title: page.title,
+          content: page.content,
+          tags: page.tags,
           isLoading: false,
         });
       }
@@ -133,7 +133,7 @@ class EditPageScreen extends Component {
                             id="title"
                             type="text"
                             value={title}
-                            placeholder="Post Title"
+                            placeholder="Page Title"
                             style={{ fontWeight: 'bold', fontSize: '2rem' }}
                             onChange={event => {
                               this.handleChange(event);
@@ -155,7 +155,7 @@ class EditPageScreen extends Component {
                     className={`button is-primary ${isSaving ? 'is-loading' : ''}`}
                     onClick={() => {
                       this.setState({ isSaving: true });
-                      this.savePost();
+                      this.savePage();
                     }}
                   >
                     Save Page
@@ -165,7 +165,7 @@ class EditPageScreen extends Component {
                   <br />
                   <br />
                   <br />
-                  <input type="hidden" name="postId" id="postId" value="" />
+                  <input type="hidden" name="pageId" id="pageId" value="" />
                 </div>
               </div>
             </div>

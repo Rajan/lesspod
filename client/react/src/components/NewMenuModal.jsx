@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { addMenuToFbase, addPostToFirebase } from '../api/firebase';
+import { addMenuToFbase, addPageToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
 import { showAlert, dashedString, formatURL } from './../utils/utils';
 import dataStore from '../stores/dataStore';
@@ -16,8 +16,8 @@ class NewMenuModal extends Component {
   onClickSave = () => {
     const { menuName, linkedURL } = this.state;
 
-    // matching vue => creating a post for each menu
-    const postData = {
+    // matching vue => creating a page for each menu
+    const pageData = {
       title: menuName,
       content: '',
       pageURL: linkedURL.length > 0 ? formatURL(linkedURL) : `/${dashedString(menuName)}`,
@@ -27,7 +27,7 @@ class NewMenuModal extends Component {
 
     if (menuName.length > 0) {
       this.setState({ isLoading: true });
-      addPostToFirebase(postData).then(res => {
+      addPageToFirebase(pageData).then(res => {
         this.setState({ isLoading: false });
         if (res.error) {
           showAlert(res.error.message, 'error');
@@ -36,7 +36,7 @@ class NewMenuModal extends Component {
           const menuData = {
             name: menuName,
             linkedURL: linkedURL.length > 0 ? formatURL(linkedURL) : data.pageURL,
-            postId: data.id,
+            pageId: data.id,
           };
           this.setState({ isLoading: true });
           addMenuToFbase(menuData).then(res => {

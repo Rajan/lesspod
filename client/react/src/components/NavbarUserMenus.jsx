@@ -29,9 +29,9 @@ const NavbarUserMenus = data =>
           to={{
             pathname: `${getPath(d)}`,
             state: {
-              post: {
+              page: {
                 title: d.name,
-                id: d.postId,
+                id: d.pageId,
               },
             },
           }}

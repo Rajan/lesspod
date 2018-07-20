@@ -51,7 +51,7 @@ class Routes extends React.Component {
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/editpage/:pageId" exact render={props => <EditPageScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/editpage/:slug" exact render={props => <EditPageScreen {...props} />} />
             <PrivateRoute auth={auth} path="/settings" exact render={props => <SettingsScreen {...props} />} />
             <Route component={ViewPageScreen} />
           </Switch>
