@@ -9,6 +9,7 @@ import DisqusEmbed from '../components/DisqusEmbed';
 import dataStore from '../stores/dataStore';
 import LatestPosts from '../components/LatestPosts';
 import Tags from '../components/Tags';
+import { SocialActions } from '../components/SocialActions';
 
 const styles = {
   loaderContainer: {
@@ -156,17 +157,7 @@ class ViewPostScreen extends Component {
                 </div>
               </div>
             </div>
-            <div className="icon-bar">
-              <a className="calm">
-                <i className="fa fa-facebook-f" />
-              </a>
-              <a target="_blank" title="Share on Twitter" className="calm">
-                <i className="fa fa-twitter" />
-              </a>
-              <a className="calm">
-                <i className="fa fa-linkedin" />
-              </a>
-            </div>
+            <SocialActions title={title} />
           </section>
         )}
       </div>
