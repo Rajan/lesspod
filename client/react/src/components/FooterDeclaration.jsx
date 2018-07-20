@@ -7,7 +7,11 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 10,
+    paddingTop: 10,
+    fontSize: 18,
   },
 };
 

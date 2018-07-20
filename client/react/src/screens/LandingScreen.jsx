@@ -10,10 +10,10 @@ import LatestPosts from '../components/LatestPosts';
 
 class LandingScreen extends React.Component {
   componentDidMount() {
-      const script = document.createElement('script');
-      script.src = 'https://platform.twitter.com/widgets.js';
-      script.async = true;
-      document.body.appendChild(script);
+    const script = document.createElement('script');
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+    document.body.appendChild(script);
   }
 
   render() {
@@ -39,13 +39,16 @@ class LandingScreen extends React.Component {
                     Lesspod lets anyone build and deploy website+blog combination to serverless platforms (starting with{' '}
                     <Link to="https://firebase.google.com/pricing/" target="_blank">
                       Firebase
-                    </Link>). Key benefits:
+                    </Link>).
                   </h2>
+                  <br />
+                  <p className="title is-4"> Key benefits:</p>
                   <div className="content" style={{ fontSize: '1.3rem' }}>
-                    <ul className="has-text-left block" style={{ marginBottom: '0.5rem' }}>
-                      <li>No fixed yearly/monthly hosting fees.</li>
+                    <ul className="has-text-left block" style={{ marginBottom: '1rem' }}>
+                      <li>Blazing fast page load times.</li>
                       <li>Infinite scalability of the cloud.</li>
-                      <li>Free hosting till you're very popular!</li>
+                      <li>No servers to manage or related problems.</li>
+                      <li>Free forever hosting! (for 99% websites)</li>
                     </ul>
                     <span style={{ color: 'green' }}>
                       This is a <em>serverless website</em> hosted freely on Firebase.
