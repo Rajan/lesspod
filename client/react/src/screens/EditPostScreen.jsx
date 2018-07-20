@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
-import { getPostFromFbase, updatePostOnFbase } from '../api/firebase';
+import { getPostWithSlugFromFbase, updatePostOnFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 
@@ -21,6 +21,7 @@ class EditPostScreen extends Component {
   state = {
     id: '',
     title: '',
+    slug: '',
     content: '',
     tags: '',
     isLoading: true,
@@ -33,13 +34,14 @@ class EditPostScreen extends Component {
       this.setState({
         id: post.id,
         title: post.title,
+        slug: post.slug,
         content: post.content,
         tags: post.tags,
         isLoading: false,
         isSaving: false,
       });
     } else {
-      this.renderPostFromFbase(this.props.match.params.postId);
+      this.renderPostFromFbase(this.props.match.params.slug);
     }
   }
 
@@ -52,6 +54,7 @@ class EditPostScreen extends Component {
       const postData = {
         id: this.state.id,
         title: this.state.title,
+        slug: this.state.slug, // slug should not be updated
         content: editorStore.content,
         tags: this.state.tags.toString(),
       };
@@ -69,8 +72,8 @@ class EditPostScreen extends Component {
     }
   };
 
-  renderPostFromFbase = postId => {
-    getPostFromFbase(postId).then(response => {
+  renderPostFromFbase = slug => {
+    getPostWithSlugFromFbase(slug).then(response => {
       if (response.error) {
         console.log(response.error.message);
       } else {
@@ -78,6 +81,7 @@ class EditPostScreen extends Component {
         this.setState({
           id: post.id,
           title: post.title,
+          slug: post.slug,
           content: post.content,
           tags: post.tags,
           isLoading: false,
@@ -87,7 +91,7 @@ class EditPostScreen extends Component {
   };
 
   render() {
-    const { title, content, isLoading, isSaving } = this.state;
+    const { title, slug, content, isLoading, isSaving } = this.state;
 
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
@@ -141,7 +145,7 @@ class EditPostScreen extends Component {
                   <br />
                   <br />
                   <br />
-                  <input type="hidden" name="postId" id="postId" value="" />
+                  <input type="hidden" name="slug" id="slug" value={slug} />
                 </div>
               </div>
             </div>

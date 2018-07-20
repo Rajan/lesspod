@@ -437,6 +437,33 @@ export const getPostFromFbase = postId => {
     });
 };
 
+export const getPostWithSlugFromFbase = slug => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+  return db
+    .collection(POSTS_COLLECTION)
+    .where('slug', '==', slug)
+    .get()
+    .then(querySnapshot => {
+      const response = {
+        error: null,
+      };
+      if (querySnapshot.docs.length > 0) {
+        response.data = querySnapshot.docs[0].data();
+      }
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
 export const addPageToFirebase = data => {
   const generatedId = uuidv4();
   data.id = generatedId;

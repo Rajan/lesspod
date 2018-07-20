@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import ReactHtmlParser from 'react-html-parser';
+import { view } from 'react-easy-state';
 
-import { getPostFromFbase } from '../api/firebase';
+import { getPostWithSlugFromFbase } from '../api/firebase';
 import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
 import dataStore from '../stores/dataStore';
 import LatestPosts from '../components/LatestPosts';
 import Tags from '../components/Tags';
-import { view } from 'react-easy-state';
 
 const styles = {
   loaderContainer: {
@@ -28,6 +28,7 @@ class ViewPostScreen extends Component {
     this.state = {
       id: '',
       title: '',
+      slug: '',
       content: '',
       tags: '',
       author: '',
@@ -43,50 +44,56 @@ class ViewPostScreen extends Component {
       this.setState({
         id: post.id,
         title: post.title,
+        slug: post.slug,
         content: post.content,
         tags: post.tags,
         author: post.author,
         isLoading: false,
       });
     } else {
-      this.renderPostFromFbase(this.props.match.params.postId);
+      this.renderPostFromFbase(this.props.match.params.slug);
     }
   }
 
   static getDerivedStateFromProps(newProps, prevState) {
-    if (newProps.match.params.postId !== prevState.postId) {
-      return { id: newProps.match.params.postId };
+    if (newProps.match.params.slug !== prevState.slug) {
+      return { slug: newProps.match.params.slug };
     }
     return null;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.id !== this.state.id) {
+    if (prevState.slug !== this.state.slug) {
       this.setState({ isLoading: true });
-      this.renderPostFromFbase(this.state.id);
+      this.renderPostFromFbase(this.state.slug);
     }
   }
 
-  renderPostFromFbase = postId => {
-    getPostFromFbase(postId).then(response => {
+  renderPostFromFbase = slug => {
+    getPostWithSlugFromFbase(slug).then(response => {
       if (response.error) {
         console.log(response.error.message);
       } else {
         const post = response.data;
-        this.setState({
-          id: post.id,
-          title: post.title,
-          content: post.content,
-          tags: post.tags,
-          author: post.author,
-          isLoading: false,
-        });
+        if (post) {
+          this.setState({
+            id: post.id,
+            title: post.title,
+            slug: post.slug,
+            content: post.content,
+            tags: post.tags,
+            author: post.author,
+            isLoading: false,
+          });
+        } else {
+          this.setState({ isLoading: false, title: '404 Post Not Found' });
+        }
       }
     });
   };
 
   render() {
-    const { id, title, content, tags, author, createdAt, isLoading } = this.state;
+    const { title, slug, content, tags, author, createdAt, isLoading } = this.state;
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
         {isLoading ? (
@@ -112,7 +119,11 @@ class ViewPostScreen extends Component {
                             readOnly
                           />
                           <span className="has-text-centered is-large disabled">
-                            {dayjs(createdAt).format('MMMM D, YYYY')} . {author}
+                            {createdAt && (
+                              <span>
+                                {dayjs(createdAt).format('MMMM D, YYYY')} . {author}
+                              </span>
+                            )}
                           </span>
                         </p>
                       </div>
@@ -131,7 +142,7 @@ class ViewPostScreen extends Component {
                       <Tags data={tags.split(' ')} />
                     </div>
                   )}
-                  <input type="hidden" name="postId" id="postId" value="" />
+                  <input type="hidden" name="slug" id="slug" value={slug} />
                 </div>
                 <div className="column is-two-thirds has-text-centered">
                   <h2 className="title">Latest Posts</h2>
@@ -140,7 +151,7 @@ class ViewPostScreen extends Component {
                   <br />
                   <h2 className="title">Comments</h2>
                   <div className="comments">
-                    <DisqusEmbed id={id} title={title} />
+                    <DisqusEmbed id={slug} title={title} />
                   </div>
                 </div>
               </div>

@@ -11,9 +11,9 @@ import dataStore from '../stores/dataStore';
 class PostCard extends React.Component {
   getPath = params => {
     if (window.location.pathname === '/home') {
-      return `/editpost/${params.id}`;
+      return `/editpost/${params.slug}`;
     }
-    return `/post/${params.id}`;
+    return `/post/${params.slug}`;
   };
 
   getPostSummary = content => {
@@ -48,7 +48,6 @@ class PostCard extends React.Component {
           <div className="media">
             <div className="media-content">
               <p className="title is-5 is-spaced is-marginless">
-                {' '}
                 <Link
                   to={{
                     pathname: this.getPath(post),
@@ -57,7 +56,7 @@ class PostCard extends React.Component {
                     },
                   }}
                 >
-                  {post.title}{' '}
+                  {post.title}
                 </Link>
               </p>
 
@@ -73,7 +72,7 @@ class PostCard extends React.Component {
                     <div id="post-actions">
                       <Link
                         to={{
-                          pathname: `/editpost/${post.id}`,
+                          pathname: `/editpost/${post.slug}`,
                           state: {
                             // post,
                           },
@@ -84,7 +83,7 @@ class PostCard extends React.Component {
                       <span> · </span>
                       <Link
                         to={{
-                          pathname: `/post/${post.id}`,
+                          pathname: `/post/${post.slug}`,
                           state: {
                             // post,
                           },

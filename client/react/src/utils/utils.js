@@ -1,5 +1,6 @@
 import alertify from 'alertify.js';
 import faker from 'faker';
+import shortid from 'shortid';
 
 import { addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
@@ -19,7 +20,7 @@ export const generateFakePosts = count => {
     const fakerTitle = faker.lorem.sentence();
     const postData = {
       title: fakerTitle,
-      slug: dashedString(fakerTitle),
+      slug: `${dashedString(fakerTitle)}-${shortid.generate()}`,
       content: faker.lorem.paragraphs(),
       tags: faker.lorem.words(),
       author: `${userStore.profileData.first} ${userStore.profileData.last}`,

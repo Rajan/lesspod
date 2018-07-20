@@ -44,12 +44,12 @@ class Routes extends React.Component {
             <Route path="/" exact render={props => <LandingScreen {...props} />} />
             {/* <Route path="/:pageId" exact render={props => <ViewPageScreen {...props} />} /> */}
             <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
-            <Route path="/post/:postId" exact render={props => <ViewPostScreen {...props} />} />
+            <Route path="/post/:slug" exact render={props => <ViewPostScreen {...props} />} />
             <VerifyAuthRoute auth={auth} path="/login" exact render={props => <LoginScreen {...props} />} />
             <VerifyAuthRoute auth={auth} path="/register" exact render={props => <RegisterScreen {...props} />} />
             <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
             <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/editpost/:postId" exact render={props => <EditPostScreen {...props} />} />
+            <PrivateRoute auth={auth} path="/editpost/:slug" exact render={props => <EditPostScreen {...props} />} />
             <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
             <PrivateRoute auth={auth} path="/editpage/:slug" exact render={props => <EditPageScreen {...props} />} />
             <PrivateRoute auth={auth} path="/settings" exact render={props => <SettingsScreen {...props} />} />
