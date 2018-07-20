@@ -17,20 +17,19 @@ const dataStore = store({
     // }
     return posts.filter(
       post =>
-        (post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-          (post.content
+        post.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+        (post.content
+          .toString()
+          .toLowerCase()
+          .indexOf(query.toLowerCase()) !== -1 ||
+          post.tags
             .toString()
             .toLowerCase()
             .indexOf(query.toLowerCase()) !== -1 ||
-            post.tags
-              .toString()
-              .toLowerCase()
-              .indexOf(query.toLowerCase()) !== -1 ||
-            post.author
-              .toString()
-              .toLowerCase()
-              .indexOf(query.toLowerCase()) !== -1)) &&
-        !post.pageURL
+          post.author
+            .toString()
+            .toLowerCase()
+            .indexOf(query.toLowerCase()) !== -1)
     );
   },
   deleteMenu(menu) {
