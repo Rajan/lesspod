@@ -523,7 +523,7 @@ export const updatePageOnFbase = data => {
     });
 };
 
-export const deletePageFromFbase = postId => {
+export const deletePageFromFbase = pageId => {
   const db = firebase.firestore();
   const settings = {
     timestampsInSnapshots: true,
@@ -532,14 +532,14 @@ export const deletePageFromFbase = postId => {
 
   return db
     .collection(PAGES_COLLECTION)
-    .doc(postId)
+    .doc(pageId)
     .delete()
     .then(() => {
       const response = {
         error: null,
         data: {
-          message: 'Post deleted',
-          postId,
+          message: 'Page deleted',
+          pageId,
         },
       };
       return response;
@@ -580,14 +580,13 @@ export const getPageFromFbase = pageId => {
 };
 
 export const getPageWithSlugFromFbase = slug => {
-  const pageURL = `/${slug}`;
   const db = firebase.firestore();
   db.settings({
     timestampsInSnapshots: true,
   });
   return db
     .collection(POSTS_COLLECTION)
-    .where('pageURL', '==', pageURL)
+    .where('slug', '==', slug)
     .get()
     .then(querySnapshot => {
       const response = {
@@ -705,32 +704,29 @@ export const getLatestPostsFromFbase = () => {
     timestampsInSnapshots: true,
   });
 
-  return (
-    db
-      .collection(POSTS_COLLECTION)
-      // .where('pageURL', '==', null)
-      .orderBy('createdAt', 'desc')
-      .limit(LATEST_POSTS_LIMIT * 3)
-      .get()
-      .then(querySnapshot => {
-        const posts = [];
-        querySnapshot.forEach(doc => {
-          posts.push(doc.data());
-        });
-        const response = {
-          error: null,
-          data: posts,
-        };
-        return response;
-      })
-      .catch(error => {
-        const response = {
-          error,
-          data: null,
-        };
-        return response;
-      })
-  );
+  return db
+    .collection(POSTS_COLLECTION)
+    .orderBy('createdAt', 'desc')
+    .limit(LATEST_POSTS_LIMIT * 3)
+    .get()
+    .then(querySnapshot => {
+      const posts = [];
+      querySnapshot.forEach(doc => {
+        posts.push(doc.data());
+      });
+      const response = {
+        error: null,
+        data: posts,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
 };
 
 export const getSettingsFromFbase = () => {

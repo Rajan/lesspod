@@ -20,7 +20,7 @@ class NewMenuModal extends Component {
     const pageData = {
       title: menuName,
       content: '',
-      pageURL: linkedURL.length > 0 ? formatURL(linkedURL) : `/${dashedString(menuName)}`,
+      slug: linkedURL.length > 0 ? formatURL(linkedURL) : `${dashedString(menuName)}`,
       tags: '',
       author: `${userStore.profileData.first} ${userStore.profileData.last}`,
     };
@@ -35,7 +35,7 @@ class NewMenuModal extends Component {
           const { data } = res;
           const menuData = {
             name: menuName,
-            linkedURL: linkedURL.length > 0 ? formatURL(linkedURL) : data.pageURL,
+            linkedURL: linkedURL.length > 0 ? formatURL(linkedURL) : data.slug,
             pageId: data.id,
           };
           this.setState({ isLoading: true });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import dataStore from '../stores/dataStore';
-import { deleteMenuFromFbase } from '../api/firebase';
+import { deleteMenuFromFbase, deletePageFromFbase } from '../api/firebase';
 import { showAlert } from '../utils/utils';
 
 class MenuTag extends Component {
@@ -17,8 +17,14 @@ class MenuTag extends Component {
               if (res.error) {
                 showAlert(res.error.message, 'error');
               } else {
-                showAlert('Menu deleted', 'success');
-                dataStore.deleteMenu(menu);
+                deletePageFromFbase(menu.pageId).then(response => {
+                  if (response.error) {
+                    showAlert(response.error.message, 'error');
+                  } else {
+                    showAlert('Menu & Page deleted', 'success');
+                    dataStore.deleteMenu(menu);
+                  }
+                });
               }
             });
           }}
