@@ -3,16 +3,22 @@ import dayjs from 'dayjs';
 import ReactHtmlParser from 'react-html-parser';
 import { view } from 'react-easy-state';
 
-import { getPostWithSlugFromFbase } from '../api/firebase';
-import Shimmer from './../components/Shimmer';
-import DisqusEmbed from '../components/DisqusEmbed';
+import Posts from '../components/Posts';
+import { getAllPostsFromFbase, getPostWithSlugFromFbase } from '../api/firebase';
+import Shimmer from '../components/Shimmer';
 import dataStore from '../stores/dataStore';
+import PostsToolbar from '../components/PostsToolbar';
+import DisqusEmbed from '../components/DisqusEmbed';
 import LatestPosts from '../components/LatestPosts';
 // import Tags from '../components/Tags';
 import { SocialActions } from '../components/SocialActions';
 import SubscribeBar from '../components/SubscribeBar';
 
 const styles = {
+  bodyContainer: {
+    // height: '100vh',
+    // backgroundColor: '#F5F5F5',
+  },
   loaderContainer: {
     width: '100vw',
     height: '100vh',
@@ -99,13 +105,16 @@ class ViewPostScreen extends Component {
 
   render() {
     const { title, slug, content, author, createdAt, isLoading } = this.state;
+    if (isLoading) {
+      return (
+        <div style={styles.loaderContainer}>
+          <Shimmer style={{ width: 600, height: 400 }} />
+        </div>
+      );
+    }
     return (
-      <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
-        {isLoading ? (
-          <div style={styles.loaderContainer}>
-            <Shimmer style={{ width: 600, height: 400 }} />
-          </div>
-        ) : (
+      <div>
+        <div style={styles.bodyContainer}>
           <section className="section" style={{ backgroundColor: '#ffffff' }}>
             <div className="container">
               <div className="columns is-centered is-multiline">
@@ -163,7 +172,7 @@ class ViewPostScreen extends Component {
             <SocialActions title={title} />
             <SubscribeBar />
           </section>
-        )}
+        </div>
       </div>
     );
   }
