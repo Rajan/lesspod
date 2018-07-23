@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import settingsStore from '../stores/settingsStore';
+
 const styles = {
   decalaration: {
     backgroundColor: 'white',
@@ -22,7 +24,8 @@ export class FooterDeclaration extends Component {
         {window.location.pathname.indexOf('/post/') === -1 && (
           <div style={styles.decalaration}>
             <div>
-              {window.location.host} © {new Date().getFullYear()}. All rights reserved.
+              {settingsStore.global.siteName} | {window.location.host} © {new Date().getFullYear()}. All rights
+              reserved.
             </div>
             <div>
               <b>Powered by</b>{' '}
