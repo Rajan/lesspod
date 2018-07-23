@@ -3,8 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import { view } from 'react-easy-state';
 
-import LogoMin from './../assets/images/icon.png';
-import LogoType from './../assets/images/type.png';
+import { blueBg } from './../config/Colors';
 import userStore from '../stores/userStore';
 import LoginNavItem from './LoginNavItem';
 import NewMenuModal from './NewMenuModal';
@@ -33,6 +32,13 @@ const styles = {
     backgroundPosition: 'center',
     backgroundSize: '100%',
   },
+  siteName: {
+    color: blueBg,
+    fontSize: 36,
+  },
+  tagline: {
+    fontSize: 18,
+  },
 };
 
 class NavBar extends React.Component {
@@ -60,35 +66,39 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { horizontalLogoURL } = settingsStore.global;
-    const { squareLogoURL } = settingsStore.global;
+    const { siteName, tagline, horizontalLogoURL, squareLogoURL } = settingsStore.global;
 
     return (
       <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
           <Link to={userStore.profileData ? '/' : '/'}>
-            {/* added 'dashboard menu item so clicking no logo will take to / always. Should we change? */}
+            {/* added 'dashboard menu item so clicking on logo will take to / always. Should we change? */}
             <div className="navbar-item">
               <div style={styles.logoContainer}>
-                <div
-                  style={{
-                    ...styles.squareLogo,
-                    ...{
-                      backgroundImage: squareLogoURL.length > 1 ? `url(${squareLogoURL})` : `url(${LogoMin})`,
-                    },
-                  }}
-                />
-                <div>
+                {squareLogoURL.length > 1 ? (
                   <div
                     style={{
-                      ...styles.horizontalLogo,
+                      ...styles.squareLogo,
                       ...{
-                        backgroundImage:
-                          horizontalLogoURL.length > 1 ? `url(${horizontalLogoURL})` : `url(${LogoType})`,
+                        backgroundImage: `url(${squareLogoURL})`,
                       },
                     }}
                   />
-                  <div>Serverless CMS (Web + Blog Engine)</div>
+                ) : null}
+                <div>
+                  {horizontalLogoURL.length > 1 ? (
+                    <div
+                      style={{
+                        ...styles.horizontalLogo,
+                        ...{
+                          backgroundImage: `url(${horizontalLogoURL})`,
+                        },
+                      }}
+                    />
+                  ) : (
+                    <span style={styles.siteName}>{siteName || 'My Website'}</span>
+                  )}
+                  <div style={styles.tagline}>{tagline || 'Awesome Tagline'}</div>
                 </div>
               </div>
             </div>

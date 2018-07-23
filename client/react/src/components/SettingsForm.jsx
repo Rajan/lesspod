@@ -51,6 +51,7 @@ const styles = {
 class SettingsForm extends React.Component {
   state = {
     tagline: '',
+    sitename: '',
     disableBlogMenu: false,
     disableNewRegistrations: false,
     squareLogoURL: '',
@@ -113,6 +114,7 @@ class SettingsForm extends React.Component {
   render() {
     const {
       isSaving,
+      siteName,
       tagline,
       horizontalLogoURL,
       squareLogoURL,
@@ -134,6 +136,42 @@ class SettingsForm extends React.Component {
             <br /> Site Settings <br />
           </div>
           <br />
+          <div className="field">
+            <label className="label">Site Name</label>
+            <div className="control has-icons-left">
+              <input
+                className="input"
+                type="name"
+                id="siteName"
+                name="siteName"
+                value={siteName}
+                placeholder="e.g. My Website"
+                onChange={this.handleInputChange}
+              />
+              {/* <span className="icon is-small is-left">
+              <i className="fa fa-user-circle" />
+            </span> */}
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Tag Line</label>
+            <div className="control has-icons-left">
+              <input
+                className="input"
+                type="name"
+                id="tagline"
+                name="tagline"
+                value={tagline}
+                placeholder="e.g. Serverless Blogging Engine"
+                onChange={this.handleInputChange}
+              />
+              {/* <span className="icon is-small is-left">
+              <i className="fa fa-user-circle" />
+            </span> */}
+            </div>
+          </div>
+
           <div className="field">
             <label className="label">
               Square Logo
@@ -233,23 +271,6 @@ class SettingsForm extends React.Component {
                   )}
                 </label>
               </div>
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Tag Line</label>
-            <div className="control has-icons-left">
-              <input
-                className="input"
-                type="name"
-                id="tagline"
-                name="tagline"
-                value={tagline}
-                placeholder="e.g. Serverless Blogging Engine"
-                onChange={this.handleInputChange}
-              />
-              {/* <span className="icon is-small is-left">
-              <i className="fa fa-user-circle" />
-            </span> */}
             </div>
           </div>
           <div className="field">

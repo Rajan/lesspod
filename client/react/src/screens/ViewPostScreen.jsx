@@ -8,7 +8,7 @@ import Shimmer from './../components/Shimmer';
 import DisqusEmbed from '../components/DisqusEmbed';
 import dataStore from '../stores/dataStore';
 import LatestPosts from '../components/LatestPosts';
-import Tags from '../components/Tags';
+// import Tags from '../components/Tags';
 import { SocialActions } from '../components/SocialActions';
 
 const styles = {
@@ -97,7 +97,7 @@ class ViewPostScreen extends Component {
   };
 
   render() {
-    const { title, slug, content, tags, author, createdAt, isLoading } = this.state;
+    const { title, slug, content, author, createdAt, isLoading } = this.state;
     return (
       <div style={{ backgroundColor: '#FFFFFF', height: '100vh' }}>
         {isLoading ? (
