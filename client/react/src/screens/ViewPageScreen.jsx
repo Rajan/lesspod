@@ -91,44 +91,46 @@ class ViewPageScreen extends Component {
   render() {
     const { title, content, isLoading } = this.state;
 
+    if (isLoading) {
+      return (
+        <div style={styles.loaderContainer}>
+          <Shimmer style={{ width: 600, height: 400 }} />
+        </div>
+      );
+    }
+
     return (
-      <div style={{ backgroundColor: '#ffffff', height: '100vh' }}>
-        {isLoading ? (
-          <div style={styles.loaderContainer}>
-            <Shimmer style={{ width: 600, height: 400 }} />
-          </div>
-        ) : (
-          <section className="section" style={{ backgroundColor: '#ffffff' }}>
-            <div className="container">
-              <div className="columns is-centered is-multiline has-text-centered">
-                <div className="column is-two-thirds">
-                  <div className="field is-horizontal">
-                    <div className="field-body">
-                      <div className="field">
-                        <p className="control">
-                          <input
-                            className="input has-text-centered is-medium"
-                            id="title"
-                            type="text"
-                            value={title}
-                            placeholder="Post Title"
-                            style={{ fontWeight: 'bold', fontSize: '2rem' }}
-                            readOnly
-                          />
-                        </p>
-                      </div>
+      <div>
+        <section className="section" style={{ backgroundColor: '#ffffff' }}>
+          <div className="container">
+            <div className="columns is-centered is-multiline has-text-centered">
+              <div className="column is-two-thirds">
+                <div className="field is-horizontal">
+                  <div className="field-body">
+                    <div className="field">
+                      <p className="control">
+                        <input
+                          className="input has-text-centered is-medium"
+                          id="title"
+                          type="text"
+                          value={title}
+                          placeholder="Post Title"
+                          style={{ fontWeight: 'bold', fontSize: '2rem' }}
+                          readOnly
+                        />
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div className="column is-two-thirds">
-                  <span className="has-text-left" style={{ fontSize: '1.3rem' }}>
-                    {ReactHtmlParser(content)}
-                  </span>
-                </div>
+              </div>
+              <div className="column is-two-thirds">
+                <span className="has-text-left" style={{ fontSize: '1.3rem' }}>
+                  {ReactHtmlParser(content)}
+                </span>
               </div>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
       </div>
     );
   }

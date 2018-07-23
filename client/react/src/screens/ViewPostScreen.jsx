@@ -3,11 +3,9 @@ import dayjs from 'dayjs';
 import ReactHtmlParser from 'react-html-parser';
 import { view } from 'react-easy-state';
 
-import Posts from '../components/Posts';
-import { getAllPostsFromFbase, getPostWithSlugFromFbase } from '../api/firebase';
+import { getPostWithSlugFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import dataStore from '../stores/dataStore';
-import PostsToolbar from '../components/PostsToolbar';
 import DisqusEmbed from '../components/DisqusEmbed';
 import LatestPosts from '../components/LatestPosts';
 // import Tags from '../components/Tags';
