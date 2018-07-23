@@ -18,6 +18,7 @@ const settingsStore = store({
     email: '',
     facebookURL: '',
     twitterURL: '',
+    showWidgets: true,
   },
 });
 

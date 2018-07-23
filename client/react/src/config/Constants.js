@@ -5,7 +5,7 @@ export const SETTINGS_COLLECTION = 'settings';
 export const IMAGES_COLLECTION = 'images';
 export const PAGES_COLLECTION = 'pages';
 
-export const SETTINGS_DOCUMENT = 'global';
+export const SETTINGS_DOCUMENT = 'common';
 
 export const LATEST_POSTS_LIMIT = 6;
 

@@ -46,16 +46,10 @@ class App extends Component {
     getSettingsFromFbase().then(response => {
       if (response.error) {
         showAlert(response.error.message);
-      } else {
-        if (response.data.global) {
-          settingsStore.global = response.data.global;
-        }
-        if (response.data.landingPage) {
-          settingsStore.landingPage = response.data.landingPage;
-        }
-        if (response.data.footer) {
-          settingsStore.footer = response.data.footer;
-        }
+      } else if (response.data) {
+        settingsStore.global = response.data.global;
+        settingsStore.landingPage = response.data.landingPage;
+        settingsStore.footer = response.data.footer;
       }
     });
 

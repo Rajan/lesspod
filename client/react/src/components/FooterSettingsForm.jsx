@@ -26,6 +26,7 @@ class FooterSettingsForm extends React.Component {
     email: '',
     facebookURL: '',
     twitterURL: '',
+    showWidgets: true,
   };
 
   componentDidMount() {
@@ -60,10 +61,30 @@ class FooterSettingsForm extends React.Component {
   };
 
   render() {
-    const { isSaving, showNavigation, aboutUs, phoneNumber, address, email, facebookURL, twitterURL } = this.state;
+    const {
+      isSaving,
+      showWidgets,
+      showNavigation,
+      aboutUs,
+      phoneNumber,
+      address,
+      email,
+      facebookURL,
+      twitterURL,
+    } = this.state;
 
     return (
       <div className="box" style={styles.container}>
+        <div className="field">
+          <label className="label">Footer Widgets</label>
+          <div className="control">
+            <label className="checkbox">
+              <input type="checkbox" name="showWidgets" onChange={this.handleInputChange} checked={showWidgets} />
+              &nbsp; Show widgets in footer (About, Address, Contact)
+            </label>
+          </div>
+        </div>
+
         <div className="field">
           <label className="label">Navigation</label>
           <div className="control">
