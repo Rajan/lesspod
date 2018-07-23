@@ -13,7 +13,7 @@ import AllPostsScreen from './../screens/AllPostsScreen';
 import ViewPostScreen from './../screens/ViewPostScreen';
 import EditPostScreen from './../screens/EditPostScreen';
 import Navbar from './../components/Navbar';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 import ProfileScreen from './../screens/ProfileScreen';
 import EditPageScreen from './../screens/EditPageScreen';
 import ViewPageScreen from './../screens/ViewPageScreen';

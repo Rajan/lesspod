@@ -2,9 +2,9 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import './../styles/tabs.css';
-import GlobalSettingsForm from '../components/GlobalSettingsForm';
-import LandingPageSettingsForm from '../components/LandingPageSettingsForm';
-import FooterSettingsForm from '../components/FooterSettingsForm';
+import GlobalSettingsForm from '../components/SettingsTabs/GlobalSettingsForm';
+import LandingPageSettingsForm from '../components/SettingsTabs/LandingPageSettingsForm';
+import FooterSettingsForm from '../components/SettingsTabs/FooterSettingsForm';
 
 class SettingsScreen extends React.Component {
   render() {

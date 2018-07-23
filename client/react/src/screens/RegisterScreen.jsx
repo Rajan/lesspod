@@ -1,7 +1,7 @@
 import React from 'react';
 import { view } from 'react-easy-state';
 
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/Forms/RegisterForm';
 import settingsStore from '../stores/settingsStore';
 
 const styles = {

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { view } from 'react-easy-state';
 import { Link } from 'react-router-dom';
 
-import settingsStore from '../stores/settingsStore';
-import { isExternalLink, dashedString } from '../utils/utils';
-import dataStore from '../stores/dataStore';
+import settingsStore from './../../stores/settingsStore';
+import { isExternalLink, dashedString } from './../../utils/utils';
+import dataStore from './../../stores/dataStore';
 
 const styles = {
   title: {

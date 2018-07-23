@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoMin from './../assets/images/icon.png';
-import LogoText from './../assets/images/type.png';
-import { registerWithFirebase, addUserProfileToFbase } from '../api/firebase';
-import userStore from '../stores/userStore';
-import { showAlert } from '../utils/utils';
+import LogoMin from './../../assets/images/icon.png';
+import LogoText from './../../assets/images/type.png';
+import { registerWithFirebase, addUserProfileToFbase } from '../../api/firebase';
+import userStore from '../../stores/userStore';
+import { showAlert } from '../../utils/utils';
 
 const styles = {
   container: {

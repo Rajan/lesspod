@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import settingsStore from '../stores/settingsStore';
+import settingsStore from './../../stores/settingsStore';
 
 const styles = {
   decalaration: {

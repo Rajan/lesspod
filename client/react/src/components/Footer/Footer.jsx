@@ -3,7 +3,7 @@ import { view } from 'react-easy-state';
 
 import { FooterDeclaration } from './FooterDeclaration';
 import { FooterWidgets } from './FooterWidgets';
-import settingsStore from '../stores/settingsStore';
+import settingsStore from '../../stores/settingsStore';
 
 class Footer extends Component {
   state = {};

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { showAlert } from '../utils/utils';
-import { saveSettingsToFbase, uploadLogoToFbase } from '../api/firebase';
-import settingsStore from '../stores/settingsStore';
-import { LOGO_SQUARE_SIDE, LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT } from '../config/Constants';
+import { showAlert } from './../../utils/utils';
+import { saveSettingsToFbase, uploadLogoToFbase } from './../../api/firebase';
+import settingsStore from './../../stores/settingsStore';
+import { LOGO_SQUARE_SIDE, LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT } from './../../config/Constants';
 
 const styles = {
   container: {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { showAlert } from '../utils/utils';
-import { saveSettingsToFbase } from '../api/firebase';
-import settingsStore from '../stores/settingsStore';
+import { showAlert } from './../../utils/utils';
+import { saveSettingsToFbase } from './../../api/firebase';
+import settingsStore from './../../stores/settingsStore';
 
 const styles = {
   container: {

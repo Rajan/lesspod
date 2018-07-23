@@ -1,12 +1,11 @@
 import React from 'react';
 
-import LoginForm from './../components/LoginForm';
+import LoginForm from './../components/Forms/LoginForm';
 
 class LoginScreen extends React.Component {
   render() {
     return (
       <div>
-       
         <section className="hero is-info" style={{ minHeight: 'calc(100vh - 6rem)' }}>
           <div className="hero-body">
             <div className="container ">

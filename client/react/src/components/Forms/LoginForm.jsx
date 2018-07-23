@@ -1,12 +1,12 @@
 import React from 'react';
-
-import LogoMin from './../assets/images/icon.png';
-import LogoText from './../assets/images/type.png';
-import { getUserProfileFromFbase, loginWithFirebase } from '../api/firebase';
-import userStore from './../stores/userStore';
-import { showAlert } from '../utils/utils';
-import settingsStore from '../stores/settingsStore';
 import { view } from 'react-easy-state';
+
+import LogoMin from './../../assets/images/icon.png';
+import LogoText from './../../assets/images/type.png';
+import { getUserProfileFromFbase, loginWithFirebase } from '../../api/firebase';
+import userStore from './../../stores/userStore';
+import { showAlert } from '../../utils/utils';
+import settingsStore from '../../stores/settingsStore';
 
 const styles = {
   container: {
