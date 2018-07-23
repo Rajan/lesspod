@@ -10,7 +10,7 @@ import NewMenuModal from './NewMenuModal';
 import dataStore from '../stores/dataStore';
 import NavbarUserMenus from './NavbarUserMenus';
 import settingsStore from './../stores/settingsStore';
-import { LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT, LOGO_SQUARE_SIDE } from '../config/Constants';
+import { LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT, LOGO_SQUARE_SIDE, FONT_WEIGHT_BOLD } from '../config/Constants';
 
 const styles = {
   logoContainer: {
@@ -34,10 +34,11 @@ const styles = {
   },
   siteName: {
     color: blueBg,
-    fontSize: 36,
+    fontSize: 24,
+    fontWeight: FONT_WEIGHT_BOLD
   },
   tagline: {
-    fontSize: 18,
+    fontSize: 24,
   },
 };
 
@@ -75,7 +76,7 @@ class NavBar extends React.Component {
             {/* added 'dashboard menu item so clicking on logo will take to / always. Should we change? */}
             <div className="navbar-item">
               <div style={styles.logoContainer}>
-                {squareLogoURL.length > 1 ? (
+                {squareLogoURL && squareLogoURL.length > 1 ? (
                   <div
                     style={{
                       ...styles.squareLogo,
@@ -86,7 +87,7 @@ class NavBar extends React.Component {
                   />
                 ) : null}
                 <div>
-                  {horizontalLogoURL.length > 1 ? (
+                  {horizontalLogoURL && horizontalLogoURL.length > 1 ? (
                     <div
                       style={{
                         ...styles.horizontalLogo,

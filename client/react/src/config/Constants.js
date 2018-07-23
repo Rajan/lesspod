@@ -9,6 +9,7 @@ export const SETTINGS_DOCUMENT = 'global';
 
 export const LATEST_POSTS_LIMIT = 6;
 
-export const LOGO_SQUARE_SIDE = 50;
+export const LOGO_SQUARE_SIDE = 80;
 export const LOGO_HORIZONTAL_WIDTH = 160;
 export const LOGO_HORIZONTAL_HEIGHT = 50;
+export const FONT_WEIGHT_BOLD = 'bold';

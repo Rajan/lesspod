@@ -77,3 +77,4 @@ firebase_init.txt
 /.idea
 /uploads
 node_modules_nuxt/
+client/vue/node_modules_master
