@@ -17,6 +17,8 @@ import CustomLoader from './components/CustomLoader';
 import { showAlert } from './utils/utils';
 import settingsStore from './stores/settingsStore';
 import dataStore from './stores/dataStore';
+import { CustomFavicon } from './components/CustomFavicon';
+import { view } from 'react-easy-state';
 
 const styles = {
   loaderContainer: {
@@ -81,6 +83,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <CustomFavicon />
         {this.state.isLoading ? (
           <div style={styles.loaderContainer}>
             <CustomLoader />
@@ -93,4 +96,4 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App);
+export default hot(module)(view(App));
