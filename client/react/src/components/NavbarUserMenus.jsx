@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import userStore from '../stores/userStore';
 import { isExternalLink, dashedString } from '../utils/utils';
 
 const getPath = menu =>

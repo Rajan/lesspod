@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import settingsStore from '../stores/settingsStore';
 import { isExternalLink, dashedString } from '../utils/utils';
 import dataStore from '../stores/dataStore';
-import userStore from '../stores/userStore';
 
 const styles = {
   title: {

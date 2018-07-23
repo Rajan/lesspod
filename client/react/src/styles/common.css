@@ -3,6 +3,10 @@ body {
     background-color: #f5f5f5;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .bottom-footer {
     position: fixed;
     left:0;

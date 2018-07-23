@@ -42,8 +42,8 @@ class MenuTag extends Component {
             <a className="tag is-white is-medium" href={menu.linkedURL} target="_blank" rel="noopener noreferrer">
               {menu.name}
             </a>
-            <a
-              className="tag is-white is-delete is-success is-medium"
+            <div
+              className="tag is-white is-delete is-success is-medium pointer"
               onClick={() => {
                 this.onClickDelete(menu);
               }}
@@ -65,8 +65,8 @@ class MenuTag extends Component {
             >
               {menu.name}
             </Link>
-            <a
-              className="tag is-white is-delete is-success is-medium"
+            <div
+              className="tag is-white is-delete is-success is-medium pointer"
               onClick={() => {
                 this.onClickDelete(menu);
               }}
