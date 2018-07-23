@@ -7,8 +7,8 @@ body {
     cursor: pointer;
 }
 
-.bottom-footer {
-    position: fixed;
+.bottom-footer-sticky {
+    position: fixed; 
     left:0;
     bottom:0;
     right:0;

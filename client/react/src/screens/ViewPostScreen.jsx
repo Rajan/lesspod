@@ -10,6 +10,7 @@ import dataStore from '../stores/dataStore';
 import LatestPosts from '../components/LatestPosts';
 // import Tags from '../components/Tags';
 import { SocialActions } from '../components/SocialActions';
+import SubscribeBar from '../components/SubscribeBar';
 
 const styles = {
   loaderContainer: {
@@ -150,7 +151,6 @@ class ViewPostScreen extends Component {
                 </div>
                 <div className="column is-two-thirds has-text-centered">
                   <h2 className="title">Latest Posts</h2>
-                  <br />
                   <LatestPosts />
                   <br />
                   <h2 className="title">Comments</h2>
@@ -161,6 +161,7 @@ class ViewPostScreen extends Component {
               </div>
             </div>
             <SocialActions title={title} />
+            <SubscribeBar />
           </section>
         )}
       </div>

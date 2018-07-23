@@ -19,7 +19,6 @@ export class SocialActions extends Component {
   }
 
   render() {
-    console.log(window.location.href);
     return (
       <div className="icon-bar">
         <a

@@ -33,7 +33,7 @@ class LatestPosts extends Component {
   render() {
     const posts = dataStore.getFilteredPosts().slice(0, LATEST_POSTS_LIMIT);
 
-    return <div>{this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}</div>;
+    return this.state.isLoading ? <Shimmer /> : <Posts data={posts} />;
   }
 }
 

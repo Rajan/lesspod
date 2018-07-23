@@ -25,7 +25,7 @@ class SubscribeBar extends Component {
   };
 
   renderBar = () => (
-    <div style={styles.container} className="bottom-footer">
+    <div style={styles.container} className="bottom-footer-sticky">
       <span style={{ fontSize: '1.25rem' }}>Stay updated on the latest posts from us.</span>&nbsp;&nbsp;
       <input
         type="text"

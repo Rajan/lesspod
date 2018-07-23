@@ -21,7 +21,7 @@ export class FooterDeclaration extends Component {
   render() {
     return (
       <div>
-        {window.location.pathname.indexOf('/post/') === -1 && (
+        {
           <div style={styles.decalaration}>
             <div>
               {settingsStore.global.siteName} | {window.location.host} © {new Date().getFullYear()}. All rights
@@ -34,7 +34,7 @@ export class FooterDeclaration extends Component {
               </a>
             </div>
           </div>
-        )}
+        }
       </div>
     );
   }
