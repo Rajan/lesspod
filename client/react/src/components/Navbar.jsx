@@ -72,7 +72,13 @@ class NavBar extends React.Component {
     const { siteName, tagline, horizontalLogoURL, squareLogoURL } = settingsStore.global;
 
     return (
-      <nav className="navbar" aria-label="main navigation">
+      <nav
+        className="navbar"
+        aria-label="main navigation"
+        style={{
+          borderBottom: '3px solid rgb(0,0,0,0.05)',
+        }}
+      >
         <div className="navbar-brand">
           <Link to={userStore.profileData ? '/' : '/'}>
             {/* added 'dashboard menu item so clicking on logo will take to / always. Should we change? */}

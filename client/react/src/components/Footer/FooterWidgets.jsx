@@ -7,6 +7,12 @@ import { isExternalLink, dashedString } from './../../utils/utils';
 import dataStore from './../../stores/dataStore';
 
 const styles = {
+  container: {
+    padding: 30,
+    backgroundColor: '#FFFFFF',
+    borderBottom: '3px solid rgb(0,0,0,0.03)',
+    borderTop: '3px solid rgb(0,0,0,0.05)',
+  },
   title: {
     color: '#000',
     fontWeight: 'bold',
@@ -57,7 +63,7 @@ export class FooterWidgets extends Component {
   render() {
     const { aboutUs, showNavigation, address, phoneNumber, email, facebookURL, twitterURL } = settingsStore.footer;
     return (
-      <div className="footer-widgets-container">
+      <div style={styles.container}>
         <div className="columns is-centered is-multiline">
           <div className="column">
             <div style={styles.title}>About Us</div>
