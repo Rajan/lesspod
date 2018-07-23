@@ -8,6 +8,7 @@ import 'font-awesome/css/font-awesome.css';
 import './styles/minireset.css';
 import './styles/common.css';
 import './styles/misc.css';
+import './styles/theme-overrides.css';
 import './startup/init';
 import Routes from './config/Routes';
 import userStore from './stores/userStore';

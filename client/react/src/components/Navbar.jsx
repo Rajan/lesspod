@@ -64,7 +64,7 @@ class NavBar extends React.Component {
     const { squareLogoURL } = settingsStore.global;
 
     return (
-      <nav className="navbar has-shadow" aria-label="main navigation">
+      <nav className="navbar" aria-label="main navigation">
         <div className="navbar-brand">
           <Link to={userStore.profileData ? '/' : '/'}>
             {/* added 'dashboard menu item so clicking no logo will take to / always. Should we change? */}
