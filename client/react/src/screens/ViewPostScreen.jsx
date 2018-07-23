@@ -33,6 +33,7 @@ class ViewPostScreen extends Component {
       content: '',
       tags: '',
       author: '',
+      createdAt: '',
       isLoading: true,
     };
     dataStore.posts = [];
@@ -49,6 +50,7 @@ class ViewPostScreen extends Component {
         content: post.content,
         tags: post.tags,
         author: post.author,
+        createdAt: post.createdAt,
         isLoading: false,
       });
     } else {
@@ -84,6 +86,7 @@ class ViewPostScreen extends Component {
             content: post.content,
             tags: post.tags,
             author: post.author,
+            createdAt: post.createdAt,
             isLoading: false,
           });
         } else {
@@ -138,11 +141,11 @@ class ViewPostScreen extends Component {
                   <br />
                   <br />
 
-                  {tags.length > 0 && (
+                  {/* {tags.length > 0 && (
                     <div className="tags">
                       <Tags data={tags.split(' ')} />
                     </div>
-                  )}
+                  )} */}
                   <input type="hidden" name="slug" id="slug" value={slug} />
                 </div>
                 <div className="column is-two-thirds has-text-centered">
