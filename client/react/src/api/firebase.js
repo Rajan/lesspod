@@ -553,6 +553,35 @@ export const deletePageFromFbase = pageId => {
     });
 };
 
+export const getAllPagesFromFbase = () => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(PAGES_COLLECTION)
+    .get()
+    .then(querySnapshot => {
+      const pages = [];
+      querySnapshot.forEach(doc => {
+        pages.push(doc.data());
+      });
+      const response = {
+        error: null,
+        data: pages,
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
 export const getPageFromFbase = pageId => {
   const db = firebase.firestore();
   db.settings({

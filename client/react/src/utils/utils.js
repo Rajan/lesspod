@@ -44,10 +44,10 @@ export const isExternalLink = url => {
 };
 
 export const formatURL = url => {
-  if (!url.startsWith('www') || !url.startsWith('http')) {
-    return `http://${url}`;
+  if (url.startsWith('www') || url.startsWith('http')) {
+    return url;
   }
-  return url;
+  return `http://${url}`;
 };
 
 export const getFileExtension = fileName => {

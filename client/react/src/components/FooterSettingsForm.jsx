@@ -206,7 +206,6 @@ class FooterSettingsForm extends React.Component {
         <div className="field is-grouped" style={{ marginTop: '2rem' }}>
           <div className="control">
             <div
-              href="#"
               className={`button is-info ${isSaving ? 'is-loading' : ''}`}
               onClick={() => {
                 this.onClickSave();
