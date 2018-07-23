@@ -47,7 +47,15 @@ class App extends Component {
       if (response.error) {
         showAlert(response.error.message);
       } else {
-        settingsStore.global = response.data;
+        if (response.data.global) {
+          settingsStore.global = response.data.global;
+        }
+        if (response.data.landingPage) {
+          settingsStore.landingPage = response.data.landingPage;
+        }
+        if (response.data.footer) {
+          settingsStore.footer = response.data.footer;
+        }
       }
     });
 

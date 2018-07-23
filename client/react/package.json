@@ -22,6 +22,7 @@
     "react-responsive-modal": "^3.1.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
+    "react-tabs": "^2.2.2",
     "sanitize.css": "^5.0.0",
     "shortid": "^2.2.12",
     "uuid": "^3.2.1"

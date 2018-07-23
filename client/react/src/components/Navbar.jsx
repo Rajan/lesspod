@@ -35,7 +35,7 @@ const styles = {
   siteName: {
     color: blueBg,
     fontSize: 24,
-    fontWeight: FONT_WEIGHT_BOLD
+    fontWeight: FONT_WEIGHT_BOLD,
   },
   tagline: {
     fontSize: 24,

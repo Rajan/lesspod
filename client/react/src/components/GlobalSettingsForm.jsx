@@ -51,7 +51,7 @@ const styles = {
 class SettingsForm extends React.Component {
   state = {
     tagline: '',
-    sitename: '',
+    siteName: '',
     disableBlogMenu: false,
     disableNewRegistrations: false,
     squareLogoURL: '',
@@ -65,7 +65,11 @@ class SettingsForm extends React.Component {
 
   onClickSave = () => {
     this.setState({ isSaving: true });
-    saveSettingsToFbase(this.state).then(response => {
+    const settingsData = {
+      ...settingsStore,
+      ...{ global: this.state },
+    };
+    saveSettingsToFbase(settingsData).then(response => {
       this.setState({ isSaving: false });
       if (response.error) {
         showAlert(response.error.message, 'error');
@@ -116,8 +120,8 @@ class SettingsForm extends React.Component {
       isSaving,
       siteName,
       tagline,
-      horizontalLogoURL,
       squareLogoURL,
+      horizontalLogoURL,
       disableBlogMenu,
       disableNewRegistrations,
     } = this.state;
@@ -129,13 +133,13 @@ class SettingsForm extends React.Component {
           <div style={styles.logoText} />
         </div> */}
         <div>
-          <div className="field has-text-centered">
+          {/* <div className="field has-text-centered">
             <span className="icon" style={{ width: '3rem', height: '3rem' }}>
               <i className="fa fa-cog fas fa-3x" />
             </span>
             <br /> Site Settings <br />
           </div>
-          <br />
+          <br /> */}
           <div className="field">
             <label className="label">Site Name</label>
             <div className="control has-icons-left">
@@ -201,7 +205,7 @@ class SettingsForm extends React.Component {
                     }}
                     style={{ opacity: 0 }}
                   />
-                  {squareLogoURL.length > 1 ? (
+                  {squareLogoURL && squareLogoURL.length > 1 ? (
                     <div
                       style={{
                         ...styles.squareLogo,
@@ -225,7 +229,7 @@ class SettingsForm extends React.Component {
           <br />
           <div className="field">
             <label className="label">
-              Horizontal Logo
+              Site Logo
               <span style={styles.dimensionsText}>
                 &nbsp;({LOGO_HORIZONTAL_WIDTH * 2}px * {LOGO_HORIZONTAL_HEIGHT * 2}px)
               </span>
@@ -252,7 +256,7 @@ class SettingsForm extends React.Component {
                     }}
                     style={{ opacity: 0 }}
                   />
-                  {horizontalLogoURL.length > 1 ? (
+                  {horizontalLogoURL && horizontalLogoURL.length > 1 ? (
                     <div
                       style={{
                         ...styles.horizontalLogo,
