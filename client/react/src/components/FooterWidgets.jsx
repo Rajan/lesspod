@@ -22,12 +22,11 @@ const styles = {
 };
 
 export class FooterWidgets extends Component {
-  getPath = menu => {
-    if (userStore.profileData && userStore.profileData.id === menu.createdBy) {
-      return `/editpage/${dashedString(menu.name)}`;
-    }
-    return `/${dashedString(menu.name)}`;
-  };
+  getPath = menu =>
+    // if (userStore.profileData && userStore.profileData.id === menu.createdBy) {
+    //   return `/editpage/${dashedString(menu.name)}`;
+    // }
+    `/${dashedString(menu.name)}`;
 
   renderNavigation = () =>
     dataStore.menus.map(menu => {

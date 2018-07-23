@@ -11,6 +11,7 @@ import dataStore from '../stores/dataStore';
 import NavbarUserMenus from './NavbarUserMenus';
 import settingsStore from './../stores/settingsStore';
 import { LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT, LOGO_SQUARE_SIDE, FONT_WEIGHT_BOLD } from '../config/Constants';
+import { NavbarBurger } from './NavbarBurger';
 
 const styles = {
   logoContainer: {
@@ -18,6 +19,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    margin: 10,
   },
   squareLogo: {
     width: LOGO_SQUARE_SIDE,
@@ -104,6 +106,7 @@ class NavBar extends React.Component {
               </div>
             </div>
           </Link>
+          <NavbarBurger />
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">

@@ -12,10 +12,7 @@ class Menus extends Component {
     return (
       <div className="column is-two-thirds">
         <h1 className="title">All Menus</h1>
-        <div className="tags has-addons">{this.renderMenus(menuData)}</div>
-        <div className="subtitle">
-          Note: Clicking on the <div className="tag is-danger is-delete" /> will delete the menu/page permanently.
-        </div>
+        <div className="field is-grouped is-grouped-multiline">{this.renderMenus(menuData)}</div>
       </div>
     );
   }
