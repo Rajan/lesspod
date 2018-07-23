@@ -1,27 +1,19 @@
 import React from 'react';
-import { Title, Control, Select, Button, Input } from 'bloomer';
+import { view } from 'react-easy-state';
 
-import Header from '../components/Header';
-import { getAllPostsByUser } from '../api/firebase';
-import Posts from './../components/Posts';
+import userStore from './../stores/userStore';
+import Posts from '../components/Posts';
+import Menus from '../components/Menus';
+import { getAllPostsFromFbaseByUser } from '../api/firebase';
+import Shimmer from '../components/Shimmer';
+import { showAlert } from '../utils/utils';
+import dataStore from '../stores/dataStore';
+import PostsToolbar from '../components/PostsToolbar';
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  content: {
-    width: '60%',
-    marginTop: 50,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  bodyContainer: {
+    // height: '100vh',
+    // backgroundColor: '#F5F5F5',
   },
 };
 
@@ -29,63 +21,52 @@ class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    dataStore.posts = [];
     this.state = {
-      posts: [],
-      user: this.props.history.location.state.user,
+      isLoading: true,
     };
   }
 
-  componentWillMount() {
-    getAllPostsByUser(this.state.user.id, this.onSuccess, this.onFailure);
+  componentDidMount() {
+    getAllPostsFromFbaseByUser(userStore.profileData.id).then(response => {
+      if (response.error) {
+        showAlert(response.error.message);
+      } else {
+        dataStore.posts = response.data;
+        this.setState({ isLoading: false });
+      }
+    });
   }
 
-  onSuccess = data => {
-    this.setState({
-      posts: data,
-    });
-  };
-
-  onFailure = data => {
-    console.log('failure');
-  };
-
   render() {
-    const fullname = `${this.state.user.first} ${this.state.user.last}`.toUpperCase();
+    const { menus } = dataStore;
+    const posts = dataStore.getFilteredPosts();
+
+    let fullName;
+    if (userStore.profileData) {
+      fullName = `${userStore.profileData.first} ${userStore.profileData.last}`.toUpperCase();
+    }
     return (
       <div>
-        <Header />
-        <div style={styles.container}>
-          <div style={styles.content}>
-            <Title>
-              <b>ALL POSTS BY {fullname}</b>
-            </Title>
-            <div style={styles.row}>
-              {/* actions row */}
-              <div style={styles.row}>
-                <b>{this.state.posts.length}&nbsp;</b> Posts &nbsp;
-                <Button isColor="success">
-                  <b>NEW POST</b>
-                </Button>
-              </div>
-              <div>
-                <Input name="search" placeholder="search posts..." isColor="white" isFocused />
-              </div>
-              <div style={styles.row}>
-                Order By &nbsp;
-                <Control>
-                  <Select isColor="white">
-                    <option>Publish Date</option>
-                    <option>Page Views</option>
-                  </Select>
-                </Control>
+        <div style={styles.bodyContainer}>
+          <section className="section">
+            <div className="container">
+              <div className="columns is-centered is-multiline">
+                <Menus data={menus} />
+                <div className="column is-two-thirds">
+                  <h1 className="title">All Posts by {fullName}</h1>
+                </div>
+                <div className="column is-two-thirds">
+                  <PostsToolbar />
+                  {this.state.isLoading ? <Shimmer /> : <Posts data={posts} />}
+                </div>
               </div>
             </div>
-            <Posts data={this.state.posts} />
-          </div>
+          </section>
         </div>
       </div>
     );
   }
 }
 
-export default HomeScreen;
+export default view(HomeScreen);

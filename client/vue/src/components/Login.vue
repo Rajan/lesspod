@@ -16,7 +16,7 @@
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="email" id="email" v-model="email" placeholder="e.g. alexjohnson@gmail.com" autocomplete="username" required>
+                  <input class="input" type="email" id="email" placeholder="e.g. alexjohnson@gmail.com" autocomplete="username" required>
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>
@@ -25,7 +25,7 @@
               <div class="field">
                 <label class="label">Password</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="password" id="password" v-model="password" placeholder="********" autocomplete="current-password" required>
+                  <input class="input" type="password" id="password" placeholder="********" autocomplete="current-password" required>
                   <span class="icon is-small is-left">
                     <i class="fa fa-lock"></i>
                   </span>

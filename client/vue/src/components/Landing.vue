@@ -18,9 +18,10 @@
 						</h2>
 						<div class="content" style="font-size: 1.3rem;" >
 							<ul class="has-text-left block" style="margin-bottom: 0.5rem;">
-								<li>No fixed yearly/monthly hosting fees.</li>
+								<li>Super fast page load times.</li>
 								<li>Infinite scalability of the cloud.</li>
-								<li>Free hosting till you're very popular!</li>
+								<li>No servers to manage or related problems.</li>
+								<li>Free forever hosting! (for 99% websites)</li>
 							</ul>
 							<span style="color:green;">This is a <em>serverless website</em> hosted freely on Firebase.</span>
 						</div>

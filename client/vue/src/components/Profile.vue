@@ -89,6 +89,32 @@ import firebase from 'firebase';
 import axios from 'axios';
 import moment from 'moment';
 
+function uploadImage(file, onSuccessCallback) {
+  // Upload file and get url from firebase server. Make an API call, upload the file and get the URL which can be embedded into the editor.
+
+  const user = this.$cookie.getJSON("user");
+  const storagePath = `${user.id}/images/profilePic.jpg`;
+  firebase
+    .storage()
+    .ref(storagePath)
+    .put(file)
+    .then(snapshot => {
+      console.log('image upload success');
+      return snapshot.ref.getDownloadURL();
+    })
+    .then(downloadURL => {
+      // you can assign keys for square logo and horizontal logo with downloadURL value here
+      // or just provide a callback
+      onSuccessCallback(downloadURL);
+      // when 'save settings'  is pressed line 314 uploads the key and value (imageurl)
+
+    })
+    .catch(error => {
+      console.error(error);
+      this._alert(true, 'error', error.message);
+    });
+}
+
 export default {
   data() {
     return {
@@ -123,10 +149,10 @@ export default {
     vm.email = vm.user.email;
     vm.profilePic = vm.user.profilePic;
     const {
-          deploymentTarget,
-          LOCALHOST,
-          FBASE
-        } = globalVariables;
+      deploymentTarget,
+      LOCALHOST,
+      FBASE
+    } = globalVariables;
     // update user
     switch (deploymentTarget) {
       case LOCALHOST:
@@ -135,8 +161,8 @@ export default {
       case FBASE:
         // firebase code to load profile pic.
 
-    }    
-    
+    }
+
 
   },
   methods: {
@@ -202,7 +228,7 @@ export default {
             // change password in firebase only if
             const user = firebase.auth().currentUser;
             if (vm.password.length > 5) {
-              
+
               user
                 .updatePassword(vm.password)
                 .then(function() {
@@ -213,7 +239,7 @@ export default {
                 });
             }
             // console.log('vm.email=' + vm.email + ' vm.user.email=' + vm.user.email);
-            if(vm.email.toString() != vm.user.email.toString()){
+            if (vm.email.toString() != vm.user.email.toString()) {
               // console.log('updating email...');
               user.updateEmail(vm.email).then(function() {
                 // console.log('email updated');

@@ -1,27 +1,48 @@
 import React from 'react';
-import { Field, Label, Control, Icon, Input, Button } from 'bloomer';
-import MailIcon from 'react-icons/lib/fa/envelope';
-import LockIcon from 'react-icons/lib/fa/lock';
-import UserIcon from 'react-icons/lib/fa/user';
-import { Link, withRouter } from 'react-router-dom';
-import firebase from 'firebase';
+import { Link } from 'react-router-dom';
 
-import FormLogo from './../assets/images/logo-bis.png';
-import { blueBg } from './../config/Colors';
-import { addDataToFbase } from './../api/firebase';
-import { USERS_COLLECTION } from './../config/Constants';
+import LogoMin from './../assets/images/icon.png';
+import LogoText from './../assets/images/type.png';
+import { registerWithFirebase, addUserProfileToFbase } from '../api/firebase';
+import userStore from '../stores/userStore';
+import { showAlert } from '../utils/utils';
 
 const styles = {
   container: {
-    backgroundColor: '#FFFFFF',
-    padding: 30,
-    borderRadius: 5,
-    width: '30%',
     minWidth: 350,
+    flexDirection: 'column',
   },
   logoContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  logo: {
     textAlign: 'center',
     marginBottom: 15,
+    backgroundImage: `url(${LogoMin})`,
+    width: 60,
+    height: 60,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  },
+  logoText: {
+    textAlign: 'center',
+    marginBottom: 15,
+    backgroundImage: `url(${LogoText})`,
+    width: 159,
+    height: 47,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 25,
+    marginBottom: 25,
   },
 };
 class RegisterForm extends React.Component {
@@ -30,31 +51,47 @@ class RegisterForm extends React.Component {
     email: '',
     password: '',
     confirmPassword: '',
+    isLoading: false,
   };
-
-  onSuccess = data => {
-    this.props.history.push('/home', { user: data });
-  };
-  onFailure = () => console.log('failure callback');
 
   onRegisterClick = () => {
-    if (this.state.password.length > 5 && this.state.password === this.state.confirmPassword) {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(
-          user => {
-            const data = {
-              email: this.state.email,
-              first: this.state.name.split(' ')[0],
-              last: this.state.name.split(' ')[1],
-            };
-            addDataToFbase(USERS_COLLECTION, data, this.onSuccess, this.onFailure);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+    if (
+      this.state.name &&
+      this.state.password &&
+      this.state.name.length > 0 &&
+      this.state.password === this.state.confirmPassword
+    ) {
+      this.setState({ isLoading: true });
+      registerWithFirebase(this.state.email, this.state.password).then(response => {
+        const { error, data } = response;
+        if (error) {
+          showAlert(error.message, 'error');
+          this.setState({ isLoading: false });
+        } else {
+          const profileData = {
+            id: data.user.uid,
+            email: this.state.email,
+            first: this.state.name.split(' ')[0],
+            last: this.state.name.split(' ')[1] ? this.state.name.split(' ')[1] : '',
+          };
+          this.setState({ isLoading: true });
+          addUserProfileToFbase(profileData).then(res => {
+            this.setState({ isLoading: false });
+            if (res.error) {
+              showAlert(res.error.message);
+            } else {
+              userStore.profileData = res.data;
+              this.props.history.push('/home');
+            }
+          });
+        }
+      });
+    } else if (this.state.password.length > 0 && this.state.password !== this.state.confirmPassword) {
+      this.setState({ isLoading: false });
+      showAlert('Passwords do not match!');
+    } else {
+      this.setState({ isLoading: false });
+      showAlert('Enter all details');
     }
   };
 
@@ -62,6 +99,7 @@ class RegisterForm extends React.Component {
     const { target } = event;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const { name } = target;
+
     this.setState({
       [name]: value,
     });
@@ -69,85 +107,106 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
-        <div style={styles.logoContainer}>
-          <img src={FormLogo} alt="lesspod-logo-form" width="50%" />
-        </div>
-        <Field>
-          <Label>Full Name (First Last)</Label>
-          <Control hasIcons>
-            <Input onChange={this.handleInputChange} name="name" placeholder="Alex Johnson" isColor="white" isFocused />
-            <Icon isSize="small" isAlign="left">
-              <UserIcon />
-            </Icon>
-          </Control>
-        </Field>
-        <Field>
-          <Label>Email</Label>
-          <Control hasIcons>
-            <Input
+      <div className="box" style={styles.container}>
+        {/* <div style={styles.logoContainer}>
+          <div style={styles.logo} />
+          <div style={styles.logoText} />
+        </div> */}
+
+        <div className="field">
+          <label className="label">Full Name (First Last)</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              type="name"
+              id="name"
+              name="name"
+              placeholder="e.g. Alex Johnson"
+              autoComplete="fullname"
               onChange={this.handleInputChange}
-              name="email"
-              placeholder="username@example.com"
-              isColor="white"
-              isFocused
+              required
             />
-            <Icon isSize="small" isAlign="left">
-              <MailIcon />
-            </Icon>
-          </Control>
-        </Field>
-        <Field>
-          <Label>Password</Label>
-          <Control hasIcons>
-            <Input
+            <span className="icon is-small is-left">
+              <i className="fa fa-user-circle" />
+            </span>
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Email</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="e.g. alexjohnson@gmail.com"
+              autoComplete="email"
               onChange={this.handleInputChange}
+              required
+            />
+            <span className="icon is-small is-left">
+              <i className="fa fa-envelope" />
+            </span>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Password</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              type="password"
+              id="password"
               name="password"
               placeholder="********"
-              type="password"
-              isColor="white"
-              isFocused
-            />
-            <Icon isSize="small" isAlign="left">
-              <LockIcon />
-            </Icon>
-          </Control>
-        </Field>
-        <Field>
-          <Label>Retype Password</Label>
-          <Control hasIcons>
-            <Input
               onChange={this.handleInputChange}
+              required
+            />
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock" />
+            </span>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Retype Password</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              type="password"
+              id="confirmPassword"
               name="confirmPassword"
               placeholder="********"
-              type="password"
-              isColor="white"
-              isFocused
+              onChange={this.handleInputChange}
+              required
             />
-            <Icon isSize="small" isAlign="left">
-              <LockIcon />
-            </Icon>
-          </Control>
-        </Field>
-        <Field isHorizontal>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Button isColor="info" onClick={this.onRegisterClick}>
-              <b>CREATE ACCOUNT</b>
-            </Button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock" />
+            </span>
+          </div>
+        </div>
+        <div className="field is-grouped" style={{ marginTop: '2rem' }}>
+          <div className="control">
+            <div
+              href="#"
+              className={`button is-info ${this.state.isLoading ? 'is-loading' : ''}`}
+              onClick={() => {
+                this.onRegisterClick();
+              }}
+            >
+              CREATE ACCOUNT
+            </div>
+          </div>
+          <div className="control">
             <Link to="/login">
-              <b style={{ color: blueBg }}>LOGIN</b>
+              <div className="button is-text" style={{ textDecoration: 'none', color: '#0271D3' }}>
+                LOGIN
+              </div>
             </Link>
           </div>
-        </Field>
+        </div>
       </div>
     );
   }
 }
 
-export default withRouter(RegisterForm);
+export default RegisterForm;
