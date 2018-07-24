@@ -2,8 +2,8 @@ import { store } from 'react-easy-state';
 
 const settingsStore = store({
   global: {
-    siteName: '',
-    tagline: '',
+    siteName: 'My Website',
+    tagline: 'Awesome Tagline',
     disableBlogMenu: false,
     disableNewRegistrations: false,
     squareLogoURL: '',
@@ -12,13 +12,13 @@ const settingsStore = store({
   landingPage: {},
   footer: {
     showNavigation: true,
-    phoneNumber: '',
-    aboutUs: '',
-    address: '',
-    email: '',
-    facebookURL: '',
-    twitterURL: '',
-    showWidgets: false,
+    phoneNumber: '+XX XXX XXX XXXX',
+    aboutUs: 'You can change this description in settings/footer',
+    address: '311 Mountainview CA',
+    email: 'email@domain.com',
+    facebookURL: 'http://fb.me',
+    twitterURL: 'http://twitter.com',
+    showWidgets: true,
   },
 });
 
