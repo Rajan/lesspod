@@ -9,7 +9,16 @@ const settingsStore = store({
     squareLogoURL: '',
     horizontalLogoURL: '',
   },
-  landingPage: {},
+  landingPage: {
+    headline: 'Headline',
+    description: 'A description line to help visitors know more',
+    subtitle: 'Subtitle',
+    subtitlePoints: 'Enter small sentences to highlight your product/service',
+    summary: 'This is a serverless website hosted freely on Firebase.',
+    showLatestPosts: false,
+    featuredImageURL: 'http://via.placeholder.com/500X500',
+    featuredImageCaption: 'A caption for featured Image',
+  },
   footer: {
     showNavigation: true,
     phoneNumber: '+XX XXX XXX XXXX',

@@ -80,7 +80,7 @@ class FooterSettingsForm extends React.Component {
           <div className="control">
             <label className="checkbox">
               <input type="checkbox" name="showWidgets" onChange={this.handleInputChange} checked={showWidgets} />
-              &nbsp; Show widgets in footer (About, Address, Contact)
+              &nbsp; Show widgets in footer (About, Contact, etc..)
             </label>
           </div>
         </div>
