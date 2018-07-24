@@ -76,7 +76,7 @@ class NavBar extends React.Component {
         className="navbar"
         aria-label="main navigation"
         style={{
-          borderBottom: '3px solid rgb(0,0,0,0.05)',
+          borderBottom: '1px solid rgb(0,0,0,0.05)',
         }}
       >
         <div className="navbar-brand">

@@ -30,7 +30,7 @@ export class FooterDeclaration extends Component {
               reserved.
             </div>
             <div>
-              <b>Powered by</b>{' '}
+              Powered by{' '}
               <a href="http://lesspod.org" target="_blank" rel="noopener noreferrer">
                 Lesspod
               </a>

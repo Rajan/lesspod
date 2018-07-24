@@ -10,8 +10,8 @@ const styles = {
   container: {
     padding: 30,
     backgroundColor: '#FFFFFF',
-    borderBottom: '3px solid rgb(0,0,0,0.03)',
-    borderTop: '3px solid rgb(0,0,0,0.05)',
+    borderBottom: '1px solid rgb(0,0,0,0.03)',
+    borderTop: '2px solid rgb(0,0,0,0.05)',
   },
   title: {
     color: '#000',
