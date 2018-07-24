@@ -2,11 +2,11 @@ import React from 'react';
 import { view } from 'react-easy-state';
 
 import LogoMin from './../../assets/images/icon.png';
-import LogoText from './../../assets/images/type.png';
 import { getUserProfileFromFbase, loginWithFirebase } from '../../api/firebase';
 import userStore from './../../stores/userStore';
 import { showAlert } from '../../utils/utils';
 import settingsStore from '../../stores/settingsStore';
+import { blueBg } from './../../config/Colors';
 
 const styles = {
   container: {
@@ -31,11 +31,13 @@ const styles = {
   logoText: {
     textAlign: 'center',
     marginBottom: 15,
-    backgroundImage: `url(${LogoText})`,
     width: 159,
     height: 47,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
+    fontSize: 36,
+    color: blueBg,
+    fontWeight: 'bold',
   },
   row: {
     display: 'flex',
@@ -97,7 +99,7 @@ class LoginForm extends React.Component {
       <div className="box" style={styles.container}>
         <div style={styles.logoContainer}>
           <div style={styles.logo} />
-          <div style={styles.logoText} />
+          <div style={styles.logoText}>{settingsStore.global.siteName}</div>
         </div>
 
         <div className="field">
