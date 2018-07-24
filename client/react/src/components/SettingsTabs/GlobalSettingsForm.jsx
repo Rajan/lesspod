@@ -22,7 +22,7 @@ const styles = {
     width: LOGO_SQUARE_SIDE * 2,
     height: LOGO_SQUARE_SIDE * 2,
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundColor: '#f5f5f5',
   },
   horizontalLogo: {
@@ -30,7 +30,7 @@ const styles = {
     height: LOGO_HORIZONTAL_HEIGHT * 2,
     backgroundColor: '#f5f5f5',
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
   },
   row: {
     display: 'flex',
