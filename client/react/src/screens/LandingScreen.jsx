@@ -3,22 +3,11 @@ import { Link } from 'react-router-dom';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
 import { view } from 'react-easy-state';
-import ProgressiveImage from 'react-progressive-image';
 
 import userStore from '../stores/userStore';
 import LatestPosts from '../components/LatestPosts';
 import settingsStore from '../stores/settingsStore';
-import { FEATURED_IMAGE_SIDE } from '../config/Constants';
 
-const styles = {
-  featuredImage: {
-    width: FEATURED_IMAGE_SIDE,
-    height: FEATURED_IMAGE_SIDE,
-    backgroundPosition: 'center',
-    backgroundSize: 'contain',
-    // backgroundColor: '#f5f5f5',
-  },
-};
 class LandingScreen extends React.Component {
   componentDidMount() {
     const script = document.createElement('script');
@@ -27,7 +16,7 @@ class LandingScreen extends React.Component {
     document.body.appendChild(script);
   }
 
-  renderSubtitlePoints = str => str.split('\n').map(s => <li>{s}</li>);
+  renderSubtitlePoints = str => str.split('\n').map(s => <li key={s}>{s}</li>);
 
   render() {
     const {
@@ -47,14 +36,16 @@ class LandingScreen extends React.Component {
             <div className="container has-text-centered">
               <div className="columns is-vcentered">
                 <div className="column is-5">
-                  <div
-                    style={{
-                      ...styles.featuredImage,
-                      ...{
-                        backgroundImage: `url(${featuredImageURL})`,
-                      },
-                    }}
-                  />
+                  <figure className="image is-4by3">
+                    <img
+                      src={
+                        featuredImageURL && featuredImageURL.length > 0
+                          ? featuredImageURL
+                          : 'https://bulma.io/images/placeholders/640x480.png'
+                      }
+                      alt={settingsStore.global.siteName}
+                    />
+                  </figure>
 
                   <br />
                   <h6 className="title is-6" style={{ fontWeight: 300 }}>

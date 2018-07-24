@@ -11,7 +11,6 @@ import dataStore from '../stores/dataStore';
 import NavbarUserMenus from './NavbarUserMenus';
 import settingsStore from './../stores/settingsStore';
 import { LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT, LOGO_SQUARE_SIDE, FONT_WEIGHT_BOLD } from '../config/Constants';
-import { NavbarBurger } from './NavbarBurger';
 
 const styles = {
   logoContainer: {
@@ -47,18 +46,8 @@ const styles = {
 class NavBar extends React.Component {
   state = {
     open: false,
+    isBurgerActive: false,
   };
-
-  // componentDidMount() {
-  //   dataStore.menus = [];
-  //   getAllMenusFromFbase().then(res => {
-  //     if (res.error) {
-  //       showAlert(res.error.message);
-  //     } else {
-  //       dataStore.menus = res.data;
-  //     }
-  //   });
-  // }
 
   onOpenModal = () => {
     this.setState({ open: true });
@@ -70,6 +59,7 @@ class NavBar extends React.Component {
 
   render() {
     const { siteName, tagline, horizontalLogoURL, squareLogoURL } = settingsStore.global;
+    const { isBurgerActive } = this.state;
 
     return (
       <nav
@@ -112,10 +102,27 @@ class NavBar extends React.Component {
               </div>
             </div>
           </Link>
-          <NavbarBurger />
+          <a
+            role="button"
+            className={`navbar-burger ${isBurgerActive ? 'is-active' : ''}`}
+            aria-label="menu"
+            aria-expanded="false"
+            onClick={() => {
+              this.setState({ isBurgerActive: !isBurgerActive });
+            }}
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </a>
         </div>
-        <div className="navbar-menu">
-          <div className="navbar-end">
+        <div className={`navbar-menu ${isBurgerActive ? 'is-active' : ''}`}>
+          <div
+            className="navbar-end"
+            onClick={() => {
+              this.setState({ isBurgerActive: false });
+            }}
+          >
             {userStore.profileData && (
               <div className="navbar-item">
                 <Link to="/home">Dashboard</Link>
