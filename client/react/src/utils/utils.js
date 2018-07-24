@@ -54,3 +54,5 @@ export const getFileExtension = fileName => {
   const split = fileName.split('.');
   return split[split.length - 1];
 };
+
+export const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);

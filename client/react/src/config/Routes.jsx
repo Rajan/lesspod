@@ -18,6 +18,9 @@ import ProfileScreen from './../screens/ProfileScreen';
 import EditPageScreen from './../screens/EditPageScreen';
 import ViewPageScreen from './../screens/ViewPageScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import DocumentMeta from './../components/DocumentMeta';
+import settingsStore from '../stores/settingsStore';
+import { capitalizeFirstLetter } from '../utils/utils';
 
 const PrivateRoute = params => {
   if (params.auth) {
@@ -33,6 +36,23 @@ const VerifyAuthRoute = params => {
   return <Route {...params} />;
 };
 
+const evaluateDocumentTitle = () => {
+  const siteName = settingsStore.global.siteName || capitalizeFirstLetter(window.location.hostname);
+  const { pathname } = window.location;
+  if (pathname === '/') {
+    return siteName;
+  }
+  const title = capitalizeFirstLetter(pathname.split('/')[1]);
+  return `${siteName} | ${title}`;
+};
+
+const CustomComponent = Comp => (
+  <div>
+    <DocumentMeta title={evaluateDocumentTitle()} description={settingsStore.global.tagline || ''} />
+    {Comp}
+  </div>
+);
+
 class Routes extends React.Component {
   render() {
     const auth = !!userStore.profileData;
@@ -41,18 +61,53 @@ class Routes extends React.Component {
         <ScrollToTop>
           <Navbar />
           <Switch>
-            <Route path="/" exact render={props => <LandingScreen {...props} />} />
-            {/* <Route path="/:pageId" exact render={props => <ViewPageScreen {...props} />} /> */}
-            <Route path="/blog" exact render={props => <AllPostsScreen {...props} />} />
-            <Route path="/post/:slug" exact render={props => <ViewPostScreen {...props} />} />
-            <VerifyAuthRoute auth={auth} path="/login" exact render={props => <LoginScreen {...props} />} />
-            <VerifyAuthRoute auth={auth} path="/register" exact render={props => <RegisterScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/home" exact render={props => <HomeScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/newpost" exact render={props => <NewPostScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/editpost/:slug" exact render={props => <EditPostScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/profile/" exact render={props => <ProfileScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/editpage/:slug" exact render={props => <EditPageScreen {...props} />} />
-            <PrivateRoute auth={auth} path="/settings" exact render={props => <SettingsScreen {...props} />} />
+            <Route path="/" exact render={props => CustomComponent(<LandingScreen {...props} />)} />
+            {/* <Route path="/:pageId" exact render={props => CustomComponent(<ViewPageScreen {...props} />)} /> */}
+            <Route path="/blog" exact render={props => CustomComponent(<AllPostsScreen {...props} />)} />
+            <Route path="/post/:slug" exact render={props => CustomComponent(<ViewPostScreen {...props} />)} />
+            <VerifyAuthRoute
+              auth={auth}
+              path="/login"
+              exact
+              render={props => CustomComponent(<LoginScreen {...props} />)}
+            />
+            <VerifyAuthRoute
+              auth={auth}
+              path="/register"
+              exact
+              render={props => CustomComponent(<RegisterScreen {...props} />)}
+            />
+            <PrivateRoute auth={auth} path="/home" exact render={props => CustomComponent(<HomeScreen {...props} />)} />
+            <PrivateRoute
+              auth={auth}
+              path="/newpost"
+              exact
+              render={props => CustomComponent(<NewPostScreen {...props} />)}
+            />
+            <PrivateRoute
+              auth={auth}
+              path="/editpost/:slug"
+              exact
+              render={props => CustomComponent(<EditPostScreen {...props} />)}
+            />
+            <PrivateRoute
+              auth={auth}
+              path="/profile/"
+              exact
+              render={props => CustomComponent(<ProfileScreen {...props} />)}
+            />
+            <PrivateRoute
+              auth={auth}
+              path="/editpage/:slug"
+              exact
+              render={props => CustomComponent(<EditPageScreen {...props} />)}
+            />
+            <PrivateRoute
+              auth={auth}
+              path="/settings"
+              exact
+              render={props => CustomComponent(<SettingsScreen {...props} />)}
+            />
             <Route component={ViewPageScreen} />
           </Switch>
           <Footer />

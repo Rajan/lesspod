@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { getPageFromFbase, getPageWithSlugFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
+import DocumentMeta from './../components/DocumentMeta';
+import settingsStore from './../stores/settingsStore';
 
 const styles = {
   loaderContainer: {
@@ -101,6 +103,7 @@ class ViewPageScreen extends Component {
 
     return (
       <div>
+        <DocumentMeta title={`${settingsStore.global.siteName} | ${title}`} description={content.substr(0, 140)} />
         <section className="section" style={{ backgroundColor: '#ffffff' }}>
           <div className="container">
             <div className="columns is-centered is-multiline has-text-centered">

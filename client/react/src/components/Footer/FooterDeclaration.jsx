@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { view } from 'react-easy-state';
 
 import settingsStore from './../../stores/settingsStore';
 
@@ -19,12 +20,13 @@ const styles = {
 
 export class FooterDeclaration extends Component {
   render() {
+    const { siteName } = settingsStore.global;
     return (
       <div>
         {
           <div style={styles.decalaration}>
             <div>
-              {settingsStore.global.siteName} | {window.location.host} © {new Date().getFullYear()}. All rights
+              {siteName.length > 0 && `${siteName} | `} {window.location.host} © {new Date().getFullYear()}. All rights
               reserved.
             </div>
             <div>
@@ -40,4 +42,4 @@ export class FooterDeclaration extends Component {
   }
 }
 
-export default FooterDeclaration;
+export default view(FooterDeclaration);

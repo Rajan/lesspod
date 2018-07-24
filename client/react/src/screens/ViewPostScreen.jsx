@@ -11,6 +11,7 @@ import LatestPosts from '../components/LatestPosts';
 // import Tags from '../components/Tags';
 import { SocialActions } from '../components/SocialActions';
 import SubscribeBar from '../components/SubscribeBar';
+import DocumentMeta from './../components/DocumentMeta';
 
 const styles = {
   bodyContainer: {
@@ -112,6 +113,7 @@ class ViewPostScreen extends Component {
     }
     return (
       <div>
+        <DocumentMeta title={title} description={content.substr(0, 140)} />
         <div style={styles.bodyContainer}>
           <section className="section" style={{ backgroundColor: '#ffffff' }}>
             <div className="container">

@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import 'sanitize.css';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.css';
+import { view } from 'react-easy-state';
 
 import './styles/minireset.css';
 import './styles/common.css';
@@ -18,7 +19,6 @@ import { showAlert } from './utils/utils';
 import settingsStore from './stores/settingsStore';
 import dataStore from './stores/dataStore';
 import { CustomFavicon } from './components/CustomFavicon';
-import { view } from 'react-easy-state';
 
 const styles = {
   loaderContainer: {
@@ -81,6 +81,7 @@ class App extends Component {
   };
 
   render() {
+    const { siteName, tagline } = settingsStore.global;
     return (
       <div>
         <CustomFavicon />
