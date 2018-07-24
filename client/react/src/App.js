@@ -87,7 +87,7 @@ class App extends Component {
       <div>
         <CustomFavicon />
         <ScrollToTopButton showUnder={160} style={{ zIndex: 999 }}>
-          <i className="fa fa-arrow-up fa-3x" style={{ color: blueBg }} />
+          <i className="fa fa-arrow-circle-up fa-3x" style={{ color: blueBg }} />
         </ScrollToTopButton>
 
         {this.state.isLoading ? (
