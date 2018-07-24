@@ -5,6 +5,7 @@ import { view } from 'react-easy-state';
 import settingsStore from '../../stores/settingsStore';
 import { saveSettingsToFbase, uploadImageToFbase } from '../../api/firebase';
 import { showAlert } from '../../utils/utils';
+import { FEATURED_IMAGE_SIDE } from '../../config/Constants';
 
 const styles = {
   container: {
@@ -24,8 +25,8 @@ const styles = {
     color: 'grey',
   },
   featuredImage: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
     backgroundPosition: 'center',
     backgroundSize: 'contain',
     backgroundColor: '#f5f5f5',
@@ -203,7 +204,9 @@ class LandingPageSettingsForm extends React.Component {
         <div className="field">
           <label className="label">
             Featured Image
-            <span style={styles.hintText}>&nbsp;(500px * 500px)</span>
+            <span style={styles.hintText}>
+              &nbsp;({FEATURED_IMAGE_SIDE}px * {FEATURED_IMAGE_SIDE}px)
+            </span>
             &nbsp; &nbsp; &nbsp;
             <i
               className="fa fa-trash"
