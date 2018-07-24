@@ -6,6 +6,13 @@ import { showAlert } from './../../utils/utils';
 import { updatePasswordinFbase, updateEmailinFbase, updateDataInFbase } from '../../api/firebase';
 import { USERS_COLLECTION } from '../../config/Constants';
 
+const styles = {
+  hintText: {
+    fontSize: 12,
+    color: 'grey',
+  },
+};
+
 class ProfileForm extends React.Component {
   state = {
     fullName: `${userStore.profileData.first} ${userStore.profileData.last}`,
@@ -132,7 +139,9 @@ class ProfileForm extends React.Component {
           </div>
         </div>
         <div className="field">
-          <label className="label">New Password</label>
+          <label className="label">
+            New Password <span style={styles.hintText}>(Leave it blank if you don't want to change)</span>
+          </label>
           <div className="control has-icons-left">
             <input
               className="input"

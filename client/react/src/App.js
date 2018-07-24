@@ -81,7 +81,6 @@ class App extends Component {
   };
 
   render() {
-    const { siteName, tagline } = settingsStore.global;
     return (
       <div>
         <CustomFavicon />

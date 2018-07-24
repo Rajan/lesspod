@@ -44,7 +44,7 @@ const styles = {
     height: 500,
     width: 300,
   },
-  dimensionsText: {
+  hintText: {
     fontSize: 12,
     color: 'grey',
   },
@@ -180,7 +180,7 @@ class SettingsForm extends React.Component {
           <div className="field">
             <label className="label">
               Square Logo
-              <span style={styles.dimensionsText}>
+              <span style={styles.hintText}>
                 &nbsp;({LOGO_SQUARE_SIDE * 2}px * {LOGO_SQUARE_SIDE * 2}px)
               </span>
               &nbsp; &nbsp; &nbsp;
@@ -231,7 +231,7 @@ class SettingsForm extends React.Component {
           <div className="field">
             <label className="label">
               Site Logo
-              <span style={styles.dimensionsText}>
+              <span style={styles.hintText}>
                 &nbsp;({LOGO_HORIZONTAL_WIDTH * 2}px * {LOGO_HORIZONTAL_HEIGHT * 2}px)
               </span>
               &nbsp; &nbsp; &nbsp;
