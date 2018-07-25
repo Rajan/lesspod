@@ -22,8 +22,8 @@ const styles = {
     alignItems: 'center',
   },
   squareLogo: {
-    width: LOGO_SQUARE_SIDE,
-    height: LOGO_SQUARE_SIDE,
+    width: isMobileDevice ? 60 : LOGO_SQUARE_SIDE,
+    height: isMobileDevice ? 60 : LOGO_SQUARE_SIDE,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     marginRight: 10,
@@ -36,12 +36,10 @@ const styles = {
   },
   siteName: {
     color: blueBg,
-    fontSize: 24,
     fontWeight: FONT_WEIGHT_BOLD,
     maxWidth: isMobileDevice ? window.innerWidth - 150 : 320,
   },
   tagline: {
-    fontSize: 24,
     maxWidth: isMobileDevice ? window.innerWidth - 150 : 320,
   },
 };
@@ -104,8 +102,10 @@ class NavBar extends React.Component {
                       </Textfit>
                     </div>
                   )}
-                  <div style={styles.tagline} max={24}>
-                    <Textfit mode="single"> {tagline || 'Awesome Tagline'} </Textfit>
+                  <div style={styles.tagline}>
+                    <Textfit mode="single" max={24}>
+                      {tagline || 'Awesome Tagline'}
+                    </Textfit>
                   </div>
                 </div>
               </div>
