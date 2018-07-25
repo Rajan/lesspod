@@ -12,6 +12,7 @@ import dataStore from '../stores/dataStore';
 import NavbarUserMenus from './NavbarUserMenus';
 import settingsStore from './../stores/settingsStore';
 import { LOGO_HORIZONTAL_WIDTH, LOGO_HORIZONTAL_HEIGHT, LOGO_SQUARE_SIDE, FONT_WEIGHT_BOLD } from '../config/Constants';
+import { isMobileDevice } from '../utils/utils';
 
 const styles = {
   logoContainer: {
@@ -19,14 +20,13 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 10,
   },
   squareLogo: {
     width: LOGO_SQUARE_SIDE,
     height: LOGO_SQUARE_SIDE,
     backgroundPosition: 'center',
-    backgroundSize: '100%',
-    margin: 20,
+    backgroundSize: 'cover',
+    marginRight: 10,
   },
   horizontalLogo: {
     width: LOGO_HORIZONTAL_WIDTH,
@@ -38,11 +38,11 @@ const styles = {
     color: blueBg,
     fontSize: 24,
     fontWeight: FONT_WEIGHT_BOLD,
-    maxWidth: 300,
+    maxWidth: isMobileDevice ? window.innerWidth - 150 : 320,
   },
   tagline: {
     fontSize: 24,
-    maxWidth: 300,
+    maxWidth: isMobileDevice ? window.innerWidth - 150 : 320,
   },
 };
 
