@@ -99,10 +99,12 @@ class NavBar extends React.Component {
                     />
                   ) : (
                     <div style={styles.siteName}>
-                      <Textfit mode="single">{siteName || 'My Website'} </Textfit>
+                      <Textfit mode="single" max={24}>
+                        {siteName || 'My Website'}
+                      </Textfit>
                     </div>
                   )}
-                  <div style={styles.tagline}>
+                  <div style={styles.tagline} max={24}>
                     <Textfit mode="single"> {tagline || 'Awesome Tagline'} </Textfit>
                   </div>
                 </div>
