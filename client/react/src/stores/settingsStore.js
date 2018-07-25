@@ -16,7 +16,7 @@ const settingsStore = store({
     subtitlePoints: 'Enter small sentences to highlight your product/service',
     summary: 'This is a serverless website hosted freely on Firebase.',
     showLatestPosts: false,
-    featuredImageURL: 'http://via.placeholder.com/500X500',
+    featuredImageURL: '',
     featuredImageCaption: 'A caption for featured Image',
   },
   footer: {
