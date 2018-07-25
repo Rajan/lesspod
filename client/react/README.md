@@ -1,6 +1,22 @@
-# client
+# Client
 
 > Lesspod React Client
+
+## Config
+
+Create 'firebase.js' in ./src/config/ with your project config from console.firebase.com
+
+firebase.js
+```bash
+export const config = {
+  apiKey: 'YOUR_FIREBASE_PROJECT_API_KEY',
+  authDomain: 'YOUR_FIREBASE_PROJECT.firebaseapp.com',
+  databaseURL: 'YOUR_FIREBASE_PROJECT.firebaseio.com',
+  projectId: 'YOUR_FIREBASE_PROJECT_ID',
+  storageBucket: 'YOUR_FIREBASE_PROJECT.appspot.com',
+  messagingSenderId: 'YOUR_FIREBASE_PROJECT_MSG_SEN_ID',
+};
+```
 
 ## Build Setup
 
