@@ -5,7 +5,6 @@ import 'sanitize.css';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.css';
 import { view } from 'react-easy-state';
-import ScrollToTopButton from 'react-scroll-up';
 
 import './styles/minireset.css';
 import './styles/common.css';
@@ -20,7 +19,7 @@ import { showAlert } from './utils/utils';
 import settingsStore from './stores/settingsStore';
 import dataStore from './stores/dataStore';
 import { CustomFavicon } from './components/CustomFavicon';
-import { blueBg } from './config/Colors';
+import { STTButton } from './components/ScrollToTopButton';
 
 const styles = {
   loaderContainer: {
@@ -86,10 +85,7 @@ class App extends Component {
     return (
       <div>
         <CustomFavicon />
-        <ScrollToTopButton showUnder={160} style={{ zIndex: 999 }}>
-          <i className="fa fa-chevron-circle-up fa-3x" style={{ color: blueBg }} />
-        </ScrollToTopButton>
-
+        <STTButton />
         {this.state.isLoading ? (
           <div style={styles.loaderContainer}>
             <CustomLoader />
