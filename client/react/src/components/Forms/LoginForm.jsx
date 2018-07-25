@@ -88,7 +88,9 @@ class LoginForm extends React.Component {
         <div style={styles.logoContainer}>
           <div style={styles.logo} />
           <div style={styles.logoText}>
-            <Textfit mode="single"> {settingsStore.global.siteName} </Textfit>
+            <Textfit mode="single" max={36}>
+              {settingsStore.global.siteName}
+            </Textfit>
           </div>
         </div>
 
