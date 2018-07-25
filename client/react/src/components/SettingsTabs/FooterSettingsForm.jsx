@@ -5,17 +5,6 @@ import { showAlert } from './../../utils/utils';
 import { saveSettingsToFbase } from './../../api/firebase';
 import settingsStore from './../../stores/settingsStore';
 
-const styles = {
-  container: {
-    minWidth: 350,
-    flexDirection: 'column',
-  },
-
-  subText: {
-    fontSize: 12,
-    color: 'grey',
-  },
-};
 class FooterSettingsForm extends React.Component {
   state = {
     isSaving: false,
@@ -74,7 +63,7 @@ class FooterSettingsForm extends React.Component {
     } = this.state;
 
     return (
-      <div className="box" style={styles.container}>
+      <div className="box">
         <div className="field">
           <label className="label">Footer Widgets</label>
           <div className="control">

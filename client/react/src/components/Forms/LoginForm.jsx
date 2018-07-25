@@ -10,10 +10,6 @@ import settingsStore from '../../stores/settingsStore';
 import { blueBg } from './../../config/Colors';
 
 const styles = {
-  container: {
-    minWidth: 350,
-    flexDirection: 'column',
-  },
   logoContainer: {
     width: '100%',
     display: 'flex',
@@ -38,14 +34,6 @@ const styles = {
     color: blueBg,
     fontWeight: 'bold',
     width: '80%',
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 25,
-    marginBottom: 25,
   },
 };
 class LoginForm extends React.Component {
@@ -96,7 +84,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="box" style={styles.container}>
+      <div className="box">
         <div style={styles.logoContainer}>
           <div style={styles.logo} />
           <div style={styles.logoText}>

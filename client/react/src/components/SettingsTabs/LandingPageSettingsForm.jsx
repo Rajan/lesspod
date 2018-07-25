@@ -7,10 +7,6 @@ import { saveSettingsToFbase, uploadImageToFbase } from '../../api/firebase';
 import { showAlert } from '../../utils/utils';
 
 const styles = {
-  container: {
-    minWidth: 350,
-    flexDirection: 'column',
-  },
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -108,7 +104,7 @@ class LandingPageSettingsForm extends React.Component {
     } = this.state;
 
     return (
-      <div className="box" style={styles.container}>
+      <div className="box">
         <div className="field">
           <label className="label">Headline</label>
           <div className="control has-icons-left">

@@ -1,50 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoMin from './../../assets/images/icon.png';
-import LogoText from './../../assets/images/type.png';
 import { registerWithFirebase, addUserProfileToFbase } from '../../api/firebase';
 import userStore from '../../stores/userStore';
 import { showAlert } from '../../utils/utils';
 
-const styles = {
-  container: {
-    minWidth: 350,
-    flexDirection: 'column',
-  },
-  logoContainer: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  logo: {
-    textAlign: 'center',
-    marginBottom: 15,
-    backgroundImage: `url(${LogoMin})`,
-    width: 60,
-    height: 60,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-  },
-  logoText: {
-    textAlign: 'center',
-    marginBottom: 15,
-    backgroundImage: `url(${LogoText})`,
-    width: 159,
-    height: 47,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 25,
-    marginBottom: 25,
-  },
-};
 class RegisterForm extends React.Component {
   state = {
     name: '',
@@ -107,7 +67,7 @@ class RegisterForm extends React.Component {
 
   render() {
     return (
-      <div className="box" style={styles.container}>
+      <div className="box">
         {/* <div style={styles.logoContainer}>
           <div style={styles.logo} />
           <div style={styles.logoText} />
