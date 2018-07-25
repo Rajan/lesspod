@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import { view } from 'react-easy-state';
+import { Textfit } from 'react-textfit';
 
 import { blueBg } from './../config/Colors';
 import userStore from '../stores/userStore';
@@ -37,9 +38,11 @@ const styles = {
     color: blueBg,
     fontSize: 24,
     fontWeight: FONT_WEIGHT_BOLD,
+    maxWidth: 300,
   },
   tagline: {
     fontSize: 24,
+    maxWidth: 300,
   },
 };
 
@@ -95,9 +98,13 @@ class NavBar extends React.Component {
                       }}
                     />
                   ) : (
-                    <span style={styles.siteName}>{siteName || 'My Website'}</span>
+                    <div style={styles.siteName}>
+                      <Textfit mode="single">{siteName || 'My Website'} </Textfit>
+                    </div>
                   )}
-                  <div style={styles.tagline}>{tagline || 'Awesome Tagline'}</div>
+                  <div style={styles.tagline}>
+                    <Textfit mode="single"> {tagline || 'Awesome Tagline'} </Textfit>
+                  </div>
                 </div>
               </div>
             </div>

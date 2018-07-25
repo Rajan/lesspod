@@ -1,5 +1,6 @@
 import React from 'react';
 import { view } from 'react-easy-state';
+import { Textfit } from 'react-textfit';
 
 import LogoMin from './../../assets/images/icon.png';
 import { getUserProfileFromFbase, loginWithFirebase } from '../../api/firebase';
@@ -31,13 +32,12 @@ const styles = {
   logoText: {
     textAlign: 'center',
     marginBottom: 15,
-    width: 159,
-    height: 47,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     fontSize: 24,
     color: blueBg,
     fontWeight: 'bold',
+    width: '80%',
   },
   row: {
     display: 'flex',
@@ -99,7 +99,9 @@ class LoginForm extends React.Component {
       <div className="box" style={styles.container}>
         <div style={styles.logoContainer}>
           <div style={styles.logo} />
-          <div style={styles.logoText}>{settingsStore.global.siteName}</div>
+          <div style={styles.logoText}>
+            <Textfit mode="single"> {settingsStore.global.siteName} </Textfit>
+          </div>
         </div>
 
         <div className="field">
