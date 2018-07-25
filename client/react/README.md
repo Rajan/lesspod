@@ -17,6 +17,7 @@ export const config = {
   messagingSenderId: 'YOUR_FIREBASE_PROJECT_MSG_SEN_ID',
 };
 ```
+Note: After creating a project in Firebase Console, you need to initialize Authentication (Email), Database (Cloud Firestore) & Storage.
 
 ## Build Setup
 
@@ -33,4 +34,3 @@ npm run build
 # run all tests
 npm test
 ```
-Note: The react client is in a very early development. Do not raise issues around the react client.
