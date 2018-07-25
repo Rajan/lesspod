@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import dataStore from '../stores/dataStore';
 import { deleteMenuFromFbase, deletePageFromFbase } from '../api/firebase';
-import { showAlert, isExternalLink, dashedString } from '../utils/utils';
+import { showAlert, isExternalLink, dashedString, confirmAlert } from '../utils/utils';
 import userStore from '../stores/userStore';
 
 class MenuTag extends Component {
@@ -45,7 +45,7 @@ class MenuTag extends Component {
             <div
               className="tag is-white is-delete is-success is-medium pointer"
               onClick={() => {
-                this.onClickDelete(menu);
+                confirmAlert(`Delete '${menu.name}' ?`, () => this.onClickDelete(menu));
               }}
             />
           </div>
@@ -65,10 +65,24 @@ class MenuTag extends Component {
             >
               {menu.name}
             </Link>
+            <Link
+              className="tag is-info is-medium"
+              to={{
+                pathname: `${this.getPath(menu)}`,
+                state: {
+                  page: {
+                    title: menu.name,
+                    id: menu.pageId,
+                  },
+                },
+              }}
+            >
+              Edit
+            </Link>
             <div
               className="tag is-white is-delete is-success is-medium pointer"
               onClick={() => {
-                this.onClickDelete(menu);
+                confirmAlert(`Delete '${menu.name}' ?`, () => this.onClickDelete(menu));
               }}
             />
           </div>

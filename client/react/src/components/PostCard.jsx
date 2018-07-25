@@ -5,7 +5,7 @@ import { view } from 'react-easy-state';
 
 import userStore from '../stores/userStore';
 import { deletePostFromFbase } from '../api/firebase';
-import { showAlert } from './../utils/utils';
+import { showAlert, confirmAlert } from './../utils/utils';
 import dataStore from '../stores/dataStore';
 
 class PostCard extends React.Component {
@@ -94,7 +94,10 @@ class PostCard extends React.Component {
                       <span> · </span>
                       <a
                         onClick={() => {
-                          this.deletePost(post);
+                          confirmAlert('Delete Post ?', () => {
+                            dataStore.query = '';
+                            this.deletePost(post);
+                          });
                         }}
                       >
                         Delete

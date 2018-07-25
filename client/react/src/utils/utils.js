@@ -15,6 +15,14 @@ export const showAlert = (message, type) => {
   }
 };
 
+export const confirmAlert = (message, successCallback) => {
+  alertify.confirm(message, e => {
+    if (e) {
+      successCallback();
+    }
+  });
+};
+
 export const generateFakePosts = count => {
   for (let i = 0; i < count; i++) {
     const fakerTitle = faker.lorem.sentence();

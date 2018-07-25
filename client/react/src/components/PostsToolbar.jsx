@@ -36,6 +36,7 @@ class PostsToolbar extends Component {
                   className="input"
                   type="text"
                   placeholder="Search posts..."
+                  value={dataStore.query}
                   onChange={event => {
                     dataStore.query = event.target.value;
                   }}
