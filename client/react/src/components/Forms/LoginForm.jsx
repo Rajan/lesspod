@@ -35,7 +35,7 @@ const styles = {
     height: 47,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    fontSize: 36,
+    fontSize: 24,
     color: blueBg,
     fontWeight: 'bold',
   },
