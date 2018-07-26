@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
 import { view } from 'react-easy-state';
 
-import userStore from '../stores/userStore';
 import LatestPosts from '../components/LatestPosts';
 import settingsStore from '../stores/settingsStore';
 
@@ -95,7 +93,7 @@ class LandingScreen extends React.Component {
             </div>
           </div>
 
-          {!userStore.profileData && (
+          {/* {!userStore.profileData && (
             <div className="hero-foot">
               <div className="container">
                 <div className="is-centered">
@@ -106,7 +104,7 @@ class LandingScreen extends React.Component {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
         </section>
       </div>
     );
