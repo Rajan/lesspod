@@ -697,6 +697,35 @@ export const deleteMenuFromFbase = menuId => {
     });
 };
 
+export const deleteChildMenusFromFbase = parentMenuId => {
+  const db = firebase.firestore();
+  db.settings({
+    timestampsInSnapshots: true,
+  });
+
+  return db
+    .collection(MENUS_COLLECTION)
+    .where('parentMenuId', '==', parentMenuId)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        doc.delete();
+      });
+      const response = {
+        error: null,
+        data: 'successfully deleted',
+      };
+      return response;
+    })
+    .catch(error => {
+      const response = {
+        error,
+        data: null,
+      };
+      return response;
+    });
+};
+
 export const getAllMenusFromFbase = () => {
   const db = firebase.firestore();
   db.settings({

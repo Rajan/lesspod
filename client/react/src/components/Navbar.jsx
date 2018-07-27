@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import { view } from 'react-easy-state';
 import { Textfit } from 'react-textfit';
@@ -142,16 +142,11 @@ class NavBar extends React.Component {
               <div className="navbar-item has-dropdown is-hoverable">
                 <div className="navbar-link">New</div>
                 <div className="navbar-dropdown is-right">
-                  <a
-                    className="navbar-item"
-                    onClick={() => {
-                      this.props.history.push('/newpost');
-                    }}
-                  >
+                  <Link className="navbar-item" to="/newpost">
                     <span className="icon is-small">
                       <i className="fa fa-clipboard" />
                     </span>&nbsp; Post
-                  </a>
+                  </Link>
                   <a
                     className="navbar-item"
                     onClick={() => {
@@ -185,7 +180,7 @@ class NavBar extends React.Component {
               </div>
             )}
 
-            {NavbarUserMenus(dataStore.menus)}
+            {<NavbarUserMenus data={dataStore.menus} />}
 
             {/* {!userStore.profileData && (
               <div className="navbar-item">
@@ -200,4 +195,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default withRouter(view(NavBar));
+export default view(NavBar);

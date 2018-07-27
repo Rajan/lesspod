@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { view } from 'react-easy-state';
 
-import { isExternalLink, dashedString } from '../utils/utils';
+import { isExternalLink, dashedString, isParentMenu, isSubMenu } from '../utils/utils';
 
 const getPath = menu =>
   // if (userStore.profileData && userStore.profileData.id === menu.createdBy) {
@@ -9,35 +10,73 @@ const getPath = menu =>
   // }
   `/${dashedString(menu.name)}`;
 
-const NavbarUserMenus = data =>
-  data.map(d => {
-    if (isExternalLink(d.linkedURL)) {
-      return (
-        <div className="navbar-item" key={d.id}>
-          <a href={d.linkedURL} target="_blank" rel="noopener noreferrer">
-            {d.name}
-          </a>
-        </div>
-      );
-    }
+class NavbarUserMenus extends React.Component {
+  renderSubMenus = (parentMenu, allMenus) => (
+    <div className="navbar-dropdown">
+      {allMenus.map(menu => menu.parentMenuId === parentMenu.id && this.renderSubMenuItem([menu]))}
+    </div>
+  );
 
+  renderSubMenuItem = data =>
+    data.map(d => {
+      if (isSubMenu(d) && isExternalLink(d.linkedURL)) {
+        return this.renderExternalMenuItem(d, data);
+      }
+
+      return isSubMenu(d) && this.renderInternalMenuItem(d, data);
+    });
+
+  renderExternalMenuItem = (menu, allMenus) => {
+    const showDropdown = isParentMenu(menu.id, allMenus);
     return (
-      <div className="navbar-item" key={d.id}>
+      <div className={`navbar-item ${showDropdown ? 'has-dropdown is-hoverable' : ''}`} key={menu.id}>
+        <a
+          className={showDropdown ? 'navbar-link' : ''}
+          href={menu.linkedURL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {menu.name}
+        </a>
+        {showDropdown && this.renderSubMenus(menu, allMenus)}
+      </div>
+    );
+  };
+
+  renderInternalMenuItem = (menu, allMenus) => {
+    const showDropdown = isParentMenu(menu.id, allMenus);
+    return (
+      <div className={`navbar-item ${showDropdown ? 'has-dropdown is-hoverable' : ''}`} key={menu.id}>
         <Link
+          className={showDropdown ? 'navbar-link' : ''}
           to={{
-            pathname: `${getPath(d)}`,
+            pathname: `${getPath(menu)}`,
             state: {
               page: {
-                title: d.name,
-                id: d.pageId,
+                title: menu.name,
+                id: menu.pageId,
               },
             },
           }}
         >
-          {d.name}
+          {menu.name}
         </Link>
+
+        {showDropdown && this.renderSubMenus(menu, allMenus)}
       </div>
     );
-  });
+  };
 
-export default NavbarUserMenus;
+  render() {
+    const { data } = this.props;
+    return data.map(d => {
+      if (!isSubMenu(d) && isExternalLink(d.linkedURL)) {
+        this.renderExternalMenuItem(d, data);
+      }
+
+      return !isSubMenu(d) && this.renderInternalMenuItem(d, data);
+    });
+  }
+}
+
+export default view(NavbarUserMenus);
