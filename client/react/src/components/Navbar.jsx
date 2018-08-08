@@ -25,14 +25,14 @@ const styles = {
     width: isMobileDevice ? 60 : LOGO_SQUARE_SIDE,
     height: isMobileDevice ? 60 : LOGO_SQUARE_SIDE,
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     marginRight: 10,
   },
   horizontalLogo: {
     width: LOGO_HORIZONTAL_WIDTH,
     height: LOGO_HORIZONTAL_HEIGHT,
     backgroundPosition: 'center',
-    backgroundSize: '100%',
+    backgroundSize: 'contain',
   },
   siteName: {
     color: blueBg,
