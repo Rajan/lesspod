@@ -19,7 +19,7 @@ const LandingScreen = Loadable({
 });
 
 const LoginScreen = Loadable({
-  loader: () => import('./../screens/LandingScreen'),
+  loader: () => import('./../screens/LoginScreen'),
   loading
 });
 
