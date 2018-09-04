@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { view } from 'react-easy-state';
+import shortid from 'shortid';
 
 import MenuTag from './MenuTag';
-import { view } from 'react-easy-state';
 
 class Menus extends Component {
   state = {};
 
-  renderMenus = data => data.map(d => <MenuTag menu={d} key={d.id} />);
+  renderMenus = data => data.map(d => <MenuTag menu={d} key={shortid.generate()} />);
   render() {
     const menuData = this.props.data;
     return (

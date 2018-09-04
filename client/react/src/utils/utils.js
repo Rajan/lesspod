@@ -82,3 +82,25 @@ export const isMobileDevice = () => {
   }
   return isMobile;
 };
+
+export const isParentMenu = (menuId, allMenus) => {
+  let result = false;
+  allMenus.forEach(m => {
+    if (menuId === m.parentMenuId) {
+      result = true;
+    }
+  });
+  return result;
+};
+
+export const isSubMenu = menu => menu.parentMenuId !== 'none';
+
+export const getParentMenu = (menu, allMenus) => {
+  let parentMenu;
+  allMenus.forEach(m => {
+    if (menu.parentMenuId === m.id) {
+      parentMenu = m;
+    }
+  });
+  return parentMenu;
+};

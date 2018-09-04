@@ -9,7 +9,7 @@ class NewMenuModal extends Component {
   state = {
     menuName: '',
     linkedURL: '',
-    // menuSelect: 'none',
+    parentMenuId: 'none',
     isLoading: false,
   };
 
@@ -37,6 +37,7 @@ class NewMenuModal extends Component {
             name: menuName,
             linkedURL: linkedURL.length > 0 ? formatURL(linkedURL) : data.slug,
             pageId: data.id,
+            parentMenuId: this.state.parentMenuId,
           };
           this.setState({ isLoading: true });
           addMenuToFbase(menuData).then(res => {
@@ -93,7 +94,12 @@ class NewMenuModal extends Component {
                 </div>
               </div>
               <div className="field">
-                <label className="label">Linked URL</label>
+                <label className="label">
+                  Linked URL &nbsp;
+                  <span style={{ color: 'grey', fontSize: 12, fontWeight: 'normal' }}>
+                    (You can enter external website or leave blank)
+                  </span>
+                </label>
                 <div className="control">
                   <input
                     className="input"
@@ -104,17 +110,24 @@ class NewMenuModal extends Component {
                   />
                 </div>
               </div>
-              {/* <div className="field">
+              <div className="field">
                 <label className="label">Under Menu</label>
                 <div className="control">
                   <div className="select is-primary">
-                    <select name="menuSelect" onChange={this.handleInputChange}>
-                      <option value="id1">None</option>
-                      <option value="id2">one</option>
+                    <select name="parentMenuId" onChange={this.handleInputChange}>
+                      <option value="none">None</option>
+                      {dataStore.menus.map(
+                        menu =>
+                          menu.parentMenuId === 'none' && (
+                            <option key={menu.id} value={menu.id}>
+                              {menu.name}
+                            </option>
+                          )
+                      )}
                     </select>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </form>
         </section>
