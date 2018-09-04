@@ -103,7 +103,7 @@ class NavBar extends React.Component {
                     </div>
                   )}
                   <div style={styles.tagline}>
-                    <Textfit mode="single" max={24}>
+                    <Textfit mode="single" max={22}>
                       {tagline || 'Awesome Tagline'}
                     </Textfit>
                   </div>
