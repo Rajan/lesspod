@@ -5,7 +5,7 @@ import Editor from '../components/Editor';
 import editorStore from './../stores/editorStore';
 import { addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
-import { showAlert, dashedString } from '../utils/utils';
+import { showAlert } from '../utils/utils';
 
 class NewPostScreen extends Component {
   state = {
@@ -18,11 +18,13 @@ class NewPostScreen extends Component {
     this.setState({ title: event.target.value });
   };
 
+  cleanTitle = title => title.replace(/[^a-z0-9]+/g, '-');
+
   savePost = () => {
     if (this.state.title && this.state.title.length > 1) {
       const postData = {
         title: this.state.title,
-        slug: `${dashedString(this.state.title)}-${shortid.generate()}`,
+        slug: `${this.cleanTitle(this.state.title)}-${shortid.generate()}`,
         content: editorStore.content,
         tags: this.state.tags.toString(),
         author: `${userStore.profileData.first} ${userStore.profileData.last}`,
