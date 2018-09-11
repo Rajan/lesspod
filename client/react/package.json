@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^6.5.3",
     "alertify.js": "^1.0.12",
     "bulma": "^0.7.1",
     "dayjs": "^1.7.4",
@@ -16,6 +17,7 @@
     "react-dom": "^16.3.2",
     "react-easy-state": "^5.1.0",
     "react-favicon": "^0.0.14",
+    "react-ga": "^2.5.3",
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.1.3",
@@ -39,7 +41,7 @@
     "eject": "react-app-rewired eject"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^7.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",

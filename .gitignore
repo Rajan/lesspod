@@ -79,3 +79,5 @@ firebase_init.txt
 node_modules_nuxt/
 client/vue/node_modules_master
 client/react/src/config/firebase.js
+client/react/firestore.rules
+client/react/storage.rules

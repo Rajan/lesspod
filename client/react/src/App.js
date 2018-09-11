@@ -21,6 +21,12 @@ import dataStore from './stores/dataStore';
 import { CustomFavicon } from './components/CustomFavicon';
 import { STTButton } from './components/ScrollToTopButton';
 
+// google analytics for react
+
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-125120010-1');
+ReactGA.pageview('/home');
+
 const styles = {
   loaderContainer: {
     width: '100vw',

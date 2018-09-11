@@ -45,6 +45,7 @@ class LoginForm extends React.Component {
 
   onLoginClick = () => {
     this.setState({ isLoading: true });
+    console.log('email: ' + this.state.email + ' password: ' + this.state.password);
     loginWithFirebase(this.state.email, this.state.password).then(response => {
       const { error, data } = response;
       if (error) {

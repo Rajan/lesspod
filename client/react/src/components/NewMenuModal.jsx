@@ -15,8 +15,9 @@ class NewMenuModal extends Component {
 
   onClickSave = () => {
     const { menuName, linkedURL } = this.state;
-
+    console.log('LinkedURL is ' + linkedURL);
     // matching vue => creating a page for each menu
+    // for Linked menus we shouldn't create a page.
     const pageData = {
       title: menuName,
       content: '',
