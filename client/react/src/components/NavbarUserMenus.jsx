@@ -71,7 +71,7 @@ class NavbarUserMenus extends React.Component {
     const { data } = this.props;
     return data.map(d => {
       if (!isSubMenu(d) && isExternalLink(d.linkedURL)) {
-        this.renderExternalMenuItem(d, data);
+        return this.renderExternalMenuItem(d, data);
       }
 
       return !isSubMenu(d) && this.renderInternalMenuItem(d, data);
