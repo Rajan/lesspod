@@ -21,11 +21,16 @@ import dataStore from './stores/dataStore';
 import { CustomFavicon } from './components/CustomFavicon';
 import { STTButton } from './components/ScrollToTopButton';
 
+// Image gallery for the landing page
+import "react-image-gallery/styles/css/image-gallery.css";
+
 // google analytics for react
 
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-125120010-1');
 ReactGA.pageview('/home');
+
+
 
 const styles = {
   loaderContainer: {

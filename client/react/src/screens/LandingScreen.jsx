@@ -6,6 +6,8 @@ import { view } from 'react-easy-state';
 import LatestPosts from '../components/LatestPosts';
 import settingsStore from '../stores/settingsStore';
 
+import MyGallery from '../components/MyGallery';
+
 class LandingScreen extends React.Component {
   componentDidMount() {
     const script = document.createElement('script');
@@ -30,8 +32,12 @@ class LandingScreen extends React.Component {
     return (
       <div style={{ backgroundColor: '#FFF' }}>
         <section className="section">
+          <MyGallery />
+        </section>
+        <section className="section">
           <div className="hero-body">
             <div className="container has-text-centered">
+              
               <div className="columns is-vcentered">
                 <div className="column is-5">
                   <figure className="image is-4by3">
