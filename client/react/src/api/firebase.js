@@ -614,7 +614,7 @@ export const getPageWithSlugFromFbase = slug => {
     timestampsInSnapshots: true,
   });
   return db
-    .collection(POSTS_COLLECTION)
+    .collection(PAGES_COLLECTION)
     .where('slug', '==', slug)
     .get()
     .then(querySnapshot => {
