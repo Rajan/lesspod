@@ -7,6 +7,7 @@ import LatestPosts from '../components/LatestPosts';
 import settingsStore from '../stores/settingsStore';
 
 import MyGallery from '../components/MyGallery';
+import YoutubeVideo from '../components/YoutubeVideo';
 
 class LandingScreen extends React.Component {
   componentDidMount() {
@@ -31,7 +32,8 @@ class LandingScreen extends React.Component {
     } = settingsStore.landingPage;
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-        <MyGallery />
+        <YoutubeVideo />
+        { /*<MyGallery />*/}
         <section className="section">
           <div className="hero-body">
             <div className="container has-text-centered">
