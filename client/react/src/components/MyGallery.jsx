@@ -8,16 +8,16 @@ class MyGallery extends React.Component {
 
     const images = [
       {
-        original: 'http://lorempixel.com/1000/600/nature/1/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+        original: 'https://lorempixel.com/1000/600/nature/1/',
+        thumbnail: 'https://lorempixel.com/250/150/nature/1/',
       },
       {
-        original: 'http://lorempixel.com/1000/600/sports/2/',
-        thumbnail: 'http://lorempixel.com/250/150/sports/2/'
+        original: 'https://lorempixel.com/1000/600/sports/2/',
+        thumbnail: 'https://lorempixel.com/250/150/sports/2/'
       },
       {
-        original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
+        original: 'https://lorempixel.com/1000/600/business/1/',
+        thumbnail: 'https://lorempixel.com/250/150/business/1/'
       }
     ]
 

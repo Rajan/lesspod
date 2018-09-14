@@ -31,9 +31,7 @@ class LandingScreen extends React.Component {
     } = settingsStore.landingPage;
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-        <section className="section">
-          <MyGallery />
-        </section>
+        <MyGallery />
         <section className="section">
           <div className="hero-body">
             <div className="container has-text-centered">
