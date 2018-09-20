@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import ReactHtmlParser from 'react-html-parser';
+import renderHTML from 'react-render-html';
 import { view } from 'react-easy-state';
 
 import { getPostWithSlugFromFbase } from '../api/firebase';
@@ -146,7 +147,7 @@ class ViewPostScreen extends Component {
                 </div>
                 <div className="column is-two-thirds">
                   <span className="has-text-left" style={{ fontSize: '1.3rem' }}>
-                    {ReactHtmlParser(content)}
+                    {renderHTML(content)}
                   </span>
                   <br />
                   <br />

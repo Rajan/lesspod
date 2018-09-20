@@ -9,20 +9,25 @@ textarea {
 }
 
 
-  .box {
-      /* no border */
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+.box {
+  /* no border */
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 
-    /* light border */
-    /* box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);  */ 
-    
-    /* material card */
+  /* light border */
+  /* box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);  */ 
+
+  /* material card */
     /* box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1); */
-    }
+  }
 
-    a {
-      /* color: black; */
-      /*color: #379cee;*/
-      color: #0068ce;
-    }
+  a {
+    /* color: black; */
+    /*color: #379cee;*/
+    color: #0068ce;
+  }
+
+
+  ul {
+     list-style: inside; 
+  }
