@@ -56,6 +56,14 @@ $ npm install
 $ npm run dev
 ```
 
+#### Running the vuejs client in another commandline window: http://localhost:3000
+
+```
+$ cd client/react
+$ npm install
+$ npm run start
+```
+
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
 
 Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.

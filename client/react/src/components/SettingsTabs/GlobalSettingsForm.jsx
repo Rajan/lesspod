@@ -53,6 +53,7 @@ class SettingsForm extends React.Component {
     disableNewRegistrations: false,
     squareLogoURL: '',
     horizontalLogoURL: '',
+	trackerID: 'GA tracker ID',
     isSaving: false,
   };
 
@@ -121,6 +122,7 @@ class SettingsForm extends React.Component {
       horizontalLogoURL,
       disableBlogMenu,
       disableNewRegistrations,
+	  trackerID,
     } = this.state;
 
     return (
@@ -302,6 +304,26 @@ class SettingsForm extends React.Component {
               </label>
             </div>
           </div>
+		  
+
+		  <div className="field">
+            <label className="label">Google Analytics tracker ID</label>
+            <div className="control has-icons-left">
+              <input
+                className="input"
+                type="name"
+                id="trackerID"
+                name="trackerID"
+                value={trackerID}
+                placeholder="e.g. UA-123456789-1"
+                onChange={this.handleInputChange}
+              />
+              {/* <span className="icon is-small is-left">
+              <i className="fa fa-user-circle" />
+            </span> */}
+            </div>
+          </div>
+
           <div className="field is-grouped" style={{ marginTop: '2rem' }}>
             <div className="control">
               <div
