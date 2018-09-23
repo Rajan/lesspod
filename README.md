@@ -11,7 +11,9 @@ Lesspod's mission is to transition the Internet from server architecture to serv
 
 Our goal is to make it as simple as possible to host serverless websites and blogs. As we build Lesspod, we stare at the possibility of the serverless Internet.
 
-Demo serverless website: https://lesspod.org
+Demo serverless website (Vuejs client): https://www.lesspod.org
+
+Demo serverless website (Reactjs client): https://www.lesspod.com
 
 ## Free Forever Web Hosting (Cloud Limits Apply)
 
