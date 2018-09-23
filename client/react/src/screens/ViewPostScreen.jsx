@@ -146,7 +146,7 @@ class ViewPostScreen extends Component {
                   </div>
                 </div>
                 <div className="column is-two-thirds">
-                  <span className="has-text-left" style={{ fontSize: '1.3rem' }}>
+                  <span className="has-text-left content" style={{ fontSize: '1.3rem' }}>
                     {renderHTML(content)}
                   </span>
                   <br />
