@@ -36,7 +36,11 @@ Note: The local api gets discarded on deploying to Firebase. So, It's vuejs talk
 
 Key software versions. Node: 10.0.0 and NPM: 6.0.0
 
-#### Running the API component: http://localhost:1234/
+#### Running the API component (Local): http://localhost:1234/
+
+At this point we're directly talking to firebase and not making progress on the local API component. Eventually, we'll support AWS Lambda, Azure Cloud Functions etc. and add support for building locally and deploying on a set of faas/serverless platforms.
+
+Skip following steps for now:
 
 ```
 $ git clone https://github.com/Rajan/lesspod.git   //clone repo
@@ -56,36 +60,29 @@ $ npm install
 $ npm run dev
 ```
 
+To deploy Vuejs client to Firebase 
+
+1. Create a Firebase project and enable email auth, create firestore db, enable storage etc.
+2. Execute npm init with all options ON.
+3. Add firebase properties in the /client/vue/src/config.js
+4. Install all npm packages. 
+5. Run "npm run build" and "firebase deploy".
+
+
+We're also implementing Nuxt.js (WIP).
+
+Note: Vuejs client is a bit behind the reactjs client and we're looking for contributors who can support the development of vuejs client. 
+
+
+Feel free to create an issue. Kindly include your package.json, OS and browser details.
+
+
+## Deploying React client to Firebase
+
+Check out README inside /client/react for instructions.
+
+
 Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
-
-Feel free to create an issue if you face problems. Kindly include your package.json, OS and browser details.
-
-
-## Deploying to Firebase (WIP)
-
-Create a firebase_init.txt file in the root with web script tags from your Firebase project.
-We've created two utilities for firebase deploy and rollback. fbase_prep.js will inject firebase calls.
-
-```
-node fbase_prep.js   // create new git branch and inject firebase scripts
-node fbase_cleanup.js   // rollback changes and move back to master branch
-
-```
-
-
-<!--
-
-#### Running the React client in another commandline window: http://localhost:3000
-
-```
-$ cd client/react
-$ npm install
-$ npm start
-```
-Note: React client is at a very early stage in the development.
-
--->
-
 
 ## To Do List
 
