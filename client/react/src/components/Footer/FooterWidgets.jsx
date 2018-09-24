@@ -38,7 +38,7 @@ export class FooterWidgets extends Component {
       if (isExternalLink(menu.linkedURL)) {
         return (
           <a key={menu.id} href={menu.linkedURL} target="_blank" rel="noopener noreferrer">
-            <span style={styles.menu}>{menu.name}</span>
+            <span style={styles.menu}>&#8226;&nbsp;{menu.name}<br/></span>
           </a>
         );
       }
@@ -55,7 +55,7 @@ export class FooterWidgets extends Component {
             },
           }}
         >
-          <span style={styles.menu}>{menu.name}</span>
+          <span style={styles.menu}>&#8226;&nbsp;{menu.name}<br/></span>
         </Link>
       );
     });
