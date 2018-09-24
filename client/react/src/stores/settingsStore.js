@@ -8,6 +8,7 @@ const settingsStore = store({
     disableNewRegistrations: false,
     squareLogoURL: '',
     horizontalLogoURL: '',
+	trackerID: '',
   },
   landingPage: {
     headline: 'Headline',

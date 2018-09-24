@@ -62,7 +62,19 @@ $ npm install
 $ npm run dev
 ```
 
+
+#### Running the vuejs client in another commandline window: http://localhost:3000
+
+```
+$ cd client/react
+$ npm install
+$ npm run start
+```
+
+Keep things as simple to understand for others as possible. Also, add comments to any code being contributed.
+=======
 To deploy Vuejs client to Firebase 
+
 
 1. Create a Firebase project and enable email auth, create firestore db, enable storage etc.
 2. Execute npm init with all options ON.
