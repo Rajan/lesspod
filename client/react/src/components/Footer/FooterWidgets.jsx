@@ -110,7 +110,8 @@ export class FooterWidgets extends Component {
               <a href={twitterURL} target="_blank" rel="noopener noreferrer">
                 <i className="fa fa-twitter fa-2x" />
               </a>
-            </div>
+            </div><br/><br/>
+            Powered by <a href="https://www.lesspod.com" target="_blank">Lesspod.com</a>
           </div>
         </div>
       </div>

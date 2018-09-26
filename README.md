@@ -63,7 +63,7 @@ $ npm run dev
 ```
 
 
-#### Running the vuejs client in another commandline window: http://localhost:3000
+#### Running the react client in another commandline window: http://localhost:3000
 
 ```
 $ cd client/react
