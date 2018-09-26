@@ -61,7 +61,7 @@ class App extends Component {
         settingsStore.landingPage = response.data.landingPage;
         settingsStore.footer = response.data.footer;
 		
-		if (settingsStore.global.trackerID != '') {
+		if (settingsStore.global.trackerID !== '') {
 			ReactGA.initialize(settingsStore.global.trackerID);
 		}
       }
@@ -93,7 +93,7 @@ class App extends Component {
   };
 
   render() {
-	if (settingsStore.global.trackerID != '') {
+	if (settingsStore.global.trackerID !== '') {
 		ReactGA.pageview(window.location.pathname);
 	}
     return (
