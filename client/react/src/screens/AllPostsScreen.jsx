@@ -6,6 +6,7 @@ import { getAllPostsFromFbase } from '../api/firebase';
 import Shimmer from '../components/Shimmer';
 import dataStore from '../stores/dataStore';
 import PostsToolbar from '../components/PostsToolbar';
+import {setGa} from '../utils/utils';
 
 const styles = {
   bodyContainer: {
@@ -25,6 +26,7 @@ class AllPostsScreen extends Component {
   }
 
   componentDidMount() {
+	setGa(window.location.pathname);
     getAllPostsFromFbase().then(response => {
       dataStore.posts = response.data;
       this.setState({ isLoading: false });

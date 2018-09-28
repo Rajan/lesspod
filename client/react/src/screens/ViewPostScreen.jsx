@@ -13,6 +13,7 @@ import LatestPosts from '../components/LatestPosts';
 import { SocialActions } from '../components/SocialActions';
 import SubscribeBar from '../components/SubscribeBar';
 import DocumentMeta from './../components/DocumentMeta';
+import {setGa} from '../utils/utils';
 
 const styles = {
   bodyContainer: {
@@ -61,6 +62,7 @@ class ViewPostScreen extends Component {
         isLoading: false,
       });
     } else {
+	  setGa(window.location.pathname);
       this.renderPostFromFbase(this.props.match.params.slug);
     }
   }
@@ -74,6 +76,7 @@ class ViewPostScreen extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.slug !== this.state.slug) {
+	  setGa(window.location.pathname);
       this.setState({ isLoading: true });
       this.renderPostFromFbase(this.state.slug);
     }
