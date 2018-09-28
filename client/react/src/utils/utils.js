@@ -5,6 +5,9 @@ import shortid from 'shortid';
 import { addPostToFirebase } from '../api/firebase';
 import userStore from '../stores/userStore';
 
+import settingsStore from '../stores/settingsStore';
+import ReactGA from 'react-ga';
+
 export const showAlert = (message, type) => {
   if (type === 'success') {
     alertify.success(message);
@@ -103,4 +106,12 @@ export const getParentMenu = (menu, allMenus) => {
     }
   });
   return parentMenu;
+};
+
+export const setGa = (pathname) => {
+	if (settingsStore.global.trackerID !== '') {
+		const trackerID = settingsStore.global.trackerID;
+		ReactGA.initialize(trackerID);
+		ReactGA.pageview(pathname);	
+	}
 };

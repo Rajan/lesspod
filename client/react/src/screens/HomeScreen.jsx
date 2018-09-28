@@ -9,6 +9,8 @@ import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 import dataStore from '../stores/dataStore';
 import PostsToolbar from '../components/PostsToolbar';
+import {setGa} from '../utils/utils';
+
 
 const styles = {
   bodyContainer: {
@@ -28,6 +30,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+	setGa(window.location.pathname);
     getAllPostsFromFbaseByUser(userStore.profileData.id).then(response => {
       if (response.error) {
         showAlert(response.error.message);

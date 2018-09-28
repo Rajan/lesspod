@@ -9,12 +9,15 @@ import settingsStore from '../stores/settingsStore';
 import MyGallery from '../components/MyGallery';
 import YoutubeVideo from '../components/YoutubeVideo';
 
+import {setGa} from '../utils/utils';
+
 class LandingScreen extends React.Component {
   componentDidMount() {
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
     document.body.appendChild(script);
+	setGa(window.location.pathname);
   }
 
   renderSubtitlePoints = str => str.split('\n').map(s => <li key={s}>{s}</li>);

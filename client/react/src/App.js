@@ -24,10 +24,6 @@ import { STTButton } from './components/ScrollToTopButton';
 // Image gallery for the landing page
 import "react-image-gallery/styles/css/image-gallery.css";
 
-// google analytics for react
-import ReactGA from 'react-ga';
-
-
 const styles = {
   loaderContainer: {
     width: '100vw',
@@ -60,10 +56,6 @@ class App extends Component {
         settingsStore.global = response.data.global;
         settingsStore.landingPage = response.data.landingPage;
         settingsStore.footer = response.data.footer;
-		
-		if (settingsStore.global.trackerID !== '') {
-			ReactGA.initialize(settingsStore.global.trackerID);
-		}
       }
     });
 
@@ -93,9 +85,6 @@ class App extends Component {
   };
 
   render() {
-	if (settingsStore.global.trackerID !== '') {
-		ReactGA.pageview(window.location.pathname);
-	}
     return (
       <div>
         <CustomFavicon />
