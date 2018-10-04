@@ -31,3 +31,14 @@ textarea {
   ul {
      list-style: inside; 
   }
+
+  .navbar-item {
+    font-family: Arial Narrow,Arial,sans-serif; 
+    font-stretch: condensed;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+  .navbar-item > a {
+    text-decoration: none;
+    color: black;
+  }
