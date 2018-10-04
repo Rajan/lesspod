@@ -7,6 +7,7 @@ import Shimmer from '../components/Shimmer';
 import { showAlert } from '../utils/utils';
 import DocumentMeta from './../components/DocumentMeta';
 import settingsStore from './../stores/settingsStore';
+import {setGa} from '../utils/utils';
 
 const styles = {
   loaderContainer: {
@@ -68,6 +69,7 @@ class ViewPageScreen extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.id !== this.state.id) {
+	  setGa(window.location.pathname);
       this.setState({ isLoading: true });
       this.renderPostFromFbase(this.state.id);
     }
