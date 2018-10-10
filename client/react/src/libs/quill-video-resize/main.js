@@ -40,8 +40,8 @@ class VideoBuilder {
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', true);
     iframe.className = 'td-quill-video-editing';
-    iframe.setAttribute('width', node.getAttribute('width') || 300);
-    iframe.setAttribute('height', node.getAttribute('height') || 150);
+    iframe.setAttribute('width', node.getAttribute('width') || 640);
+    iframe.setAttribute('height', node.getAttribute('height') || 360);
     iframe.setAttribute('src', src);
     return iframe;
   }
@@ -53,8 +53,8 @@ class VideoBuilder {
       node.parentElement && node.parentElement.insertBefore(createSpacer(), node);
       node.parentElement && node.parentElement.appendChild(createSpacer());
       const iframe = node.getElementsByTagName('iframe')[0];
-      iframe.setAttribute('width', node.getAttribute('width') || 300);
-      iframe.setAttribute('height', node.getAttribute('height') || 150);
+      iframe.setAttribute('width', node.getAttribute('width') || 640);
+      iframe.setAttribute('height', node.getAttribute('height') || 360);
     }, 0);
     return node;
   }
@@ -162,8 +162,8 @@ class VideoBuilder {
     this.dragBox = event.target;
     this.dragStartX = event.clientX;
     this.dragStartY = event.clientY;
-    this.preDragWidth = parseInt(this.iframe.width, 10) || 300;
-    this.preDragHeight = parseInt(this.iframe.height, 10) || 150;
+    this.preDragWidth = parseInt(this.iframe.width, 10) || 640;
+    this.preDragHeight = parseInt(this.iframe.height, 10) || 360;
     document.addEventListener('mousemove', this.dragHandeler, false);
     document.addEventListener('mouseup', this.mouseUp, false);
   }
