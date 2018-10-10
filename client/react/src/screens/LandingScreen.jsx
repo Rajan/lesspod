@@ -35,7 +35,7 @@ class LandingScreen extends React.Component {
     } = settingsStore.landingPage;
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-        { /* <YoutubeVideo /> */}
+        <YoutubeVideo />
         { /*<MyGallery />*/}
         <section className="section">
           <div className="hero-body">

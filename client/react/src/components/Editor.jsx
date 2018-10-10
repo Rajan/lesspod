@@ -12,6 +12,8 @@ import { uploadImageToFbase } from '../api/firebase';
 import { Video } from './../libs/quill-video-resize/main';
 import './../libs/quill-video-resize/main.css';
 
+// import VideoResize from 'quill-video-resize-module';
+
 class Editor extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,7 @@ class Editor extends Component {
     this.editorRef = React.createRef();
     Quill.register({ 'formats/video': Video });
     Quill.register('modules/imageResize', ImageResize);
+    // Quill.register('modules/VideoResize', VideoResize);
   }
 
   modules = {
@@ -37,6 +40,9 @@ class Editor extends Component {
     imageResize: {
       parchment: Quill.import('parchment'),
     },
+    // videoResize: {
+    //   // See optional "config" below
+    // }
   };
 
   imageHandler = () => {
