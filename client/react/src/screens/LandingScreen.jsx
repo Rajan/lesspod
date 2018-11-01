@@ -9,6 +9,8 @@ import settingsStore from '../stores/settingsStore';
 import MyGallery from '../components/MyGallery';
 import YoutubeVideo from '../components/YoutubeVideo';
 
+import SimpleSlider from '../components/SimpleSlider';
+
 import {setGa} from '../utils/utils';
 
 class LandingScreen extends React.Component {
@@ -17,7 +19,7 @@ class LandingScreen extends React.Component {
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
     document.body.appendChild(script);
-	setGa(window.location.pathname);
+	  setGa(window.location.pathname);
   }
 
   renderSubtitlePoints = str => str.split('\n').map(s => <li key={s}>{s}</li>);
@@ -35,7 +37,11 @@ class LandingScreen extends React.Component {
     } = settingsStore.landingPage;
     return (
       <div style={{ backgroundColor: '#FFF' }}>
-        <YoutubeVideo />
+        <section className="slick-container">
+          <SimpleSlider />
+        </section>
+        
+        { /* <YoutubeVideo /> */}
         { /*<MyGallery />*/}
         <section className="section">
           <div className="hero-body">
