@@ -34,11 +34,11 @@ textarea {
 
   .navbar-item {
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: 300;
   }
   .navbar-item > a {
     text-decoration: none;
-    color: black;
+    color: #4a4a4a;
     font-family: Arial Narrow,Arial,sans-serif; 
     font-stretch: condensed;
   }
