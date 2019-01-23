@@ -2,6 +2,8 @@
 
 Serverless CMS (Website + Blog Engine) (In Active Development)
 
+We're building the NEXT version of Lesspod here:
+https://github.com/lesspod/lesspod-2.0
 
 ## Why Lesspod?
 
